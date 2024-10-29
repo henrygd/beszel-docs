@@ -7,7 +7,7 @@ title: Home
 hero:
   name: 'Beszel'
   text: 轻量级服务器监控
-  tagline: 使用 Docker 统计数据、历史数据和告警功能
+  tagline: 支持 Docker 统计数据、历史数据和告警功能
   actions:
     - theme: brand
       text: 什么是 Beszel？

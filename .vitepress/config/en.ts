@@ -55,14 +55,15 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
 			items: [
 				{ text: 'What is Beszel?', link: 'what-is-beszel' },
 				{ text: 'Getting Started', link: 'getting-started' },
+				{ text: 'Install Hub', link: 'install-hub' },
+				{ text: 'Install Agent', link: 'install-agent' },
 			],
 		},
 		{
-			text: 'Vitepress',
+			text: 'Contribute',
 			items: [
-				{ text: 'Markdown Examples', link: 'markdown-examples' },
-				{ text: 'Runtime API Examples', link: 'api-examples' },
+				{ text: 'Multilingual and Localization', link: 'i18n' },
 			],
-		},
+		}
 	]
 }

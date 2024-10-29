@@ -80,8 +80,16 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
 			items: [
 				{ text: '什么是 Beszel？', link: 'what-is-beszel' },
 				{ text: '快速开始', link: 'getting-started' },
+				{ text: '安装 Hub', link: 'install-hub' },
+				{ text: '安装 Agent', link: 'install-agent' },
 			],
 		},
+		{
+			text: '贡献',
+			items: [
+				{ text: '多语言和本地化', link: 'i18n' },
+			],
+		}
 	]
 }
 

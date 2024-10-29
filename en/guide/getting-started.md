@@ -1,40 +1,22 @@
 # Getting started
 
+## Preparation
+
+Beszel consists of two main components: the hub and the agent.
+
+- **Hub**: A web application that provides a dashboard for viewing and managing connected systems.
+
+- **Agent**: Runs on each system you want to monitor, creating a minimal SSH server to communicate system metrics to the hub.
+
+:::tip
+Beszel uses active probing, where the ***Hub*** requests data from the ***Agent***. This setup requires the ***Agent*** to have an open port accessible by the ***Hub***. If the ***Agent*** is on the public internet, it must have a public IP address with an open port for the ***Hub*** to access.
+
+There is no need to expose the Hub to the public internet; the active mode is relatively safer.
+:::
+
+## Installation
+
 Beszel supports installation via Docker or using binaries.
 
-## Docker
-
-todo
-
-::: code-group
-
-```yaml [docker-compose.yml]
-# Run with docker compose up -d
-services:
-  beszel:
-    image: 'henrygd/beszel'
-    container_name: 'beszel'
-    restart: unless-stopped
-    ports:
-      - '8090:8090'
-    volumes:
-      - ./beszel_data:/beszel_data
-```
-
-```bash [docker run]
-mkdir -p ./beszel_data && \
-docker run -d \
-  -v ./beszel_data:/beszel_data \
-  -p 8090:8090 \
-  henrygd/beszel
-```
-
-:::
-
-## Binary
-
-::: tip
-This is a tip.
-:::
-
-todo
+- [Docker](./install-hub#docker)
+- [Binary](./install-hub#binary)
