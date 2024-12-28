@@ -75,6 +75,7 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
 				{ text: 'Podman Monitoring', link: 'podman' },
 				{ text: 'REST API', link: 'rest-api' },
 				{ text: 'User Roles', link: 'user-roles' },
+				{ text: 'Home Assistant agent', link: 'home-assistant' },
 			],
 		},
 		{
