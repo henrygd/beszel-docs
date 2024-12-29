@@ -1,6 +1,6 @@
 # 代理安装
 
-Beszel 代理支持通过 Docker / Podman 容器或单个二进制文件进行安装。
+Beszel 代理支持通过 Docker / Podman 容器、单一二进制文件或 Home Assistant 插件进行安装。
 
 ::: tip 提示
 如果您是首次设置 Beszel，请查看 [开始使用](./getting-started.md) 指南。
@@ -210,3 +210,7 @@ sudo systemctl start beszel-agent.service
 ```
 
 ::::
+
+## Home Assistant
+
+请参阅 [Home Assistant 代理页面](./home-assistant.md) 获取将代理设置为 Home Assistant 插件的说明。
