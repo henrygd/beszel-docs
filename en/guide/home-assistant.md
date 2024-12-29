@@ -1,6 +1,6 @@
 # Home Assistant Agent
 
-Home Assistant Add-ons are maintained by a third parties. Currently there are two options:
+Home Assistant Add-ons are maintained by third parties. Currently there are two options:
 
 - `Obamium69/hassio-beszel_agent` ([GitHub](https://github.com/Obamium69/hassio-beszel_agent))
 - `matthewhadley/homeassistant-beszel-agent` ([GitHub](https://github.com/matthewhadley/homeassistant-beszel-agent))
