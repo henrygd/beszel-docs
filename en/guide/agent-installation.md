@@ -1,6 +1,6 @@
 # Agent Installation
 
-Beszel Agent supports installation via Docker / Podman container or single binary file.
+Beszel Agent supports installation via Docker / Podman container, single binary file, or Home Assistant add-on.
 
 ::: tip
 Check the [Getting Started](./getting-started.md) guide if you're setting up Beszel for the first time.
@@ -210,3 +210,7 @@ sudo systemctl start beszel-agent.service
 ```
 
 ::::
+
+## Home Assistant
+
+See the [Home Assistant Agent page](./home-assistant.md) for instructions on setting up the agent as a Home Assistant add-on.
