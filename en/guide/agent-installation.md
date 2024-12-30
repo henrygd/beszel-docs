@@ -124,7 +124,7 @@ PORT=45876 KEY="<public key>" ./beszel-agent
 
 #### Create a service (optional)
 
-If your system uses systemd, you can create a service to keep the hub running after reboot.
+If your system uses systemd, you can create a service to keep the agent running after reboot.
 
 1. Create a service file in `/etc/systemd/system/beszel-agent.service`.
 
@@ -161,7 +161,7 @@ sudo systemctl start beszel-agent.service
 
 #### Compile
 
-See [Compiling](./compiling.md) for information on how to compile the hub yourself.
+See [Compiling](./compiling.md) for information on how to compile the agent yourself.
 
 #### Start the agent
 
@@ -180,7 +180,7 @@ PORT=45876 KEY="<public key>" ./beszel-agent
 
 #### Create a service (optional)
 
-If your system uses systemd, you can create a service to keep the hub running after reboot.
+If your system uses systemd, you can create a service to keep the agent running after reboot.
 
 1. Create a service file in `/etc/systemd/system/beszel-agent.service`.
 
