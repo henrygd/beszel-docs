@@ -104,7 +104,7 @@ curl -sL https://raw.githubusercontent.com/henrygd/beszel/main/supplemental/scri
 从 [releases](https://github.com/henrygd/beszel/releases) 下载与您的服务器操作系统/架构匹配的最新二进制文件。
 
 ```bash
-curl -sL "https://github.com/henrygd/beszel/releases/latest/download/beszel-agent_$(uname -s)_$(uname -m | sed 's/x86_64/amd64/' | sed 's/armv7l/arm/' | sed 's/aarch64/arm64/').tar.gz" | tar -xz -O beszel-agent | tee ./beszel-agent >/dev/null && chmod +x beszel-agent
+curl -sL "https://github.com/henrygd/beszel/releases/latest/download/beszel-agent_$(uname -s)_$(uname -m | sed -e 's/x86_64/amd64/' -e 's/armv6l/arm/' -e 's/armv7l/arm/' -e 's/aarch64/arm64/').tar.gz" | tar -xz -O beszel-agent | tee ./beszel-agent >/dev/null && chmod +x beszel-agent
 ```
 
 #### 启动代理

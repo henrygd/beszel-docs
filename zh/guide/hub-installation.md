@@ -72,7 +72,7 @@ curl -sL https://raw.githubusercontent.com/henrygd/beszel/main/supplemental/scri
 从 [releases](https://github.com/henrygd/beszel/releases) 下载匹配您服务器 CPU 架构的最新二进制文件，并手动运行它。您需要手动创建一个服务才能使其在重新启动后继续运行。
 
 ```bash
-curl -sL "https://github.com/henrygd/beszel/releases/latest/download/beszel_$(uname -s)_$(uname -m | sed 's/x86_64/amd64/' | sed 's/armv7l/arm/' | sed 's/aarch64/arm64/').tar.gz" | tar -xz -O beszel | tee ./beszel >/dev/null && chmod +x beszel
+curl -sL "https://github.com/henrygd/beszel/releases/latest/download/beszel_$(uname -s)_$(uname -m | sed -e 's/x86_64/amd64/' -e 's/armv6l/arm/' -e 's/armv7l/arm/' -e 's/aarch64/arm64/').tar.gz" | tar -xz -O beszel | tee ./beszel >/dev/null && chmod +x beszel
 ```
 
 #### 启动中心
