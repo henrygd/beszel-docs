@@ -51,7 +51,7 @@ go mod tidy
 进入 `beszel/cmd/agent` 目录并运行以下命令可在当前目录中创建二进制文件：
 
 ```bash
-CGO_ENABLED=0 go build -ldflags "-w -s" .
+go build -ldflags "-w -s" .
 ```
 
 ### 中心
@@ -67,7 +67,7 @@ bun run build
 然后在 `/beszel/cmd/hub` 中：
 
 ```bash
-CGO_ENABLED=0 go build -ldflags "-w -s" .
+go build -ldflags "-w -s" .
 ```
 
 ### 交叉编译
@@ -77,7 +77,7 @@ CGO_ENABLED=0 go build -ldflags "-w -s" .
 例如，要为 FreeBSD ARM64 构建：
 
 ```bash
-GOOS=freebsd GOARCH=arm64 CGO_ENABLED=0 go build -ldflags "-w -s" .
+GOOS=freebsd GOARCH=arm64 go build -ldflags "-w -s" .
 ```
 
 运行 `go tool dist list` 命令查看有效的选项列表。

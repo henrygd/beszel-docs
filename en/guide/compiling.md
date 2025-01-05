@@ -51,7 +51,7 @@ go mod tidy
 Go to `beszel/cmd/agent` and run the following command to create a binary in the current directory:
 
 ```bash
-CGO_ENABLED=0 go build -ldflags "-w -s" .
+go build -ldflags "-w -s" .
 ```
 
 ### Hub
@@ -67,7 +67,7 @@ bun run build
 Then in `/beszel/cmd/hub`:
 
 ```bash
-CGO_ENABLED=0 go build -ldflags "-w -s" .
+go build -ldflags "-w -s" .
 ```
 
 ### Cross-compiling
@@ -77,7 +77,7 @@ You can cross-compile for different platforms using the `GOOS` and `GOARCH` envi
 For example, to build for FreeBSD ARM64:
 
 ```bash
-GOOS=freebsd GOARCH=arm64 CGO_ENABLED=0 go build -ldflags "-w -s" .
+GOOS=freebsd GOARCH=arm64 go build -ldflags "-w -s" .
 ```
 
 See a list of valid options by running `go tool dist list`.
