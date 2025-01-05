@@ -7,7 +7,7 @@ Contributions are welcome, but it's a good idea to check with us first in a disc
 ## Prerequisites
 
 - Go 1.23+ (for making changes in the Go code)
-- Bun 1.1.38+ or Node 18+ (for making changes in the Admin UI)
+- Bun 1.1.38+ or Node 18+ (for making changes in the web UI)
 
 If you haven't already, [fork the repository](https://github.com/henrygd/beszel/fork) and clone your fork to work locally:
 
