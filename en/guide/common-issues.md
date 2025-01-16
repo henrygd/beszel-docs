@@ -2,12 +2,14 @@
 
 ## Agent is not connecting
 
-Assuming the agent is running, the connection is probably being blocked by a firewall. You have two options:
+Check the logs page in PocketBase (`/_/#/logs`) for information about the error.
+
+The most likely cause is a firewall blocking the connection request. In this case you have two options:
 
 1. Add an inbound rule to the agent system's firewall(s) to allow TCP connections to the port. Check any active firewalls, like iptables, and your cloud provider's firewall settings if applicable.
-2. Alternatively, use software like Wireguard or Cloudflare Tunnel ([instructions](https://github.com/henrygd/beszel/discussions/250)) to securely bypass the firewall.
+2. Alternatively, use software like WireGuard, Tailscale ([video instructions](https://www.youtube.com/watch?v=O_9wT-5LoHM&t=1s&pp=ygUGYmVzemVs)), or Cloudflare Tunnel ([instructions](https://github.com/henrygd/beszel/discussions/250)) to securely bypass the firewall.
 
-You can test connectivity by running `telnet <agent-ip> <port>`.
+You can test connectivity by running `telnet <agent-ip> <port>` from another device on your network.
 
 ## Connecting hub and agent on the same system using Docker
 
