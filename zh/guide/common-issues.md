@@ -7,7 +7,7 @@
 最可能的原因是防火墙阻止了连接请求。在这种情况下，您有两个选择：
 
 1. 在代理系统的防火墙中添加入站规则，以允许 TCP 连接到该端口。检查所有活动的防火墙，例如 iptables，以及您的云服务提供商的防火墙设置（如果适用）。
-2. 或者，使用 WireGuard、Tailscale（[视频教程](https://www.youtube.com/watch?v=O_9wT-5LoHM&t=1s&pp=ygUGYmVzemVs)）或 Cloudflare Tunnel（[教程](https://github.com/henrygd/beszel/discussions/250)）等软件安全地绕过防火墙。
+2. 或者，使用 WireGuard、Tailscale（[视频教程](https://www.youtube.com/watch?v=O_9wT-5LoHM)）或 Cloudflare Tunnel（[教程](https://github.com/henrygd/beszel/discussions/250)）等软件安全地绕过防火墙。
 
 您可以通过在网络中的另一台设备上运行 `telnet <代理IP> <端口>` 来测试连接性。
 
