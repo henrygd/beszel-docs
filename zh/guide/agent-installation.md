@@ -88,8 +88,10 @@ podman run -d \
 
 该脚本将安装最新的二进制文件并创建一个 systemd 服务，以使其在重新启动后继续运行。您可以选择启用自动每日更新。
 
-- `-p` : 端口
-- `-k` : 公钥（用引号括起来）
+- `-p`：端口（默认：45876）
+- `-k`：公钥（用引号括起来；如果未提供则进入交互模式）
+- `-u`：卸载
+- `--china-mirrors`：使用 GitHub 镜像以解决中国大陆的网络问题
 
 ```bash
 curl -sL https://raw.githubusercontent.com/henrygd/beszel/main/supplemental/scripts/install-agent.sh -o  install-agent.sh && chmod +x install-agent.sh && ./install-agent.sh

@@ -88,8 +88,10 @@ This command downloads and runs our `install-agent.sh` script.
 
 The script installs the latest binary and creates a systemd service to keep it running after reboot. You may optionally enable automatic daily updates.
 
-- `-p` : Port
-- `-k` : Public Key (enclose in quotes)
+- `-p`: Port (default: 45876)
+- `-k`: Public key (enclose in quotes; interactive if not provided)
+- `-u`: Uninstall
+- `--china-mirrors`: Use GitHub mirror to resolve network issues in mainland China
 
 ```bash
 curl -sL https://raw.githubusercontent.com/henrygd/beszel/main/supplemental/scripts/install-agent.sh -o  install-agent.sh && chmod +x install-agent.sh && ./install-agent.sh
