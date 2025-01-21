@@ -81,7 +81,10 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
 		{
 			text: 'Troubleshooting',
 			collapsed: false,
-			items: [{ text: 'Common Issues', link: 'common-issues' }],
+			items: [
+				{ text: 'Common Issues', link: 'common-issues' },
+				{ text: 'Docker Shell', link: 'docker-shell.md' },
+			],
 		},
 		{
 			text: 'About',

@@ -107,7 +107,10 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
 		{
 			text: '故障排除',
 			collapsed: false,
-			items: [{ text: '常见问题', link: 'common-issues' }],
+			items: [
+				{ text: '常见问题', link: 'common-issues' },
+				{ text: 'Docker Shell', link: 'docker-shell.md' },
+			],
 		},
 		{
 			text: '关于',
