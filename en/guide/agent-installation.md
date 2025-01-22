@@ -133,7 +133,8 @@ If your system uses systemd, you can create a service to keep the agent running 
 ```ini
 [Unit]
 Description=Beszel Agent Service
-After=network.target
+After=network-online.target
+Wants=network-online.target
 
 [Service]
 Environment="PORT=$PORT"
@@ -189,7 +190,8 @@ If your system uses systemd, you can create a service to keep the agent running 
 ```ini
 [Unit]
 Description=Beszel Agent Service
-After=network.target
+After=network-online.target
+Wants=network-online.target
 
 [Service]
 Environment="PORT=$PORT"

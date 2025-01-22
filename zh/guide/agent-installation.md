@@ -133,7 +133,8 @@ PORT=45876 KEY="<公钥>" ./beszel-agent
 ```ini
 [Unit]
 Description=Beszel Agent Service
-After=network.target
+After=network-online.target
+Wants=network-online.target
 
 [Service]
 Environment="PORT=$PORT"
@@ -189,7 +190,8 @@ PORT=45876 KEY="<公钥>" ./beszel-agent
 ```ini
 [Unit]
 Description=Beszel Agent Service
-After=network.target
+After=network-online.target
+Wants=network-online.target
 
 [Service]
 Environment="PORT=$PORT"

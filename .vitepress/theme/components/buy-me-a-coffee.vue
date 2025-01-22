@@ -12,7 +12,7 @@ const buttonText = computed(() => {
 })
 
 const imgSrc = computed(() => {
-	return `https://img.buymeacoffee.com/button-api/?text=${buttonText.value}&emoji=☕&slug=henrygd&button_colour=5c73e7&font_colour=fff&font_family=Lato&outline_colour=000000&coffee_colour=ffffff&v1`
+	return `https://img.buymeacoffee.com/button-api/?text=${buttonText.value}&emoji=☕&slug=henrygd&button_colour=5c73e7&font_colour=fff&font_family=Lato&outline_colour=000000&coffee_colour=ffffff&v2`
 })
 </script>
 
