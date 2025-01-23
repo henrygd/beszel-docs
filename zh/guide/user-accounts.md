@@ -24,17 +24,7 @@
 
 要重置密码，您可以使用 `superusers` 命令。`upsert` 会重置您的密码，或者如果不存在与您邮箱匹配的超级用户，则会创建一个新的超级用户。
 
-### 二进制文件
-
-```bash
-./beszel superuser upsert name@example.com password
-```
-
-查看所有超级用户选项：
-
-```bash
-./beszel superuser --help
-```
+进入 PocketBase 后，您可以在用户表中更改用户密码。
 
 ### Docker
 
@@ -50,3 +40,14 @@ docker run --rm -v ./beszel_data:/beszel_data henrygd/beszel superuser upsert na
 docker run --rm -v ./beszel_data:/beszel_data henrygd/beszel superuser --help
 ```
 
+### 二进制文件
+
+```bash
+./beszel superuser upsert name@example.com password
+```
+
+查看所有超级用户选项：
+
+```bash
+./beszel superuser --help
+```

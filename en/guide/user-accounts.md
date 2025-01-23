@@ -24,17 +24,7 @@ Read-only users cannot create systems but can view any system shared with them b
 
 For resetting your password you can use the `superusers` command. Upsert will reset your password or create a new superuser if an existing one with your email doesn't exist.
 
-### Binary
-
-```bash
-./beszel superuser upsert name@example.com password
-```
-
-See all superuser options:
-
-```bash
-./beszel superuser --help
-```
+Once you are in PocketBase you can change user passwords in the users table.
 
 ### Docker
 
@@ -50,3 +40,14 @@ See all superuser options:
 docker run --rm -v ./beszel_data:/beszel_data henrygd/beszel superuser --help
 ```
 
+### Binary
+
+```bash
+./beszel superuser upsert name@example.com password
+```
+
+See all superuser options:
+
+```bash
+./beszel superuser --help
+```
