@@ -101,7 +101,7 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
 				{ text: 'OAuth / OIDC 认证', link: 'oauth' },
 				{ text: 'Podman 监控', link: 'podman' },
 				{ text: 'REST API', link: 'rest-api' },
-				{ text: '用户角色', link: 'user-roles' },
+				{ text: '用户账户', link: 'user-accounts' },
 			],
 		},
 		{

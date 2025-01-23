@@ -1,4 +1,4 @@
-# 用户角色
+# 用户账户
 
 ## 管理员 `admin`
 
@@ -18,3 +18,18 @@ PocketBase 超级用户与 Beszel 用户角色是分开的
 ## 只读 `readonly`
 
 只读用户无法创建系统，但可以查看管理员与他们共享的任何系统并创建警报。
+
+## 重置密码
+
+要重置密码，可以使用 `superusers` 命令。`upsert` 选项会重置您的密码，或者如果没有与您的电子邮件对应的超级用户账户，会创建一个新的超级用户。
+
+请确保挂载您的数据目录。
+
+```bash
+docker run --rm -v ./beszel_data:/beszel_data henrygd/beszel superuser upsert user@example.com password
+```
+
+查看所有超级用户选项
+```bash
+docker run --rm -v ./beszel_data:/beszel_data henrygd/beszel superuser --help
+```

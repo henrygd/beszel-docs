@@ -1,4 +1,4 @@
-# User Roles
+# User Accounts
 
 ## Admin
 
@@ -17,3 +17,19 @@ Users can create their own systems and alerts. Links to PocketBase settings are 
 ## Read only
 
 Read-only users cannot create systems but can view any system shared with them by an admin and create alerts.
+
+## Reset password
+
+For resetting your password you can use the `superusers` command. Upsert will reset your password or create a new superuser if an existing one with your email doesn't exist.
+
+Make sure you mount your data directory.
+
+```bash
+docker run --rm -v ./beszel_data:/beszel_data henrygd/beszel superuser upsert user@example.com password
+```
+
+See all superuser options:
+
+```bash
+docker run --rm -v ./beszel_data:/beszel_data henrygd/beszel superuser --help
+```

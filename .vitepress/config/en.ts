@@ -74,7 +74,7 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
 				{ text: 'OAuth / OIDC', link: 'oauth' },
 				{ text: 'Podman Monitoring', link: 'podman' },
 				{ text: 'REST API', link: 'rest-api' },
-				{ text: 'User Roles', link: 'user-roles' },
+				{ text: 'User Accounts', link: 'user-accounts' },
 				// { text: 'Home Assistant agent', link: 'home-assistant' },
 			],
 		},
