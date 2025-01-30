@@ -4,6 +4,8 @@ List values should be comma separated with no spaces. For example: `SENSORS=sens
 
 ## Hub
 
+Environment variables may optionally be prefixed with `BESZEL_HUB_`.
+
 | Name                    | Default | Description                                                                                                                                 |
 | ----------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
 | `CSP`                   | unset   | Adds a [Content-Security-Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy) header with this value. |
@@ -12,12 +14,15 @@ List values should be comma separated with no spaces. For example: `SENSORS=sens
 
 ## Agent
 
+Environment variables may optionally be prefixed with `BESZEL_AGENT_`.
+
 | Name                | Default | Description                                                                                    |
 | ------------------- | ------- | ---------------------------------------------------------------------------------------------- |
 | `DOCKER_HOST`       | unset   | Overrides the docker host (docker.sock) if using a proxy.                                      |
 | `EXTRA_FILESYSTEMS` | unset   | Monitor extra disks if using binary. See [Additional Disks](./additional-disks).               |
 | `FILESYSTEM`        | unset   | Device, partition, or mount point to use for root disk stats.                                  |
 | `KEY`               | unset   | Public SSH key to use for authentication. Provided in hub.                                     |
+| `KEY_FILE`          | unset   | Read public key from a file instead of an environment variable.                                |
 | `LOG_LEVEL`         | info    | Logging level. Valid values: "debug", "info", "warn", "error".                                 |
 | `MEM_CALC`          | unset   | Overrides the default memory calculation.                                                      |
 | `NICS`              | unset   | Whitelist of network interfaces to monitor for bandwidth.                                      |
