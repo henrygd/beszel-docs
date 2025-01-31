@@ -28,16 +28,14 @@
 
 ### Docker
 
-确保挂载数据目录以更改现有数据库。
-
 ```bash
-docker run --rm -v ./beszel_data:/beszel_data henrygd/beszel superuser upsert name@example.com password
+docker exec beszel /beszel superuser upsert name@example.com password
 ```
 
 查看所有超级用户选项：
 
 ```bash
-docker run --rm -v ./beszel_data:/beszel_data henrygd/beszel superuser --help
+docker exec beszel /beszel superuser --help
 ```
 
 ### 二进制文件

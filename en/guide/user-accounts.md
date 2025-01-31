@@ -28,16 +28,14 @@ Once you are in PocketBase you can change user passwords in the users table.
 
 ### Docker
 
-Make sure you mount your data directory to change the existing database.
-
 ```bash
-docker run --rm -v ./beszel_data:/beszel_data henrygd/beszel superuser upsert name@example.com password
+docker exec beszel /beszel superuser upsert name@example.com password
 ```
 
 See all superuser options:
 
 ```bash
-docker run --rm -v ./beszel_data:/beszel_data henrygd/beszel superuser --help
+docker exec beszel /beszel superuser --help
 ```
 
 ### Binary
