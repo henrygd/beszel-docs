@@ -137,12 +137,28 @@ After=network-online.target
 Wants=network-online.target
 
 [Service]
+ExecStart={/path/to/working/directory}/beszel-agent
 Environment="PORT=$PORT"
 Environment="KEY=$KEY"
 # Environment="EXTRA_FILESYSTEMS=sdb"
-Restart=always
+Restart=on-failure
 RestartSec=5
-ExecStart={/path/to/working/directory}/beszel-agent
+StateDirectory=beszel-agent
+
+# 安全/沙盒设置
+KeyringMode=private
+LockPersonality=yes
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectClock=yes
+ProtectHome=read-only
+ProtectHostname=yes
+ProtectKernelLogs=yes
+ProtectKernelTunables=yes
+ProtectSystem=strict
+RemoveIPC=yes
+RestrictSUIDSGID=true
+SystemCallArchitectures=native
 
 [Install]
 WantedBy=multi-user.target
@@ -194,12 +210,28 @@ After=network-online.target
 Wants=network-online.target
 
 [Service]
+ExecStart={/path/to/working/directory}/beszel-agent
 Environment="PORT=$PORT"
 Environment="KEY=$KEY"
 # Environment="EXTRA_FILESYSTEMS=sdb"
-Restart=always
+Restart=on-failure
 RestartSec=5
-ExecStart={/path/to/working/directory}/beszel-agent
+StateDirectory=beszel-agent
+
+# 安全/沙盒设置
+KeyringMode=private
+LockPersonality=yes
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectClock=yes
+ProtectHome=read-only
+ProtectHostname=yes
+ProtectKernelLogs=yes
+ProtectKernelTunables=yes
+ProtectSystem=strict
+RemoveIPC=yes
+RestrictSUIDSGID=true
+SystemCallArchitectures=native
 
 [Install]
 WantedBy=multi-user.target
