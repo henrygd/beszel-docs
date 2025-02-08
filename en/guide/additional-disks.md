@@ -40,9 +40,9 @@ EXTRA_FILESYSTEMS="sdb,sdc1,mmcblk0,/mnt/network-share" KEY="..." ./beszel-agent
 [Service]
 Environment="EXTRA_FILESYSTEMS=sdb,sdc1,mmcblk0,/mnt/network-share"
 ```
+
 :::
 
-::: tip  
-The agent service configuration is located (usually) in `/etc/systemd/system/beszel-agent.service`.  
-:::  
-After editing the service, reload system units with `systemctl daemon-reload`, followed by restarting the serivce `service beszel-agent restart`.  
+If using Systemd, the service configuration is usually located in `/etc/systemd/system/beszel-agent.service`.
+
+After editing the service, reload system units with `systemctl daemon-reload`, followed by restarting the service with `systemctl restart beszel-agent`.
