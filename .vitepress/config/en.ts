@@ -38,7 +38,7 @@ function nav(): DefaultTheme.NavItem[] {
 				},
 				{
 					text: 'New Issue',
-					link: 'https://github.com/henrygd/beszel/issues/new',
+					link: 'https://github.com/henrygd/beszel/issues/new/choose',
 				},
 			],
 		},
