@@ -27,8 +27,13 @@ Environment variables may optionally be prefixed with `BESZEL_AGENT_`.
 | `MEM_CALC`          | unset   | Overrides the default memory calculation.                                                      |
 | `NICS`              | unset   | Whitelist of network interfaces to monitor for bandwidth.                                      |
 | `PORT`              | 45876   | Port or address:port to listen on.                                                             |
+| `PRIMARY_SENSOR`    | unset   | Temperature sensor to use for dashboard temperature.                                           |
 | `SENSORS`           | unset   | Whitelist of temperature sensors to monitor.                                                   |
 | `SYS_SENSORS`       | unset   | Overrides sys path for sensors. See [#160](https://github.com/henrygd/beszel/discussions/160). |
+
+### `PRIMARY_SENSOR`
+
+The highest temperature will be used if a specific sensor is not defined.
 
 ### `DOCKER_HOST`
 

@@ -27,8 +27,13 @@
 | `MEM_CALC`          | 未设置 | 覆盖默认内存计算。                                                                           |
 | `NICS`              | 未设置 | 用于监控带宽的网络接口白名单。                                                               |
 | `PORT`              | 45876  | 要监听的端口或地址:端口。                                                                    |
+| `PRIMARY_SENSOR`    | 未设置 | 用于仪表板温度显示的温度传感器。                                                             |
 | `SENSORS`           | 未设置 | 用于监控的温度传感器白名单。                                                                 |
 | `SYS_SENSORS`       | 未设置 | 覆盖用于传感器的系统路径。请参阅 [#160](https://github.com/henrygd/beszel/discussions/160)。 |
+
+### `PRIMARY_SENSOR`
+
+如果未定义特定传感器，则将使用最高温度。
 
 ### `DOCKER_HOST`
 
