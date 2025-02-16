@@ -49,3 +49,11 @@ docker exec beszel /beszel superuser --help
 ```bash
 ./beszel superuser --help
 ```
+
+## 与多个用户共享系统
+
+要与多个用户共享系统，请在 PocketBase 中更新系统记录以包含用户 (`/_/#/collections?collection=systems`)。
+
+如果您有许多系统或用户，这可能是一项繁琐的任务，但您可以[使用 API 自动化此过程](rest-api#将用户添加到系统)。
+
+未来可能会添加用户组功能，以使此过程更加简便。

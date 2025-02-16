@@ -49,3 +49,11 @@ See all superuser options:
 ```bash
 ./beszel superuser --help
 ```
+
+## Sharing systems with multiple users
+
+To share a system with multiple users, update the system record in PocketBase to include the users (`/_/#/collections?collection=systems`).
+
+This can be a labor intensive task if you have many systems or users, however you can [use the API to automate this process](rest-api#adding-users-to-systems).
+
+User groups may be added in the future to make this process easier.
