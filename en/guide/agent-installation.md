@@ -68,9 +68,11 @@ podman run -d \
 
 ### Why host network mode?
 
-The agent must use host network mode to access network interface metrics, which automatically exposes the port. Change the port using an environment variable if needed.
+The agent must use host network mode to access the host's network interface stats. This automatically exposes the port, so change the port using an environment variable if needed.
 
-If you don't need network stats, you can remove that line from the compose file and map the port manually.
+If you don't need host network stats, you can remove that line from the compose file and map the port manually.
+
+When connecting to a local agent, `localhost` will not work because the containers are in different networks. You can try using the LAN IP instead, or use `host.docker.internal` (Docker) or `host.containers.internal` (Podman). There is an example in the [Getting Started](./getting-started.md) guide.
 
 :::
 
