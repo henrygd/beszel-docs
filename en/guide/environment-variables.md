@@ -1,5 +1,7 @@
 # Environment Variables
 
+List values should be comma separated with no spaces. For example: `SENSORS=sensor_1,sensor_2`.
+
 ## Hub
 
 | Name                    | Default | Description                                                                                                                                 |
@@ -30,3 +32,7 @@ Beszel only needs access to read container information. For [linuxserver/docker-
 ### `MEM_CALC`
 
 The default value for used memory is based on gopsutil's [Used](https://pkg.go.dev/github.com/shirou/gopsutil/v4@v4.24.6/mem#VirtualMemoryStat) calculation, which should align fairly closely with `free`. Set `MEM_CALC` to `htop` to align with htop's calculation.
+
+### `SENSORS`
+
+Set to an empty string (`SENSORS=""`) to disable temperature monitoring.

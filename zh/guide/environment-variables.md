@@ -1,5 +1,7 @@
 # 环境变量
 
+列表值应以逗号分隔且不带空格。例如：`SENSORS=sensor_1,sensor_2`。
+
 ## 中心 (Hub)
 
 | 名称                    | 默认值 | 描述                                                                                                                             |
@@ -30,3 +32,7 @@ Beszel 只需要访问读取容器信息权限。对于 [linuxserver/docker-sock
 ### `MEM_CALC`
 
 已用内存的默认值基于 gopsutil 的 [Used](https://pkg.go.dev/github.com/shirou/gopsutil/v4@v4.24.6/mem#VirtualMemoryStat) 计算，该计算应该与 `free` 非常接近。将 `MEM_CALC` 设置为 `htop` 以使其与 htop 的计算保持一致。
+
+### `SENSORS`
+
+设置为空字符串（`SENSORS=""`）以禁用温度监控。
