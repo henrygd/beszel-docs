@@ -86,9 +86,11 @@ podman run -d \
 在添加新系统时，可以从中心 (hub) 的 Web UI 复制预配置的命令，因此在大多数情况下，您不需要手动运行此命令。
 :::
 
-此命令下载并运行我们的 `install-agent.sh` 脚本。
+::: warning 需要 root 权限
+  该脚本需要 root 权限来创建 `beszel` 用户，并设置服务以确保代理在重启后继续运行。代理进程本身**不以 root 身份运行**。
+:::
 
-该脚本将安装最新的二进制文件并创建一个 systemd 服务，以使其在重新启动后继续运行。您可以选择启用自动每日更新。
+该脚本会安装最新的二进制文件，并可选地启用每日自动更新。
 
 - `-p`：端口（默认：45876）
 - `-k`：公钥（用引号括起来；如果未提供则进入交互模式）
@@ -96,7 +98,7 @@ podman run -d \
 - `--china-mirrors`：使用 GitHub 镜像以解决中国大陆的网络问题
 
 ```bash
-curl -sL https://raw.githubusercontent.com/henrygd/beszel/main/supplemental/scripts/install-agent.sh -o  install-agent.sh && chmod +x install-agent.sh && ./install-agent.sh
+curl -sL https://raw.githubusercontent.com/henrygd/beszel/main/supplemental/scripts/install-agent.sh -o  /tmp/install-agent.sh && chmod +x /tmp/install-agent.sh && /tmp/install-agent.sh
 ```
 
 ### 2. 手动下载和启动

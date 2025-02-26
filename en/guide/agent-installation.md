@@ -86,9 +86,11 @@ There are multiple ways to install the binary. Choose your preference below.
 A preconfigured command can be copied in the hub's web UI when adding a new system, so in most cases you do not need to run this command manually.
 :::
 
-This command downloads and runs our `install-agent.sh` script.
+::: warning Root privileges required
+  The script needs root privileges to create a `beszel` user and set up a service to keep the agent running after reboot. The agent process itself **does not run as root**.
+:::
 
-The script installs the latest binary and creates a systemd service to keep it running after reboot. You may optionally enable automatic daily updates.
+The script installs the latest binary and optionally enables automatic daily updates.
 
 - `-p`: Port (default: 45876)
 - `-k`: Public key (enclose in quotes; interactive if not provided)
@@ -96,8 +98,9 @@ The script installs the latest binary and creates a systemd service to keep it r
 - `--china-mirrors`: Use GitHub mirror to resolve network issues in mainland China
 
 ```bash
-curl -sL https://raw.githubusercontent.com/henrygd/beszel/main/supplemental/scripts/install-agent.sh -o  install-agent.sh && chmod +x install-agent.sh && ./install-agent.sh
+curl -sL https://raw.githubusercontent.com/henrygd/beszel/main/supplemental/scripts/install-agent.sh -o  /tmp/install-agent.sh && chmod +x /tmp/install-agent.sh && /tmp/install-agent.sh
 ```
+
 
 ### 2. Manual download and start
 
