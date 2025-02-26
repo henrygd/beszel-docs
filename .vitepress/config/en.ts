@@ -61,6 +61,7 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
 			items: [
 				{ text: 'Hub Installation', link: 'hub-installation' },
 				{ text: 'Agent Installation', link: 'agent-installation' },
+				{ text: 'Advanced Deployment', link: 'advanced-deployment' },
 			],
 		},
 		{

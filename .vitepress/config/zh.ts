@@ -88,6 +88,7 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
 			items: [
 				{ text: 'Hub 安装', link: 'hub-installation' },
 				{ text: 'Agent 安装', link: 'agent-installation' },
+				{ text: '高级部署', link: 'advanced-deployment' },
 			],
 		},
 		{
