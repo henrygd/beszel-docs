@@ -87,7 +87,7 @@ A preconfigured command can be copied in the hub's web UI when adding a new syst
 :::
 
 ::: warning Root privileges required
-  The script needs root privileges to create a `beszel` user and set up a service to keep the agent running after reboot. The agent process itself **does not run as root**.
+The script needs root privileges to create a `beszel` user and set up a service to keep the agent running after reboot. The agent process itself **does not run as root**.
 :::
 
 The script installs the latest binary and optionally enables automatic daily updates.
@@ -100,7 +100,6 @@ The script installs the latest binary and optionally enables automatic daily upd
 ```bash
 curl -sL https://raw.githubusercontent.com/henrygd/beszel/main/supplemental/scripts/install-agent.sh -o  /tmp/install-agent.sh && chmod +x /tmp/install-agent.sh && /tmp/install-agent.sh
 ```
-
 
 ### 2. Manual download and start
 
@@ -159,7 +158,6 @@ ProtectClock=yes
 ProtectHome=read-only
 ProtectHostname=yes
 ProtectKernelLogs=yes
-ProtectKernelTunables=yes
 ProtectSystem=strict
 RemoveIPC=yes
 RestrictSUIDSGID=true
@@ -232,7 +230,6 @@ ProtectClock=yes
 ProtectHome=read-only
 ProtectHostname=yes
 ProtectKernelLogs=yes
-ProtectKernelTunables=yes
 ProtectSystem=strict
 RemoveIPC=yes
 RestrictSUIDSGID=true

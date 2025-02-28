@@ -87,7 +87,7 @@ podman run -d \
 :::
 
 ::: warning 需要 root 权限
-  该脚本需要 root 权限来创建 `beszel` 用户，并设置服务以确保代理在重启后继续运行。代理进程本身**不以 root 身份运行**。
+该脚本需要 root 权限来创建 `beszel` 用户，并设置服务以确保代理在重启后继续运行。代理进程本身**不以 root 身份运行**。
 :::
 
 该脚本会安装最新的二进制文件，并可选地启用每日自动更新。
@@ -158,7 +158,6 @@ ProtectClock=yes
 ProtectHome=read-only
 ProtectHostname=yes
 ProtectKernelLogs=yes
-ProtectKernelTunables=yes
 ProtectSystem=strict
 RemoveIPC=yes
 RestrictSUIDSGID=true
@@ -231,7 +230,6 @@ ProtectClock=yes
 ProtectHome=read-only
 ProtectHostname=yes
 ProtectKernelLogs=yes
-ProtectKernelTunables=yes
 ProtectSystem=strict
 RemoveIPC=yes
 RestrictSUIDSGID=true
