@@ -36,3 +36,26 @@ Beszel 只需要访问读取容器信息权限。对于 [linuxserver/docker-sock
 ### `SENSORS`
 
 设置为空字符串（`SENSORS=""`）以禁用温度监控。
+
+## 设置环境变量
+
+### Docker
+
+对于 Docker Compose，请在 `docker-compose.yml` 中使用 `environment` 或 `env_file` 属性（[说明](https://docs.docker.com/compose/how-tos/environment-variables/set-environment-variables/)）。
+
+对于 `docker run`，请使用 `-e`、`--env` 或 `--env-file` 标志（[说明](https://docs.docker.com/reference/cli/docker/container/run/#env)）。
+
+### 二进制文件
+
+如果直接执行二进制文件，请将环境变量作为命令行参数包含。例如：`KEY="..." PORT=45876 ./beszel-agent`。
+
+如果使用 Systemd，服务配置文件通常位于 `/etc/systemd/system/beszel-agent.service`。在 `[Service]` 部分中直接编辑环境变量，使用 `Environment="KEY=VALUE"`，或使用 `EnvironmentFile=PATH` 定义的环境文件。
+
+或者，您可以使用 `systemctl edit beszel` 或 `systemctl edit beszel-agent` 创建一个覆盖文件来修改配置（[说明](https://docs.fedoraproject.org/en-US/quick-docs/systemd-understanding-and-administering/#_modifying_existing_systemd_services)）。
+
+编辑服务后，重新加载配置并重启：
+
+```bash
+sudo systemctl daemon-reload
+sudo systemctl restart beszel-agent # 对于 hub 使用 beszel
+```

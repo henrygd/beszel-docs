@@ -36,3 +36,25 @@ The default value for used memory is based on gopsutil's [Used](https://pkg.go.d
 ### `SENSORS`
 
 Set to an empty string (`SENSORS=""`) to disable temperature monitoring.
+
+## Setting environment variables
+
+### Docker
+For Docker Compose, use the `environment` or `env_file` attributes in `docker-compose.yml` ([instructions](https://docs.docker.com/compose/how-tos/environment-variables/set-environment-variables/)).
+
+For `docker run`, use the `-e`, `--env`, or `--env-file` flags ([instructions](https://docs.docker.com/reference/cli/docker/container/run/#env)).
+
+### Binary
+
+If executing the binary directly, include the environment variables as command line arguments. For example: `KEY="..." PORT=45876 ./beszel-agent`.
+
+If using Systemd, the service configuration is usually located in `/etc/systemd/system/beszel-agent.service`. Edit env vars in the `[Service]` section, either directly with `Environment="KEY=VALUE"` or with an env file defined in `EnvironmentFile=PATH`.
+
+Alternatively, you can create an override file for your modifications with `systemctl edit beszel` or `systemctl edit beszel-agent` ([instructions](https://docs.fedoraproject.org/en-US/quick-docs/systemd-understanding-and-administering/#_modifying_existing_systemd_services)).
+
+After editing the service, reload the configuration and restart:
+
+```bash
+sudo systemctl daemon-reload
+sudo systemctl restart beszel-agent # or beszel for the hub
+```
