@@ -22,17 +22,24 @@ sudo ln -s /opt/rocm/bin/rocm-smi /usr/local/bin/rocm-smi
 
 Beszel uses `nvidia-smi` to monitor Nvidia GPUs. This must be installed on the system.
 
+You may need to allow access to your GPUs in the service configuration. See [discussion #563](https://github.com/henrygd/beszel/discussions/563#discussioncomment-12230389) for more information.
+
+```ini
+[Service]
+DeviceAllow=/dev/nvidiactl rw
+DeviceAllow=/dev/nvidia0 rw
+```
+
 ## Nvidia Jetson
 
-Jetson is not compatible with `nvidia-smi` and not currently supported.
+There will be experimental support for Jetson devices in 0.10.0.
 
-It should be possible to get usage and system power using `tegrastats`. I will try to add support for this in the future.
+You must have `tegrastats` and `nvidia-smi` installed on the system for it to work.
 
 ## Intel GPUs
 
-Intel GPUs are not currently supported for two reasons:
+Intel GPUs are not currently supported as there doesn't seem to be a straightforward utility like `nvidia-smi` to get utilization and memory usage.
 
-1. I don't have an Intel GPU to test with.
-2. There doesn't seem to be a straightforward utility like `nvidia-smi` to get utilization and memory usage.
+We may add support for tracking usage of video and 3D rendering engines in the future with `intel-gpu-top`.
 
 Please see [issue #262](https://github.com/henrygd/beszel/issues/262) for more information.
