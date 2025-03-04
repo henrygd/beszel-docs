@@ -30,6 +30,11 @@ DeviceAllow=/dev/nvidiactl rw
 DeviceAllow=/dev/nvidia0 rw
 ```
 
+```bash
+systemctl daemon-reload
+systemctl restart beszel-agent
+```
+
 ## Nvidia Jetson
 
 There will be experimental support for Jetson devices in 0.10.0.
