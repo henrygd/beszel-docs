@@ -33,7 +33,7 @@ podman run -d \
   --restart unless-stopped \
   -v /var/run/docker.sock:/var/run/docker.sock:ro \
   -e KEY="<public key>" \
-  -e PORT=45876 \
+  -e LISTEN=45876 \
   docker.io/henrygd/beszel-agent:latest
 ```
 

@@ -40,7 +40,7 @@ services:
       # monitor other disks / partitions by mounting a folder in /extra-filesystems
       # - /mnt/disk1/.beszel:/extra-filesystems/disk1:ro
     environment:
-      PORT: 45876
+      LISTEN: 45876
       KEY: '<public key>'
 ```
 
@@ -51,7 +51,7 @@ docker run -d \
   --restart unless-stopped \
   -v /var/run/docker.sock:/var/run/docker.sock:ro \
   -e KEY="<public key>" \
-  -e PORT=45876 \
+  -e LISTEN=45876 \
   henrygd/beszel-agent:latest
 ```
 
@@ -62,7 +62,7 @@ podman run -d \
   --restart unless-stopped \
   -v /var/run/docker.sock:/var/run/docker.sock:ro \
   -e KEY="<public key>" \
-  -e PORT=45876 \
+  -e LISTEN=45876 \
   docker.io/henrygd/beszel-agent:latest
 ```
 
@@ -92,7 +92,7 @@ The script needs root privileges to create a `beszel` user and set up a service 
 
 The script installs the latest binary and optionally enables automatic daily updates.
 
-- `-p`: Port (default: 45876)
+- `-p`: Port or address (default: 45876)
 - `-k`: Public key (enclose in quotes; interactive if not provided)
 - `-u`: Uninstall
 - `--china-mirrors`: Use GitHub mirror to resolve network issues in mainland China
@@ -115,11 +115,10 @@ curl -sL "https://github.com/henrygd/beszel/releases/latest/download/beszel-agen
 
 #### Start the agent
 
-- `PORT` : Port
-- `KEY` : Public Key
+Use `-h` to see all available options.
 
 ```bash
-PORT=45876 KEY="<public key>" ./beszel-agent
+./beszel-agent -listen "45876" -key "<public key>" 
 ```
 
 #### Update the agent
@@ -142,7 +141,7 @@ Wants=network-online.target
 
 [Service]
 ExecStart={/path/to/working/directory}/beszel-agent
-Environment="PORT=$PORT"
+Environment="LISTEN=$LISTEN"
 Environment="KEY=$KEY"
 # Environment="EXTRA_FILESYSTEMS=sdb"
 Restart=on-failure
@@ -187,11 +186,10 @@ See [Compiling](./compiling.md) for information on how to compile the agent your
 
 #### Start the agent
 
-- `PORT` : Port
-- `KEY` : Public Key
+Use `-h` to see all available options.
 
 ```bash
-PORT=45876 KEY="<public key>" ./beszel-agent
+./beszel-agent -listen "45876" -key "<public key>" 
 ```
 
 #### Update the agent
@@ -214,7 +212,7 @@ Wants=network-online.target
 
 [Service]
 ExecStart={/path/to/working/directory}/beszel-agent
-Environment="PORT=$PORT"
+Environment="LISTEN=$LISTEN"
 Environment="KEY=$KEY"
 # Environment="EXTRA_FILESYSTEMS=sdb"
 Restart=on-failure

@@ -40,7 +40,7 @@ services:
       # 通过在 /extra-filesystems 中挂载文件夹来监控其他磁盘/分区
       # - /mnt/disk1/.beszel:/extra-filesystems/disk1:ro
     environment:
-      PORT: 45876
+      LISTEN: 45876
       KEY: '<公钥>'
 ```
 
@@ -51,7 +51,7 @@ docker run -d \
   --restart unless-stopped \
   -v /var/run/docker.sock:/var/run/docker.sock:ro \
   -e KEY="<公钥>" \
-  -e PORT=45876 \
+  -e LISTEN=45876 \
   henrygd/beszel-agent:latest
 ```
 
@@ -62,7 +62,7 @@ podman run -d \
   --restart unless-stopped \
   -v /var/run/docker.sock:/var/run/docker.sock:ro \
   -e KEY="<公钥>" \
-  -e PORT=45876 \
+  -e LISTEN=45876 \
   docker.io/henrygd/beszel-agent:latest
 ```
 
@@ -115,11 +115,10 @@ curl -sL "https://github.com/henrygd/beszel/releases/latest/download/beszel-agen
 
 #### 启动代理
 
-- `PORT` : 端口
-- `KEY` : 公钥（用引号括起来）
+使用 `-h` 查看所有可用选项。
 
 ```bash
-PORT=45876 KEY="<公钥>" ./beszel-agent
+./beszel-agent -listen "45876" -key "<公钥>" 
 ```
 
 #### 更新代理
@@ -142,7 +141,7 @@ Wants=network-online.target
 
 [Service]
 ExecStart={/path/to/working/directory}/beszel-agent
-Environment="PORT=$PORT"
+Environment="LISTEN=$LISTEN"
 Environment="KEY=$KEY"
 # Environment="EXTRA_FILESYSTEMS=sdb"
 Restart=on-failure
@@ -187,11 +186,10 @@ sudo systemctl start beszel-agent.service
 
 #### 启动代理
 
-- `PORT` : 端口
-- `KEY` : 公钥（用引号括起来）
+使用 `-h` 查看所有可用选项。
 
 ```bash
-PORT=45876 KEY="<公钥>" ./beszel-agent
+./beszel-agent -listen "45876" -key "<公钥>" 
 ```
 
 #### 更新代理
@@ -214,7 +212,7 @@ Wants=network-online.target
 
 [Service]
 ExecStart={/path/to/working/directory}/beszel-agent
-Environment="PORT=$PORT"
+Environment="LISTEN=$LISTEN"
 Environment="KEY=$KEY"
 # Environment="EXTRA_FILESYSTEMS=sdb"
 Restart=on-failure

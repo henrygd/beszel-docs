@@ -98,7 +98,7 @@ services:
       - 45876:45876
     environment:
       <<: *common-config.environment
-      PORT: '45876'
+      LISTEN: '45876'
     deploy:
       <<: *common-deploy 
       placement:
@@ -111,7 +111,7 @@ services:
       - 45877:45877
     environment:
       <<: *common-config.environment
-      PORT: '45877'
+      LISTEN: '45877'
     deploy:
       <<: *common-deploy 
       placement:
@@ -163,7 +163,7 @@ spec:
       hostNetwork: true
       containers:
       - env:
-        - name: PORT
+        - name: LISTEN
           value: "45876"
         - name: KEY
           value: "YOUR-KEY-HERE"

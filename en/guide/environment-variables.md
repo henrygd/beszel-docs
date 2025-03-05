@@ -19,12 +19,12 @@ Environment variables may optionally be prefixed with `BESZEL_AGENT_`.
 
 | Name                | Default | Description                                                                                    |
 | ------------------- | ------- | ---------------------------------------------------------------------------------------------- |
-| `ADDR`              | 45876   | Port or host:port to listen on.                                                                |
 | `DOCKER_HOST`       | unset   | Overrides the docker host (docker.sock) if using a proxy.                                      |
 | `EXTRA_FILESYSTEMS` | unset   | Monitor extra disks if using binary. See [Additional Disks](./additional-disks).               |
 | `FILESYSTEM`        | unset   | Device, partition, or mount point to use for root disk stats.                                  |
 | `KEY`               | unset   | Public SSH key to use for authentication. Provided in hub.                                     |
 | `KEY_FILE`          | unset   | Read public key from a file instead of an environment variable.                                |
+| `LISTEN`            | 45876   | Port or host:port to listen on.                                                                |
 | `LOG_LEVEL`         | info    | Logging level. Valid values: "debug", "info", "warn", "error".                                 |
 | `MEM_CALC`          | unset   | Overrides the default memory calculation.                                                      |
 | `NETWORK`           | unset   | Network for listener. "tcp", "tcp4", "tcp6", or "unix".                                        |
@@ -33,7 +33,7 @@ Environment variables may optionally be prefixed with `BESZEL_AGENT_`.
 | `SENSORS`           | unset   | Whitelist of temperature sensors to monitor.                                                   |
 | `SYS_SENSORS`       | unset   | Overrides sys path for sensors. See [#160](https://github.com/henrygd/beszel/discussions/160). |
 
-### `ADDR`
+### `LISTEN`
 
 The host must be a literal IP address or full path to a unix socket. If it is an IPv6 address it must be enclosed in square brackets, as in `[2001:db8::1]:45876`.
 
@@ -61,9 +61,9 @@ Set to an empty string (`SENSORS=""`) to disable temperature monitoring.
 
 These variables are deprecated but will remain for backward compatibility.
 
-| Name   | Default | Description        |
-| ------ | ------- | ------------------ |
-| `PORT` | 45876   | Renamed to `ADDR`. |
+| Name   | Default | Description          |
+| ------ | ------- | -------------------- |
+| `PORT` | 45876   | Renamed to `LISTEN`. |
 
 ## Setting environment variables
 
@@ -75,7 +75,7 @@ For `docker run`, use the `-e`, `--env`, or `--env-file` flags ([instructions](h
 
 ### Binary
 
-If executing the binary directly, include the environment variables as command line arguments. For example: `KEY="..." PORT=45876 ./beszel-agent`.
+If executing the binary directly, include the environment variables as command line arguments. For example: `MEM_CALC=htop ./beszel-agent`.
 
 If using Systemd, the service configuration is usually located in `/etc/systemd/system/beszel-agent.service`. Edit env vars in the `[Service]` section, either directly with `Environment="KEY=VALUE"` or with an env file defined in `EnvironmentFile=PATH`.
 
