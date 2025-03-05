@@ -13,11 +13,7 @@
 
 ## 在同一系统上使用 Docker 连接中心和代理
 
-如果为代理程序使用主机网络模式，但不为中心使用，请使用主机名 `host.docker.internal` 添加您的系统，该主机名解析为主机使用的内部 IP 地址。有关完整的 `docker-compose.yml` 示例，请参阅 [入门](./getting-started.md) 指南。
-
-如果都使用主机网络模式，则可以使用 `localhost` 作为主机名。
-
-否则，如果两者都在同一个 Docker 网络中，请使用代理程序的 `container_name` 作为主机名。
+由于中心和代理位于不同的网络中（代理使用主机网络模式），推荐的连接方式是使用 Unix 套接字。有关完整的 `docker-compose.yml` 示例，请参阅 [入门指南](./getting-started.md)。
 
 ## 查找正确的文件系统
 

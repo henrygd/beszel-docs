@@ -72,7 +72,7 @@ podman run -d \
 
 如果您不需要主机网络统计数据，可以从 compose 文件中删除该行并手动映射端口。
 
-连接到本地代理时，`localhost` 将不起作用，因为容器位于不同的网络中。您可以尝试使用 LAN IP，或者使用 `host.docker.internal`（Docker）或 `host.containers.internal`（Podman）。[入门指南](./getting-started.md) 中有一个示例。
+连接到本地代理时，`localhost` 将不起作用，因为容器位于不同的网络中。请参阅 [入门指南](./getting-started.md) 中的 Unix 套接字连接示例。
 
 :::
 

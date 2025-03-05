@@ -72,7 +72,7 @@ The agent must use host network mode to access the host's network interface stat
 
 If you don't need host network stats, you can remove that line from the compose file and map the port manually.
 
-When connecting to a local agent, `localhost` will not work because the containers are in different networks. You can try using the LAN IP instead, or use `host.docker.internal` (Docker) or `host.containers.internal` (Podman). There is an example in the [Getting Started](./getting-started.md) guide.
+When connecting to a local agent, `localhost` will not work because the containers are in different networks. See the [Getting Started](./getting-started.md) guide for an example of how to connect using a unix socket.
 
 :::
 

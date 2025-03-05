@@ -6,7 +6,7 @@ This configuration should work out of the box, but you must follow these steps w
 
 1. Update the `KEY` value with your public key, then run `docker compose up -d` again to restart the agent.
 
-2. Use `host.docker.internal` as the **Host / IP**. Do not use `localhost` or `127.0.0.1`.
+2. Use `/beszel_socket/beszel.sock` as the **Host / IP**.
 
 :::
 
@@ -18,12 +18,11 @@ services:
     image: henrygd/beszel:latest
     container_name: beszel
     restart: unless-stopped
-    extra_hosts:
-      - host.docker.internal:host-gateway
     ports:
       - 8090:8090
     volumes:
       - ./beszel_data:/beszel_data
+      - ./beszel_socket:/beszel_socket
 
   beszel-agent:
     image: henrygd/beszel-agent:latest
@@ -31,9 +30,10 @@ services:
     restart: unless-stopped
     network_mode: host
     volumes:
+      - ./beszel_socket:/beszel_socket
       - /var/run/docker.sock:/var/run/docker.sock:ro
     environment:
-      PORT: 45876
+      LISTEN: /beszel_socket/beszel.sock
       # Do not remove quotes around the key
       KEY: 'UPDATE WITH YOUR PUBLIC KEY (copy from "Add system" dialog)'
 ```

@@ -13,11 +13,7 @@ You can test connectivity by running `telnet <agent-ip> <port>` from another dev
 
 ## Connecting hub and agent on the same system using Docker
 
-If using host network mode for the agent but not the hub, add your system using the hostname `host.docker.internal`, which resolves to the internal IP address used by the host. See the [Getting Started](./getting-started.md) guide for a full `docker-compose.yml` example.
-
-If using host network mode for both, you can use `localhost` as the hostname.
-
-Otherwise, use the agent's `container_name` as the hostname if both are in the same Docker network.
+Because the hub and agent are in different networks (the agent uses host network mode), the recommended way to connect them is to use a unix socket. See the [Getting Started](./getting-started.md) guide for a full `docker-compose.yml` example.
 
 ## Finding the correct filesystem
 

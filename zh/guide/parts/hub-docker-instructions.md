@@ -6,7 +6,7 @@
 
 1. 使用您的公钥更新 `KEY` 值，然后再次运行 `docker compose up -d` 以重新启动代理
 
-2. 将 `host.docker.internal` 用作 **主机/IP**。 请勿使用 `localhost` 或 `127.0.0.1`
+2. 使用 `/beszel_socket/beszel.sock` 作为 **主机/IP**。
 
 :::
 
@@ -18,12 +18,11 @@ services:
     image: henrygd/beszel:latest
     container_name: beszel
     restart: unless-stopped
-    extra_hosts:
-      - host.docker.internal:host-gateway
     ports:
       - 8090:8090
     volumes:
       - ./beszel_data:/beszel_data
+      - ./beszel_socket:/beszel_socket
 
   beszel-agent:
     image: henrygd/beszel-agent:latest
@@ -31,11 +30,12 @@ services:
     restart: unless-stopped
     network_mode: host
     volumes:
+      - ./beszel_socket:/beszel_socket
       - /var/run/docker.sock:/var/run/docker.sock:ro
     environment:
-      PORT: 45876
+      LISTEN: /beszel_socket/beszel.sock
       # 请勿删除密钥周围的引号
-      KEY: '使用“添加系统”对话框复制的公钥进行更新'
+      KEY: '使用"添加系统"对话框复制的公钥进行更新'
 ```
 
 ::::
