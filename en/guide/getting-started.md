@@ -15,7 +15,7 @@ The hub can be run with a single binary file or with Docker / Podman.
 
 ## 2. Create an admin user
 
-After starting the hub, navigate to http://localhost:8090 or your chosen address.
+After starting the hub, navigate to <http://localhost:8090> or your chosen address.
 
 You will be prompted to create an account:
 
@@ -25,12 +25,12 @@ You will be prompted to create an account:
 
 ## 3. Configure your first system
 
-Click the **Add System** button in the top right corner to open the system creation dialog. We're using localhost in this example, but you may use a remote agent instead.
+Click the **Add System** button in the top right corner to open the system creation dialog. We're using a local unix socket in this example, but you can use a remote agent instead.
 
 Do not click the **Add System** button inside the dialog until you've started up the agent.
 
-<a href="/image/add-system.png" target="_blank">
-  <img src="/image/add-system.png" height="506" width="681" alt="Screenshot of system creation form" />
+<a href="/image/add-system-socket.png" target="_blank">
+  <img src="/image/add-system-socket.png" height="684" width="848" alt="Screenshot of system creation form" />
 </a>
 
 ## 4. Start the agent

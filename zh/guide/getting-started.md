@@ -25,12 +25,12 @@
 
 ## 3. 配置您的第一个系统
 
-单击右上角的 添加系统 (Add System) 按钮以打开系统创建对话框。本示例中我们使用的是 localhost，但您也可以使用远程代理。
+单击右上角的 添加系统 (Add System) 按钮以打开系统创建对话框。本示例中我们使用的是本地 unix 套接字，但您也可以使用远程代理。
 
 在启动代理之前，请勿点击对话框中的 添加系统 (Add System) 按钮。
 
-<a href="/image/add-system.png" target="_blank">
-<img src="/image/add-system.png" height="506" width="681" alt="系统创建表单截图" />
+<a href="/image/add-system-socket.png" target="_blank">
+<img src="/image/add-system-socket.png" height="684" width="848" alt="系统创建表单截图" />
 </a>
 
 ## 4. 启动代理
