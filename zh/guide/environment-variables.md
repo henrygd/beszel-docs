@@ -11,7 +11,12 @@
 | `APP_URL`               | 未设置 | Web 界面的 URL。如果 [从子路径提供服务](./serve-on-subpath)，则必须设置。                                                        |
 | `CSP`                   | 未设置 | 添加具有此值的 [Content-Security-Policy](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Content-Security-Policy) 头。 |
 | `DISABLE_PASSWORD_AUTH` | false  | 禁用密码认证。                                                                                                                   |
+| `SHARE_ALL_SYSTEMS`     | false  | 允许所有用户访问所有系统。                                                                                                       |
 | `USER_CREATION`         | false  | 启用 OAuth2 / OIDC 的自动用户创建。                                                                                              |
+
+### `SHARE_ALL_SYSTEMS`
+
+如果为 true，所有用户都可以看到系统。除非用户被分配了 `readonly` 角色，否则他们还可以编辑或删除任何系统。
 
 ## 代理 (Agent)
 

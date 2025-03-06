@@ -11,7 +11,12 @@ Environment variables may optionally be prefixed with `BESZEL_HUB_`.
 | `APP_URL`               | unset   | URL of the web UI. Must set if [serving on a subpath](./serve-on-subpath).                                                                  |
 | `CSP`                   | unset   | Adds a [Content-Security-Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy) header with this value. |
 | `DISABLE_PASSWORD_AUTH` | false   | Disables password authentication.                                                                                                           |
+| `SHARE_ALL_SYSTEMS`     | false   | Allows access to all systems by all users.                                                                                                  |
 | `USER_CREATION`         | false   | Enables automatic user creation for OAuth2 / OIDC.                                                                                          |
+
+### `SHARE_ALL_SYSTEMS`
+
+If true, systems will be visible to all users. Users can also edit or delete any system unless they are assigned the `readonly` role.
 
 ## Agent
 
