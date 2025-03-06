@@ -14,6 +14,10 @@
 | `SHARE_ALL_SYSTEMS`     | false  | 允许所有用户访问所有系统。                                                                                                       |
 | `USER_CREATION`         | false  | 启用 OAuth2 / OIDC 的自动用户创建。                                                                                              |
 
+### `DISABLE_PASSWORD_AUTH`
+
+这不会完全禁用身份验证。如果您想使用 OAuth 代替密码登录，它会禁用密码登录。
+
 ### `SHARE_ALL_SYSTEMS`
 
 如果为 true，所有用户都可以看到系统。除非用户被分配了 `readonly` 角色，否则他们还可以编辑或删除任何系统。

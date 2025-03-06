@@ -14,6 +14,10 @@ Environment variables may optionally be prefixed with `BESZEL_HUB_`.
 | `SHARE_ALL_SYSTEMS`     | false   | Allows access to all systems by all users.                                                                                                  |
 | `USER_CREATION`         | false   | Enables automatic user creation for OAuth2 / OIDC.                                                                                          |
 
+### `DISABLE_PASSWORD_AUTH`
+
+This does not disable authentication entirely. It disables password login if you want to use OAuth instead.
+
 ### `SHARE_ALL_SYSTEMS`
 
 If true, systems will be visible to all users. Users can also edit or delete any system unless they are assigned the `readonly` role.
