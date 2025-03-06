@@ -8,7 +8,7 @@
 
 | 名称                    | 默认值 | 描述                                                                                                                             |
 | ----------------------- | ------ | -------------------------------------------------------------------------------------------------------------------------------- |
-| `APP_URL`               | 未设置 | Web 界面的 URL。如果从子路径提供服务，则必须设置。                                                                               |
+| `APP_URL`               | 未设置 | Web 界面的 URL。如果 [从子路径提供服务](./serve-on-subpath)，则必须设置。                                                        |
 | `CSP`                   | 未设置 | 添加具有此值的 [Content-Security-Policy](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Content-Security-Policy) 头。 |
 | `DISABLE_PASSWORD_AUTH` | false  | 禁用密码认证。                                                                                                                   |
 | `USER_CREATION`         | false  | 启用 OAuth2 / OIDC 的自动用户创建。                                                                                              |

@@ -102,6 +102,7 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
 				{ text: 'OAuth / OIDC 认证', link: 'oauth' },
 				{ text: 'Podman 监控', link: 'podman' },
 				{ text: 'REST API', link: 'rest-api' },
+				{ text: '在子路径上提供服务', link: 'serve-on-subpath' },
 				{ text: '用户账户', link: 'user-accounts' },
 			],
 		},
