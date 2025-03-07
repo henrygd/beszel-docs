@@ -31,8 +31,8 @@ Environment variables may optionally be prefixed with `BESZEL_AGENT_`.
 | `DOCKER_HOST`       | unset   | Overrides the docker host (docker.sock) if using a proxy.                                      |
 | `EXTRA_FILESYSTEMS` | unset   | Monitor extra disks if using binary. See [Additional Disks](./additional-disks).               |
 | `FILESYSTEM`        | unset   | Device, partition, or mount point to use for root disk stats.                                  |
-| `KEY`               | unset   | Public SSH key to use for authentication. Provided in hub.                                     |
-| `KEY_FILE`          | unset   | Read public key from a file instead of an environment variable.                                |
+| `KEY`               | unset   | Public SSH key(s) to use for authentication. Provided in hub.                                  |
+| `KEY_FILE`          | unset   | Read public keys from a file instead of an environment variable.                               |
 | `LISTEN`            | 45876   | Port or host:port to listen on.                                                                |
 | `LOG_LEVEL`         | info    | Logging level. Valid values: "debug", "info", "warn", "error".                                 |
 | `MEM_CALC`          | unset   | Overrides the default memory calculation.                                                      |
@@ -49,6 +49,10 @@ The host must be a literal IP address or full path to a unix socket. If it is an
 ### `DOCKER_HOST`
 
 Beszel only needs access to read container information. For [linuxserver/docker-socket-proxy](https://github.com/linuxserver/docker-socket-proxy) you would set `CONTAINERS=1`.
+
+### `KEY` / `KEY_FILE`
+
+Multiple keys can be provided if they are separated by newlines. You can also leave comments by starting the line with `#`.
 
 ### `NETWORK`
 
