@@ -18,40 +18,40 @@ Below are example roles provided by [hellofaduck](https://github.com/hellofaduck
   get_url:
     url: https://raw.githubusercontent.com/henrygd/beszel/main/supplemental/scripts/install-agent.sh
     dest: /tmp/install-agent.sh
-    mode: '0755'  # Set executable permissions
-    
+    mode: '0755' # Set executable permissions
+
 - name: Remove beszel agent if service exists
   become: true
   ansible.builtin.command:
     cmd: /tmp/install-agent.sh -u
   when: ansible_facts.services['beszel-agent.service'] is defined
 
-- name: Run the install-agent.sh script
-  shell: |
-    if [ "{{ beszel_agent_autoupdate }}" = "true" ]; then 
-      yes | /tmp/install-agent.sh -p {{ beszel_agent_ssh_port }} -k "{{ beszel_agent_ssh_key }}"
-    else 
-      yes N | /tmp/install-agent.sh -p {{ beszel_agent_ssh_port }} -k "{{ beszel_agent_ssh_key }}" 
-    fi
+- name: Run the install-agent.sh script with auto-update
+  shell: yes | /tmp/install-agent.sh -p {{ beszel_agent_ssh_port }} -k "{{ beszel_agent_ssh_key }}"
+  when: beszel_agent_autoupdate | bool
+  ignore_errors: false
+
+- name: Run the install-agent.sh script without auto-update
+  shell: yes N | /tmp/install-agent.sh -p {{ beszel_agent_ssh_port }} -k "{{ beszel_agent_ssh_key }}"
+  when: not beszel_agent_autoupdate | bool
   ignore_errors: false
 ```
 
 #### Uninstall
-
 
 ```yaml
 - name: Remove beszel-agent if service exists
   block:
     - name: Populate service facts
       ansible.builtin.service_facts:
-    
+
     - name: Download install-agent.sh script
       ansible.builtin.get_url:
         url: https://raw.githubusercontent.com/henrygd/beszel/main/supplemental/scripts/install-agent.sh
         dest: /tmp/install-agent.sh
-        mode: '0755'  # Set executable permissions
+        mode: '0755' # Set executable permissions
       when: ansible_facts['services']['beszel-agent.service'] is defined
-    
+
     - name: Remove beszel agent
       become: true
       ansible.builtin.command:
@@ -66,7 +66,7 @@ You will need to add these variables to your `all.yml` file:
 # Beszel monitoring ssh key for installing beszel agents on all nodes
 beszel_agent: true
 beszel_agent_autoupdate: true
-beszel_agent_ssh_key: "ssh-ed25519 lalalal"
+beszel_agent_ssh_key: 'ssh-ed25519 lalalal'
 beszel_agent_ssh_port: 45876
 ```
 
@@ -100,7 +100,7 @@ services:
       <<: *common-config.environment
       LISTEN: '45876'
     deploy:
-      <<: *common-deploy 
+      <<: *common-deploy
       placement:
         constraints:
           - node.hostname == host-one
@@ -113,19 +113,17 @@ services:
       <<: *common-config.environment
       LISTEN: '45877'
     deploy:
-      <<: *common-deploy 
+      <<: *common-deploy
       placement:
         constraints:
           - node.hostname == host-two
 ```
-
 
 ## HashiCorp Nomad
 
 An example Nomad configuration can be found in the article below by [blinkinglight](https://github.com/blinkinglight):
 
 https://dev.to/blinkinglight/tailscale-and-beszel-on-hashicorp-nomad-1jmo
-
 
 ## Kubernetes
 
@@ -162,25 +160,25 @@ spec:
     spec:
       hostNetwork: true
       containers:
-      - env:
-        - name: LISTEN
-          value: "45876"
-        - name: KEY
-          value: "YOUR-KEY-HERE"
-        image: henrygd/beszel-agent:latest
-        imagePullPolicy: Always
-        name: beszel-agent
-        ports:
-          - containerPort: 45876
-            hostPort: 45876
+        - env:
+            - name: LISTEN
+              value: '45876'
+            - name: KEY
+              value: 'YOUR-KEY-HERE'
+          image: henrygd/beszel-agent:latest
+          imagePullPolicy: Always
+          name: beszel-agent
+          ports:
+            - containerPort: 45876
+              hostPort: 45876
       restartPolicy: Always
       tolerations:
-      - effect: NoSchedule
-        key: node-role.kubernetes.io/master
-        operator: Exists
-      - effect: NoSchedule
-        key: node-role.kubernetes.io/control-plane
-        operator: Exists
+        - effect: NoSchedule
+          key: node-role.kubernetes.io/master
+          operator: Exists
+        - effect: NoSchedule
+          key: node-role.kubernetes.io/control-plane
+          operator: Exists
   updateStrategy:
     rollingUpdate:
       maxSurge: 0

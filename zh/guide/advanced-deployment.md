@@ -18,21 +18,22 @@
   get_url:
     url: https://raw.githubusercontent.com/henrygd/beszel/main/supplemental/scripts/install-agent.sh
     dest: /tmp/install-agent.sh
-    mode: '0755'  # 设置可执行权限
-    
+    mode: '0755' # 设置可执行权限
+
 - name: 如果服务存在则删除 beszel 代理
   become: true
   ansible.builtin.command:
     cmd: /tmp/install-agent.sh -u
   when: ansible_facts.services['beszel-agent.service'] is defined
 
-- name: 运行 install-agent.sh 脚本
-  shell: |
-    if [ "{{ beszel_agent_autoupdate }}" = "true" ]; then 
-      yes | /tmp/install-agent.sh -p {{ beszel_agent_ssh_port }} -k "{{ beszel_agent_ssh_key }}"
-    else 
-      yes N | /tmp/install-agent.sh -p {{ beszel_agent_ssh_port }} -k "{{ beszel_agent_ssh_key }}" 
-    fi
+- name: 使用自动更新运行 install-agent.sh 脚本
+  shell: yes | /tmp/install-agent.sh -p {{ beszel_agent_ssh_port }} -k "{{ beszel_agent_ssh_key }}"
+  when: beszel_agent_autoupdate | bool
+  ignore_errors: false
+
+- name: 不使用自动更新运行 install-agent.sh 脚本
+  shell: yes N | /tmp/install-agent.sh -p {{ beszel_agent_ssh_port }} -k "{{ beszel_agent_ssh_key }}"
+  when: not beszel_agent_autoupdate | bool
   ignore_errors: false
 ```
 
@@ -43,14 +44,14 @@
   block:
     - name: 收集服务信息
       ansible.builtin.service_facts:
-    
+
     - name: 下载 install-agent.sh 脚本
       ansible.builtin.get_url:
         url: https://raw.githubusercontent.com/henrygd/beszel/main/supplemental/scripts/install-agent.sh
         dest: /tmp/install-agent.sh
-        mode: '0755'  # 设置可执行权限
+        mode: '0755' # 设置可执行权限
       when: ansible_facts['services']['beszel-agent.service'] is defined
-    
+
     - name: 删除 beszel 代理
       become: true
       ansible.builtin.command:
@@ -65,7 +66,7 @@
 # Beszel 监控 SSH 密钥，用于在所有节点上安装 beszel 代理
 beszel_agent: true
 beszel_agent_autoupdate: true
-beszel_agent_ssh_key: "ssh-ed25519 lalalal"
+beszel_agent_ssh_key: 'ssh-ed25519 lalalal'
 beszel_agent_ssh_port: 45876
 ```
 
@@ -99,7 +100,7 @@ services:
       <<: *common-config.environment
       LISTEN: '45876'
     deploy:
-      <<: *common-deploy 
+      <<: *common-deploy
       placement:
         constraints:
           - node.hostname == host-one
@@ -112,7 +113,7 @@ services:
       <<: *common-config.environment
       LISTEN: '45877'
     deploy:
-      <<: *common-deploy 
+      <<: *common-deploy
       placement:
         constraints:
           - node.hostname == host-two
@@ -159,25 +160,25 @@ spec:
     spec:
       hostNetwork: true
       containers:
-      - env:
-        - name: LISTEN
-          value: "45876"
-        - name: KEY
-          value: "YOUR-KEY-HERE"
-        image: henrygd/beszel-agent:latest
-        imagePullPolicy: Always
-        name: beszel-agent
-        ports:
-          - containerPort: 45876
-            hostPort: 45876
+        - env:
+            - name: LISTEN
+              value: '45876'
+            - name: KEY
+              value: 'YOUR-KEY-HERE'
+          image: henrygd/beszel-agent:latest
+          imagePullPolicy: Always
+          name: beszel-agent
+          ports:
+            - containerPort: 45876
+              hostPort: 45876
       restartPolicy: Always
       tolerations:
-      - effect: NoSchedule
-        key: node-role.kubernetes.io/master
-        operator: Exists
-      - effect: NoSchedule
-        key: node-role.kubernetes.io/control-plane
-        operator: Exists
+        - effect: NoSchedule
+          key: node-role.kubernetes.io/master
+          operator: Exists
+        - effect: NoSchedule
+          key: node-role.kubernetes.io/control-plane
+          operator: Exists
   updateStrategy:
     rollingUpdate:
       maxSurge: 0
