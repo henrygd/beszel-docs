@@ -19,7 +19,7 @@
 ```yaml
 volumes:
   - /mnt/disk1/.beszel:/extra-filesystems/sdb1:ro # 只读模式
-  - /dev/mmcblk0/.beszel:/extra-filesystems/mmcblk0:ro # 只读模式
+  - /mnt/mmcblk0/.beszel:/extra-filesystems/mmcblk0:ro # 只读模式
 ```
 
 ::: tip 提示

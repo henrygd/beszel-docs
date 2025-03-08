@@ -19,7 +19,7 @@ Mount a folder from the target filesystem in the container's `/extra-filesystems
 ```yaml
 volumes:
   - /mnt/disk1/.beszel:/extra-filesystems/sdb1:ro
-  - /dev/mmcblk0/.beszel:/extra-filesystems/mmcblk0:ro
+  - /mnt/mmcblk0/.beszel:/extra-filesystems/mmcblk0:ro
 ```
 
 ::: tip

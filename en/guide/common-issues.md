@@ -15,6 +15,14 @@ You can test connectivity by running `telnet <agent-ip> <port>` from another dev
 
 Because the hub and agent are in different networks (the agent uses host network mode), the recommended way to connect them is to use a unix socket. See the [Getting Started](./getting-started.md) guide for a full `docker-compose.yml` example.
 
+## Realtime stats are not working or changes are not saving
+
+Check if you have gzip or some other encoding being applied at the proxy level.
+
+We need compression disabled on anything with content type `text/event-stream` for SSE to work properly.
+
+If you use Coolify, uncheck "Enable gzip compression" in the hub service settings.
+
 ## Finding the correct filesystem
 
 Specify the filesystem/device/partition for root disk stats using the `FILESYSTEM` environment variable.
@@ -30,7 +38,6 @@ If not set, the agent will try to find the partition mounted on `/` and use that
 If container charts show empty data or don't appear at all, you may need to enable cgroup memory accounting. To verify, run `docker stats`. If that shows zero memory usage, follow this guide to fix the issue:
 
 <https://akashrajpurohit.com/blog/resolving-missing-memory-stats-in-docker-stats-on-raspberry-pi/>
-
 
 ## Docker stats missing with rootless agent
 

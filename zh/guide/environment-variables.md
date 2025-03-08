@@ -38,7 +38,7 @@
 | `MEM_CALC`          | 未设置 | 覆盖默认内存计算。                                                                           |
 | `NETWORK`           | 未设置 | 监听器的网络类型。"tcp"、"tcp4"、"tcp6" 或 "unix"。                                          |
 | `NICS`              | 未设置 | 用于监控带宽的网络接口白名单。                                                               |
-| `PRIMARY_SENSOR`    | 未设置 | 用于仪表板温度显示的温度传感器。                                                             |
+| `PRIMARY_SENSOR`    | 未设置 | 在"所有系统"表格中显示的特定温度传感器。                                                     |
 | `SENSORS`           | 未设置 | 用于监控的温度传感器白名单。                                                                 |
 | `SYS_SENSORS`       | 未设置 | 覆盖用于传感器的系统路径。请参阅 [#160](https://github.com/henrygd/beszel/discussions/160)。 |
 
@@ -88,7 +88,7 @@ Beszel 只需要访问读取容器信息权限。对于 [linuxserver/docker-sock
 
 ### 二进制文件
 
-如果直接执行二进制文件，请将环境变量作为命令行参数包含。例如：`KEY="..." MEM_CALC=htop ./beszel-agent`。
+如果直接执行二进制文件，请将环境变量作为命令行参数包含。例如：`MEM_CALC=htop ./beszel-agent`。
 
 如果使用 Systemd，服务配置文件通常位于 `/etc/systemd/system/beszel-agent.service`。在 `[Service]` 部分中直接编辑环境变量，使用 `Environment="KEY=VALUE"`，或使用 `EnvironmentFile=PATH` 定义的环境文件。
 

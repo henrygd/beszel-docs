@@ -38,7 +38,7 @@ Environment variables may optionally be prefixed with `BESZEL_AGENT_`.
 | `MEM_CALC`          | unset   | Overrides the default memory calculation.                                                      |
 | `NETWORK`           | unset   | Network for listener. "tcp", "tcp4", "tcp6", or "unix".                                        |
 | `NICS`              | unset   | Whitelist of network interfaces to monitor for bandwidth.                                      |
-| `PRIMARY_SENSOR`    | unset   | Temperature sensor to use for dashboard temperature.                                           |
+| `PRIMARY_SENSOR`    | unset   | Display specific temperature sensor in 'All Systems' table.                                    |
 | `SENSORS`           | unset   | Whitelist of temperature sensors to monitor.                                                   |
 | `SYS_SENSORS`       | unset   | Overrides sys path for sensors. See [#160](https://github.com/henrygd/beszel/discussions/160). |
 
