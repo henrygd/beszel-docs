@@ -15,11 +15,11 @@ You can test connectivity by running `telnet <agent-ip> <port>` from another dev
 
 Because the hub and agent are in different networks (the agent uses host network mode), the recommended way to connect them is to use a unix socket. See the [Getting Started](./getting-started.md) guide for a full `docker-compose.yml` example.
 
-## Realtime stats are not working or changes are not saving
+## Real time stats not working / changes not saving
 
 Check if you have gzip or some other encoding being applied at the proxy level.
 
-We need compression disabled on anything with content type `text/event-stream` for SSE to work properly.
+The web UI needs compression disabled on anything with content type `text/event-stream` for SSE to work properly.
 
 If you use Coolify, uncheck "Enable gzip compression" in the hub service settings.
 
