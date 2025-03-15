@@ -72,6 +72,7 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
 				{ text: 'Compiling', link: 'compiling' },
 				{ text: 'Environment Variables', link: 'environment-variables' },
 				{ text: 'GPU Monitoring', link: 'gpu' },
+				{ text: 'Healthchecks', link: 'healthchecks' },
 				{ text: 'OAuth / OIDC', link: 'oauth' },
 				{ text: 'Podman Monitoring', link: 'podman' },
 				{ text: 'REST API', link: 'rest-api' },

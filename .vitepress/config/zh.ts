@@ -99,6 +99,7 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
 				{ text: '编译', link: 'compiling' },
 				{ text: '环境变量', link: 'environment-variables' },
 				{ text: 'GPU 监控', link: 'gpu' },
+				{ text: '健康检查', link: 'healthchecks' },
 				{ text: 'OAuth / OIDC 认证', link: 'oauth' },
 				{ text: 'Podman 监控', link: 'podman' },
 				{ text: 'REST API', link: 'rest-api' },
