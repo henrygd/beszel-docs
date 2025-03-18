@@ -95,7 +95,9 @@ podman run -d \
 - `-p`：端口（默认：45876）
 - `-k`：公钥（用引号括起来；如果未提供则进入交互模式）
 - `-u`：卸载
+- `--auto-update`：启用或禁用每日自动更新（如果未提供则进入交互模式）
 - `--china-mirrors`：使用 GitHub 镜像以解决中国大陆的网络问题
+- `-h`：显示帮助信息
 
 ```bash
 curl -sL https://raw.githubusercontent.com/henrygd/beszel/main/supplemental/scripts/install-agent.sh -o  /tmp/install-agent.sh && chmod +x /tmp/install-agent.sh && /tmp/install-agent.sh
@@ -118,7 +120,7 @@ curl -sL "https://github.com/henrygd/beszel/releases/latest/download/beszel-agen
 使用 `-h` 查看所有可用选项。
 
 ```bash
-./beszel-agent -listen "45876" -key "<公钥>" 
+./beszel-agent -listen "45876" -key "<公钥>"
 ```
 
 #### 更新代理
@@ -189,7 +191,7 @@ sudo systemctl start beszel-agent.service
 使用 `-h` 查看所有可用选项。
 
 ```bash
-./beszel-agent -listen "45876" -key "<公钥>" 
+./beszel-agent -listen "45876" -key "<公钥>"
 ```
 
 #### 更新代理

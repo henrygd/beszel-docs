@@ -95,7 +95,9 @@ The script installs the latest binary and optionally enables automatic daily upd
 - `-p`: Port or address (default: 45876)
 - `-k`: Public key (enclose in quotes; interactive if not provided)
 - `-u`: Uninstall
+- `--auto-update`: Enable or disable automatic daily updates (interactive if not provided)
 - `--china-mirrors`: Use GitHub mirror to resolve network issues in mainland China
+- `-h`: Show help
 
 ```bash
 curl -sL https://raw.githubusercontent.com/henrygd/beszel/main/supplemental/scripts/install-agent.sh -o  /tmp/install-agent.sh && chmod +x /tmp/install-agent.sh && /tmp/install-agent.sh
@@ -118,7 +120,7 @@ curl -sL "https://github.com/henrygd/beszel/releases/latest/download/beszel-agen
 Use `-h` to see all available options.
 
 ```bash
-./beszel-agent -listen "45876" -key "<public key>" 
+./beszel-agent -listen "45876" -key "<public key>"
 ```
 
 #### Update the agent
@@ -189,7 +191,7 @@ See [Compiling](./compiling.md) for information on how to compile the agent your
 Use `-h` to see all available options.
 
 ```bash
-./beszel-agent -listen "45876" -key "<public key>" 
+./beszel-agent -listen "45876" -key "<public key>"
 ```
 
 #### Update the agent
