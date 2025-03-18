@@ -14,6 +14,8 @@ services:
     healthcheck:
       test: ['CMD', '/agent', 'health'] # Run the health command
       start_period: 5s # Check 5 seconds after the container starts
+      start_interval: 10s # Until the container gets healthy, check every 10s
+      retries: 3 # Try 3 times until it gets unhealthy
       interval: 120s # Then check every 120 seconds after that
 ```
 
@@ -28,5 +30,7 @@ services:
       # The URL is relative to the container, not the host
       test: ['CMD', '/beszel', 'health', '--url', 'http://localhost:8090']
       start_period: 5s # Check 5 seconds after the container starts
+      start_interval: 10s # Until the container gets healthy, check every 10s
+      retries: 3 # Try 3 times until it gets unhealthy
       interval: 120s # Then check every 120 seconds after that
 ```
