@@ -50,9 +50,9 @@ podman run -d \
 
 ## Binary
 
-There are multiple ways to install the binary. Choose your preference below.
+Beszel is written in pure Go and can be easily compiled (or cross-compiled) if a prebuilt binary isn't available.
 
-### 1. Quick script (Linux)
+### 1. Linux install script
 
 This command downloads and runs our `install-hub.sh` script. The script installs the latest binary and creates a systemd service to keep it running after reboot.
 
@@ -60,10 +60,10 @@ This command downloads and runs our `install-hub.sh` script. The script installs
 - `-p <port>` : Specify a port number (default: 8090)
 
 ```bash
-curl -sL https://raw.githubusercontent.com/henrygd/beszel/main/supplemental/scripts/install-hub.sh -o install-hub.sh && chmod +x install-hub.sh && ./install-hub.sh
+curl -sL https://get.beszel.dev/hub -o /tmp/install-hub.sh && chmod +x /tmp/install-hub.sh && /tmp/install-hub.sh
 ```
 
-### 2. Manual download and start
+### 2. Manual download and start (Linux, FreeBSD, others)
 
 ::: details Click to expand/collapse
 
@@ -120,7 +120,7 @@ sudo systemctl start beszel.service
 
 :::
 
-### 3. Manual compile and start
+### 3. Manual compile and start (any platform)
 
 ::: details Click to expand/collapse
 

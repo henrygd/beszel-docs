@@ -1,6 +1,6 @@
 # 代理安装
 
-Beszel 代理支持通过 Docker / Podman 容器、单一二进制文件或 Home Assistant 插件进行安装。
+Beszel 代理支持通过 Docker / Podman、单一二进制文件、Homebrew 包、Scoop 包或 Home Assistant 插件进行安装。
 
 ::: tip 提示
 如果您是首次设置 Beszel，请查看 [开始使用](./getting-started.md) 指南。
@@ -10,7 +10,7 @@ Beszel 代理支持通过 Docker / Podman 容器、单一二进制文件或 Home
 
 如果代理和中心 (hub) 位于不同的主机上，您可能需要在代理系统的防火墙上更新配置，以允许代理端口上的传入 TCP 连接。
 
-或者，您可以使用 Wireguard 或 Cloudflare Tunnel 等软件（[说明](https://github.com/henrygd/beszel/discussions/250)）安全地绕过防火墙。
+或者，使用 WireGuard、Tailscale ([视频教程](https://www.youtube.com/watch?v=O_9wT-5LoHM))、Cloudflare Tunnel（[说明](https://github.com/henrygd/beszel/discussions/250)）或 Pangolin 等软件安全地绕过防火墙。
 
 ## 使用中心 (Hub)
 
@@ -78,32 +78,28 @@ podman run -d \
 
 ## 二进制文件
 
-安装二进制文件有多种方法。请选择您喜欢的方式。
+Beszel 使用纯 Go 编写，如果没有预构建的二进制文件，可以很容易地进行编译（或交叉编译）。
 
-### 1. 快速脚本 (Linux)
-
-::: tip 提示
-在添加新系统时，可以从中心 (hub) 的 Web UI 复制预配置的命令，因此在大多数情况下，您不需要手动运行此命令。
-:::
+### 1. Linux 安装脚本
 
 ::: warning 需要 root 权限
-该脚本需要 root 权限来创建 `beszel` 用户，并设置服务以确保代理在重启后继续运行。代理进程本身**不以 root 身份运行**。
+该脚本需要 root 权限来创建 `beszel` 用户，并设置服务以确保代理在重启后继续运行。代理进程本身不以 root 身份运行。
 :::
 
 该脚本会安装最新的二进制文件，并可选地启用每日自动更新。
 
-- `-p`：端口（默认：45876）
 - `-k`：公钥（用引号括起来；如果未提供则进入交互模式）
+- `-p`：端口或地址（默认：45876）
 - `-u`：卸载
 - `--auto-update`：启用或禁用每日自动更新（如果未提供则进入交互模式）
 - `--china-mirrors`：使用 GitHub 镜像以解决中国大陆的网络问题
 - `-h`：显示帮助信息
 
 ```bash
-curl -sL https://raw.githubusercontent.com/henrygd/beszel/main/supplemental/scripts/install-agent.sh -o  /tmp/install-agent.sh && chmod +x /tmp/install-agent.sh && /tmp/install-agent.sh
+curl -sL https://get.beszel.dev -o /tmp/install-agent.sh && chmod +x /tmp/install-agent.sh && /tmp/install-agent.sh
 ```
 
-### 2. 手动下载和启动
+### 2. 手动下载和启动 (Linux, FreeBSD, 其他)
 
 ::: details 点击展开/收起
 
@@ -178,7 +174,7 @@ sudo systemctl start beszel-agent.service
 
 :::
 
-### 3. 手动编译和启动
+### 3. 手动编译和启动 (任何平台)
 
 :::: details 点击展开/收起
 
@@ -248,6 +244,100 @@ sudo systemctl start beszel-agent.service
 ```
 
 ::::
+
+## Homebrew (macOS, Linux)
+
+环境变量可以在 `~/.config/beszel/beszel-agent.env` 中更改。
+
+日志写入到 `~/.cache/beszel/beszel-agent.log`。
+
+### Homebrew 安装脚本
+
+- `-k`：SSH 密钥（如果未提供则进入交互模式）
+- `-p`：端口（默认：45876）
+- `-h`：显示帮助信息
+
+```bash
+curl -sL https://get.beszel.dev/brew -o /tmp/install-agent.sh && chmod +x /tmp/install-agent.sh && /tmp/install-agent.sh
+```
+
+### Homebrew 手动安装
+
+```bash
+mkdir -p ~/.config/beszel ~/.cache/beszel
+echo 'KEY="ssh-ed25519 AAAA..."' > ~/.config/beszel/beszel-agent.env
+brew tap henrygd/beszel
+brew install beszel-agent
+brew services start beszel-agent
+```
+
+## Scoop (Windows)
+
+代理可作为 Scoop 包使用。
+
+为了最简单的安装，我们建议使用下面的脚本。如果不存在，它将安装 Scoop 和依赖项（`git`、`7-Zip`），以及 [NSSM](https://nssm.cc/usage) 和代理。
+
+它还将使用 NSSM 创建一个服务，以便在重启后继续运行代理。
+
+- `-Key`：SSH 密钥（如果未提供则进入交互模式）
+- `-Port`：端口（默认：45876）
+
+```powershell
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser; & iwr -useb https://get.beszel.dev -OutFile "$env:TEMP\install-agent.ps1"; & "$env:TEMP\install-agent.ps1"
+```
+
+脚本的源代码可在 [GitHub](https://github.com/henrygd/beszel/blob/main/supplemental/scripts/install-agent.ps1) 上获取。
+
+### 编辑配置
+
+通过运行以下命令在 NSSM 中编辑服务。在 GUI 中向右滚动以查找环境变量。
+
+```powershell
+nssm edit beszel-agent
+```
+
+您也可以直接从命令行更改选项：
+
+```powershell
+nssm set beszel-agent AppEnvironmentExtra "+EXTRA_FILESYSTEMS=D:,E:"
+```
+
+完成后重启服务：`nssm restart beszel-agent`
+
+### 日志
+
+日志应写入 `C:\ProgramData\beszel-agent\logs`。
+
+### 升级
+
+```powershell
+scoop update beszel-agent; & nssm restart beszel-agent
+```
+
+### 卸载
+
+仅卸载代理：
+
+```powershell
+nssm stop beszel-agent
+nssm remove beszel-agent confirm
+scoop uninstall beszel-agent
+```
+
+卸载 Scoop 和所有 Scoop 包（包括 NSSM 和 beszel-agent）：
+
+```powershell
+scoop uninstall scoop
+```
+
+## FreeBSD / OPNSense
+
+FreeBSD 端口正在开发中，但尚未可用（欢迎贡献！）。我们还将在主安装脚本中添加 FreeBSD 兼容性。
+
+目前，可以手动安装代理。请参阅以下内容获取更多信息：
+
+- https://forum.opnsense.org/index.php?topic=45619.0#msg229919
+- https://github.com/henrygd/beszel/discussions/39
 
 ## Home Assistant
 

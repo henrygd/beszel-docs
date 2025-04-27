@@ -50,20 +50,20 @@ podman run -d \
 
 ## 二进制文件
 
-安装二进制文件有多种方法。 请选择您喜欢的方式。
+Beszel 使用纯 Go 编写，如果没有预构建的二进制文件，可以很容易地进行编译（或交叉编译）。
 
-### 1. 快速脚本 (Linux)
+### 1. Linux 安装脚本
 
-此命令下载并运行我们的 install-hub.sh 脚本。该脚本将安装最新二进制文件并创建 systemd 服务，使其在重新启动后继续运行。
+此命令下载并运行我们的 `install-hub.sh` 脚本。该脚本将安装最新二进制文件并创建 systemd 服务，使其在重新启动后继续运行。
 
 - `-u` : 卸载
 - `-p <port>` : 指定端口号（默认: 8090）
 
 ```bash
-curl -sL https://raw.githubusercontent.com/henrygd/beszel/main/supplemental/scripts/install-hub.sh -o install-hub.sh && chmod +x install-hub.sh && ./install-hub.sh
+curl -sL https://get.beszel.dev/hub -o /tmp/install-hub.sh && chmod +x /tmp/install-hub.sh && /tmp/install-hub.sh
 ```
 
-### 2. 手动下载和启动
+### 2. 手动下载和启动 (Linux, FreeBSD, 其他)
 
 ::: details 点击展开/收起
 
@@ -120,7 +120,7 @@ sudo systemctl start beszel.service
 
 :::
 
-### 3. 手动编译和启动
+### 3. 手动编译和启动 (任何平台)
 
 ::: details 点击展开/收起
 

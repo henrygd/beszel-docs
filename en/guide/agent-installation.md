@@ -1,6 +1,6 @@
 # Agent Installation
 
-Beszel Agent supports installation via Docker / Podman container, single binary file, or Home Assistant add-on.
+Beszel Agent supports installation via Docker / Podman, single binary file, Homebrew package, Scoop package, or Home Assistant add-on.
 
 ::: tip
 Check the [Getting Started](./getting-started.md) guide if you're setting up Beszel for the first time.
@@ -10,7 +10,7 @@ Check the [Getting Started](./getting-started.md) guide if you're setting up Bes
 
 If the agent and hub are on different hosts, you may need to update the firewall on your agent system to allow incoming TCP connections on the agent's port.
 
-Alternatively, you can use software like Wireguard or Cloudflare Tunnel ([instructions](https://github.com/henrygd/beszel/discussions/250)) to securely bypass the firewall.
+Alternatively, use software like WireGuard, Tailscale ([video instructions](https://www.youtube.com/watch?v=O_9wT-5LoHM)), Cloudflare Tunnel ([instructions](https://github.com/henrygd/beszel/discussions/250)), or Pangolin to securely bypass the firewall.
 
 ## Using the Hub
 
@@ -78,32 +78,28 @@ When connecting to a local agent, `localhost` will not work because the containe
 
 ## Binary
 
-There are multiple ways to install the binary. Choose your preference below.
+Beszel is written in pure Go and can be easily compiled (or cross-compiled) if a prebuilt binary isn't available.
 
-### 1. Quick script (Linux)
-
-::: tip
-A preconfigured command can be copied in the hub's web UI when adding a new system, so in most cases you do not need to run this command manually.
-:::
+### 1. Linux install script
 
 ::: warning Root privileges required
-The script needs root privileges to create a `beszel` user and set up a service to keep the agent running after reboot. The agent process itself **does not run as root**.
+The script needs root privileges to create a `beszel` user and set up a service to keep the agent running after reboot. The agent process itself does not run as root.
 :::
 
 The script installs the latest binary and optionally enables automatic daily updates.
 
-- `-p`: Port or address (default: 45876)
 - `-k`: Public key (enclose in quotes; interactive if not provided)
+- `-p`: Port or address (default: 45876)
 - `-u`: Uninstall
 - `--auto-update`: Enable or disable automatic daily updates (interactive if not provided)
 - `--china-mirrors`: Use GitHub mirror to resolve network issues in mainland China
 - `-h`: Show help
 
 ```bash
-curl -sL https://raw.githubusercontent.com/henrygd/beszel/main/supplemental/scripts/install-agent.sh -o  /tmp/install-agent.sh && chmod +x /tmp/install-agent.sh && /tmp/install-agent.sh
+curl -sL https://get.beszel.dev -o /tmp/install-agent.sh && chmod +x /tmp/install-agent.sh && /tmp/install-agent.sh
 ```
 
-### 2. Manual download and start
+### 2. Manual download and start (Linux, FreeBSD, others)
 
 ::: details Click to expand/collapse
 
@@ -178,7 +174,7 @@ sudo systemctl start beszel-agent.service
 
 :::
 
-### 3. Manual compile and start
+### 3. Manual compile and start (any platform)
 
 :::: details Click to expand/collapse
 
@@ -248,6 +244,100 @@ sudo systemctl start beszel-agent.service
 ```
 
 ::::
+
+## Homebrew (macOS, Linux)
+
+Environment variables can be changed in `~/.config/beszel/beszel-agent.env`.
+
+Logs are written to `~/.cache/beszel/beszel-agent.log`.
+
+### Homebrew install script
+
+- `-k`: SSH key (interactive if not provided)
+- `-p`: Port (default: 45876)
+- `-h`: Show help
+
+```bash
+curl -sL https://get.beszel.dev/brew -o /tmp/install-agent.sh && chmod +x /tmp/install-agent.sh && /tmp/install-agent.sh
+```
+
+### Homebrew manual install
+
+```bash
+mkdir -p ~/.config/beszel ~/.cache/beszel
+echo 'KEY="ssh-ed25519 AAAA..."' > ~/.config/beszel/beszel-agent.env
+brew tap henrygd/beszel
+brew install beszel-agent
+brew services start beszel-agent
+```
+
+## Scoop (Windows)
+
+The agent is available as a Scoop package.
+
+For easiest installation, we recommend using the script below. This will install Scoop and dependencies (`git`, `7-Zip`) if they don't exist, along with [NSSM](https://nssm.cc/usage) and the agent.
+
+It will also create a service with NSSM to keep the agent running after reboot.
+
+- `-Key`: SSH key (interactive if not provided)
+- `-Port`: Port (default: 45876)
+
+```powershell
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser; & iwr -useb https://get.beszel.dev -OutFile "$env:TEMP\install-agent.ps1"; & "$env:TEMP\install-agent.ps1"
+```
+
+The script's source code is available [on GitHub](https://github.com/henrygd/beszel/blob/main/supplemental/scripts/install-agent.ps1).
+
+### Edit configuration
+
+Edit the service in NSSM by running the command below. Scroll to the right in the GUI to find environment variables.
+
+```powershell
+nssm edit beszel-agent
+```
+
+You can also change options directly from the command line:
+
+```powershell
+nssm set beszel-agent AppEnvironmentExtra "+EXTRA_FILESYSTEMS=D:,E:"
+```
+
+Restart the service when finished: `nssm restart beszel-agent`
+
+### Logs
+
+Logs should be written in `C:\ProgramData\beszel-agent\logs`.
+
+### Upgrade
+
+```powershell
+scoop update beszel-agent; & nssm restart beszel-agent
+```
+
+### Uninstall
+
+Uninstall only the agent:
+
+```powershell
+nssm stop beszel-agent
+nssm remove beszel-agent confirm
+scoop uninstall beszel-agent
+```
+
+Uninstall Scoop and all Scoop packages including NSSM and beszel-agent:
+
+```powershell
+scoop uninstall scoop
+```
+
+## FreeBSD / OPNSense
+
+A FreeBSD port is on the roadmap but not yet available (contributions welcome!). We'll also add FreeBSD compatibility to the main install script.
+
+For now, the agent can be installed manually. See the following for more information:
+
+- https://forum.opnsense.org/index.php?topic=45619.0#msg229919
+- https://github.com/henrygd/beszel/discussions/39
 
 ## Home Assistant
 
