@@ -40,6 +40,3 @@ Props can be supplied through URL query params: `?key=value&key=value` etc.
 
 - **Sound** - Value from https://github.com/Finb/Bark/tree/master/Sounds  
   Default: _empty_
-
-- **URL** - Url that will jump when click notification  
-  Default: _empty_

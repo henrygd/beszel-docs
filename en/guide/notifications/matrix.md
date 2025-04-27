@@ -8,13 +8,13 @@
 
 - `User` - Username or empty when using access token<br>
   Default: empty<br>
-  URL part: matrix://user:password@host/
+  URL part: <code>matrix://<strong>user</strong>:password@host/</code>
 
 - `Password` - Password or access token (Required)<br>
-  URL part: matrix://user:password@host/
+  URL part: <code>matrix://user:<strong>password</strong>@host/</code>
 
 - `Host` (Required)<br>
-  URL part: matrix://user:password@host/
+  URL part: <code>matrix://user:password@<strong>host</strong>/</code>
 
 ## Query/Param Props
 

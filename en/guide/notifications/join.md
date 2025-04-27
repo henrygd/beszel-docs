@@ -28,5 +28,4 @@ Props can be supplied through URL query params: `?key=value&key=value` etc.
 6.  Your Shoutrrr URL will then be:
     `join://shoutrrr:`**`api-key`**`@join/?devices=`**`deviceId`**
 
-!!! note ""
 Multiple `deviceId`s can be combined with a `,` (repeat steps 2-4).
