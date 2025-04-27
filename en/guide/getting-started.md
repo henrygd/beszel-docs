@@ -29,8 +29,8 @@ Click the **Add System** button in the top right corner to open the system creat
 
 Do not click the **Add System** button inside the dialog until you've started up the agent.
 
-<a href="/image/add-system-socket.png" target="_blank">
-  <img src="/image/add-system-socket.png" height="684" width="848" alt="Screenshot of system creation form" />
+<a href="/image/add-system-socket-2.png" target="_blank">
+  <img src="/image/add-system-socket-2.png" height="589" width="896" alt="Screenshot of system creation form" />
 </a>
 
 ## 4. Start the agent

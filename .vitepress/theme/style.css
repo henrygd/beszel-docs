@@ -166,6 +166,17 @@
 	margin: 4rem auto 5rem;
 }
 
+.bk {
+	background-color: var(--vp-c-bg-alt);
+	width: 100%;
+	display: block;
+	padding: 1rem 1.5rem;
+	border-radius: 0.4em;
+	overflow-x: auto;
+	font-family: var(--vp-font-family-mono);
+	white-space: pre;
+}
+
 /* .VPHomeHero .VPImage {
 	max-width: 400px;
 	width: 80%;

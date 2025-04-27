@@ -29,8 +29,8 @@
 
 在启动代理之前，请勿点击对话框中的 添加系统 (Add System) 按钮。
 
-<a href="/image/add-system-socket.png" target="_blank">
-<img src="/image/add-system-socket.png" height="684" width="848" alt="系统创建表单截图" />
+<a href="/image/add-system-socket-2.png" target="_blank">
+<img src="/image/add-system-socket-2.png" height="589" width="896" alt="系统创建表单截图" />
 </a>
 
 ## 4. 启动代理
