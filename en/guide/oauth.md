@@ -24,6 +24,12 @@ When creating your OAuth2 app, use **`<your-beszel-url>/api/oauth2-redirect`** a
 
 [![hide-collection-create-and-edit-controls](/image/edit-toggle-on.png)](/image/edit-toggle-on.png)
 
+## Disable password login
+
+To disable password login, set `DISABLE_PASSWORD_AUTH=true` in the hub environment variables.
+
+Please avoid changing this setting directly in PocketBase as it will be overridden by the value of `DISABLE_PASSWORD_AUTH` on the next restart.
+
 ## Automatic user creation
 
 Beszel does not allow automatic user creation by default. To enable it, set `USER_CREATION=true` in the hub environment variables.
@@ -51,6 +57,7 @@ Beszel does not allow automatic user creation by default. To enable it, set `USE
 - Patreon (v2)
 - Spotify
 - Strava
+- Trackt
 - Twitch
 - Twitter
 - VK
