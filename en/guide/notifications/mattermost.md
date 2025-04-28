@@ -1,4 +1,4 @@
-# MatterMost
+# Mattermost
 
 ## URL Format
 

@@ -6,10 +6,10 @@ It has a friendly web interface, simple configuration, and is ready to use out o
 
 <div style="display: flex; flex-wrap: wrap; gap: .5em; margin: 1.6em 0 -.3em">
   <a href="https://hub.docker.com/r/henrygd/beszel-agent" target="_blank">
-    <img height="20" width="171" src="https://img.shields.io/docker/image-size/henrygd/beszel-agent/0.6.0?logo=docker&label=agent%20image%20size" alt="Hub Docker Image Size" />
+    <img height="20" width="171" src="https://img.shields.io/docker/image-size/henrygd/beszel-agent/latest?logo=docker&label=agent%20image%20size" alt="Hub Docker Image Size" />
   </a>
   <a href="https://hub.docker.com/r/henrygd/beszel" target="_blank">
-    <img height="20" width="169" src="https://img.shields.io/docker/image-size/henrygd/beszel/0.1.0?logo=docker&label=hub%20image%20size" alt="Agent Docker Image Size" />
+    <img height="20" width="169" src="https://img.shields.io/docker/image-size/henrygd/beszel/latest?logo=docker&label=hub%20image%20size" alt="Agent Docker Image Size" />
   </a>
   <a href="https://github.com/henrygd/beszel/blob/main/LICENSE" target="_blank">
     <img height="20" width="78" src="https://img.shields.io/github/license/henrygd/beszel?color=%239944ee" alt="MIT license" />
@@ -41,14 +41,14 @@ Beszel consists of two main components: the **hub** and the **agent**.
 
 <div style="display: grid; gap: 15px;">
   <a href="/image/dashboard.png" target="_blank">
-    <img src="/image/dashboard.png" height="967" width="1419" alt="Dashboard" /> 
+    <img src="/image/dashboard.png" height="967" width="1419" alt="Dashboard page showing multiple connected systems" /> 
   </a>
   <a href="/image/system-full.png" target="_blank">
-    <img src="/image/system-full.png" height="2551" width="1422" alt="System page" /> 
+    <img src="/image/system-full.png" height="2551" width="1422" alt="System page showing detailed metrics" /> 
   </a>
   <!-- [![Alerts](/image/alerts.png)](/image/alerts.png) -->
   <a href="/image/settings-notifications.png" target="_blank">
-    <img src="/image/settings-notifications.png" height="928" width="1429" alt="Notification Settings" /> 
+    <img src="/image/settings-notifications.png" height="928" width="1429" alt="Notification Settings page" /> 
   </a>
 </div>
 
