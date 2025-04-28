@@ -28,6 +28,9 @@ You may need to allow access to your GPUs in the service configuration. See [dis
 [Service]
 DeviceAllow=/dev/nvidiactl rw
 DeviceAllow=/dev/nvidia0 rw
+# If you have multiple GPUs, make sure to allow all of them
+DeviceAllow=/dev/nvidia1 rw
+DeviceAllow=/dev/nvidia2 rw
 ```
 
 ```bash
@@ -37,9 +40,9 @@ systemctl restart beszel-agent
 
 ## Nvidia Jetson
 
-There will be experimental support for Jetson devices in 0.10.0.
+Jetson devices are supported as of version 0.11.0.
 
-You must have `tegrastats` and `nvidia-smi` installed on the system for it to work.
+You must have `tegrastats` installed because `nvidia-smi` is not compatible with Jetson.
 
 ## Intel GPUs
 

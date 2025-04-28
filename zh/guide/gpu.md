@@ -29,6 +29,9 @@ Beszel 使用 `nvidia-smi` 监控 Nvidia GPU。该工具必须安装在系统上
 [Service]
 DeviceAllow=/dev/nvidiactl rw
 DeviceAllow=/dev/nvidia0 rw
+# 如果您有多个 GPU，请确保允许所有 GPU
+DeviceAllow=/dev/nvidia1 rw
+DeviceAllow=/dev/nvidia2 rw
 ```
 
 ```bash
@@ -38,9 +41,9 @@ systemctl restart beszel-agent
 
 ## Nvidia Jetson
 
-在 0.10.0 版本中将提供对 Jetson 设备的实验性支持。
+从 0.11.0 版本开始支持 Jetson 设备。
 
-系统上必须安装 `tegrastats` 和 `nvidia-smi` 才能正常工作。
+您必须安装 `tegrastats`，因为 `nvidia-smi` 与 Jetson 不兼容。
 
 ## Intel GPU
 
