@@ -28,7 +28,7 @@
 
 | 名称                | 默认值 | 描述                                                                                         |
 | ------------------- | ------ | -------------------------------------------------------------------------------------------- |
-| `DOCKER_HOST`       | 未设置 | 如果使用代理，则覆盖 Docker 主机 (docker.sock)。                                             |
+| `DOCKER_HOST`       | 未设置 | 覆盖 Docker 主机 (docker.sock)。                                                             |
 | `EXTRA_FILESYSTEMS` | 未设置 | 如果使用二进制文件，则监控额外的磁盘。请参阅 [其他磁盘](./additional-disks.md)。             |
 | `FILESYSTEM`        | 未设置 | 用于根磁盘统计的设备、分区或挂载点。                                                         |
 | `KEY`               | 未设置 | 用于身份验证的公共 SSH 密钥（可多个）。在中心提供。                                          |
@@ -44,7 +44,9 @@
 
 ### `DOCKER_HOST`
 
-Beszel 只需要访问读取容器信息权限。对于 [linuxserver/docker-socket-proxy](https://github.com/linuxserver/docker-socket-proxy) 您将设置 `CONTAINERS=1`。
+如果使用代理，Beszel 只需要访问读取容器信息权限。对于 [linuxserver/docker-socket-proxy](https://github.com/linuxserver/docker-socket-proxy) 您将设置 `CONTAINERS=1`。
+
+您也可以将其设置为空字符串（`DOCKER_HOST=""`）以完全禁用 Docker 监控。
 
 ### `KEY` / `KEY_FILE`
 

@@ -28,7 +28,7 @@ Environment variables may optionally be prefixed with `BESZEL_AGENT_`.
 
 | Name                | Default | Description                                                                                    |
 | ------------------- | ------- | ---------------------------------------------------------------------------------------------- |
-| `DOCKER_HOST`       | unset   | Overrides the docker host (docker.sock) if using a proxy.                                      |
+| `DOCKER_HOST`       | unset   | Overrides the Docker host (docker.sock).                                                       |
 | `EXTRA_FILESYSTEMS` | unset   | Monitor extra disks if using binary. See [Additional Disks](./additional-disks).               |
 | `FILESYSTEM`        | unset   | Device, partition, or mount point to use for root disk stats.                                  |
 | `KEY`               | unset   | Public SSH key(s) to use for authentication. Provided in hub.                                  |
@@ -44,7 +44,9 @@ Environment variables may optionally be prefixed with `BESZEL_AGENT_`.
 
 ### `DOCKER_HOST`
 
-Beszel only needs access to read container information. For [linuxserver/docker-socket-proxy](https://github.com/linuxserver/docker-socket-proxy) you would set `CONTAINERS=1`.
+If using a proxy, Beszel only needs access to read container information. For [linuxserver/docker-socket-proxy](https://github.com/linuxserver/docker-socket-proxy) you would set `CONTAINERS=1`.
+
+You may also set this to an empty string (`DOCKER_HOST=""`) to completely disable Docker monitoring.
 
 ### `KEY` / `KEY_FILE`
 
