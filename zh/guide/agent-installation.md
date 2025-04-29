@@ -41,7 +41,7 @@ services:
       # - /mnt/disk1/.beszel:/extra-filesystems/disk1:ro
     environment:
       LISTEN: 45876
-      KEY: '<公钥>'
+      KEY: "<公钥>"
 ```
 
 ```bash [docker run]
@@ -311,7 +311,7 @@ nssm set beszel-agent AppEnvironmentExtra "+EXTRA_FILESYSTEMS=D:,E:"
 ### 升级
 
 ```powershell
-scoop update beszel-agent; & nssm restart beszel-agent
+nssm stop beszel-agent; & scoop update beszel-agent; & nssm start beszel-agent
 ```
 
 ### 卸载
@@ -336,8 +336,8 @@ FreeBSD 端口正在开发中，但尚未可用（欢迎贡献！）。我们还
 
 目前，可以手动安装代理。请参阅以下内容获取更多信息：
 
-- https://forum.opnsense.org/index.php?topic=45619.0#msg229919
-- https://github.com/henrygd/beszel/discussions/39
+- <https://forum.opnsense.org/index.php?topic=45619.0#msg229919>
+- <https://github.com/henrygd/beszel/discussions/39>
 
 ## Home Assistant
 

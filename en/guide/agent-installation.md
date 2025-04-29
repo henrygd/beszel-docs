@@ -41,7 +41,7 @@ services:
       # - /mnt/disk1/.beszel:/extra-filesystems/disk1:ro
     environment:
       LISTEN: 45876
-      KEY: '<public key>'
+      KEY: "<public key>"
 ```
 
 ```bash [docker run]
@@ -311,7 +311,7 @@ Logs should be written in `C:\ProgramData\beszel-agent\logs`.
 ### Upgrade
 
 ```powershell
-scoop update beszel-agent; & nssm restart beszel-agent
+nssm stop beszel-agent; & scoop update beszel-agent; & nssm start beszel-agent
 ```
 
 ### Uninstall
@@ -336,8 +336,8 @@ A FreeBSD port is on the roadmap but not yet available (contributions welcome!).
 
 For now, the agent can be installed manually. See the following for more information:
 
-- https://forum.opnsense.org/index.php?topic=45619.0#msg229919
-- https://github.com/henrygd/beszel/discussions/39
+- <https://forum.opnsense.org/index.php?topic=45619.0#msg229919>
+- <https://github.com/henrygd/beszel/discussions/39>
 
 ## Home Assistant
 
