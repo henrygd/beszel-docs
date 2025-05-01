@@ -41,7 +41,7 @@ services:
       # - /mnt/disk1/.beszel:/extra-filesystems/disk1:ro
     environment:
       LISTEN: 45876
-      KEY: "<public key>"
+      KEY: '<public key>'
 ```
 
 ```bash [docker run]
@@ -150,7 +150,6 @@ StateDirectory=beszel-agent
 KeyringMode=private
 LockPersonality=yes
 NoNewPrivileges=yes
-PrivateTmp=yes
 ProtectClock=yes
 ProtectHome=read-only
 ProtectHostname=yes
@@ -221,7 +220,6 @@ StateDirectory=beszel-agent
 KeyringMode=private
 LockPersonality=yes
 NoNewPrivileges=yes
-PrivateTmp=yes
 ProtectClock=yes
 ProtectHome=read-only
 ProtectHostname=yes
@@ -271,13 +269,13 @@ brew install beszel-agent
 brew services start beszel-agent
 ```
 
-## Scoop (Windows)
+## WinGet / Scoop (Windows)
 
-The agent is available as a Scoop package.
+The agent is available as a package in [WinGet](https://winstall.app/apps/henrygd.beszel-agent) and [Scoop](https://scoop.sh/).
 
-For easiest installation, we recommend using the script below. This will install Scoop and dependencies (`git`, `7-Zip`) if they don't exist, along with [NSSM](https://nssm.cc/usage) and the agent.
+The script below uses Scoop if you have it installed, otherwise it uses WinGet if that's installed. If neither are available, it will install both Scoop and the agent.
 
-It will also create a service with NSSM to keep the agent running after reboot.
+It also installs [NSSM](https://nssm.cc/usage) and creates a service to keep the agent running after reboot.
 
 - `-Key`: SSH key (interactive if not provided)
 - `-Port`: Port (default: 45876)
@@ -306,17 +304,25 @@ Restart the service when finished: `nssm restart beszel-agent`
 
 ### Logs
 
-Logs should be written in `C:\ProgramData\beszel-agent\logs`.
+Logs are saved in `C:\ProgramData\beszel-agent\logs`.
 
 ### Upgrade
+
+#### Scoop
 
 ```powershell
 nssm stop beszel-agent; & scoop update beszel-agent; & nssm start beszel-agent
 ```
 
+#### WinGet
+
+```powershell
+nssm stop beszel-agent; & winget upgrade henrygd.beszel-agent; & nssm start beszel-agent
+```
+
 ### Uninstall
 
-Uninstall only the agent:
+#### Scoop
 
 ```powershell
 nssm stop beszel-agent
@@ -324,10 +330,12 @@ nssm remove beszel-agent confirm
 scoop uninstall beszel-agent
 ```
 
-Uninstall Scoop and all Scoop packages including NSSM and beszel-agent:
+#### WinGet
 
 ```powershell
-scoop uninstall scoop
+nssm stop beszel-agent
+nssm remove beszel-agent confirm
+winget uninstall henrygd.beszel-agent
 ```
 
 ## FreeBSD / OPNSense

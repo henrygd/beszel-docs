@@ -41,7 +41,7 @@ services:
       # - /mnt/disk1/.beszel:/extra-filesystems/disk1:ro
     environment:
       LISTEN: 45876
-      KEY: "<公钥>"
+      KEY: '<公钥>'
 ```
 
 ```bash [docker run]
@@ -221,7 +221,6 @@ StateDirectory=beszel-agent
 KeyringMode=private
 LockPersonality=yes
 NoNewPrivileges=yes
-PrivateTmp=yes
 ProtectClock=yes
 ProtectHome=read-only
 ProtectHostname=yes
@@ -271,13 +270,13 @@ brew install beszel-agent
 brew services start beszel-agent
 ```
 
-## Scoop (Windows)
+## WinGet / Scoop (Windows)
 
-代理可作为 Scoop 包使用。
+代理可作为 [WinGet](https://winstall.app/apps/henrygd.beszel-agent) 和 [Scoop](https://scoop.sh/) 包使用。
 
-为了最简单的安装，我们建议使用下面的脚本。如果不存在，它将安装 Scoop 和依赖项（`git`、`7-Zip`），以及 [NSSM](https://nssm.cc/usage) 和代理。
+下面的脚本会在您已安装的情况下使用 Scoop，否则如果已安装 WinGet 则使用 WinGet。如果两者都不可用，它将同时安装 Scoop 和代理。
 
-它还将使用 NSSM 创建一个服务，以便在重启后继续运行代理。
+它还将安装 [NSSM](https://nssm.cc/usage) 并创建一个服务，以便在重启后继续运行代理。
 
 - `-Key`：SSH 密钥（如果未提供则进入交互模式）
 - `-Port`：端口（默认：45876）
@@ -310,13 +309,21 @@ nssm set beszel-agent AppEnvironmentExtra "+EXTRA_FILESYSTEMS=D:,E:"
 
 ### 升级
 
+#### Scoop
+
 ```powershell
 nssm stop beszel-agent; & scoop update beszel-agent; & nssm start beszel-agent
 ```
 
+#### WinGet
+
+```powershell
+nssm stop beszel-agent; & winget upgrade henrygd.beszel-agent; & nssm start beszel-agent
+```
+
 ### 卸载
 
-仅卸载代理：
+#### Scoop
 
 ```powershell
 nssm stop beszel-agent
@@ -324,10 +331,12 @@ nssm remove beszel-agent confirm
 scoop uninstall beszel-agent
 ```
 
-卸载 Scoop 和所有 Scoop 包（包括 NSSM 和 beszel-agent）：
+#### WinGet
 
 ```powershell
-scoop uninstall scoop
+nssm stop beszel-agent
+nssm remove beszel-agent confirm
+winget uninstall henrygd.beszel-agent
 ```
 
 ## FreeBSD / OPNSense

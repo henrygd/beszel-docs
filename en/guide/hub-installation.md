@@ -91,7 +91,7 @@ curl -sL "https://github.com/henrygd/beszel/releases/latest/download/beszel_$(un
 
 If your system uses systemd, you can create a service to keep the hub running after reboot.
 
-1. Create a service file in `/etc/systemd/system/beszel.service`. A non-root user can be used if the user has write access to the working directory.
+1. Create a service file in `/etc/systemd/system/beszel.service`, replacing `{/path/to/working/directory}` with the path to the working directory. A non-root user can be used if the user has write access to the working directory.
 
 ```ini
 [Unit]

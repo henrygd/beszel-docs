@@ -91,7 +91,7 @@ curl -sL "https://github.com/henrygd/beszel/releases/latest/download/beszel_$(un
 
 如果您的系统使用 systemd，则可以创建一个服务来使中心在重新启动后继续运行。
 
-1. 在 `/etc/systemd/system/beszel.service` 中创建一个服务文件。如果用户对工作目录具有写入权限，则可以使用非 root 用户。
+1. 在 `/etc/systemd/system/beszel.service` 中创建一个服务文件，将 `{/path/to/working/directory}` 替换为工作目录的路径。如果用户对工作目录具有写入权限，则可以使用非 root 用户。
 
 ```ini
 [Unit]
@@ -144,7 +144,7 @@ sudo systemctl start beszel.service
 
 如果您的系统使用 systemd，则可以创建一个服务来使中心在重新启动后继续运行。
 
-1. 在 `/etc/systemd/system/beszel.service` 中创建一个服务文件。如果用户对工作目录具有写入权限，则可以使用非 root 用户。
+1. 在 `/etc/systemd/system/beszel.service` 中创建一个服务文件，将 `{/path/to/working/directory}` 替换为工作目录的路径。如果用户对工作目录具有写入权限，则可以使用非 root 用户。
 
 ```ini
 [Unit]
