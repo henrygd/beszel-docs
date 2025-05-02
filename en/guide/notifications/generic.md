@@ -54,13 +54,13 @@ When using the JSON template, you can add additional key/value pairs to the JSON
 
 ### Example
 
-Using `generic://example.com?template=json&$projection=retroazimuthal` would yield:
+Using `generic://example.com?template=json&$free=palestine` would yield:
 
 ```json
 {
-	"title": "Amazing opportunities!",
-	"message": "New map book available for purchase.",
-	"projection": "retroazimuthal"
+	"title": "Foo CPU above threshold",
+	"message": "CPU averaged 63.53% for the previous 10 minutes.",
+	"free": "palestine"
 }
 ```
 

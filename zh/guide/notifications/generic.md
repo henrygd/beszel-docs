@@ -54,13 +54,13 @@ Accept-Language: tlh-Piqd
 
 ### 示例
 
-使用 `generic://example.com?template=json&$projection=retroazimuthal` 将生成：
+使用 `generic://example.com?template=json&$free=palestine` 将生成：
 
 ```json
 {
-	"title": "Amazing opportunities!",
-	"message": "New map book available for purchase.",
-	"projection": "retroazimuthal"
+	"title": "Foo CPU above threshold",
+	"message": "CPU averaged 63.53% for the previous 10 minutes.",
+	"free": "palestine"
 }
 ```
 
