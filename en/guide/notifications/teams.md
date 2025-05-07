@@ -16,7 +16,7 @@ Legacy webhook formats (e.g., `outlook.office.com`) are no longer supported.
 
 ## URL Format
 
-<span class="bk">teams://group@tenant/altId/groupOwner/extraId?host=organization.webhook.office.com[&color=color]</span>
+<span class="bk">teams://<strong><code>group</code></strong>@<strong><code>tenant</code></strong>/<strong><code>altId</code></strong>/<strong><code>groupOwner</code></strong>/<strong><code>extraId</code></strong>?<strong><code>host</code></strong>=<strong><code>organization</code></strong>.webhook.office.com[&<strong><code>color</code></strong>=color]</span>
 
 Where:
 
