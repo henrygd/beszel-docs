@@ -55,6 +55,7 @@ Beszel does not allow automatic user creation by default. To enable it, set `USE
 - Notion
 - OpenID Connect
 - Patreon (v2)
+- Pocket ID
 - Spotify
 - Strava
 - Trackt
