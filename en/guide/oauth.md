@@ -34,26 +34,24 @@ Please avoid changing this setting directly in PocketBase as it will be overridd
 
 Beszel does not allow automatic user creation by default. To enable it, set `USER_CREATION=true` in the hub environment variables.
 
-## Supported providers
+## Supported external providers
+
+These are publicly available identity services offered by major platforms that users can authenticate with using their existing accounts.
 
 - Apple
 - Bitbucket
 - Discord
 - Facebook
-- Gitea
 - Gitee
 - GitHub
-- GitLab
 - Google
 - Instagram
 - Kakao
 - Linear
 - LiveChat
-- mailcow
 - Microsoft
 - monday.com
 - Notion
-- OpenID Connect
 - Patreon (v2)
 - Pocket ID
 - Spotify
@@ -62,5 +60,20 @@ Beszel does not allow automatic user creation by default. To enable it, set `USE
 - Twitch
 - Twitter
 - VK
-- WakaTime
 - Yandex
+
+## Self-hosted / custom identity providers
+
+These are OpenID Connect (OIDC-compliant) services you can host and manage yourself, typically used to centralize authentication within your own infrastructure or organization.
+
+This is not a complete list, just providers known to work. If you're using something different, feel free to add it!
+
+- [Authentik](https://docs.goauthentik.io/integrations/services/beszel/)
+- [Authelia](https://www.authelia.com/integration/openid-connect/beszel/)
+- Gitea
+- GitLab
+- Keycloak
+- mailcow
+- [Pocket ID](https://pocket-id.org/docs/client-examples/beszel)
+- WakaTime
+- ZITADEL
