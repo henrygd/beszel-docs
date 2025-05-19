@@ -42,8 +42,10 @@ These are publicly available identity services offered by major platforms that u
 - Bitbucket
 - Discord
 - Facebook
+- Gitea
 - Gitee
 - GitHub
+- GitLab
 - Google
 - Instagram
 - Kakao
@@ -53,14 +55,15 @@ These are publicly available identity services offered by major platforms that u
 - monday.com
 - Notion
 - Patreon (v2)
-- Pocket ID
 - Spotify
 - Strava
 - Trackt
 - Twitch
 - Twitter
 - VK
+- WakaTime
 - Yandex
+- ZITADEL
 
 ## Self-hosted / custom identity providers
 
@@ -68,12 +71,11 @@ These are OpenID Connect (OIDC-compliant) services you can host and manage yours
 
 This is not a complete list, just providers known to work. If you're using something different, feel free to add it!
 
-- [Authentik](https://docs.goauthentik.io/integrations/services/beszel/)
 - [Authelia](https://www.authelia.com/integration/openid-connect/beszel/)
+- [authentik](https://docs.goauthentik.io/integrations/services/beszel/)
 - Gitea
 - GitLab
 - Keycloak
 - mailcow
 - [Pocket ID](https://pocket-id.org/docs/client-examples/beszel)
-- WakaTime
 - ZITADEL

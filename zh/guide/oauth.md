@@ -34,7 +34,9 @@
 
 Beszel 默认情况下不允许自动创建用户。要启用它，请在中心的环境变量中设置 `USER_CREATION=true`。
 
-## 支持的提供商
+## 支持的外部提供商
+
+这些是由主要平台提供的公开身份服务，用户可以使用其现有账户进行身份验证。
 
 - Apple
 - Bitbucket
@@ -49,11 +51,9 @@ Beszel 默认情况下不允许自动创建用户。要启用它，请在中心�
 - Kakao
 - Linear
 - LiveChat
-- mailcow
 - Microsoft
 - monday.com
 - Notion
-- OpenID Connect
 - Patreon (v2)
 - Spotify
 - Strava
@@ -63,3 +63,19 @@ Beszel 默认情况下不允许自动创建用户。要启用它，请在中心�
 - VK
 - WakaTime
 - Yandex
+- ZITADEL
+
+## 自托管/自定义身份提供商
+
+这些是您可以自己托管和管理的 OpenID Connect（OIDC 兼容）服务，通常用于集中您自己的基础设施或组织内的身份验证。
+
+这不是完整列表，只是已知可用的提供商。如果您使用不同的提供商，欢迎添加！
+
+- [Authelia](https://www.authelia.com/integration/openid-connect/beszel/)
+- [authentik](https://docs.goauthentik.io/integrations/services/beszel/)
+- Gitea
+- GitLab
+- Keycloak
+- mailcow
+- [Pocket ID](https://pocket-id.org/docs/client-examples/beszel)
+- ZITADEL
