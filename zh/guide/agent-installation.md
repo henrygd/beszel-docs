@@ -158,7 +158,6 @@ ProtectKernelLogs=yes
 ProtectSystem=strict
 RemoveIPC=yes
 RestrictSUIDSGID=true
-SystemCallArchitectures=native
 
 [Install]
 WantedBy=multi-user.target
@@ -228,7 +227,6 @@ ProtectKernelLogs=yes
 ProtectSystem=strict
 RemoveIPC=yes
 RestrictSUIDSGID=true
-SystemCallArchitectures=native
 
 [Install]
 WantedBy=multi-user.target
