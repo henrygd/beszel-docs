@@ -16,8 +16,8 @@ Beszel 代理支持通过 Docker / Podman、单一二进制文件、Homebrew 包
 
 在添加新系统时，中心 (hub) 的 Web UI 中提供了可供复制/粘贴的 `docker-compose.yml` 或二进制安装命令。
 
-<a href="/image/add-system-2.png" target="_blank">
-  <img src="/image/add-system-2.png" height="482" width="946" alt="添加系统对话框" />
+<a href="/image/add-system-install.png" target="_blank">
+  <img src="/image/add-system-install.png" height="580" width="1043" alt="Add system dialog" />
 </a>
 
 ## Docker 或 Podman

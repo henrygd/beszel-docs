@@ -16,8 +16,8 @@ Alternatively, use software like WireGuard, Tailscale ([video instructions](http
 
 The `docker-compose.yml` or binary install command is provided for copy/paste in the hub's web UI when adding a new system.
 
-<a href="/image/add-system-2.png" target="_blank">
-  <img src="/image/add-system-2.png" height="482" width="946" alt="Add system dialog" />
+<a href="/image/add-system-install.png" target="_blank">
+  <img src="/image/add-system-install.png" height="580" width="1043" alt="Add system dialog" />
 </a>
 
 ## Docker or Podman
