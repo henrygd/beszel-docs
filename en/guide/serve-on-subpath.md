@@ -56,23 +56,23 @@ server {
 
 ```yaml
 beszel:
-    image: henrygd/beszel:latest
-    container_name: beszel
-    restart: unless-stopped
-    volumes:
-      - ./beszel_data:/beszel_data
-      - ./beszel_socket:/beszel_socket
-    networks:
-      - traefik-network
-    environment:
-      - APP_URL=https://${HOSTNAME}/${SUB_PATH}
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.beszel.entrypoints=web,websecure"
-      - "traefik.http.routers.beszel.rule=Host(`${HOSTNAME}`) && PathPrefix(`/${SUB_PATH}`)"
-      - "traefik.http.middlewares.strip-beszel.stripprefix.prefixes=/beszel"
-      - "traefik.http.routers.beszel.middlewares=strip-beszel@docker"
-      - "traefik.http.routers.beszel.tls=true"
-      - "traefik.http.routers.beszel.tls.certresolver=your-cert-resolver"
-      - "traefik.http.routers.beszel.tls.domains[0].main=${HOSTNAME}"
+  image: henrygd/beszel:latest
+  container_name: beszel
+  restart: unless-stopped
+  volumes:
+    - ./beszel_data:/beszel_data
+    - ./beszel_socket:/beszel_socket
+  networks:
+    - traefik-network
+  environment:
+    - APP_URL=https://${HOSTNAME}/${SUB_PATH}
+  labels:
+    - "traefik.enable=true"
+    - "traefik.http.routers.beszel.entrypoints=web,websecure"
+    - "traefik.http.routers.beszel.rule=Host(`${HOSTNAME}`) && PathPrefix(`/${SUB_PATH}`)"
+    - "traefik.http.middlewares.strip-beszel.stripprefix.prefixes=/beszel"
+    - "traefik.http.routers.beszel.middlewares=strip-beszel@docker"
+    - "traefik.http.routers.beszel.tls=true"
+    - "traefik.http.routers.beszel.tls.certresolver=your-cert-resolver"
+    - "traefik.http.routers.beszel.tls.domains[0].main=${HOSTNAME}"
 ```
