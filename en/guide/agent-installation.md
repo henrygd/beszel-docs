@@ -282,7 +282,9 @@ It also installs [NSSM](https://nssm.cc/usage) and creates a service to keep the
 & iwr -useb https://get.beszel.dev -OutFile "$env:TEMP\install-agent.ps1"; & Powershell -ExecutionPolicy Bypass -File "$env:TEMP\install-agent.ps1"
 ```
 
-The script's source code is available [on GitHub](https://github.com/henrygd/beszel/blob/main/supplemental/scripts/install-agent.ps1).
+> The script's source code is available [on GitHub](https://github.com/henrygd/beszel/blob/main/supplemental/scripts/install-agent.ps1).
+
+A community-maintained GUI installer is available at [vmhomelab/beszel-agent-installer](https://github.com/vmhomelab/beszel-agent-installer) and uses [Chocolatey](https://chocolatey.org/) to install the agent.
 
 ### Edit configuration
 

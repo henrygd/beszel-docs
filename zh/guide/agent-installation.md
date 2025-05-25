@@ -283,7 +283,9 @@ brew services start beszel-agent
 & iwr -useb https://get.beszel.dev -OutFile "$env:TEMP\install-agent.ps1"; & Powershell -ExecutionPolicy Bypass -File "$env:TEMP\install-agent.ps1"
 ```
 
-脚本的源代码可在 [GitHub](https://github.com/henrygd/beszel/blob/main/supplemental/scripts/install-agent.ps1) 上获取。
+> 脚本的源代码可在 [GitHub](https://github.com/henrygd/beszel/blob/main/supplemental/scripts/install-agent.ps1) 上获取。
+
+社区维护的 GUI 安装程序可在 [vmhomelab/beszel-agent-installer](https://github.com/vmhomelab/beszel-agent-installer) 获取，并使用 [Chocolatey](https://chocolatey.org/) 来安装代理。
 
 ### 编辑配置
 
