@@ -279,7 +279,7 @@ It also installs [NSSM](https://nssm.cc/usage) and creates a service to keep the
 - `-Port`: Port (default: 45876)
 
 ```powershell
-Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser; & iwr -useb https://get.beszel.dev -OutFile "$env:TEMP\install-agent.ps1"; & "$env:TEMP\install-agent.ps1"
+& iwr -useb https://get.beszel.dev -OutFile "$env:TEMP\install-agent.ps1"; & Powershell -ExecutionPolicy Bypass -File "$env:TEMP\install-agent.ps1"
 ```
 
 The script's source code is available [on GitHub](https://github.com/henrygd/beszel/blob/main/supplemental/scripts/install-agent.ps1).

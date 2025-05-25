@@ -280,7 +280,7 @@ brew services start beszel-agent
 - `-Port`：端口（默认：45876）
 
 ```powershell
-Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser; & iwr -useb https://get.beszel.dev -OutFile "$env:TEMP\install-agent.ps1"; & "$env:TEMP\install-agent.ps1"
+& iwr -useb https://get.beszel.dev -OutFile "$env:TEMP\install-agent.ps1"; & Powershell -ExecutionPolicy Bypass -File "$env:TEMP\install-agent.ps1"
 ```
 
 脚本的源代码可在 [GitHub](https://github.com/henrygd/beszel/blob/main/supplemental/scripts/install-agent.ps1) 上获取。
