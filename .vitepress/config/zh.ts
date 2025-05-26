@@ -145,9 +145,10 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
 			text: '关于',
 			collapsed: false,
 			items: [
-				{ text: '安全', link: 'security' },
 				{ text: '开发者指南', link: 'developer-guide' },
 				{ text: '多语言和本地化', link: 'multlingual-and-localization' },
+				{ text: '安全信息', link: 'security' },
+				{ text: '支持/讨论', link: 'support-discussion' },
 			],
 		},
 	]

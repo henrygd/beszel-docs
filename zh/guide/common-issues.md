@@ -1,5 +1,7 @@
 # 常见问题
 
+如果您的问题没有在此处列出，请搜索我们的 [GitHub 问题](https://github.com/henrygd/beszel/issues) 和 [讨论](https://github.com/henrygd/beszel/discussions) 来寻找解决方案。您也可以在社区运营的 [Matrix 聊天室](https://matrix.to/#/#beszel:matrix.org) 中咨询。
+
 ## 代理程序未连接
 
 请查看 PocketBase 中的日志页面 (`/_/#/logs`) 以获取有关错误的信息。

@@ -119,9 +119,10 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
 			text: 'About',
 			collapsed: false,
 			items: [
-				{ text: 'Security', link: 'security' },
 				{ text: 'Developer Guide', link: 'developer-guide' },
 				{ text: 'Multilingual and Localization', link: 'multlingual-and-localization' },
+				{ text: 'Security Information', link: 'security' },
+				{ text: 'Support / Discussion', link: 'support-discussion' },
 			],
 		},
 	]

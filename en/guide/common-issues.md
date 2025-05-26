@@ -1,5 +1,7 @@
 # Common Issues
 
+If your issue is not listed here, please search our [GitHub Issues](https://github.com/henrygd/beszel/issues) and [Discussions](https://github.com/henrygd/beszel/discussions) for a solution. You can also try asking in the community-run [Matrix room](https://matrix.to/#/#beszel:matrix.org).
+
 ## Agent is not connecting
 
 Check the logs page in PocketBase (`/_/#/logs`) for information about the error.
