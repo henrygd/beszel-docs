@@ -66,13 +66,19 @@ podman run -d \
   docker.io/henrygd/beszel-agent:latest
 ```
 
+:::
+
 ### 为什么使用主机网络模式？
 
 代理必须使用主机网络模式才能访问主机的网络接口统计数据。这会自动暴露端口，因此如果需要，请使用环境变量更改端口。
 
 如果您不需要主机网络统计数据，可以从 compose 文件中删除该行并手动映射端口。
 
-连接到本地代理时，`localhost` 将不起作用，因为容器位于不同的网络中。请参阅 [入门指南](./getting-started.md) 中的 Unix 套接字连接示例。
+### 连接到本地代理
+
+连接到本地代理时，`localhost` 将不起作用，因为容器位于不同的网络中。推荐的连接方式是使用 Unix 套接字。
+
+<!-- @include: ./parts/hub-docker-instructions.md -->
 
 :::
 

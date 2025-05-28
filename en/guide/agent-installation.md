@@ -66,15 +66,19 @@ podman run -d \
   docker.io/henrygd/beszel-agent:latest
 ```
 
+:::
+
 ### Why host network mode?
 
 The agent must use host network mode to access the host's network interface stats. This automatically exposes the port, so change the port using an environment variable if needed.
 
 If you don't need host network stats, you can remove that line from the compose file and map the port manually.
 
-When connecting to a local agent, `localhost` will not work because the containers are in different networks. See the [Getting Started](./getting-started.md) guide for an example of how to connect using a unix socket.
+### Connecting to a local agent
 
-:::
+When connecting to a local agent, `localhost` will not work because the containers are in different networks. The recommended way to connect them is to use a unix socket.
+
+<!-- @include: ./parts/hub-docker-instructions.md -->
 
 ## Binary
 

@@ -4,9 +4,17 @@
 
 This configuration should work out of the box, but you must follow these steps when adding the system in the web UI:
 
-1. Update the `KEY` value with your public key, then run `docker compose up -d` again to restart the agent.
+1. Update the `KEY` environment variable with your public key, then restart the agent:
 
-2. Use `/beszel_socket/beszel.sock` as the **Host / IP**.
+```
+docker compose up -d
+```
+
+2. Use the unix socket path as the **Host / IP** in the web UI:
+
+```
+/beszel_socket/beszel.sock
+```
 
 :::
 

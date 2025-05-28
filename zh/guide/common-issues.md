@@ -15,7 +15,9 @@
 
 ## 在同一系统上使用 Docker 连接中心和代理
 
-由于中心和代理位于不同的网络中（代理使用主机网络模式），推荐的连接方式是使用 Unix 套接字。有关完整的 `docker-compose.yml` 示例，请参阅 [入门指南](./getting-started.md)。
+连接到本地代理时，`localhost` 将不起作用，因为容器位于不同的网络中。推荐的连接方式是使用 Unix 套接字。
+
+<!-- @include: ./parts/hub-docker-instructions.md -->
 
 ## 实时统计数据不工作或更改未保存
 

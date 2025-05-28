@@ -4,9 +4,17 @@
 
 此配置通常可以直接使用，但在 Web 界面添加系统时需要执行以下步骤：
 
-1. 使用您的公钥更新 `KEY` 值，然后再次运行 `docker compose up -d` 以重新启动代理
+1. 使用您的公钥更新 `KEY` 环境变量，然后重新启动代理：
 
-2. 使用 `/beszel_socket/beszel.sock` 作为 **主机/IP**。
+```
+docker compose up -d
+```
+
+2. 在 Web 界面中使用 Unix 套接字路径作为 **主机/IP**：
+
+```
+/beszel_socket/beszel.sock
+```
 
 :::
 

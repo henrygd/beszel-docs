@@ -15,7 +15,9 @@ You can test connectivity by running `telnet <agent-ip> <port>` from another dev
 
 ## Connecting hub and agent on the same system using Docker
 
-Because the hub and agent are in different networks (the agent uses host network mode), the recommended way to connect them is to use a unix socket. See the [Getting Started](./getting-started.md) guide for a full `docker-compose.yml` example.
+When connecting to a local agent, `localhost` will not work because the containers are in different networks. The recommended way to connect them is to use a unix socket.
+
+<!-- @include: ./parts/hub-docker-instructions.md -->
 
 ## Real time stats not working / changes not saving
 
