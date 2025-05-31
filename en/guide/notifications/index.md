@@ -4,6 +4,10 @@ Notifications in Beszel are defined using [Shoutrrr](https://github.com/containr
 
 Shoutrrr is a Go library originally developed for use in [Watchtower](https://github.com/containrrr/watchtower). We use a pinned version of a maintained fork, [nicholas-fedor/shoutrrr](https://github.com/nicholas-fedor/shoutrrr). The docs here are adapted from there.
 
+The URL for the webhook/push notification host can be set in the settings page.
+
+The alerts can be configured in the systems table.
+
 ## Services overview
 
 Click on the service for a more thorough explanation.
