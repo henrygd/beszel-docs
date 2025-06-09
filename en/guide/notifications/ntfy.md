@@ -4,11 +4,7 @@ Upstream docs: https://docs.ntfy.sh/publish/
 
 ## URL Format
 
-<span class="bk">ntfy://[__`username`__:__`password`__@]**`host`**/**`topic`**</span>
-
-::: tip
-Username can be omitted if you're using an Access Token instead of a password.
-:::
+<span class="bk">ntfy://[__`username`__:__`password`__&#124;:__`accesstoken`__ @]**`host`**/**`topic`**</span>
 
 ## URL Fields
 
@@ -16,9 +12,13 @@ Username can be omitted if you're using an Access Token instead of a password.
   Default: empty<br>
   URL part: <code>ntfy://<strong>username</strong>:password@host/topic</code>
 
-- **Password** - Auth password or Access Token<br>
+- **Password** - Auth password<br>
   Default: empty<br>
   URL part: <code>ntfy://username:<strong>password</strong>@host/topic</code>
+
+- **Access Token** - Auth accesstoken<br>
+  Default: empty<br>
+  URL part: <code>ntfy://:<strong>accesstoken</strong>@host/topic</code>
 
 - **Host** - Server hostname and port<br>
   Default: ntfy.sh<br>
