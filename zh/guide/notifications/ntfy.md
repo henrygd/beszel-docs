@@ -4,11 +4,19 @@
 
 ## URL 格式
 
-<span class="bk">ntfy://[__`username`__:__`password`__@]**`host`**/**`topic`**</span>
+授权可以使用用户名和密码或访问令牌。
 
-::: tip 提示
-如果使用访问令牌（Access Token）而不是密码，可以省略用户名。
-:::
+### 用户名和密码
+
+<span class="bk">ntfy://**`username`**:**`password`**@**`host`**/**`topic`**</span>
+
+### 访问令牌
+
+如果使用访问令牌，您不需要提供用户名或密码。
+
+<span class="bk">ntfy://:**`accesstoken`**@**`host`**/**`topic`**</span>
+
+> 注意访问令牌前面的冒号。
 
 ## URL 字段
 
@@ -16,9 +24,13 @@
   默认值: 空<br>
   URL 部分: <code>ntfy://<strong>username</strong>:password@host/topic</code>
 
-- **Password** - 认证密码或访问令牌<br>
+- **Password** - 认证密码<br>
   默认值: 空<br>
   URL 部分: <code>ntfy://username:<strong>password</strong>@host/topic</code>
+
+- **Access Token** - 认证访问令牌<br>
+  默认值: 空<br>
+  URL 部分: <code>ntfy://:<strong>accesstoken</strong>@host/topic</code>
 
 - **Host** - 服务器主机名和端口<br>
   默认值: ntfy.sh<br>

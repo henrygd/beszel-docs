@@ -4,7 +4,19 @@ Upstream docs: https://docs.ntfy.sh/publish/
 
 ## URL Format
 
-<span class="bk">ntfy://[__`username`__:__`password`__&#124;:__`accesstoken`__ @]**`host`**/**`topic`**</span>
+Authorization can be done using username and password or access token.
+
+### Username and Password
+
+<span class="bk">ntfy://**`username`**:**`password`**@**`host`**/**`topic`**</span>
+
+### Access Token
+
+If using an access token, you do not need to provide a username or password.
+
+<span class="bk">ntfy://:**`accesstoken`**@**`host`**/**`topic`**</span>
+
+> Note the colon directly before the access token.
 
 ## URL Fields
 

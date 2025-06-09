@@ -22,7 +22,7 @@ Click on the service for a more thorough explanation.
 | [Lark](./lark.md)              | lark://**`host`**/**`token`**?secret=**`secret`**                                                                            |
 | [Mattermost](./mattermost.md)  | mattermost://[__`username`__@]**`mattermost-host`**/**`token`**[/__`channel`__]                                              |
 | [Matrix](./matrix.md)          | matrix://**`username`**:**`password`**@**`host`**:**`port`**/[?rooms=**`!roomID1`**[,__`roomAlias2`__]]                      |
-| [Ntfy](./ntfy.md)              | ntfy://**`username`**:**`password`**@ntfy.sh/**`topic`**                                                                     |
+| [Ntfy](./ntfy.md)              | ntfy://:**`accesstoken`**@**`host`**/**`topic`**                                                                             |
 | [OpsGenie](./opsgenie.md)      | opsgenie://**`host`**/token?responders=**`responder1`**[,__`responder2`__]\_                                                 |
 | [Pushbullet](./pushbullet.md)  | pushbullet://**`api-token`**[/__`device`__/#__`channel`__/__`email`__]                                                       |
 | [Pushover](./pushover.md)      | pushover://shoutrrr:**`apiToken`**@**`userKey`**/?devices=**`device1`**[,__`device2`__, ...]                                 |
