@@ -6,15 +6,17 @@ Beszel Agent supports installation via Docker / Podman, single binary file, Home
 Check the [Getting Started](./getting-started.md) guide if you're setting up Beszel for the first time.
 :::
 
-## Requirements
+<!-- ## Requirements
 
 If the agent and hub are on different hosts, you may need to update the firewall on your agent system to allow incoming TCP connections on the agent's port.
 
-Alternatively, use software like WireGuard, Tailscale ([video instructions](https://www.youtube.com/watch?v=O_9wT-5LoHM)), Cloudflare Tunnel ([instructions](https://github.com/henrygd/beszel/discussions/250)), or Pangolin to securely bypass the firewall.
+Alternatively, use software like WireGuard, Tailscale ([video instructions](https://www.youtube.com/watch?v=O_9wT-5LoHM)), Cloudflare Tunnel ([instructions](https://github.com/henrygd/beszel/discussions/250)), or Pangolin to securely bypass the firewall. -->
 
 ## Using the Hub
 
-The `docker-compose.yml` or binary install command is provided for copy/paste in the hub's web UI when adding a new system.
+The `docker-compose.yml` or binary install command is provided for copy/paste in the hub's web UI.
+
+Click the **Add System** button to manually configure the agent, or use a universal token (`/settings/tokens`) to connect the agent without needing to set it up ahead of time.
 
 <a href="/image/add-system-install.png" target="_blank">
   <img src="/image/add-system-install.png" height="580" width="1043" alt="Add system dialog" />
@@ -41,7 +43,9 @@ services:
       # - /mnt/disk1/.beszel:/extra-filesystems/disk1:ro
     environment:
       LISTEN: 45876
-      KEY: '<public key>'
+      KEY: "<public key>"
+      HUB_URL: "http://localhost:8090"
+      TOKEN: "<token>"
 ```
 
 ```bash [docker run]
@@ -94,6 +98,9 @@ The script installs the latest binary and optionally enables automatic daily upd
 
 - `-k`: Public key (enclose in quotes; interactive if not provided)
 - `-p`: Port or address (default: 45876)
+- `-t`: Token (interactive if not provided)
+- `-url`: Hub URL (interactive if not provided)
+- `-v`: Version (default: latest)
 - `-u`: Uninstall
 - `--auto-update`: Enable or disable automatic daily updates (interactive if not provided)
 - `--china-mirrors`: Use GitHub mirror to resolve network issues in mainland China

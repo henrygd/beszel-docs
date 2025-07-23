@@ -4,7 +4,7 @@
 
 This configuration should work out of the box, but you must follow these steps when adding the system in the web UI:
 
-1. Update the `KEY` environment variable with your public key, then restart the agent:
+1. Update the `KEY` and `TOKEN` environment variables with your public key and token, then restart the agent:
 
 ```
 docker compose up -d
@@ -42,8 +42,9 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     environment:
       LISTEN: /beszel_socket/beszel.sock
-      # Do not remove quotes around the key
-      KEY: 'UPDATE WITH YOUR PUBLIC KEY (copy from "Add system" dialog)'
+      HUB_URL: http://localhost:8090
+      TOKEN: <token>
+      KEY: "<key>"
 ```
 
 ::::

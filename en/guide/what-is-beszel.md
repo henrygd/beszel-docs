@@ -28,7 +28,6 @@ It has a friendly web interface, simple configuration, and is ready to use out o
 - **Multi-user**: Users manage their own systems. Admins can share systems across users.
 - **OAuth / OIDC**: Supports many OAuth2 providers. Password auth can be disabled.
 - **Automatic backups**: Save and restore data from disk or S3-compatible storage.
-- **REST API**: Use or update your data in your own scripts and applications.
 
 ## Architecture
 
@@ -59,5 +58,6 @@ Beszel consists of two main components: the **hub** and the **agent**.
 - **Disk usage** - Host system. Supports multiple partitions and devices.
 - **Disk I/O** - Host system. Supports multiple partitions and devices.
 - **Network usage** - Host system and containers.
+- **Load average** - Host system.
 - **Temperature** - Host system sensors.
 - **GPU usage / temperature / power draw** - Nvidia and AMD only. Must use binary agent.

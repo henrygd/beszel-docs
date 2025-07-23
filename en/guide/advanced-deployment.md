@@ -2,6 +2,12 @@
 
 Community examples and templates for various deployment methods.
 
+::: tip 0.12.0 Update
+These guides were written prior to the introduction of universal tokens and agent-initiated WebSocket connections.
+
+It should now be simpler to deploy agents in cluster environments. Feel free to share feedback or updated examples on our [GitHub Discussions](https://github.com/henrygd/beszel/discussions) page.
+:::
+
 ## Ansible
 
 A role to install and configure agents has been published on [Ansible Galaxy](https://galaxy.ansible.com/ui/standalone/roles/dbrennand/beszel/documentation/) by [dbrennand](https://github.com/dbrennand). The source code is available at [dbrennand/ansible-role-beszel](https://github.com/dbrennand/ansible-role-beszel).
@@ -18,7 +24,7 @@ Below are example roles provided by [hellofaduck](https://github.com/hellofaduck
   get_url:
     url: https://raw.githubusercontent.com/henrygd/beszel/main/supplemental/scripts/install-agent.sh
     dest: /tmp/install-agent.sh
-    mode: '0755' # Set executable permissions
+    mode: "0755" # Set executable permissions
 
 - name: Remove beszel agent if service exists
   become: true
@@ -49,7 +55,7 @@ Below are example roles provided by [hellofaduck](https://github.com/hellofaduck
       ansible.builtin.get_url:
         url: https://raw.githubusercontent.com/henrygd/beszel/main/supplemental/scripts/install-agent.sh
         dest: /tmp/install-agent.sh
-        mode: '0755' # Set executable permissions
+        mode: "0755" # Set executable permissions
       when: ansible_facts['services']['beszel-agent.service'] is defined
 
     - name: Remove beszel agent
@@ -66,7 +72,7 @@ You will need to add these variables to your `all.yml` file:
 # Beszel monitoring ssh key for installing beszel agents on all nodes
 beszel_agent: true
 beszel_agent_autoupdate: true
-beszel_agent_ssh_key: 'ssh-ed25519 lalalal'
+beszel_agent_ssh_key: "ssh-ed25519 lalalal"
 beszel_agent_ssh_port: 45876
 ```
 
@@ -162,9 +168,9 @@ spec:
       containers:
         - env:
             - name: LISTEN
-              value: '45876'
+              value: "45876"
             - name: KEY
-              value: 'YOUR-KEY-HERE'
+              value: "YOUR-KEY-HERE"
           image: henrygd/beszel-agent:latest
           imagePullPolicy: Always
           name: beszel-agent

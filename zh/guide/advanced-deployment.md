@@ -2,6 +2,12 @@
 
 社区提供的各种部署方法的示例和模板。
 
+::: tip 0.12.0 更新
+这些指南是在引入通用令牌和代理发起的 WebSocket 连接之前编写的。
+
+现在在集群环境中部署代理应该更简单了。欢迎在我们的 [GitHub 讨论](https://github.com/henrygd/beszel/discussions) 页面分享反馈或更新的示例。
+:::
+
 ## Ansible
 
 [dbrennand](https://github.com/dbrennand) 在 [Ansible Galaxy](https://galaxy.ansible.com/ui/standalone/roles/dbrennand/beszel/documentation/) 上发布了一个用于安装和配置代理的角色。源代码可在 [dbrennand/ansible-role-beszel](https://github.com/dbrennand/ansible-role-beszel) 获取。
@@ -18,7 +24,7 @@
   get_url:
     url: https://raw.githubusercontent.com/henrygd/beszel/main/supplemental/scripts/install-agent.sh
     dest: /tmp/install-agent.sh
-    mode: '0755' # 设置可执行权限
+    mode: "0755" # 设置可执行权限
 
 - name: 如果服务存在则删除 beszel 代理
   become: true
@@ -49,7 +55,7 @@
       ansible.builtin.get_url:
         url: https://raw.githubusercontent.com/henrygd/beszel/main/supplemental/scripts/install-agent.sh
         dest: /tmp/install-agent.sh
-        mode: '0755' # 设置可执行权限
+        mode: "0755" # 设置可执行权限
       when: ansible_facts['services']['beszel-agent.service'] is defined
 
     - name: 删除 beszel 代理
@@ -66,7 +72,7 @@
 # Beszel 监控 SSH 密钥，用于在所有节点上安装 beszel 代理
 beszel_agent: true
 beszel_agent_autoupdate: true
-beszel_agent_ssh_key: 'ssh-ed25519 lalalal'
+beszel_agent_ssh_key: "ssh-ed25519 lalalal"
 beszel_agent_ssh_port: 45876
 ```
 
@@ -162,9 +168,9 @@ spec:
       containers:
         - env:
             - name: LISTEN
-              value: '45876'
+              value: "45876"
             - name: KEY
-              value: 'YOUR-KEY-HERE'
+              value: "YOUR-KEY-HERE"
           image: henrygd/beszel-agent:latest
           imagePullPolicy: Always
           name: beszel-agent
@@ -189,3 +195,5 @@ spec:
 #### 将系统添加到 Beszel
 
 由于我们使用了 `hostNetwork: true`，因此在添加系统时需要使用 Kubernetes 节点的 IP 地址。**注意：这不是 Kubernetes 内部 IP，而是节点本身的物理 IP。** 每个 Kubernetes 节点只运行一个代理 Pod，因此这种方法有效。
+
+```

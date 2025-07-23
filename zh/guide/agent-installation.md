@@ -6,15 +6,17 @@ Beszel 代理支持通过 Docker / Podman、单一二进制文件、Homebrew 包
 如果您是首次设置 Beszel，请查看 [开始使用](./getting-started.md) 指南。
 :::
 
-## 要求
+<!-- ## 要求
 
 如果代理和中心 (hub) 位于不同的主机上，您可能需要在代理系统的防火墙上更新配置，以允许代理端口上的传入 TCP 连接。
 
-或者，使用 WireGuard、Tailscale ([视频教程](https://www.youtube.com/watch?v=O_9wT-5LoHM))、Cloudflare Tunnel（[说明](https://github.com/henrygd/beszel/discussions/250)）或 Pangolin 等软件安全地绕过防火墙。
+或者，使用 WireGuard、Tailscale ([视频教程](https://www.youtube.com/watch?v=O_9wT-5LoHM))、Cloudflare Tunnel（[说明](https://github.com/henrygd/beszel/discussions/250)）或 Pangolin 等软件安全地绕过防火墙。 -->
 
 ## 使用中心 (Hub)
 
-在添加新系统时，中心 (hub) 的 Web UI 中提供了可供复制/粘贴的 `docker-compose.yml` 或二进制安装命令。
+在中心 (hub) 的 Web UI 中提供了可供复制/粘贴的 `docker-compose.yml` 或二进制安装命令。
+
+点击 **添加系统** 按钮手动配置代理，或使用通用令牌（`/settings/tokens`）连接代理，无需提前设置。
 
 <a href="/image/add-system-install.png" target="_blank">
   <img src="/image/add-system-install.png" height="580" width="1043" alt="Add system dialog" />
@@ -41,7 +43,9 @@ services:
       # - /mnt/disk1/.beszel:/extra-filesystems/disk1:ro
     environment:
       LISTEN: 45876
-      KEY: '<公钥>'
+      KEY: "<公钥>"
+      HUB_URL: "http://localhost:8090"
+      TOKEN: "<令牌>"
 ```
 
 ```bash [docker run]
@@ -96,6 +100,9 @@ Beszel 使用纯 Go 编写，如果没有预构建的二进制文件，可以很
 
 - `-k`：公钥（用引号括起来；如果未提供则进入交互模式）
 - `-p`：端口或地址（默认：45876）
+- `-t`：令牌（如果未提供则进入交互模式）
+- `-url`：中心 URL（如果未提供则进入交互模式）
+- `-v`：版本（默认：latest）
 - `-u`：卸载
 - `--auto-update`：启用或禁用每日自动更新（如果未提供则进入交互模式）
 - `--china-mirrors`：使用 GitHub 镜像以解决中国大陆的网络问题

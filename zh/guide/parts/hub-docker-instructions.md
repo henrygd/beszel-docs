@@ -4,7 +4,7 @@
 
 此配置通常可以直接使用，但在 Web 界面添加系统时需要执行以下步骤：
 
-1. 使用您的公钥更新 `KEY` 环境变量，然后重新启动代理：
+1. 使用您的公钥和令牌更新 `KEY` 和 `TOKEN` 环境变量，然后重新启动代理：
 
 ```
 docker compose up -d
@@ -42,8 +42,9 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     environment:
       LISTEN: /beszel_socket/beszel.sock
-      # 请勿删除密钥周围的引号
-      KEY: '使用"添加系统"对话框复制的公钥进行更新'
+      HUB_URL: http://localhost:8090
+      TOKEN: <令牌>
+      KEY: "<密钥>"
 ```
 
 ::::

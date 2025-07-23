@@ -27,7 +27,7 @@
 
 单击右上角的 添加系统 (Add System) 按钮以打开系统创建对话框。本示例中我们使用的是本地 unix 套接字，但您也可以使用远程代理。
 
-在启动代理之前，请勿点击对话框中的 添加系统 (Add System) 按钮。
+> 注意：从 0.12.0 版本开始，您也可以使用通用令牌（`/settings/tokens`）将代理连接到中心，无需提前配置。
 
 <a href="/image/add-system-socket-2.png" target="_blank">
 <img src="/image/add-system-socket-2.png" height="589" width="896" alt="系统创建表单截图" />

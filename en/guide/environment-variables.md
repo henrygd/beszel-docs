@@ -31,6 +31,7 @@ Environment variables may optionally be prefixed with `BESZEL_AGENT_`.
 | `DOCKER_HOST`       | unset   | Overrides the Docker host (docker.sock).                                                       |
 | `EXTRA_FILESYSTEMS` | unset   | Monitor extra disks if using binary. See [Additional Disks](./additional-disks).               |
 | `FILESYSTEM`        | unset   | Device, partition, or mount point to use for root disk stats.                                  |
+| `HUB_URL`           | unset   | URL of the hub.                                                                                |
 | `KEY`               | unset   | Public SSH key(s) to use for authentication. Provided in hub.                                  |
 | `KEY_FILE`          | unset   | Read public keys from a file instead of an environment variable.                               |
 | `LISTEN`            | 45876   | Port or host:port to listen on.                                                                |
@@ -41,6 +42,7 @@ Environment variables may optionally be prefixed with `BESZEL_AGENT_`.
 | `PRIMARY_SENSOR`    | unset   | Display specific temperature sensor in 'All Systems' table.                                    |
 | `SENSORS`           | unset   | Whitelist or blacklist temperature sensors.                                                    |
 | `SYS_SENSORS`       | unset   | Overrides sys path for sensors. See [#160](https://github.com/henrygd/beszel/discussions/160). |
+| `TOKEN`             | unset   | WebSocket registration token. Provided in hub.                                              |
 
 ### `DOCKER_HOST`
 

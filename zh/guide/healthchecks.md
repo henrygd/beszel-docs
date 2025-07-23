@@ -6,15 +6,14 @@ Hub 和 Agent 都有可用于 Docker 健康检查的 `health` 命令。
 
 ## Agent 示例
 
-Agent 健康检查会测试 SSH 服务器是否正在监听。
+Agent 健康检查验证代理是否正常运行，而不一定是它是否已连接到中心。
 
 ```yaml
 services:
   beszel-agent:
     healthcheck:
-      test: ['CMD', '/agent', 'health'] # 运行健康检查命令
-      start_period: 5s # 容器启动后 5 秒进行检查
-      interval: 120s # 之后每 120 秒检查一次
+      test: ['CMD', '/agent', 'health']
+      interval: 120s
 ```
 
 ## Hub 示例

@@ -6,15 +6,14 @@ They add a bit of CPU overhead, so we recommend using an interval of `60s` or mo
 
 ## Agent example
 
-The agent healthcheck tests if the SSH server is listening.
+The agent healthcheck verifies the agent is running properly, not necessarily that it's connected to the hub.
 
 ```yaml
 services:
   beszel-agent:
     healthcheck:
-      test: ['CMD', '/agent', 'health'] # Run the health command
-      start_period: 5s # Check 5 seconds after the container starts
-      interval: 120s # Then check every 120 seconds after that
+      test: ['CMD', '/agent', 'health']
+      interval: 120s
 ```
 
 ## Hub example

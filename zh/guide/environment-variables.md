@@ -31,6 +31,7 @@
 | `DOCKER_HOST`       | 未设置 | 覆盖 Docker 主机 (docker.sock)。                                                             |
 | `EXTRA_FILESYSTEMS` | 未设置 | 如果使用二进制文件，则监控额外的磁盘。请参阅 [其他磁盘](./additional-disks.md)。             |
 | `FILESYSTEM`        | 未设置 | 用于根磁盘统计的设备、分区或挂载点。                                                         |
+| `HUB_URL`           | 未设置 | 中心的 URL。                                                                                 |
 | `KEY`               | 未设置 | 用于身份验证的公共 SSH 密钥（可多个）。在中心提供。                                          |
 | `KEY_FILE`          | 未设置 | 从文件中读取公钥（可多个），而不是从环境变量中读取。                                         |
 | `LISTEN`            | 45876  | 监听的端口或主机:端口。                                                                      |
@@ -41,6 +42,7 @@
 | `PRIMARY_SENSOR`    | 未设置 | 在"所有系统"表格中显示的特定温度传感器。                                                     |
 | `SENSORS`           | 未设置 | 温度传感器的白名单或黑名单。                                                                 |
 | `SYS_SENSORS`       | 未设置 | 覆盖用于传感器的系统路径。请参阅 [#160](https://github.com/henrygd/beszel/discussions/160)。 |
+| `TOKEN`             | 未设置 | WebSocket 注册令牌。在中心提供。                                                             |
 
 ### `DOCKER_HOST`
 

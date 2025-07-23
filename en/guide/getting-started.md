@@ -27,7 +27,7 @@ You will be prompted to create an account:
 
 Click the **Add System** button in the top right corner to open the system creation dialog. We're using a local unix socket in this example, but you can use a remote agent instead.
 
-Do not click the **Add System** button inside the dialog until you've started up the agent.
+> Note: As of 0.12.0, you can also use a universal token (`/settings/tokens`) to connect the agent to the hub without needing to configure it ahead of time.
 
 <a href="/image/add-system-socket-2.png" target="_blank">
   <img src="/image/add-system-socket-2.png" height="589" width="896" alt="Screenshot of system creation form" />
