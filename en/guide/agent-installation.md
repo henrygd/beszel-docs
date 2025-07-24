@@ -98,8 +98,8 @@ The script installs the latest binary and optionally enables automatic daily upd
 
 - `-k`: Public key (enclose in quotes; interactive if not provided)
 - `-p`: Port or address (default: 45876)
-- `-t`: Token (interactive if not provided)
-- `-url`: Hub URL (interactive if not provided)
+- `-t`: Token (optional for backwards compatibility)
+- `-url`: Hub URL (optional for backwards compatibility)
 - `-v`: Version (default: latest)
 - `-u`: Uninstall
 - `--auto-update`: Enable or disable automatic daily updates (interactive if not provided)
@@ -262,6 +262,8 @@ Logs are written to `~/.cache/beszel/beszel-agent.log`.
 
 - `-k`: SSH key (interactive if not provided)
 - `-p`: Port (default: 45876)
+- `-t`: Token (optional for backwards compatibility)
+- `-url`: Hub URL (optional for backwards compatibility)
 - `-h`: Show help
 
 ```bash
@@ -288,6 +290,8 @@ It also installs [NSSM](https://nssm.cc/usage) and creates a service to keep the
 
 - `-Key`: SSH key (interactive if not provided)
 - `-Port`: Port (default: 45876)
+- `-Url`: Hub URL (optional for backwards compatibility)
+- `-Token`: Token (optional for backwards compatibility)
 
 ```powershell
 & iwr -useb https://get.beszel.dev -OutFile "$env:TEMP\install-agent.ps1"; & Powershell -ExecutionPolicy Bypass -File "$env:TEMP\install-agent.ps1"
@@ -327,9 +331,7 @@ nssm stop beszel-agent; & scoop update beszel-agent; & nssm start beszel-agent
 
 #### WinGet
 
-```powershell
-nssm stop beszel-agent; & winget upgrade henrygd.beszel-agent; & nssm start beszel-agent
-```
+See [Upgrading with WinGet](./upgrade-winget.md).
 
 ### Uninstall
 

@@ -100,8 +100,8 @@ Beszel 使用纯 Go 编写，如果没有预构建的二进制文件，可以很
 
 - `-k`：公钥（用引号括起来；如果未提供则进入交互模式）
 - `-p`：端口或地址（默认：45876）
-- `-t`：令牌（如果未提供则进入交互模式）
-- `-url`：中心 URL（如果未提供则进入交互模式）
+- `-t`：令牌（可选，用于向后兼容）
+- `-url`：中心 URL（可选，用于向后兼容）
 - `-v`：版本（默认：latest）
 - `-u`：卸载
 - `--auto-update`：启用或禁用每日自动更新（如果未提供则进入交互模式）
@@ -265,6 +265,8 @@ sudo systemctl start beszel-agent.service
 
 - `-k`：SSH 密钥（如果未提供则进入交互模式）
 - `-p`：端口（默认：45876）
+- `-t`：令牌（可选，用于向后兼容）
+- `-url`：中心 URL（可选，用于向后兼容）
 - `-h`：显示帮助信息
 
 ```bash
@@ -291,6 +293,8 @@ brew services start beszel-agent
 
 - `-Key`：SSH 密钥（如果未提供则进入交互模式）
 - `-Port`：端口（默认：45876）
+- `-Url`：中心 URL（可选，用于向后兼容）
+- `-Token`：令牌（可选，用于向后兼容）
 
 ```powershell
 & iwr -useb https://get.beszel.dev -OutFile "$env:TEMP\install-agent.ps1"; & Powershell -ExecutionPolicy Bypass -File "$env:TEMP\install-agent.ps1"
@@ -330,9 +334,7 @@ nssm stop beszel-agent; & scoop update beszel-agent; & nssm start beszel-agent
 
 #### WinGet
 
-```powershell
-nssm stop beszel-agent; & winget upgrade henrygd.beszel-agent; & nssm start beszel-agent
-```
+请参阅 [使用 WinGet 升级](./upgrade-winget.md)。
 
 ### 卸载
 
