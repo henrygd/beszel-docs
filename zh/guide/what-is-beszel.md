@@ -6,16 +6,16 @@ Beszel 是一个轻量级的服务器监控平台，包含 Docker 统计信息�
 
 <div style="display: flex; flex-wrap: wrap; gap: .5em; margin: 1.6em 0 -.3em">
   <a href="https://hub.docker.com/r/henrygd/beszel-agent" target="_blank">
-    <img height="22" width="171" src="https://img.shields.io/docker/image-size/henrygd/beszel-agent/latest?logo=docker&label=代理镜像大小" alt="代理镜像大小" />
+    <img height="20" width="171" src="https://img.shields.io/docker/image-size/henrygd/beszel-agent/latest?logo=docker&label=代理镜像大小" alt="代理 Docker 镜像大小" />
   </a>
   <a href="https://hub.docker.com/r/henrygd/beszel" target="_blank">
-    <img height="22" width="169" src="https://img.shields.io/docker/image-size/henrygd/beszel/latest?logo=docker&label=中心镜像大小" alt="中心镜像大小" />
+    <img height="20" width="169" src="https://img.shields.io/docker/image-size/henrygd/beszel/latest?logo=docker&label=中心镜像大小" alt="中心 Docker 镜像大小" />
   </a>
   <a href="https://github.com/henrygd/beszel/blob/main/LICENSE" target="_blank">
-    <img height="22" width="78" style="height:22px" src="https://img.shields.io/github/license/henrygd/beszel?color=%239944ee&label=许可证" alt="MIT 许可证" />
+    <img height="20" width="78" src="https://img.shields.io/github/license/henrygd/beszel?color=%239944ee&label=许可证" alt="MIT 许可证" />
   </a>
   <a href="https://crowdin.com/project/beszel" target="_blank">
-    <img height="22" width="97" style="height:22px" src="https://badges.crowdin.net/beszel/localized.svg" alt="Crowdin 翻译" />
+    <img height="20" width="97" src="https://badges.crowdin.net/beszel/localized.svg" alt="Crowdin 翻译" />
   </a>
 </div>
 
@@ -34,19 +34,19 @@ Beszel 是一个轻量级的服务器监控平台，包含 Docker 统计信息�
 Beszel 由两个主要组件组成：**中心 (hub)** 和 **代理 (agent)**。
 
 - **中心 (hub)**: 一个基于 [PocketBase](https://pocketbase.io/) 构建的 Web 应用程序，提供用于查看和管理连接系统的仪表板。
-- **代理 (agent)**: 在您要监控的每个系统上运行，创建一个最小的 SSH 服务器以将系统指标传递到中心。
+- **代理 (agent)**: 在您要监控的每个系统上运行，并将系统指标传递给中心。
 
 ## 屏幕截图
 
 <div style="display: grid; gap: 15px;">
   <a href="/image/dashboard.png" target="_blank">
-    <img src="/image/dashboard.png" height="967" width="1419" alt="仪表板" />
+    <img src="/image/dashboard.png" height="967" width="1419" alt="显示多个已连接系统的仪表板页面" />
   </a>
   <a href="/image/system-full.png" target="_blank">
-    <img src="/image/system-full.png" height="2551" width="1422" alt="系统页面" />
+    <img src="/image/system-full.png" height="2551" width="1422" alt="显示详细指标的系统页面" />
   </a>
   <a href="/image/settings-notifications.png" target="_blank">
-    <img src="/image/settings-notifications.png" height="928" width="1429" alt="通知设置" />
+    <img src="/image/settings-notifications.png" height="928" width="1429" alt="通知设置页面" />
   </a>
 </div>
 
