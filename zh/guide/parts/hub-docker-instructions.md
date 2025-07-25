@@ -38,6 +38,7 @@ services:
     restart: unless-stopped
     network_mode: host
     volumes:
+      - ./beszel_agent_data:/var/lib/beszel-agent
       - ./beszel_socket:/beszel_socket
       - /var/run/docker.sock:/var/run/docker.sock:ro
     environment:

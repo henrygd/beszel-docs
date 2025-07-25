@@ -38,6 +38,7 @@ services:
     restart: unless-stopped
     network_mode: host
     volumes:
+      - ./beszel_agent_data:/var/lib/beszel-agent
       - /var/run/docker.sock:/var/run/docker.sock:ro
       # 通过在 /extra-filesystems 中挂载文件夹来监控其他磁盘/分区
       # - /mnt/disk1/.beszel:/extra-filesystems/disk1:ro

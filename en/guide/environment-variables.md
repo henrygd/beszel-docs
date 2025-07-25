@@ -28,6 +28,7 @@ Environment variables may optionally be prefixed with `BESZEL_AGENT_`.
 
 | Name                | Default | Description                                                                                    |
 | ------------------- | ------- | ---------------------------------------------------------------------------------------------- |
+| `DATA_DIR`          | unset   | Persistent data directory.                                                                     |
 | `DOCKER_HOST`       | unset   | Overrides the Docker host (docker.sock).                                                       |
 | `EXTRA_FILESYSTEMS` | unset   | Monitor extra disks if using binary. See [Additional Disks](./additional-disks).               |
 | `FILESYSTEM`        | unset   | Device, partition, or mount point to use for root disk stats.                                  |
@@ -42,7 +43,11 @@ Environment variables may optionally be prefixed with `BESZEL_AGENT_`.
 | `PRIMARY_SENSOR`    | unset   | Display specific temperature sensor in 'All Systems' table.                                    |
 | `SENSORS`           | unset   | Whitelist or blacklist temperature sensors.                                                    |
 | `SYS_SENSORS`       | unset   | Overrides sys path for sensors. See [#160](https://github.com/henrygd/beszel/discussions/160). |
-| `TOKEN`             | unset   | WebSocket registration token. Provided in hub.                                              |
+| `TOKEN`             | unset   | WebSocket registration token. Provided in hub.                                                 |
+
+### `DATA_DIR`
+
+Attempts to find a suitable directory if unset. Currently only used to store the system fingerprint, but may be used in the future for a SQLite database. The fingerprint is deterministic, so in most cases you can ignore warnings if no directory is found.
 
 ### `DOCKER_HOST`
 
