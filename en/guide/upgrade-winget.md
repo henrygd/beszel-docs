@@ -1,11 +1,6 @@
 # Upgrading with WinGet
 
-::: tip Work in progress
-
-This is currently being tested with the 0.12.0 release. If the upgrade fails, please check back later.
-:::
-
-<!-- This guide explains how to upgrade the Beszel Agent on Windows systems, particularly when installed via WinGet. -->
+This guide explains how to upgrade the Beszel Agent on Windows systems when installed via WinGet.
 
 ## The WinGet path issue
 
@@ -31,15 +26,7 @@ The script will:
 - Update the NSSM service configuration if the path changed
 - Restart the service with the new path
 
-### Method 2: Re-run installation script
-
-Re-running the installation script with your key should work for the time being.
-
-```powershell
-& iwr -useb https://get.beszel.dev -OutFile "$env:TEMP\install-agent.ps1"; & Powershell -ExecutionPolicy Bypass -File "$env:TEMP\install-agent.ps1" -Key "your-ssh-key-here"
-```
-
-### Method 3: Manual upgrade process
+### Method 2: Manual upgrade process
 
 If you prefer to do it manually:
 
@@ -114,6 +101,12 @@ If the service fails to start after an upgrade:
 nssm get beszel-agent Application
 ```
 
+Or with the GUI:
+
+```powershell
+nssm edit beszel-agent
+```
+
 2. **Verify the path exists**:
 
 ```powershell
@@ -162,7 +155,7 @@ Get-ChildItem -Path "$env:LOCALAPPDATA" -Recurse -Name "beszel-agent.exe" -Error
 
 If you continue to experience issues with upgrades:
 
-1. Check [GitHub Issues](https://github.com/henrygd/beszel/issues) and [Discussions](https://github.com/henrygd/beszel/discussions) for similar problems
-2. Review the service logs at `%ProgramData%\beszel-agent\logs\beszel-agent.log`
-3. Use `nssm status beszel-agent` to check service status
-4. Run the upgrade script with verbose output for debugging
+- Check [GitHub Issues](https://github.com/henrygd/beszel/issues) and [Discussions](https://github.com/henrygd/beszel/discussions) for similar problems
+- Review the service logs at `%ProgramData%\beszel-agent\logs\beszel-agent.log`
+- Use `nssm status beszel-agent` to check service status
+- Use `nssm edit beszel-agent` to edit the service configuration

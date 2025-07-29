@@ -1,11 +1,6 @@
 # 使用 WinGet 升级
 
-::: tip 正在开发中
-
-这目前正在 0.12.0 版本中进行测试。如果升级失败，请稍后再试。
-:::
-
-<!-- 本指南解释了如何在 Windows 系统上升级 Beszel 代理，特别是通过 WinGet 安装的情况。 -->
+本指南解释了如何在通过 WinGet 安装的 Windows 系统上升级 Beszel 代理。
 
 ## WinGet 路径问题
 
@@ -31,15 +26,7 @@ WinGet 使用版本化安装路径，在升级过程中会发生变化。
 - 如果路径发生变化，更新 NSSM 服务配置
 - 使用新路径重启服务
 
-### 方法 2：重新运行安装脚本
-
-使用您的密钥重新运行安装脚本目前应该可以工作。
-
-```powershell
-& iwr -useb https://get.beszel.dev -OutFile "$env:TEMP\install-agent.ps1"; & Powershell -ExecutionPolicy Bypass -File "$env:TEMP\install-agent.ps1" -Key "your-ssh-key-here"
-```
-
-### 方法 3：手动升级过程
+### 方法 2：手动升级过程
 
 如果您更喜欢手动操作：
 
@@ -114,6 +101,12 @@ nssm start beszel-agent
 nssm get beszel-agent Application
 ```
 
+或使用 GUI：
+
+```powershell
+nssm edit beszel-agent
+```
+
 2. **验证路径是否存在**：
 
 ```powershell
@@ -162,7 +155,7 @@ Get-ChildItem -Path "$env:LOCALAPPDATA" -Recurse -Name "beszel-agent.exe" -Error
 
 如果您继续遇到升级问题：
 
-1. 查看 [GitHub Issues](https://github.com/henrygd/beszel/issues) 和 [Discussions](https://github.com/henrygd/beszel/discussions) 寻找类似问题
-2. 查看 `%ProgramData%\beszel-agent\logs\beszel-agent.log` 中的服务日志
-3. 使用 `nssm status beszel-agent` 检查服务状态
-4. 运行带有详细输出的升级脚本以进行调试 
+- 查看 [GitHub Issues](https://github.com/henrygd/beszel/issues) 和 [Discussions](https://github.com/henrygd/beszel/discussions) 寻找类似问题
+- 查看 `%ProgramData%\beszel-agent\logs\beszel-agent.log` 中的服务日志
+- 使用 `nssm status beszel-agent` 检查服务状态
+- 使用 `nssm edit beszel-agent` 编辑服务配置
