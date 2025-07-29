@@ -44,7 +44,7 @@ This is a list of ports and remote hosts that Beszel communicates with, based on
 
 | Remote host  | Port | Purpose                                                                                 |
 | ------------ | ---- | --------------------------------------------------------------------------------------- |
-| Your hub URL | 8090 | Agent initiated WebSocket connection. Port may be customized or accessed through proxy. |
+| Your hub URL | 8090 | Agent initiated WebSocket connection at `/api/beszel/agent-connect`. Port may be customized or accessed through proxy. |
 | github.com   | 443  | Check / download updates (not needed if using Docker)                                   |
 
 ### Hub
@@ -53,7 +53,7 @@ This is a list of ports and remote hosts that Beszel communicates with, based on
 
 | Port | Purpose                                                                      |
 | ---- | ---------------------------------------------------------------------------- |
-| 8090 | HTTP access to the web UI. Port may be customized or accessed through proxy. |
+| 8090 | HTTP access to the web UI. Agent WebSocket connection at `/api/beszel/agent-connect`. Port may be customized or accessed through proxy. |
 
 #### Outgoing
 
