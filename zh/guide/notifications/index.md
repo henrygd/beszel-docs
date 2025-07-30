@@ -4,6 +4,8 @@ Beszel 中的通知使用 [Shoutrrr](https://github.com/containrrr/shoutrrr) URL
 
 Shoutrrr 是一个最初为 [Watchtower](https://github.com/containrrr/watchtower) 开发的 Go 库。我们使用一个维护的分支 [nicholas-fedor/shoutrrr](https://github.com/nicholas-fedor/shoutrrr) 的固定版本。这里的文档是根据它们改编的。
 
+URL 在设置中配置（**设置** > **通知**）。警报在系统表中启用。
+
 ## 服务概览
 
 点击服务获取更详细的说明。

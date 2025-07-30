@@ -42,18 +42,18 @@ This is a list of ports and remote hosts that Beszel communicates with, based on
 
 #### Outgoing
 
-| Remote host  | Port | Purpose                                                                                 |
-| ------------ | ---- | --------------------------------------------------------------------------------------- |
-| Your hub URL | 8090 | Agent initiated WebSocket connection at `/api/beszel/agent-connect`. Port may be customized or accessed through proxy. |
-| github.com   | 443  | Check / download updates (not needed if using Docker)                                   |
+| Remote host  | Port | Purpose                                                                                                                |
+| ------------ | ---- | ---------------------------------------------------------------------------------------------------------------------- |
+| Your hub URL | 8090 | Agent initiated WebSocket connection to `/api/beszel/agent-connect`. Port may be customized or accessed through proxy. |
+| github.com   | 443  | Check / download updates (not needed if using Docker)                                                                  |
 
 ### Hub
 
 #### Incoming
 
-| Port | Purpose                                                                      |
-| ---- | ---------------------------------------------------------------------------- |
-| 8090 | HTTP access to the web UI. Agent WebSocket connection at `/api/beszel/agent-connect`. Port may be customized or accessed through proxy. |
+| Port | Purpose                                                                                                                                                   |
+| ---- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 8090 | HTTP access to the web UI. Port may be customized or accessed through proxy. `/api/beszel/agent-connect` should be accessible to allow agent connections. |
 
 #### Outgoing
 
