@@ -2,13 +2,13 @@
 
 Beszel can monitor GPU usage, temperature, and power draw.
 
-::: warning Binary agent only
-The Docker agent does not support GPU monitoring. You **must use the binary agent**.
-:::
-
 ## AMD GPUs
 
-Beszel uses `rocm-smi` to monitor AMD GPUs. This must be installed on the system.
+::: info Work in progress
+AMD has deprecated `rocm-smi` in favor of `amd-smi`. The agent works with `rocm-smi` on Linux, but hasn't been updated to work with `amd-smi` yet.
+:::
+
+Beszel uses `rocm-smi` to monitor AMD GPUs. This must be available on the system, and you must use the binary agent (not the Docker agent).
 
 #### Make sure <code>rocm-smi</code> is accessible
 
@@ -20,9 +20,30 @@ sudo ln -s /opt/rocm/bin/rocm-smi /usr/local/bin/rocm-smi
 
 ## Nvidia GPUs
 
-Beszel uses `nvidia-smi` to monitor Nvidia GPUs. This must be installed on the system.
+### Docker agent
 
-You may need to allow access to your GPUs in the service configuration. See [discussion #563](https://github.com/henrygd/beszel/discussions/563#discussioncomment-12230389) for more information.
+Make sure NVIDIA Container Toolkit is installed on the host system.
+
+Use `henrygd/beszel-agent-nvidia` and add the following `deploy` block to your `docker-compose.yml`.
+
+```yaml
+beszel-agent:
+  image: henrygd/beszel-agent-nvidia
+  deploy:
+    resources:
+      reservations:
+        devices:
+          - driver: nvidia
+            count: all
+            capabilities:
+              - utility
+```
+
+### Binary agent
+
+You must have `nvidia-smi` available on the system.
+
+If it doesn't work, you may need to allow access to your devices in the service configuration. See [discussion #563](https://github.com/henrygd/beszel/discussions/563#discussioncomment-12230389) for more information.
 
 ```ini
 [Service]
@@ -40,9 +61,9 @@ systemctl restart beszel-agent
 
 ## Nvidia Jetson
 
-Jetson devices are supported as of version 0.11.0.
+You must use the binary agent and have `tegrastats` installed.
 
-You must have `tegrastats` installed because `nvidia-smi` is not compatible with Jetson.
+The `henrygd/beszel-agent-nvidia` image likely doesn't work, but I can't test it to confirm. Let me know one way or the other if you try it :).
 
 ## Intel GPUs
 

@@ -2,14 +2,13 @@
 
 Beszel 可以监控 GPU 使用率、温度和功耗。
 
-::: warning
-仅适用于二进制代理
-Docker 代理不支持 GPU 监控。您 **必须使用二进制代理**.
-:::
-
 ## AMD GPU
 
-Beszel 使用 `rocm-smi` 监控 AMD GPU。该工具必须安装在系统上。
+::: info 正在开发中
+AMD 已弃用 `rocm-smi`，转而使用 `amd-smi`。代理在 Linux 上可以与 `rocm-smi` 配合使用，但尚未更新以支持 `amd-smi`。
+:::
+
+Beszel 使用 `rocm-smi` 监控 AMD GPU。该工具必须在系统上可用，并且您必须使用二进制代理（而不是 Docker 代理）。
 
 #### 确保可以访问 `rocm-smi`
 
@@ -21,9 +20,30 @@ sudo ln -s /opt/rocm/bin/rocm-smi /usr/local/bin/rocm-smi
 
 ## Nvidia GPU
 
-Beszel 使用 `nvidia-smi` 监控 Nvidia GPU。该工具必须安装在系统上。
+### Docker 代理
 
-您可能需要在服务配置中允许访问您的 GPU。有关更多信息，请参阅 [discussion #563](https://github.com/henrygd/beszel/discussions/563#discussioncomment-12230389)。
+确保主机系统上安装了 NVIDIA Container Toolkit。
+
+使用 `henrygd/beszel-agent-nvidia` 并将以下 `deploy` 块添加到您的 `docker-compose.yml` 中。
+
+```yaml
+beszel-agent:
+  image: henrygd/beszel-agent-nvidia
+  deploy:
+    resources:
+      reservations:
+        devices:
+          - driver: nvidia
+            count: all
+            capabilities:
+              - utility
+```
+
+### 二进制代理
+
+您必须在系统上有 `nvidia-smi` 可用。
+
+如果不起作用，您可能需要在服务配置中允许访问您的设备。有关更多信息，请参阅 [discussion #563](https://github.com/henrygd/beszel/discussions/563#discussioncomment-12230389)。
 
 ```ini
 [Service]
@@ -41,9 +61,9 @@ systemctl restart beszel-agent
 
 ## Nvidia Jetson
 
-从 0.11.0 版本开始支持 Jetson 设备。
+您必须使用二进制代理并安装 `tegrastats`。
 
-您必须安装 `tegrastats`，因为 `nvidia-smi` 与 Jetson 不兼容。
+`henrygd/beszel-agent-nvidia` 镜像可能不起作用，但我无法测试以确认。如果您尝试了，请告诉我结果如何 :)。
 
 ## Intel GPU
 
