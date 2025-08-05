@@ -54,6 +54,17 @@ go mod tidy
 go build -ldflags "-w -s" .
 ```
 
+::: tip Windows 构建需要额外步骤
+我们在 Windows 可执行文件中嵌入了 [LibreHardwareMonitorLib](https://github.com/LibreHardwareMonitor/LibreHardwareMonitor) 和一个 .NET 包装器，因此您需要首先构建这个：
+
+```bash
+dotnet build -c Release ./internal/agent/lhm/beszel_lhm.csproj
+```
+
+从 `/beszel` 目录运行。
+
+:::
+
 ### 中心
 
 中心会将 Web UI 嵌入到二进制文件中，因此您必须首先构建网站。我使用的是 [Bun](https://bun.sh/)，但如果您愿意也可以使用 Node.js：

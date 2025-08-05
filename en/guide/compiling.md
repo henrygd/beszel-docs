@@ -54,6 +54,17 @@ Go to `beszel/cmd/agent` and run the following command to create a binary in the
 go build -ldflags "-w -s" .
 ```
 
+::: tip Windows builds require an additional step
+We embed [LibreHardwareMonitorLib](https://github.com/LibreHardwareMonitor/LibreHardwareMonitor) and a .NET wrapper in the Windows executable, so you need to build this first:
+
+```bash
+dotnet build -c Release ./internal/agent/lhm/beszel_lhm.csproj
+```
+
+Run from the `/beszel` directory.
+
+:::
+
 ### Hub
 
 The hub embeds the web UI in the binary, so you must build the website first. I use [Bun](https://bun.sh/), but you may use Node.js if you prefer:
