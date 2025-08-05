@@ -1,6 +1,6 @@
 # Reverse Proxy
 
-Beszel can be served behind a reverse proxy. The reverse proxy must be configured to proxy WebSocket connections in order for agents setup with a universal token to connect to the hub.
+Beszel can be served behind a reverse proxy. The reverse proxy should be configured to proxy WebSocket connections in order for agents setup with a universal token to connect to the hub.
 
 It is advisable to set the `APP_URL` environment variable because it is used for notification links and agent config generation.
 
@@ -16,7 +16,7 @@ APP_URL=https://beszel.example.com/base-path
 
 #### Caddy
 
-```text
+```ini
 beszel.example.com {
 	request_body {
 		max_size 10MB

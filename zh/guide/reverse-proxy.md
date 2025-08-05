@@ -1,16 +1,22 @@
-# 在子路径上提供服务
+# 反向代理
 
-通过设置 `APP_URL` 环境变量并使用反向代理将请求转发到子路径，Beszel 可以在子路径上提供服务。
+Beszel 可以在反向代理后面提供服务。反向代理应该配置为代理 WebSocket 连接，以便使用通用令牌设置的代理能够连接到中心。
 
-## 配置示例
+建议设置 `APP_URL` 环境变量，因为它用于通知链接和代理配置生成。
+
+## 在子路径上提供服务
+
+反向代理和 `APP_URL` 环境变量可以配置为在子路径上提供 Beszel 服务。
+
+### 子路径的配置示例
 
 ```bash
 APP_URL=https://beszel.example.com/base-path
 ```
 
-### Caddy
+#### Caddy
 
-```text
+```ini
 beszel.example.com {
 	request_body {
 		max_size 10MB
@@ -26,7 +32,7 @@ beszel.example.com {
 }
 ```
 
-### Nginx
+#### Nginx
 
 ```nginx
 server {
@@ -52,7 +58,7 @@ server {
 }
 ```
 
-### Traefik
+#### Traefik
 
 ```yaml
 beszel:
