@@ -1,14 +1,20 @@
-# Serve on subpath
+# Reverse Proxy
 
-Beszel can be served on a subpath by setting the `APP_URL` environment variable and using a reverse proxy to forward requests to the subpath.
+Beszel can be served behind a reverse proxy. The reverse proxy must be configured to proxy WebSocket connections in order for agents setup with a universal token to connect to the hub.
 
-## Example configurations
+It is advisable to set the `APP_URL` environment variable because it is used for notification links and agent config generation.
+
+## Serve on subpath
+
+The reverse proxy and the `APP_URL` environment variable can be configured to serve Beszel on a subpath.
+
+### Example configurations for subpath
 
 ```bash
 APP_URL=https://beszel.example.com/base-path
 ```
 
-### Caddy
+#### Caddy
 
 ```text
 beszel.example.com {
@@ -26,7 +32,7 @@ beszel.example.com {
 }
 ```
 
-### Nginx
+#### Nginx
 
 ```nginx
 server {
@@ -52,7 +58,7 @@ server {
 }
 ```
 
-### Traefik
+#### Traefik
 
 ```yaml
 beszel:
