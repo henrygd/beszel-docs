@@ -8,7 +8,7 @@ Environment variables may optionally be prefixed with `BESZEL_HUB_`.
 
 | Name                    | Default | Description                                                                                                                                 |
 | ----------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
-| `APP_URL`               | unset   | URL of the web UI. Must set if [serving on a subpath](./serve-on-subpath).                                                                  |
+| `APP_URL`               | unset   | URL of the web UI. Must set if [serving at a subpath](./reverse-proxy).                                                                     |
 | `CSP`                   | unset   | Adds a [Content-Security-Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy) header with this value. |
 | `DISABLE_PASSWORD_AUTH` | false   | Disables password authentication.                                                                                                           |
 | `SHARE_ALL_SYSTEMS`     | false   | Allows access to all systems by all users.                                                                                                  |

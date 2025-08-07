@@ -4,7 +4,7 @@ Beszel 可以在反向代理后面提供服务。反向代理应该配置为代�
 
 建议设置 `APP_URL` 环境变量，因为它用于通知链接和代理配置生成。
 
-```bash
+```dotenv
 APP_URL=https://beszel.example.com/base-path-if-applicable
 ```
 
@@ -25,7 +25,7 @@ beszel.example.com {
 
 ### 使用 Caddy 在子路径提供服务
 
-```bash
+```dotenv
 APP_URL=https://beszel.example.com/base-path
 ```
 
@@ -69,7 +69,7 @@ server {
 
 ### 使用 Nginx 在子路径提供服务
 
-```bash
+```dotenv
 APP_URL=https://beszel.example.com/base-path
 ```
 
@@ -120,7 +120,7 @@ beszel:
 
 ### 使用 Traefik 在子路径提供服务
 
-```bash
+```dotenv
 APP_URL=https://beszel.example.com/base-path
 ```
 
@@ -174,7 +174,7 @@ a2enmod proxy proxy_http proxy_wstunnel rewrite
 
 ### 使用 Apache 在子路径提供服务
 
-```bash
+```dotenv
 APP_URL=https://beszel.example.com/base-path
 ```
 

@@ -4,7 +4,7 @@ Beszel can be served behind a reverse proxy. The reverse proxy should be configu
 
 It's recommended to set the `APP_URL` environment variable because it's used for notification links and agent config generation.
 
-```bash
+```dotenv
 APP_URL=https://beszel.example.com/base-path-if-applicable
 ```
 
@@ -25,7 +25,7 @@ beszel.example.com {
 
 ### Serve at subpath with Caddy
 
-```bash
+```dotenv
 APP_URL=https://beszel.example.com/base-path
 ```
 
@@ -69,7 +69,7 @@ server {
 
 ### Serve at subpath with Nginx
 
-```bash
+```dotenv
 APP_URL=https://beszel.example.com/base-path
 ```
 
@@ -120,7 +120,7 @@ beszel:
 
 ### Serve at subpath with Traefik
 
-```bash
+```dotenv
 APP_URL=https://beszel.example.com/base-path
 ```
 
