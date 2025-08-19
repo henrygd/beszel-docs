@@ -196,4 +196,3 @@ spec:
 
 由于我们使用了 `hostNetwork: true`，因此在添加系统时需要使用 Kubernetes 节点的 IP 地址。**注意：这不是 Kubernetes 内部 IP，而是节点本身的物理 IP。** 每个 Kubernetes 节点只运行一个代理 Pod，因此这种方法有效。
 
-```
