@@ -6,8 +6,8 @@
 
 ## 先决条件
 
-- Go 1.23+（用于修改 Go 代码）
-- Bun 1.1.38+ 或 Node 18+（用于修改 Web 用户界面）
+- Go 1.24+（用于修改 Go 代码）
+- Bun 1.1+ 或 Node 18+（用于修改 Web 用户界面）
 
 如果您还没有，请 [fork 仓库](https://github.com/henrygd/beszel/fork) 并克隆您的 fork 到本地工作：
 

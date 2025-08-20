@@ -4,11 +4,9 @@ The hub and agent can communicate with each other over SSH or WebSocket.
 
 ## SSH connection
 
-The SSH connection is initiated by the hub and connects to the agent's SSH server. This is ideal when your hub can reach your agents, but your agents cannot reach the hub. For example, if you're running the hub on a private network and the agents are on a public network.
+The SSH connection is initiated by the hub and connects to the agent's SSH server. This is ideal when your hub can reach your agents, but your agents cannot reach the hub. For example, if the hub is on a private network.
 
-When the hub is started for the first time, it generates an ED25519 key pair.
-
-The agent's SSH server is configured to accept connections using this key only. It does not provide a pseudo-terminal or accept input, so it's impossible to execute commands on the agent even if your private key is compromised.
+When the hub is started for the first time, it generates an ED25519 key. The agent's SSH server is configured to accept connections using this key only. It does not provide a pseudo-terminal or accept input, so it's impossible to execute commands on the agent even if your private key is compromised.
 
 ## WebSocket connection
 
