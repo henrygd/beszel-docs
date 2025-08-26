@@ -2,83 +2,25 @@
 
 社区提供的各种部署方法的示例和模板。
 
+## Ansible
+
+我们推荐使用 `community.beszel` Ansible 集合。
+
+- [GitHub 仓库](https://github.com/ansible-collections/community.beszel)
+- [Ansible Galaxy](https://galaxy.ansible.com/ui/repo/published/community/beszel/)
+- [代理角色文档](https://galaxy.ansible.com/ui/repo/published/community/beszel/content/role/agent/)
+
+感谢 [dbrennand](https://github.com/dbrennand) 和所有贡献者维护这个集合。
+
+## Docker Swarm
+
 ::: tip 0.12.0 更新
 这些指南是在引入通用令牌和代理发起的 WebSocket 连接之前编写的。
 
 现在在集群环境中部署代理应该更简单了。欢迎在我们的 [GitHub 讨论](https://github.com/henrygd/beszel/discussions) 页面分享反馈或更新的示例。
 :::
 
-## Ansible
-
-[dbrennand](https://github.com/dbrennand) 在 [Ansible Galaxy](https://galaxy.ansible.com/ui/standalone/roles/dbrennand/beszel/documentation/) 上发布了一个用于安装和配置代理的角色。源代码可在 [dbrennand/ansible-role-beszel](https://github.com/dbrennand/ansible-role-beszel) 获取。
-
-以下是 [hellofaduck](https://github.com/hellofaduck) 在 GitHub 的[讨论帖子](https://github.com/henrygd/beszel/discussions/629) 中提供的示例角色。
-
-#### 安装并检查服务是否存在
-
-```yaml
-- name: 收集服务信息
-  ansible.builtin.service_facts:
-
-- name: 下载 install-agent.sh 脚本
-  get_url:
-    url: https://raw.githubusercontent.com/henrygd/beszel/main/supplemental/scripts/install-agent.sh
-    dest: /tmp/install-agent.sh
-    mode: "0755" # 设置可执行权限
-
-- name: 如果服务存在则删除 beszel 代理
-  become: true
-  ansible.builtin.command:
-    cmd: /tmp/install-agent.sh -u
-  when: ansible_facts.services['beszel-agent.service'] is defined
-
-- name: 使用自动更新运行 install-agent.sh 脚本
-  shell: yes | /tmp/install-agent.sh -p {{ beszel_agent_ssh_port }} -k "{{ beszel_agent_ssh_key }}"
-  when: beszel_agent_autoupdate | bool
-  ignore_errors: false
-
-- name: 不使用自动更新运行 install-agent.sh 脚本
-  shell: yes N | /tmp/install-agent.sh -p {{ beszel_agent_ssh_port }} -k "{{ beszel_agent_ssh_key }}"
-  when: not beszel_agent_autoupdate | bool
-  ignore_errors: false
-```
-
-#### 卸载
-
-```yaml
-- name: 如果服务存在则删除 beszel-agent
-  block:
-    - name: 收集服务信息
-      ansible.builtin.service_facts:
-
-    - name: 下载 install-agent.sh 脚本
-      ansible.builtin.get_url:
-        url: https://raw.githubusercontent.com/henrygd/beszel/main/supplemental/scripts/install-agent.sh
-        dest: /tmp/install-agent.sh
-        mode: "0755" # 设置可执行权限
-      when: ansible_facts['services']['beszel-agent.service'] is defined
-
-    - name: 删除 beszel 代理
-      become: true
-      ansible.builtin.command:
-        cmd: /tmp/install-agent.sh -u
-      when: ansible_facts['services']['beszel-agent.service'] is defined
-```
-
-您需要将这些变量添加到 `all.yml` 文件中：
-
-```yaml
-# --= 自定义附加项 =--
-# Beszel 监控 SSH 密钥，用于在所有节点上安装 beszel 代理
-beszel_agent: true
-beszel_agent_autoupdate: true
-beszel_agent_ssh_key: "ssh-ed25519 lalalal"
-beszel_agent_ssh_port: 45876
-```
-
-## Docker Swarm
-
-计划未来更好地支持 Swarm。目前推荐的方法是分别定义每个代理，并将其约束到唯一的主机/端口。
+推荐的方法是分别定义每个代理，并将其约束到唯一的主机/端口。
 
 更多信息请在 GitHub 问题中搜索 "swarm"，或查看 [aeoneros](https://github.com/aeoneros) 的示例：
 
@@ -127,11 +69,23 @@ services:
 
 ## HashiCorp Nomad
 
+::: tip 0.12.0 更新
+这些指南是在引入通用令牌和代理发起的 WebSocket 连接之前编写的。
+
+现在在集群环境中部署代理应该更简单了。欢迎在我们的 [GitHub 讨论](https://github.com/henrygd/beszel/discussions) 页面分享反馈或更新的示例。
+:::
+
 [blinkinglight](https://github.com/blinkinglight) 在以下文章中提供了一个 Nomad 配置示例：
 
 https://dev.to/blinkinglight/tailscale-and-beszel-on-hashicorp-nomad-1jmo
 
 ## Kubernetes
+
+::: tip 0.12.0 更新
+这些指南是在引入通用令牌和代理发起的 WebSocket 连接之前编写的。
+
+现在在集群环境中部署代理应该更简单了。欢迎在我们的 [GitHub 讨论](https://github.com/henrygd/beszel/discussions) 页面分享反馈或更新的示例。
+:::
 
 ::: info 来源讨论
 
@@ -195,4 +149,3 @@ spec:
 #### 将系统添加到 Beszel
 
 由于我们使用了 `hostNetwork: true`，因此在添加系统时需要使用 Kubernetes 节点的 IP 地址。**注意：这不是 Kubernetes 内部 IP，而是节点本身的物理 IP。** 每个 Kubernetes 节点只运行一个代理 Pod，因此这种方法有效。
-

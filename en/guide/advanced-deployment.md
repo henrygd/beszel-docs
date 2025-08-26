@@ -2,83 +2,25 @@
 
 Community examples and templates for various deployment methods.
 
+## Ansible
+
+We recommend using the `community.beszel` Ansible Collection.
+
+- [GitHub repository](https://github.com/ansible-collections/community.beszel)
+- [Ansible Galaxy](https://galaxy.ansible.com/ui/repo/published/community/beszel/)
+- [Agent role documentation](https://galaxy.ansible.com/ui/repo/published/community/beszel/content/role/agent/)
+
+Thanks to [dbrennand](https://github.com/dbrennand) and all contributors for maintaining this collection.
+
+## Docker Swarm
+
 ::: tip 0.12.0 Update
-These guides were written prior to the introduction of universal tokens and agent-initiated WebSocket connections.
+This guide was written prior to the introduction of universal tokens and agent-initiated WebSocket connections.
 
 It should now be simpler to deploy agents in cluster environments. Feel free to share feedback or updated examples on our [GitHub Discussions](https://github.com/henrygd/beszel/discussions) page.
 :::
 
-## Ansible
-
-A role to install and configure agents has been published on [Ansible Galaxy](https://galaxy.ansible.com/ui/standalone/roles/dbrennand/beszel/documentation/) by [dbrennand](https://github.com/dbrennand). The source code is available at [dbrennand/ansible-role-beszel](https://github.com/dbrennand/ansible-role-beszel).
-
-Below are example roles provided by [hellofaduck](https://github.com/hellofaduck) in a [discussion post](https://github.com/henrygd/beszel/discussions/629) on GitHub.
-
-#### Installation with service existing check
-
-```yaml
-- name: Populate service facts
-  ansible.builtin.service_facts:
-
-- name: Download the install-agent.sh script
-  get_url:
-    url: https://raw.githubusercontent.com/henrygd/beszel/main/supplemental/scripts/install-agent.sh
-    dest: /tmp/install-agent.sh
-    mode: "0755" # Set executable permissions
-
-- name: Remove beszel agent if service exists
-  become: true
-  ansible.builtin.command:
-    cmd: /tmp/install-agent.sh -u
-  when: ansible_facts.services['beszel-agent.service'] is defined
-
-- name: Run the install-agent.sh script with auto-update
-  shell: yes | /tmp/install-agent.sh -p {{ beszel_agent_ssh_port }} -k "{{ beszel_agent_ssh_key }}"
-  when: beszel_agent_autoupdate | bool
-  ignore_errors: false
-
-- name: Run the install-agent.sh script without auto-update
-  shell: yes N | /tmp/install-agent.sh -p {{ beszel_agent_ssh_port }} -k "{{ beszel_agent_ssh_key }}"
-  when: not beszel_agent_autoupdate | bool
-  ignore_errors: false
-```
-
-#### Uninstall
-
-```yaml
-- name: Remove beszel-agent if service exists
-  block:
-    - name: Populate service facts
-      ansible.builtin.service_facts:
-
-    - name: Download install-agent.sh script
-      ansible.builtin.get_url:
-        url: https://raw.githubusercontent.com/henrygd/beszel/main/supplemental/scripts/install-agent.sh
-        dest: /tmp/install-agent.sh
-        mode: "0755" # Set executable permissions
-      when: ansible_facts['services']['beszel-agent.service'] is defined
-
-    - name: Remove beszel agent
-      become: true
-      ansible.builtin.command:
-        cmd: /tmp/install-agent.sh -u
-      when: ansible_facts['services']['beszel-agent.service'] is defined
-```
-
-You will need to add these variables to your `all.yml` file:
-
-```yaml
-# --= CUSTOM ADDONS =--
-# Beszel monitoring ssh key for installing beszel agents on all nodes
-beszel_agent: true
-beszel_agent_autoupdate: true
-beszel_agent_ssh_key: "ssh-ed25519 lalalal"
-beszel_agent_ssh_port: 45876
-```
-
-## Docker Swarm
-
-Better support for Swarm is planned. For now the recommended approach is to define each agent separately and constrain it to a unique host / port.
+The recommended approach is to define each agent separately and constrain it to a unique host / port.
 
 For more info please search our GitHub issues for "swarm" or see examples by [aeoneros](https://github.com/aeoneros):
 
@@ -127,11 +69,23 @@ services:
 
 ## HashiCorp Nomad
 
+::: tip 0.12.0 Update
+This guide was written prior to the introduction of universal tokens and agent-initiated WebSocket connections.
+
+It should now be simpler to deploy agents in cluster environments. Feel free to share feedback or updated examples on our [GitHub Discussions](https://github.com/henrygd/beszel/discussions) page.
+:::
+
 An example Nomad configuration can be found in the article below by [blinkinglight](https://github.com/blinkinglight):
 
 https://dev.to/blinkinglight/tailscale-and-beszel-on-hashicorp-nomad-1jmo
 
 ## Kubernetes
+
+::: tip 0.12.0 Update
+This guide was written prior to the introduction of universal tokens and agent-initiated WebSocket connections.
+
+It should now be simpler to deploy agents in cluster environments. Feel free to share feedback or updated examples on our [GitHub Discussions](https://github.com/henrygd/beszel/discussions) page.
+:::
 
 ::: info Source discussion
 
