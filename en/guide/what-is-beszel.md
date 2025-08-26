@@ -61,3 +61,4 @@ Beszel consists of two main components: the **hub** and the **agent**.
 - **Load average** - Host system.
 - **Temperature** - Host system sensors.
 - **GPU usage / temperature / power draw** - Nvidia and AMD only. Must use binary agent.
+- **Battery** - Host system battery charge.
