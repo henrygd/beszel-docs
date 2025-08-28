@@ -50,3 +50,13 @@ KEY="..." make -j dev
 ::: tip 提示
 如果安装了 [`entr`](https://github.com/eradman/entr)，则当您保存代码更改时，中心/代理程序会自动重建。
 :::
+
+## 排除生成的语言文件
+
+如果您使用 `build` 命令构建 Web UI，`locales` 目录中的许多语言文件可能会被更新。
+
+请在 `.git/info/exclude` 中排除此目录，以避免提交这些更改。
+
+```bash
+echo "locales/" >> .git/info/exclude
+```

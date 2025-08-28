@@ -50,3 +50,13 @@ Navigate to [http://localhost:8090](http://localhost:8090) to view the web UI.
 ::: tip
 If [`entr`](https://github.com/eradman/entr) is installed, the hub / agent will automatically rebuild when you save changes to the code.
 :::
+
+## Exclude generated locale files
+
+If you build the web UI with the `build` command, many language files may be updated in the `locales` directory.
+
+Please exclude this directory in `.git/info/exclude` to avoid committing these changes.
+
+```bash
+echo "locales/" >> .git/info/exclude
+```
