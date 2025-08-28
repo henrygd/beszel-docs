@@ -25,21 +25,21 @@ services:
 ```
 
 ```bash [docker run]
-mkdir -p ./beszel_data && \
+docker volume create beszel_data && \
 docker run -d \
   --name beszel \
   --restart=unless-stopped \
-  -v ./beszel_data:/beszel_data \
+  --volume beszel_data:/beszel_data \
   -p 8090:8090 \
   henrygd/beszel
 ```
 
 ```bash [podman run]
-mkdir -p ./beszel_data && \
+podman volume create beszel_data && \
 podman run -d \
   --name beszel \
   --restart=unless-stopped \
-  -v ./beszel_data:/beszel_data \
+  --volume beszel_data:/beszel_data \
   -p 8090:8090 \
   docker.io/henrygd/beszel
 ```
