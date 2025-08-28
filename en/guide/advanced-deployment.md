@@ -12,6 +12,8 @@ We recommend using the `community.beszel` Ansible Collection.
 
 Thanks to [dbrennand](https://github.com/dbrennand) and all contributors for maintaining this collection.
 
+For other useful examples see [this discussion](https://github.com/henrygd/beszel/discussions/1094) on GitHub.
+
 ## Docker Swarm
 
 ::: tip 0.12.0 Update

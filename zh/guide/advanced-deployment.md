@@ -12,6 +12,8 @@
 
 感谢 [dbrennand](https://github.com/dbrennand) 和所有贡献者维护这个集合。
 
+其他有用的示例请在 GitHub 的[此讨论](https://github.com/henrygd/beszel/discussions/1094) 中查看。
+
 ## Docker Swarm
 
 ::: tip 0.12.0 更新
