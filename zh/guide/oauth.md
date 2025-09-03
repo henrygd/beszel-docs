@@ -72,7 +72,7 @@ Beszel 默认情况下不允许自动创建用户。要启用它，请在中心�
 这不是完整列表，只是已知可用的提供商。如果您使用不同的提供商，欢迎添加！
 
 - [Authelia](https://www.authelia.com/integration/openid-connect/beszel/)
-- [authentik](https://docs.goauthentik.io/integrations/services/beszel/)
+- [authentik](https://integrations.goauthentik.io/monitoring/beszel/)
 - Gitea
 - GitLab
 - Keycloak
