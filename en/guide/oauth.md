@@ -72,7 +72,7 @@ These are OpenID Connect (OIDC-compliant) services you can host and manage yours
 This is not a complete list, just providers known to work. If you're using something different, feel free to add it!
 
 - [Authelia](https://www.authelia.com/integration/openid-connect/beszel/)
-- [authentik](https://docs.goauthentik.io/integrations/services/beszel/)
+- [authentik](https://integrations.goauthentik.io/monitoring/beszel/)
 - Gitea
 - GitLab
 - Keycloak
