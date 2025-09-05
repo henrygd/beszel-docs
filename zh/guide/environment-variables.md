@@ -35,6 +35,7 @@
 | `HUB_URL`           | 未设置 | 中心的 URL。                                                                                 |
 | `KEY`               | 未设置 | 用于身份验证的公共 SSH 密钥（可多个）。在中心提供。                                          |
 | `KEY_FILE`          | 未设置 | 从文件中读取公钥（可多个），而不是从环境变量中读取。                                         |
+| `LHM`               | false  | 为 Windows 传感器使用 LibreHardwareMonitor。                                                 |
 | `LISTEN`            | 45876  | 监听的端口或主机:端口。                                                                      |
 | `LOG_LEVEL`         | info   | 日志级别。有效值: "debug", "info", "warn", "error"。                                         |
 | `MEM_CALC`          | 未设置 | 覆盖默认内存计算。                                                                           |
@@ -59,6 +60,10 @@
 ### `KEY` / `KEY_FILE`
 
 可以提供多个密钥，只需用换行符分隔。您也可以通过以 `#` 开头的行添加注释。
+
+### `LHM`
+
+仅限 Windows。代理程序包含 [LibreHardwareMonitorLib](https://github.com/LibreHardwareMonitor/LibreHardwareMonitor) 用于检测温度传感器。要使用，请设置 `LHM=true` 并以管理员身份运行代理程序。
 
 ### `LISTEN`
 

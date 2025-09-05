@@ -35,6 +35,7 @@ Environment variables may optionally be prefixed with `BESZEL_AGENT_`.
 | `HUB_URL`           | unset   | URL of the hub.                                                                                |
 | `KEY`               | unset   | Public SSH key(s) to use for authentication. Provided in hub.                                  |
 | `KEY_FILE`          | unset   | Read public keys from a file instead of an environment variable.                               |
+| `LHM`               | false   | Use LibreHardwareMonitor for Windows sensors.                                                  |
 | `LISTEN`            | 45876   | Port or host:port to listen on.                                                                |
 | `LOG_LEVEL`         | info    | Logging level. Valid values: "debug", "info", "warn", "error".                                 |
 | `MEM_CALC`          | unset   | Overrides the default memory calculation.                                                      |
@@ -59,6 +60,10 @@ You may also set this to an empty string (`DOCKER_HOST=""`) to completely disabl
 ### `KEY` / `KEY_FILE`
 
 Multiple keys can be provided if they are separated by newlines. You can also leave comments by starting the line with `#`.
+
+### `LHM`
+
+Windows only. The agent includes [LibreHardwareMonitorLib](https://github.com/LibreHardwareMonitor/LibreHardwareMonitor) for detecting temperature sensors. To use, set `LHM=true` and run the agent as administrator.
 
 ### `LISTEN`
 
