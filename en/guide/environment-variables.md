@@ -13,6 +13,8 @@ Environment variables may optionally be prefixed with `BESZEL_HUB_`.
 | `DISABLE_PASSWORD_AUTH` | false   | Disables password authentication.                                                                                                           |
 | `SHARE_ALL_SYSTEMS`     | false   | Allows access to all systems by all users.                                                                                                  |
 | `USER_CREATION`         | false   | Enables automatic user creation for OAuth2 / OIDC.                                                                                          |
+| `USER_EMAIL`            | unset   | Create first user with this email.                                                                                                          |
+| `USER_PASSWORD`         | unset   | Create first user with this password.                                                                                                       |
 
 ### `DISABLE_PASSWORD_AUTH`
 

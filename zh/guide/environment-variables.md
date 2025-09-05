@@ -13,6 +13,8 @@
 | `DISABLE_PASSWORD_AUTH` | false  | 禁用密码认证。                                                                                                                   |
 | `SHARE_ALL_SYSTEMS`     | false  | 允许所有用户访问所有系统。                                                                                                       |
 | `USER_CREATION`         | false  | 启用 OAuth2 / OIDC 的自动用户创建。                                                                                              |
+| `USER_EMAIL`            | 未设置 | 使用此邮箱创建第一个用户。                                                                                                       |
+| `USER_PASSWORD`         | 未设置 | 使用此密码创建第一个用户。                                                                                                       |
 
 ### `DISABLE_PASSWORD_AUTH`
 
