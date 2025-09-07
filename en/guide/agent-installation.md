@@ -89,7 +89,7 @@ When connecting to a local agent, `localhost` will not work because the containe
 
 Beszel is written in pure Go and can be easily compiled (or cross-compiled) if a prebuilt binary isn't available.
 
-### 1. Linux install script
+### 1. Install script (Linux, FreeBSD)
 
 ::: warning Root privileges required
 The script needs root privileges to create a `beszel` user and set up a service to keep the agent running after reboot. The agent process itself does not run as root.
@@ -351,15 +351,6 @@ nssm stop beszel-agent
 nssm remove beszel-agent confirm
 winget uninstall henrygd.beszel-agent
 ```
-
-## FreeBSD / OPNSense
-
-A FreeBSD port is on the roadmap but not yet available (contributions welcome!). We'll also add FreeBSD compatibility to the main install script.
-
-For now, the agent can be installed manually. See the following for more information:
-
-- <https://forum.opnsense.org/index.php?topic=45619.0#msg229919>
-- <https://github.com/henrygd/beszel/discussions/39>
 
 ## Home Assistant
 

@@ -91,7 +91,7 @@ podman run -d \
 
 Beszel 使用纯 Go 编写，如果没有预构建的二进制文件，可以很容易地进行编译（或交叉编译）。
 
-### 1. Linux 安装脚本
+### 1. 安装脚本 (Linux, FreeBSD)
 
 ::: warning 需要 root 权限
 该脚本需要 root 权限来创建 `beszel` 用户，并设置服务以确保代理在重启后继续运行。代理进程本身不以 root 身份运行。
@@ -354,15 +354,6 @@ nssm stop beszel-agent
 nssm remove beszel-agent confirm
 winget uninstall henrygd.beszel-agent
 ```
-
-## FreeBSD / OPNSense
-
-FreeBSD 端口正在开发中，但尚未可用（欢迎贡献！）。我们还将在主安装脚本中添加 FreeBSD 兼容性。
-
-目前，可以手动安装代理。请参阅以下内容获取更多信息：
-
-- <https://forum.opnsense.org/index.php?topic=45619.0#msg229919>
-- <https://github.com/henrygd/beszel/discussions/39>
 
 ## Home Assistant
 

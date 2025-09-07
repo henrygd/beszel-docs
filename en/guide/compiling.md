@@ -11,11 +11,7 @@ Both the hub and agent are written in Go, so you can easily build them yourself,
 ```bash-vue
 # Clone the repository
 git clone --branch v{{pkg.version}} --depth 1 https://github.com/henrygd/beszel.git
-# Navigate to the project directory
-cd beszel/beszel
 ```
-
-Commands below assume you are in the project directory (`/beszel`).
 
 ## Using Makefile
 
@@ -48,7 +44,7 @@ go mod tidy
 
 ### Agent
 
-Go to `beszel/cmd/agent` and run the following command to create a binary in the current directory:
+Go to `src/cmd/agent` and run the following command to create a binary in the current directory:
 
 ```bash
 go build -ldflags "-w -s" .
@@ -58,10 +54,8 @@ go build -ldflags "-w -s" .
 We embed [LibreHardwareMonitorLib](https://github.com/LibreHardwareMonitor/LibreHardwareMonitor) and a .NET wrapper in the Windows executable, so you need to build this first:
 
 ```bash
-dotnet build -c Release ./internal/agent/lhm/beszel_lhm.csproj
+dotnet build -c Release ./agent/lhm/beszel_lhm.csproj
 ```
-
-Run from the `/beszel` directory.
 
 :::
 
@@ -70,12 +64,12 @@ Run from the `/beszel` directory.
 The hub embeds the web UI in the binary, so you must build the website first. I use [Bun](https://bun.sh/), but you may use Node.js if you prefer:
 
 ```bash
-cd site
+cd src/site
 bun install
 bun run build
 ```
 
-Then in `/beszel/cmd/hub`:
+Then in `src/cmd/hub`:
 
 ```bash
 go build -ldflags "-w -s" .

@@ -11,11 +11,7 @@ Beszel 中心 (hub) 和代理都使用 Go 语言编写，因此您可以轻松�
 ```bash-vue
 # 克隆代码库
 git clone --branch v{{pkg.version}} --depth 1 https://github.com/henrygd/beszel.git
-# 导航到项目目录
-cd beszel/beszel
 ```
-
-以下命令假设您位于项目目录 (`/beszel`) 中。
 
 ## 使用 Makefile
 
@@ -48,7 +44,7 @@ go mod tidy
 
 ### 代理
 
-进入 `beszel/cmd/agent` 目录并运行以下命令可在当前目录中创建二进制文件：
+进入 `src/cmd/agent` 目录并运行以下命令可在当前目录中创建二进制文件：
 
 ```bash
 go build -ldflags "-w -s" .
@@ -58,10 +54,8 @@ go build -ldflags "-w -s" .
 我们在 Windows 可执行文件中嵌入了 [LibreHardwareMonitorLib](https://github.com/LibreHardwareMonitor/LibreHardwareMonitor) 和一个 .NET 包装器，因此您需要首先构建这个：
 
 ```bash
-dotnet build -c Release ./internal/agent/lhm/beszel_lhm.csproj
+dotnet build -c Release ./agent/lhm/beszel_lhm.csproj
 ```
-
-从 `/beszel` 目录运行。
 
 :::
 
@@ -70,12 +64,12 @@ dotnet build -c Release ./internal/agent/lhm/beszel_lhm.csproj
 中心会将 Web UI 嵌入到二进制文件中，因此您必须首先构建网站。我使用的是 [Bun](https://bun.sh/)，但如果您愿意也可以使用 Node.js：
 
 ```bash
-cd site
+cd src/site
 bun install
 bun run build
 ```
 
-然后在 `/beszel/cmd/hub` 中：
+然后在 `src/cmd/hub` 中：
 
 ```bash
 go build -ldflags "-w -s" .
