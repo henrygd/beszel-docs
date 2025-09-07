@@ -6,7 +6,7 @@
 
 ## 先决条件
 
-- Go 1.24+（用于修改 Go 代码）
+- Go 1.25.1+（用于修改 Go 代码）
 - Bun 1.1+ 或 Node 18+（用于修改 Web 用户界面）
 
 如果您还没有，请 [fork 仓库](https://github.com/henrygd/beszel/fork) 并克隆您的 fork 到本地工作：
@@ -28,13 +28,13 @@ git clone https://github.com/your_username/beszel.git
 2. 代理程序 (Go)
 3. Web UI (TypeScript / Vite)
 
-每个作业都有一个 `make` 命令启动（在 `/beszel` 目录中运行）。
+每个作业都有一个 `make` 命令启动。
 
 ```bash
 # 启动中心
 make dev-hub
 # 启动代理程序
-KEY="..." make dev-agent
+make dev-agent KEY="..." TOKEN="..." HUB_URL="..."
 # 启动 Web UI
 make dev-server
 ```
@@ -42,7 +42,7 @@ make dev-server
 或者，您可以一次启动所有进程并结合输出：
 
 ```bash
-KEY="..." make -j dev
+make -j dev KEY="..." TOKEN="..." HUB_URL="..."
 ```
 
 导航到 [http://localhost:8090](http://localhost:8090) 查看 Web UI。

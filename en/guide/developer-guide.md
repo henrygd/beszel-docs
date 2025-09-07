@@ -6,7 +6,7 @@ Contributions are welcome, but it's a good idea to check with us first in a disc
 
 ## Prerequisites
 
-- Go 1.24+ (for making changes in the Go code)
+- Go 1.25.1+ (for making changes in the Go code)
 - Bun 1.1+ or Node 18+ (for making changes in the web UI)
 
 If you haven't already, [fork the repository](https://github.com/henrygd/beszel/fork) and clone your fork to work locally:
@@ -28,13 +28,13 @@ Three processes need to be started in order to work on the project:
 2. The agent (Go)
 3. The web UI (TypeScript / Vite)
 
-There are `make` commands to start each of these jobs (run in `/beszel`).
+There are `make` commands to start each of these jobs.
 
 ```bash
 # Start the hub
 make dev-hub
 # Start the agent
-KEY="..." make dev-agent
+make dev-agent KEY="..." TOKEN="..." HUB_URL="..."
 # Start the web UI
 make dev-server
 ```
@@ -42,7 +42,7 @@ make dev-server
 Alternatively, you can start all processes at once with combined output:
 
 ```bash
-KEY="..." make -j dev
+make -j dev KEY="..." TOKEN="..." HUB_URL="..."
 ```
 
 Navigate to [http://localhost:8090](http://localhost:8090) to view the web UI.
