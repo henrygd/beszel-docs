@@ -8,9 +8,12 @@ Both the hub and agent are written in Go, so you can easily build them yourself,
 
 ## Clone the repository
 
+<!-- TODO: Add the version tag back in after 0.12.8 is released -->
+<!-- git clone --branch v{{pkg.version}} --depth 1 https://github.com/henrygd/beszel.git -->
+
 ```bash-vue
 # Clone the repository
-git clone --branch v{{pkg.version}} --depth 1 https://github.com/henrygd/beszel.git
+git clone --depth 1 https://github.com/henrygd/beszel.git
 # Navigate to the repository
 cd beszel
 ```

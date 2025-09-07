@@ -8,9 +8,11 @@ Beszel 中心 (hub) 和代理都使用 Go 语言编写，因此您可以轻松�
 
 ## 克隆代码库
 
+<!-- git clone --branch v{{pkg.version}} --depth 1 https://github.com/henrygd/beszel.git -->
+
 ```bash-vue
 # 克隆代码库
-git clone --branch v{{pkg.version}} --depth 1 https://github.com/henrygd/beszel.git
+git clone --depth 1 https://github.com/henrygd/beszel.git
 # 导航到代码库
 cd beszel
 ```
