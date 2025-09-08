@@ -60,3 +60,57 @@ make -j dev KEY="..." TOKEN="..." HUB_URL="..."
 ```bash
 echo "locales/" >> .git/info/exclude
 ```
+
+## VSCode 配置
+
+您可以尝试以下 VSCode 配置，以便更轻松地处理项目。欢迎推荐您认为有用的任何更改。
+
+### `.vscode/settings.json`
+
+```json
+{
+  "go.buildFlags": [
+    "-tags=testing,development"
+  ],
+  "go.testEnvVars": {
+    "GOEXPERIMENT": "synctest"
+  },
+  "go.toolsEnvVars": {
+    "GOEXPERIMENT": "synctest"
+  },
+  "biome.configurationPath": "./src/site/biome.json",
+  "biome.lsp.bin": "./src/site/node_modules/@biomejs/biome/bin/biome"
+}
+```
+
+### `.vscode/launch.json`
+
+```json
+{
+       "version": "0.2.0",
+       "configurations": [
+               {
+                       "name": "Start hub",
+                       "type": "go",
+                       "request": "launch",
+                       "mode": "auto",
+                       "cwd": "${workspaceFolder}/src/cmd/hub",
+                       "program": "${workspaceFolder}/src/cmd/hub/hub.go",
+                       "args": ["serve"]
+               },
+               {
+                       "name": "Start agent",
+                       "type": "go",
+                       "request": "launch",
+                       "mode": "auto",
+                       "cwd": "${workspaceFolder}/src/cmd/agent",
+                       "env": {
+                               "KEY": "<key>",
+                               "TOKEN": "<token>",
+                               "HUB_URL": "http://localhost:8090"
+                       },
+                       "program": "${workspaceFolder}/src/cmd/agent/agent.go"
+               }
+       ]
+}
+```

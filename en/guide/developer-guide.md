@@ -60,3 +60,57 @@ Please exclude this directory in `.git/info/exclude` to avoid committing these c
 ```bash
 echo "locales/" >> .git/info/exclude
 ```
+
+## VSCode configuration
+
+You can try the following VSCode config to make it easier to work on the project. Feel free to recommend any changes you think would be helpful.
+
+### `.vscode/settings.json`
+
+```json
+{
+  "go.buildFlags": [
+    "-tags=testing,development"
+  ],
+  "go.testEnvVars": {
+    "GOEXPERIMENT": "synctest"
+  },
+  "go.toolsEnvVars": {
+    "GOEXPERIMENT": "synctest"
+  },
+  "biome.configurationPath": "./src/site/biome.json",
+  "biome.lsp.bin": "./src/site/node_modules/@biomejs/biome/bin/biome"
+}
+```
+
+### `.vscode/launch.json`
+
+```json
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "Start hub",
+			"type": "go",
+			"request": "launch",
+			"mode": "auto",
+			"cwd": "${workspaceFolder}/src/cmd/hub",
+			"program": "${workspaceFolder}/src/cmd/hub/hub.go",
+			"args": ["serve"]
+		},
+		{
+			"name": "Start agent",
+			"type": "go",
+			"request": "launch",
+			"mode": "auto",
+			"cwd": "${workspaceFolder}/src/cmd/agent",
+			"env": {
+				"KEY": "<key>",
+				"TOKEN": "<token>",
+				"HUB_URL": "http://localhost:8090"
+			},
+			"program": "${workspaceFolder}/src/cmd/agent/agent.go"
+		}
+	]
+}
+```
