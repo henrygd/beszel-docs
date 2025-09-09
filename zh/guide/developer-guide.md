@@ -78,8 +78,8 @@ echo "locales/" >> .git/info/exclude
   "go.toolsEnvVars": {
     "GOEXPERIMENT": "synctest"
   },
-  "biome.configurationPath": "./src/site/biome.json",
-  "biome.lsp.bin": "./src/site/node_modules/@biomejs/biome/bin/biome"
+  "biome.configurationPath": "./internal/site/biome.json",
+  "biome.lsp.bin": "./internal/site/node_modules/@biomejs/biome/bin/biome"
 }
 ```
 
@@ -87,30 +87,30 @@ echo "locales/" >> .git/info/exclude
 
 ```json
 {
-       "version": "0.2.0",
-       "configurations": [
-               {
-                       "name": "Start hub",
-                       "type": "go",
-                       "request": "launch",
-                       "mode": "auto",
-                       "cwd": "${workspaceFolder}/src/cmd/hub",
-                       "program": "${workspaceFolder}/src/cmd/hub/hub.go",
-                       "args": ["serve"]
-               },
-               {
-                       "name": "Start agent",
-                       "type": "go",
-                       "request": "launch",
-                       "mode": "auto",
-                       "cwd": "${workspaceFolder}/src/cmd/agent",
-                       "env": {
-                               "KEY": "<key>",
-                               "TOKEN": "<token>",
-                               "HUB_URL": "http://localhost:8090"
-                       },
-                       "program": "${workspaceFolder}/src/cmd/agent/agent.go"
-               }
-       ]
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "Start hub",
+			"type": "go",
+			"request": "launch",
+			"mode": "auto",
+			"cwd": "${workspaceFolder}/internal/cmd/hub",
+			"program": "${workspaceFolder}/internal/cmd/hub/hub.go",
+			"args": ["serve"]
+		},
+		{
+			"name": "Start agent",
+			"type": "go",
+			"request": "launch",
+			"mode": "auto",
+			"cwd": "${workspaceFolder}/internal/cmd/agent",
+			"env": {
+				"KEY": "<key>",
+				"TOKEN": "<token>",
+				"HUB_URL": "http://localhost:8090"
+			},
+			"program": "${workspaceFolder}/internal/cmd/agent/agent.go"
+		}
+	]
 }
 ```

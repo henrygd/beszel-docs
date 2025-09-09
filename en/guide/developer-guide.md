@@ -78,8 +78,8 @@ You can try the following VSCode config to make it easier to work on the project
   "go.toolsEnvVars": {
     "GOEXPERIMENT": "synctest"
   },
-  "biome.configurationPath": "./src/site/biome.json",
-  "biome.lsp.bin": "./src/site/node_modules/@biomejs/biome/bin/biome"
+  "biome.configurationPath": "./internal/site/biome.json",
+  "biome.lsp.bin": "./internal/site/node_modules/@biomejs/biome/bin/biome"
 }
 ```
 
@@ -94,8 +94,8 @@ You can try the following VSCode config to make it easier to work on the project
 			"type": "go",
 			"request": "launch",
 			"mode": "auto",
-			"cwd": "${workspaceFolder}/src/cmd/hub",
-			"program": "${workspaceFolder}/src/cmd/hub/hub.go",
+			"cwd": "${workspaceFolder}/internal/cmd/hub",
+			"program": "${workspaceFolder}/internal/cmd/hub/hub.go",
 			"args": ["serve"]
 		},
 		{
@@ -103,13 +103,13 @@ You can try the following VSCode config to make it easier to work on the project
 			"type": "go",
 			"request": "launch",
 			"mode": "auto",
-			"cwd": "${workspaceFolder}/src/cmd/agent",
+			"cwd": "${workspaceFolder}/internal/cmd/agent",
 			"env": {
 				"KEY": "<key>",
 				"TOKEN": "<token>",
 				"HUB_URL": "http://localhost:8090"
 			},
-			"program": "${workspaceFolder}/src/cmd/agent/agent.go"
+			"program": "${workspaceFolder}/internal/cmd/agent/agent.go"
 		}
 	]
 }
