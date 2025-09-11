@@ -9,6 +9,8 @@ We recommend using the `community.beszel` Ansible Collection.
 - [GitHub repository](https://github.com/ansible-collections/community.beszel)
 - [Ansible Galaxy](https://galaxy.ansible.com/ui/repo/published/community/beszel/)
 - [Agent role documentation](https://galaxy.ansible.com/ui/repo/published/community/beszel/content/role/agent/)
+- [Hub role documentation](https://galaxy.ansible.com/ui/repo/published/community/beszel/content/role/hub/)
+- [Module documentation](https://galaxy.ansible.com/ui/repo/published/community/beszel/content/module/system/)
 
 Thanks to [dbrennand](https://github.com/dbrennand) and all contributors for maintaining this collection.
 
