@@ -12,7 +12,7 @@ Environment variables may optionally be prefixed with `BESZEL_HUB_`.
 | `CSP`                   | unset   | Adds a [Content-Security-Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy) header with this value. |
 | `DISABLE_PASSWORD_AUTH` | false   | Disables password authentication.                                                                                                           |
 | `SHARE_ALL_SYSTEMS`     | false   | Allows access to all systems by all users.                                                                                                  |
-| `TRUSTED_AUTH_HEADER`     | unset   | Trusted header for forwarded authentication.                                                                                                  |
+| `TRUSTED_AUTH_HEADER`   | unset   | Trusted header for forwarded authentication.                                                                                                |
 | `USER_CREATION`         | false   | Enables automatic user creation for OAuth2 / OIDC.                                                                                          |
 | `USER_EMAIL`            | unset   | Create first user with this email.                                                                                                          |
 | `USER_PASSWORD`         | unset   | Create first user with this password.                                                                                                       |
@@ -27,7 +27,9 @@ If true, systems will be visible to all users. Users can also edit or delete any
 
 ### `TRUSTED_AUTH_HEADER`
 
-Don't set this unless you are implementing your own authentication and want to bypass the built-in authentication. The specified header should include the authenticated user's email. For example, when using Cloudflare Access you might set `TRUSTED_AUTH_HEADER=Cf-Access-Authenticated-User-Email` because Cloudflare uses that header to provide the user email.
+Don't set this unless you are implementing your own authentication and want to bypass the built-in authentication. The specified header should include the authenticated user's email.
+
+For example, when using Cloudflare Access you might set `TRUSTED_AUTH_HEADER=Cf-Access-Authenticated-User-Email` because Cloudflare uses that header to provide the user email.
 
 ## Agent
 
