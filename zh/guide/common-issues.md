@@ -4,12 +4,14 @@
 
 ## 代理程序未连接
 
-请查看 PocketBase 中的日志页面 (`/_/#/logs`) 以获取有关错误的信息。
+请查看 PocketBase 中的日志页面 (`/_/#/logs`) 以获取有关错误的信息。下面描述的两个通信方向中的一个需要正常工作。
 
-最可能的原因是防火墙阻止了连接请求。在这种情况下，您有两个选择：
+代理程序会向中心的 `/api/beszel/agent-connect` 发起 WebSocket 连接，因此请确保此端点可访问。如果[使用反向代理](./reverse-proxy.md)，请确保它能够代理 WebSocket 连接。
 
-1. 在代理系统的防火墙中添加入站规则，以允许 TCP 连接到该端口。检查所有活动的防火墙，例如 iptables，以及您的云服务提供商的防火墙设置（如果适用）。
-2. 或者，使用 WireGuard、Tailscale（[视频教程](https://www.youtube.com/watch?v=O_9wT-5LoHM)）或 Cloudflare Tunnel（[教程](https://github.com/henrygd/beszel/discussions/250)）等软件安全地绕过防火墙。
+中心会向代理程序发起 TCP 连接，因此请确保代理系统上的端口未被阻止。
+
+1. 检查所有活动的防火墙，例如 iptables，以及您的云服务提供商的防火墙设置（如果适用）。添加允许 TCP 连接到该端口的入站规则。
+2. 或者，使用 WireGuard、Tailscale（[视频教程](https://www.youtube.com/watch?v=O_9wT-5LoHM)）、Cloudflare Tunnel（[教程](https://github.com/henrygd/beszel/discussions/250)）或 Pangolin（[教程](https://github.com/henrygd/beszel/discussions/1163)）等软件安全地绕过防火墙。
 
 您可以通过在网络中的另一台设备上运行 `telnet <代理IP> <端口>` 来测试连接性。
 

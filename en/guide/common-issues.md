@@ -4,12 +4,14 @@ If your issue is not listed here, please search our [GitHub Issues](https://gith
 
 ## Agent is not connecting
 
-Check the logs page in PocketBase (`/_/#/logs`) for information about the error.
+Check the logs page in PocketBase (`/_/#/logs`) for information about the error. One of the two communication directions described below needs to be working.
 
-The most likely cause is a firewall blocking the connection request. In this case you have two options:
+The agent initiates a WebSocket connection to the hub at `/api/beszel/agent-connect`, so make sure this endpoint is accessible. If [using a reverse proxy](./reverse-proxy.md), make sure it's able to proxy WebSocket connections.
 
-1. Add an inbound rule to the agent system's firewall(s) to allow TCP connections to the port. Check any active firewalls, like iptables, and your cloud provider's firewall settings if applicable.
-2. Alternatively, use software like WireGuard, Tailscale ([video instructions](https://www.youtube.com/watch?v=O_9wT-5LoHM)), or Cloudflare Tunnel ([instructions](https://github.com/henrygd/beszel/discussions/250)) to securely bypass the firewall.
+The hub initiates a TCP connection to the agent, so make sure the port on the agent system is not blocked.
+
+1. Check any active firewalls, like iptables, and your cloud provider's firewall settings if applicable. Add an inbound rule allowing TCP connections to the port.
+2. Alternatively, use software like WireGuard, Tailscale ([video instructions](https://www.youtube.com/watch?v=O_9wT-5LoHM)), Cloudflare Tunnel ([instructions](https://github.com/henrygd/beszel/discussions/250)), or Pangolin ([instructions](https://github.com/henrygd/beszel/discussions/1163)) to securely bypass the firewall.
 
 You can test connectivity by running `telnet <agent-ip> <port>` from another device on your network.
 
