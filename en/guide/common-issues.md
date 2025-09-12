@@ -39,6 +39,28 @@ If not set, the agent will try to find the partition mounted on `/` and use that
 - Run `df -h` and choose an option under "Filesystem."
 - Run `sudo fdisk -l` and choose an option under "Device."
 
+## Self-signed certificate issues in Docker
+
+When running Beszel in a Docker container and connecting to services that use self-signed certificates, you may encounter TLS certificate verification errors.
+
+The error typically looks like this:
+
+```
+tls: failed to verify certificate: x509: certificate signed by unknown authority
+```
+
+To resolve this issue, you need to provide your custom CA certificate to the Docker container:
+
+1. Save your CA certificate file (e.g., `custom-ca.crt`) on the host system
+2. Mount it into the container's certificate directory:
+
+```yaml
+volumes:
+  - /path/to/custom-ca.crt:/etc/ssl/certs/custom-ca.crt:ro
+```
+
+After implementing this solution, connections to services with self-signed certificates should work properly.
+
 ## Docker container charts are empty or missing
 
 If container charts show empty data or don't appear at all, you may need to enable cgroup memory accounting. To verify, run `docker stats`. If that shows zero memory usage, follow this guide to fix the issue:

@@ -39,6 +39,28 @@
 - 运行 `df -h` 并选择 "Filesystem" 下的选项。
 - 运行 `sudo fdisk -l` 并选择 "Device" 下的选项。
 
+## Docker 中的自签名证书问题
+
+在 Docker 容器中运行 Beszel 并连接到使用自签名证书的服务时，您可能会遇到 TLS 证书验证错误。
+
+错误通常如下所示：
+
+```
+tls: failed to verify certificate: x509: certificate signed by unknown authority
+```
+
+要解决此问题，您需要向 Docker 容器提供自定义 CA 证书：
+
+1. 将您的 CA 证书文件（例如 `custom-ca.crt`）保存在主机系统上
+2. 将其挂载到容器的证书目录中：
+
+```yaml
+volumes:
+  - /path/to/custom-ca.crt:/etc/ssl/certs/custom-ca.crt:ro
+```
+
+实施此解决方案后，与使用自签名证书的服务的连接应该能够正常工作。
+
 ## Docker 容器图表为空或丢失
 
 如果容器图表显示为空数据或根本不显示，您可能需要启用 cgroup 内存记帐。要进行验证，请运行 `docker stats`。如果显示内存使用率为零，请遵循以下指南解决问题：
