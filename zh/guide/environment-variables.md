@@ -9,12 +9,18 @@
 | 名称                    | 默认值 | 描述                                                                                                                             |
 | ----------------------- | ------ | -------------------------------------------------------------------------------------------------------------------------------- |
 | `APP_URL`               | 未设置 | Web 界面的 URL。如果 [从子路径提供服务](./reverse-proxy)，则必须设置。                                                           |
+| `AUTO_LOGIN`            | 未设置 | 自动认证的用户邮箱。                                                                                                             |
 | `CSP`                   | 未设置 | 添加具有此值的 [Content-Security-Policy](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Content-Security-Policy) 头。 |
 | `DISABLE_PASSWORD_AUTH` | false  | 禁用密码认证。                                                                                                                   |
 | `SHARE_ALL_SYSTEMS`     | false  | 允许所有用户访问所有系统。                                                                                                       |
+| `TRUSTED_AUTH_HEADER`   | 未设置 | 用于转发身份验证的可信头。                                                                                                       |
 | `USER_CREATION`         | false  | 启用 OAuth2 / OIDC 的自动用户创建。                                                                                              |
 | `USER_EMAIL`            | 未设置 | 使用此邮箱创建第一个用户。                                                                                                       |
 | `USER_PASSWORD`         | 未设置 | 使用此密码创建第一个用户。                                                                                                       |
+
+### `AUTO_LOGIN`
+
+不要设置此选项，除非您想要完全绕过身份验证并使用一个用户账户。
 
 ### `DISABLE_PASSWORD_AUTH`
 
@@ -23,6 +29,10 @@
 ### `SHARE_ALL_SYSTEMS`
 
 如果为 true，所有用户都可以看到系统。除非用户被分配了 `readonly` 角色，否则他们还可以编辑或删除任何系统。
+
+### `TRUSTED_AUTH_HEADER`
+
+除非您正在实现自己的身份验证并希望绕过内置身份验证，否则不要设置此选项。指定的头应包含已认证用户的电子邮件。例如，当使用 Cloudflare Access 时，您可能会设置 `TRUSTED_AUTH_HEADER=Cf-Access-Authenticated-User-Email`，因为 Cloudflare 使用该头来提供用户电子邮件。
 
 ## 代理 (Agent)
 
