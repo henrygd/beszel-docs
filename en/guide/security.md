@@ -40,10 +40,11 @@ This is a list of ports and remote hosts that Beszel communicates with, based on
 
 #### Outgoing
 
-| Remote host  | Port | Purpose                                                                                                                |
-| ------------ | ---- | ---------------------------------------------------------------------------------------------------------------------- |
-| Your hub URL | 8090 | Agent initiated WebSocket connection to `/api/beszel/agent-connect`. Port may be customized or accessed through proxy. |
-| github.com   | 443  | Check / download updates (not needed if using Docker)                                                                  |
+| Remote host    | Port | Purpose                                                                                                                |
+| -------------- | ---- | ---------------------------------------------------------------------------------------------------------------------- |
+| Your hub URL   | 8090 | Agent initiated WebSocket connection to `/api/beszel/agent-connect`. Port may be customized or accessed through proxy. |
+| github.com     | 443  | Check / download updates (not needed if using Docker)                                                                  |
+| api.github.com | 443  | Check / download updates (not needed if using Docker)                                                                  |
 
 ### Hub
 
@@ -55,7 +56,8 @@ This is a list of ports and remote hosts that Beszel communicates with, based on
 
 #### Outgoing
 
-| Remote host | Port  | Purpose                                                |
-| ----------- | ----- | ------------------------------------------------------ |
-| Your agents | 45876 | SSH connection to your agents. Port may be customized. |
-| github.com  | 443   | Check / download updates (not needed if using Docker)  |
+| Remote host    | Port  | Purpose                                                |
+| -------------- | ----- | ------------------------------------------------------ |
+| Your agents    | 45876 | SSH connection to your agents. Port may be customized. |
+| github.com     | 443   | Check / download updates (not needed if using Docker)  |
+| api.github.com | 443   | Check / download updates (not needed if using Docker)  |
