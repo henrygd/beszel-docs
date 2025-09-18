@@ -58,6 +58,9 @@ Beszel 使用纯 Go 编写，如果没有预构建的二进制文件，可以很
 
 - `-u` : 卸载
 - `-p <port>` : 指定端口号（默认: 8090）
+- `-c <url>` : 使用自定义 GitHub 镜像 URL（例如 https://ghfast.top/）
+- `--auto-update`: 启用每日自动更新
+- `-h`: 显示帮助
 
 ```bash
 curl -sL https://get.beszel.dev/hub -o /tmp/install-hub.sh && chmod +x /tmp/install-hub.sh && /tmp/install-hub.sh
