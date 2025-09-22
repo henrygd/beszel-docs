@@ -84,7 +84,7 @@ beszel-agent:
 
 The Docker image is fresh out of the oven and still being tested.
 
-## Binary agent
+### Binary agent
 
 You must have `intel_gpu_top` installed. This is typically part of the `intel-gpu-tools` package.
 
