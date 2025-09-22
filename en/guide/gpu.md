@@ -67,8 +67,26 @@ The `henrygd/beszel-agent-nvidia` image likely doesn't work, but I can't test it
 
 ## Intel GPUs
 
-Intel GPUs are not currently supported as there doesn't seem to be a straightforward utility like `nvidia-smi` to get utilization and memory usage.
+You must use the binary agent and have `intel_gpu_top` installed. This is typically part of the `intel-gpu-tools` package.
 
-We may add support for tracking usage of video and 3D rendering engines in the future with `intel-gpu-top`.
+::: code-group
 
-Please see [issue #262](https://github.com/henrygd/beszel/issues/262) for more information.
+```bash [Debian / Ubuntu]
+sudo apt install intel-gpu-tools
+```
+
+```bash [Arch]
+sudo pacman -S intel-gpu-tools
+```
+
+:::
+
+Assuming you're not running the agent as root, you'll need to set the `cap_perfmon` capability on the `intel_gpu_top` binary.
+
+```bash
+sudo setcap cap_perfmon=ep /usr/bin/intel_gpu_top
+```
+
+If the data still doesn't show up, please confirm that running `intel_gpu_top` directly on the system works before opening an issue.
+
+Only one GPU is supported at the moment. We may add support for multiple GPUs in the future.

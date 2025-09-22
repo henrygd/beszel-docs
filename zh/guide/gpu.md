@@ -67,8 +67,26 @@ systemctl restart beszel-agent
 
 ## Intel GPU
 
-由于以下原因，目前不支持英特尔显卡：似乎没有像 `nvidia-smi` 这样可以直接获取利用率和内存使用情况的简单工具。
+您必须使用二进制代理并安装 `intel_gpu_top`。这通常是 `intel-gpu-tools` 包的一部分。
 
-我们可能会在未来添加使用 `intel-gpu-top` 跟踪视频和 3D 渲染引擎使用情况的支持。
+::: code-group
 
-有关更多信息，请参阅 [issue #262](https://github.com/henrygd/beszel/issues/262)。
+```bash [Debian / Ubuntu]
+sudo apt install intel-gpu-tools
+```
+
+```bash [Arch]
+sudo pacman -S intel-gpu-tools
+```
+
+:::
+
+假设您不是以 root 身份运行代理，您需要在 `intel_gpu_top` 二进制文件上设置 `cap_perfmon` 能力。
+
+```bash
+sudo setcap cap_perfmon=ep /usr/bin/intel_gpu_top
+```
+
+如果数据仍然没有显示，请在提出问题之前确认直接在系统上运行 `intel_gpu_top` 是否有效。
+
+目前仅支持一个 GPU。我们可能会在未来添加对多个 GPU 的支持。
