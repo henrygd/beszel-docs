@@ -67,7 +67,26 @@ The `henrygd/beszel-agent-nvidia` image likely doesn't work, but I can't test it
 
 ## Intel GPUs
 
-You must use the binary agent and have `intel_gpu_top` installed. This is typically part of the `intel-gpu-tools` package.
+Note that only one GPU per system is supported. We may add support for multiple GPUs in the future.
+
+### Docker agent
+
+Use the `henrygd/beszel-agent-intel` image with the additional options below.
+
+```yaml
+beszel-agent:
+  image: henrygd/beszel-agent-intel
+  cap_add:
+    - CAP_PERFMON
+  devices:
+    - "/dev/dri:/dev/dri"
+```
+
+The Docker image is fresh out of the oven and still being tested.
+
+## Binary agent
+
+You must have `intel_gpu_top` installed. This is typically part of the `intel-gpu-tools` package.
 
 ::: code-group
 
@@ -88,5 +107,3 @@ sudo setcap cap_perfmon=ep /usr/bin/intel_gpu_top
 ```
 
 If the data still doesn't show up, please confirm that running `intel_gpu_top` directly on the system works before opening an issue.
-
-Only one GPU is supported at the moment. We may add support for multiple GPUs in the future.

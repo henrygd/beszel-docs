@@ -67,7 +67,26 @@ systemctl restart beszel-agent
 
 ## Intel GPU
 
-您必须使用二进制代理并安装 `intel_gpu_top`。这通常是 `intel-gpu-tools` 包的一部分。
+请注意，目前每个系统仅支持一个 GPU。我们可能会在未来添加对多个 GPU 的支持。
+
+### Docker 代理
+
+使用 `henrygd/beszel-agent-intel` 镜像并添加以下附加选项。
+
+```yaml
+beszel-agent:
+  image: henrygd/beszel-agent-intel
+  cap_add:
+    - CAP_PERFMON
+  devices:
+    - "/dev/dri:/dev/dri"
+```
+
+Docker 镜像刚刚推出，仍在测试中.
+
+### 二进制代理
+
+您必须安装 `intel_gpu_top`。这通常是 `intel-gpu-tools` 包的一部分。
 
 ::: code-group
 
@@ -88,5 +107,3 @@ sudo setcap cap_perfmon=ep /usr/bin/intel_gpu_top
 ```
 
 如果数据仍然没有显示，请在提出问题之前确认直接在系统上运行 `intel_gpu_top` 是否有效。
-
-目前仅支持一个 GPU。我们可能会在未来添加对多个 GPU 的支持。
