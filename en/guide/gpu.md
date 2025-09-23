@@ -67,6 +67,8 @@ The `henrygd/beszel-agent-nvidia` image likely doesn't work, but I can't test it
 
 ## Intel GPUs
 
+Support for Intel is new and wrinkles are still being ironed out.
+
 Note that only one GPU per system is supported. We may add support for multiple GPUs in the future.
 
 ### Docker agent
@@ -79,10 +81,18 @@ beszel-agent:
   cap_add:
     - CAP_PERFMON
   devices:
-    - "/dev/dri:/dev/dri"
+    - /dev/dri/card0:/dev/dri/card0
 ```
 
-The Docker image is fresh out of the oven and still being tested.
+Use `ls /dev/dri` to find the name of your GPU:
+
+```bash
+ls /dev/dri
+```
+
+```
+by-path  card0  renderD128
+```
 
 ### Binary agent
 

@@ -10,7 +10,7 @@ APP_URL=https://beszel.example.com/base-path-if-applicable
 
 ## Caddy
 
-```ini
+```
 beszel.example.com {
 	request_body {
 		max_size 10MB

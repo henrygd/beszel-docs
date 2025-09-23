@@ -86,6 +86,8 @@
 	--vp-button-brand-active-border: transparent;
 	--vp-button-brand-active-text: var(--vp-c-white);
 	--vp-button-brand-active-bg: var(--vp-c-brand-1);
+	--shiki-dark: #e1e4e8;
+	--shiki-light: #161718;
 }
 
 /**

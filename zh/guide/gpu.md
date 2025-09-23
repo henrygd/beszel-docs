@@ -67,6 +67,8 @@ systemctl restart beszel-agent
 
 ## Intel GPU
 
+Intel 支持是新的，仍在解决一些问题。
+
 请注意，目前每个系统仅支持一个 GPU。我们可能会在未来添加对多个 GPU 的支持。
 
 ### Docker 代理
@@ -79,10 +81,18 @@ beszel-agent:
   cap_add:
     - CAP_PERFMON
   devices:
-    - "/dev/dri:/dev/dri"
+    - /dev/dri/card0:/dev/dri/card0
 ```
 
-Docker 镜像刚刚推出，仍在测试中.
+使用 `ls /dev/dri` 查找您的 GPU 名称：
+
+```bash
+ls /dev/dri
+```
+
+```
+by-path  card0  renderD128
+```
 
 ### 二进制代理
 
