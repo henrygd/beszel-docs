@@ -2,7 +2,7 @@
 
 Beszel 可以监控 GPU 使用率、温度和功耗。
 
-## AMD GPU
+## AMD GPU {#amd}
 
 ::: info 正在开发中
 AMD 已弃用 `rocm-smi`，转而使用 `amd-smi`。代理在 Linux 上可以与 `rocm-smi` 配合使用，但尚未更新以支持 `amd-smi`。
@@ -18,9 +18,9 @@ Beszel 使用 `rocm-smi` 监控 AMD GPU。该工具必须在系统上可用，�
 sudo ln -s /opt/rocm/bin/rocm-smi /usr/local/bin/rocm-smi
 ```
 
-## Nvidia GPU
+## Nvidia GPU {#nvidia}
 
-### Docker 代理
+### Docker 代理 {#nvidia-docker}
 
 确保主机系统上安装了 NVIDIA Container Toolkit。
 
@@ -39,7 +39,7 @@ beszel-agent:
               - utility
 ```
 
-### 二进制代理
+### 二进制代理 {#nvidia-binary}
 
 您必须在系统上有 `nvidia-smi` 可用。
 
@@ -59,19 +59,19 @@ systemctl daemon-reload
 systemctl restart beszel-agent
 ```
 
-## Nvidia Jetson
+## Nvidia Jetson {#nvidia-jetson}
 
 您必须使用二进制代理并安装 `tegrastats`。
 
 `henrygd/beszel-agent-nvidia` 镜像可能不起作用，但我无法测试以确认。如果您尝试了，请告诉我结果如何 :)。
 
-## Intel GPU
+## Intel GPU {#intel}
 
 Intel 支持是新的，仍在解决一些问题。
 
 请注意，目前每个系统仅支持一个 GPU。我们可能会在未来添加对多个 GPU 的支持。
 
-### Docker 代理
+### Docker 代理 {#intel-docker}
 
 使用 `henrygd/beszel-agent-intel` 镜像并添加以下附加选项。
 
@@ -94,7 +94,15 @@ ls /dev/dri
 by-path  card0  renderD128
 ```
 
-### 二进制代理
+如果使用上述配置没有看到任何数据，请尝试在 `CAP_PERFMON` 之外添加 `CAP_SYS_ADMIN` 和 `CAP_DAC_OVERRIDE`。
+
+如果仍然失败，请尝试将 `kernel.perf_event_paranoid` 设置为 2。进行这些更改后请确保重新启动代理。有关更多信息，请参阅 [issue #1150](https://github.com/henrygd/beszel/issues/1150)。
+
+```bash
+sudo sysctl kernel.perf_event_paranoid=2
+```
+
+### 二进制代理 {#intel-binary}
 
 您必须安装 `intel_gpu_top`。这通常是 `intel-gpu-tools` 包的一部分。
 

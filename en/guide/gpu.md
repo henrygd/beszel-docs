@@ -2,7 +2,7 @@
 
 Beszel can monitor GPU usage, temperature, and power draw.
 
-## AMD GPUs
+## AMD GPUs {#amd}
 
 ::: info Work in progress
 AMD has deprecated `rocm-smi` in favor of `amd-smi`. The agent works with `rocm-smi` on Linux, but hasn't been updated to work with `amd-smi` yet.
@@ -18,7 +18,7 @@ Installing `rocm-smi-lib` on Arch and Debian places the `rocm-smi` binary in `/o
 sudo ln -s /opt/rocm/bin/rocm-smi /usr/local/bin/rocm-smi
 ```
 
-## Nvidia GPUs
+## Nvidia GPUs {#nvidia}
 
 ### Docker agent
 
@@ -39,7 +39,7 @@ beszel-agent:
               - utility
 ```
 
-### Binary agent
+### Binary agent {#nvidia-binary}
 
 You must have `nvidia-smi` available on the system.
 
@@ -59,19 +59,19 @@ systemctl daemon-reload
 systemctl restart beszel-agent
 ```
 
-## Nvidia Jetson
+## Nvidia Jetson {#nvidia-jetson}
 
 You must use the binary agent and have `tegrastats` installed.
 
 The `henrygd/beszel-agent-nvidia` image likely doesn't work, but I can't test it to confirm. Let me know one way or the other if you try it :).
 
-## Intel GPUs
+## Intel GPUs {#intel}
 
 Support for Intel is new and wrinkles are still being ironed out.
 
 Note that only one GPU per system is supported. We may add support for multiple GPUs in the future.
 
-### Docker agent
+### Docker agent {#intel-docker}
 
 Use the `henrygd/beszel-agent-intel` image with the additional options below.
 
@@ -94,7 +94,15 @@ ls /dev/dri
 by-path  card0  renderD128
 ```
 
-### Binary agent
+If you don't see any data with the above configuration, try adding `CAP_SYS_ADMIN` and `CAP_DAC_OVERRIDE` in addition to `CAP_PERFMON`.
+
+If that fails, try setting `kernel.perf_event_paranoid` to 2. Make sure to restart the agent after making these changes. For more information, see [issue #1150](https://github.com/henrygd/beszel/issues/1150).
+
+```bash
+sudo sysctl kernel.perf_event_paranoid=2
+```
+
+### Binary agent {#intel-binary}
 
 You must have `intel_gpu_top` installed. This is typically part of the `intel-gpu-tools` package.
 
