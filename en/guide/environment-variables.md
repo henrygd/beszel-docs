@@ -54,7 +54,7 @@ Environment variables may optionally be prefixed with `BESZEL_AGENT_`.
 | `LOG_LEVEL`         | info    | Logging level. Valid values: "debug", "info", "warn", "error".                                 |
 | `MEM_CALC`          | unset   | Overrides the default memory calculation.                                                      |
 | `NETWORK`           | unset   | Network for listener. "tcp", "tcp4", "tcp6", or "unix".                                        |
-| `NICS`              | unset   | Whitelist of network interfaces to monitor for bandwidth.                                      |
+| `NICS`              | unset   | Whitelist or blacklist network interfaces.                                                     |
 | `PRIMARY_SENSOR`    | unset   | Display specific temperature sensor in 'All Systems' table.                                    |
 | `SENSORS`           | unset   | Whitelist or blacklist temperature sensors.                                                    |
 | `SYS_SENSORS`       | unset   | Overrides sys path for sensors. See [#160](https://github.com/henrygd/beszel/discussions/160). |
@@ -90,6 +90,18 @@ The default value for used memory is based on gopsutil's [Used](https://pkg.go.d
 ### `NETWORK`
 
 Default depends on the address value. If the address starts with `/`, it is treated as a unix socket. Otherwise, `tcp` is used.
+
+### `NICS`
+
+Treated as a whitelist by default. Can be used as a blacklist by prefixing with `-`.
+
+| `NICS` value   | Mode      | Action                                                    |
+| -------------- | --------- | --------------------------------------------------------- |
+| `foo_*`        | Whitelist | Only interfaces matching `foo_*` are allowed.             |
+| `foo_1,bar_*`  | Whitelist | Only `foo_1` and `bar_*` interfaces allowed.              |
+| `-foo_*`       | Blacklist | Excludes interfaces matching `foo_*`; all others allowed. |
+| `-foo_1,bar_*` | Blacklist | Excludes `foo_1` and `bar_*`; all others allowed.         |
+| `""`           | Disabled  | Disable network monitoring with an empty string.          |
 
 ### `PRIMARY_SENSOR`
 
