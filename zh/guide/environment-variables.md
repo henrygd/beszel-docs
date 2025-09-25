@@ -55,6 +55,7 @@
 | `NICS`              | 未设置 | 网络接口的白名单或黑名单。                                                                   |
 | `PRIMARY_SENSOR`    | 未设置 | 在"所有系统"表格中显示的特定温度传感器。                                                     |
 | `SENSORS`           | 未设置 | 温度传感器的白名单或黑名单。                                                                 |
+| `SKIP_GPU`          | false  | 禁用 GPU 监控。                                                                              |
 | `SYS_SENSORS`       | 未设置 | 覆盖用于传感器的系统路径。请参阅 [#160](https://github.com/henrygd/beszel/discussions/160)。 |
 | `TOKEN`             | 未设置 | WebSocket 注册令牌。在中心提供。                                                             |
 | `TOKEN_FILE`        | 未设置 | 从文件中读取令牌，而不是从环境变量中读取。                                                   |
