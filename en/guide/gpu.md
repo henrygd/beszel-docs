@@ -129,3 +129,10 @@ If that doesn't work, you may need to set a lower value for the `perf_event_para
 ```bash
 sudo sysctl kernel.perf_event_paranoid=2
 ```
+
+To make this change persistant across reboots you need to add it to the `sysctl` configuration
+
+```bash
+echo "kernel.perf_event_paranoid=2" | sudo tee /etc/sysctl.d/99-intel-gpu-beszel.conf
+sudo sysctl --system
+```
