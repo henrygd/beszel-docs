@@ -150,6 +150,21 @@ spec:
     type: RollingUpdate
 ```
 
+##### Note on WebSocket timeouts
+
+Whe using a Beszel Hub address (`HUB_URL`) on your Agents which is being served by an Ingess Controller like NGINX, make sure to increase the proxy read / send timeouts. Otherwise the connection will periodically abort and your nodes will be reported as offline.
+
+For the Kubernetes NGINX Ingress Controller, add a `proxy-read-timeout` and `proxy-send-timeout` annotation.
+
+```yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
+```
+
 #### Adding Systems to Beszel
 
 Since we are using `hostNetwork: true` you use the Kubernetes node IP address when adding the system. **Note: This is NOT the internal Kubernetes IP but the physical IP of the node itself.** Each Kubernetes node only runs a single agent pod thus why this works.
