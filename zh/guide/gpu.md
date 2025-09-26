@@ -129,3 +129,10 @@ sudo setcap cap_perfmon=ep /usr/bin/intel_gpu_top
 ```bash
 sudo sysctl kernel.perf_event_paranoid=2
 ```
+
+要让此更改在重启后依然生效，需要将其添加到 `sysctl` 配置中。
+
+```bash
+echo "kernel.perf_event_paranoid=2" | sudo tee /etc/sysctl.d/99-intel-gpu-beszel.conf
+sudo sysctl --system
+```
