@@ -94,13 +94,13 @@ ls /dev/dri
 by-path  card0  renderD128
 ```
 
-If you don't see any data with the above configuration, try adding `CAP_SYS_ADMIN` and `CAP_DAC_OVERRIDE` in addition to `CAP_PERFMON`.
-
-If that fails, try setting `kernel.perf_event_paranoid` to 2. Make sure to restart the agent after making these changes. For more information, see [issue #1150](https://github.com/henrygd/beszel/issues/1150).
+You may need to set a lower value for the `perf_event_paranoid` kernel parameter. See [issue #1150](https://github.com/henrygd/beszel/issues/1150) or [#1203](https://github.com/henrygd/beszel/issues/1203#issuecomment-3336457430) for more information.
 
 ```bash
 sudo sysctl kernel.perf_event_paranoid=2
 ```
+
+If none of the above works, try adding `CAP_SYS_ADMIN` and `CAP_DAC_OVERRIDE` in addition to `CAP_PERFMON`.
 
 ### Binary agent {#intel-binary}
 
@@ -124,4 +124,8 @@ Assuming you're not running the agent as root, you'll need to set the `cap_perfm
 sudo setcap cap_perfmon=ep /usr/bin/intel_gpu_top
 ```
 
-If the data still doesn't show up, please confirm that running `intel_gpu_top` directly on the system works before opening an issue.
+If that doesn't work, you may need to set a lower value for the `perf_event_paranoid` kernel parameter. See [issue #1150](https://github.com/henrygd/beszel/issues/1150) or [#1203](https://github.com/henrygd/beszel/issues/1203#issuecomment-3336457430) for more information.
+
+```bash
+sudo sysctl kernel.perf_event_paranoid=2
+```

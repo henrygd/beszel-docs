@@ -94,13 +94,13 @@ ls /dev/dri
 by-path  card0  renderD128
 ```
 
-如果使用上述配置没有看到任何数据，请尝试在 `CAP_PERFMON` 之外添加 `CAP_SYS_ADMIN` 和 `CAP_DAC_OVERRIDE`。
-
-如果仍然失败，请尝试将 `kernel.perf_event_paranoid` 设置为 2。进行这些更改后请确保重新启动代理。有关更多信息，请参阅 [issue #1150](https://github.com/henrygd/beszel/issues/1150)。
+如果不起作用，您可能需要为 `perf_event_paranoid` 内核参数设置一个较低的值。有关更多信息，请参阅 [issue #1150](https://github.com/henrygd/beszel/issues/1150) 或 [#1203](https://github.com/henrygd/beszel/issues/1203#issuecomment-3336457430)。
 
 ```bash
 sudo sysctl kernel.perf_event_paranoid=2
 ```
+
+如果以上方法都不起作用，请尝试在 `CAP_PERFMON` 之外添加 `CAP_SYS_ADMIN` 和 `CAP_DAC_OVERRIDE`。
 
 ### 二进制代理 {#intel-binary}
 
@@ -124,4 +124,8 @@ sudo pacman -S intel-gpu-tools
 sudo setcap cap_perfmon=ep /usr/bin/intel_gpu_top
 ```
 
-如果数据仍然没有显示，请在提出问题之前确认直接在系统上运行 `intel_gpu_top` 是否有效。
+如果不起作用，您可能需要为 `perf_event_paranoid` 内核参数设置一个较低的值。有关更多信息，请参阅 [issue #1150](https://github.com/henrygd/beszel/issues/1150) 或 [#1203](https://github.com/henrygd/beszel/issues/1203#issuecomment-3336457430)。
+
+```bash
+sudo sysctl kernel.perf_event_paranoid=2
+```
