@@ -59,6 +59,7 @@ Environment variables may optionally be prefixed with `BESZEL_AGENT_`.
 | `SENSORS`           | unset   | Whitelist or blacklist temperature sensors.                                                    |
 | `SKIP_GPU`          | false   | Disable GPU monitoring.                                                                        |
 | `SYS_SENSORS`       | unset   | Overrides sys path for sensors. See [#160](https://github.com/henrygd/beszel/discussions/160). |
+| `SYSTEM_NAME`       | unset   | Override system name on universal token registration. Defaults to hostname if unset.           |
 | `TOKEN`             | unset   | WebSocket registration token. Provided in hub.                                                 |
 | `TOKEN_FILE`        | unset   | Read token from a file instead of an environment variable.                                     |
 

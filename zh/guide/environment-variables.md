@@ -57,6 +57,7 @@
 | `SENSORS`           | 未设置 | 温度传感器的白名单或黑名单。                                                                 |
 | `SKIP_GPU`          | false  | 禁用 GPU 监控。                                                                              |
 | `SYS_SENSORS`       | 未设置 | 覆盖用于传感器的系统路径。请参阅 [#160](https://github.com/henrygd/beszel/discussions/160)。 |
+| `SYSTEM_NAME`       | 未设置 | 在通用令牌注册时覆盖系统名称。未设置时默认为主机名。                                         |
 | `TOKEN`             | 未设置 | WebSocket 注册令牌。在中心提供。                                                             |
 | `TOKEN_FILE`        | 未设置 | 从文件中读取令牌，而不是从环境变量中读取。                                                   |
 
