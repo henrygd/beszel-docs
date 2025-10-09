@@ -19,7 +19,8 @@ Mount a folder from the target filesystem in the container's `/extra-filesystems
 ```yaml
 volumes:
   - /mnt/disk1/.beszel:/extra-filesystems/sdb1:ro
-  - /mnt/mmcblk0/.beszel:/extra-filesystems/mmcblk0:ro
+  # give the device a custom name with double underscores
+  - /mnt/media/.beszel:/extra-filesystems/sdc1__Media:ro
 ```
 
 ::: tip
@@ -46,3 +47,7 @@ Environment="EXTRA_FILESYSTEMS=sdb,sdc1,mmcblk0,/mnt/network-share"
 If using Systemd, the service configuration is usually located in `/etc/systemd/system/beszel-agent.service`.
 
 After editing the service, reload system units with `systemctl daemon-reload`, followed by restarting the service with `systemctl restart beszel-agent`.
+
+::: tip Custom names
+You can give the device a custom name with double underscores. For example, `sdc1__Jellyfin Media`. This will use "Jellyfin Media" for the device name in the charts.
+:::

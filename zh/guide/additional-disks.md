@@ -18,8 +18,9 @@
 
 ```yaml
 volumes:
-  - /mnt/disk1/.beszel:/extra-filesystems/sdb1:ro # 只读模式
-  - /mnt/mmcblk0/.beszel:/extra-filesystems/mmcblk0:ro # 只读模式
+  - /mnt/disk1/.beszel:/extra-filesystems/sdb1:ro
+  # 给设备指定自定义名称
+  - /mnt/media/.beszel:/extra-filesystems/sdc1__Media:ro
 ```
 
 ::: tip 提示
@@ -46,3 +47,7 @@ Environment="EXTRA_FILESYSTEMS=sdb,sdc1,mmcblk0,/mnt/network-share"
 如果使用 Systemd，服务配置文件通常位于 `/etc/systemd/system/beszel-agent.service`。
 
 编辑服务后，使用 `systemctl daemon-reload` 重新加载系统单元，然后使用 `systemctl restart beszel-agent` 重启服务。
+
+::: tip 自定义名称
+您可以使用双下划线为设备指定自定义名称。例如，`sdc1__Jellyfin Media`。这将在图表中使用"Jellyfin Media"作为设备名称。
+:::
