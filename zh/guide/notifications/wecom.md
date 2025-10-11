@@ -6,7 +6,7 @@
 
 <span class="bk">wecom://**`key`**</span>
 
-## 可选查询/参数属性
+## 可选查询参数
 
 - **`mentioned_list`** - 要提及的用户（逗号分隔）
 

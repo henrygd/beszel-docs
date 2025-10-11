@@ -12,7 +12,7 @@
 - **User** - User Key (Required)<br>
   URL part: <code>pushover://:token@<strong>user</strong>/</code>
 
-## Query/Param Props
+## Query Parameters
 
 Props can be supplied through URL query params: `?key=value&key=value` etc.
 

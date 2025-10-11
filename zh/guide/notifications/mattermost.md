@@ -20,7 +20,7 @@
   默认值：空<br>
   URL 部分: <code>mattermost://username@host:port/token/<strong>channel</strong></code>
 
-## 查询/参数属性
+## 查询参数
 
 参数可以通过 URL 查询参数提供：`?key=value&key=value` 等。
 

@@ -17,7 +17,7 @@ The shoutrrr service URL should look like this:
 - **WebhookID** (**Required**)  
   URL part: <code class="service-url">discord://token@<strong>webhookid</strong>/</code>
 
-## Query/Param Props
+## Query Parameters
 
 Props can be supplied through URL query params: `?key=value&key=value` etc.
 

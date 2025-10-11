@@ -17,7 +17,7 @@ Shoutrrr 服务 URL 应该如下所示：
 - **Host** - API 服务器主机名（必填）<br>
   URL 部分: <code>zulip://botmail:botkey@<strong>host:port</strong>/</code>
 
-## 查询/参数属性
+## 查询参数
 
 属性可以通过 URL 使用 `?key=value&key=value` 等方式提供。
 

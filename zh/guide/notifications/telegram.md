@@ -9,10 +9,7 @@
 - **Token** - API 机器人令牌（必需）<br>
   URL 部分: <code>telegram://<strong>token</strong>@telegram/</code>
 
-## 查询/参数属性
-
-参数可以通过 params 参数提供，或者通过 URL 使用
-?key=value&key=value 等形式提供。
+## 查询参数
 
 - **Chats** - 聊天 ID 或频道名称（使用 @channel-name）（必需）<br>
   别名: channels

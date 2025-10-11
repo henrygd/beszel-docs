@@ -30,8 +30,8 @@ By using the built in `JSON` template (`template=json`) you can create a generic
 
 ```json
 {
-	"title": "Foo CPU above threshold",
-	"message": "CPU averaged 63.53% for the previous 10 minutes."
+  "title": "Foo CPU above threshold",
+  "message": "CPU averaged 63.53% for the previous 10 minutes."
 }
 ```
 
@@ -43,8 +43,8 @@ The keys used for `title` and `message` can be overriden by supplying the params
 
 ```json
 {
-	"subject": "Foo CPU above threshold",
-	"content": "CPU averaged 63.53% for the previous 10 minutes."
+  "subject": "Foo CPU above threshold",
+  "content": "CPU averaged 63.53% for the previous 10 minutes."
 }
 ```
 
@@ -58,9 +58,9 @@ Using `generic://example.com?template=json&$free=palestine` would yield:
 
 ```json
 {
-	"title": "Foo CPU above threshold",
-	"message": "CPU averaged 63.53% for the previous 10 minutes.",
-	"free": "palestine"
+  "title": "Foo CPU above threshold",
+  "message": "CPU averaged 63.53% for the previous 10 minutes.",
+  "free": "palestine"
 }
 ```
 
@@ -79,10 +79,7 @@ to `https://example.com/api/v1/postStuff` using the `Content-Type: text/plain` h
 If instead escaped, `generic://example.com/api/v1/postStuff?_contenttype=text/plain` would send a POST message
 to `https://example.com/api/v1/postStuff?contenttype=text/plain` using the `Content-Type: application/json` header (as it's the default).
 
-## Query/Param Props
-
-Props can be either supplied using the params argument, or through the URL using  
-`?key=value&key=value` etc.
+## Query Parameters
 
 - **ContentType** - The value of the Content-Type header  
   Default: `application/json`

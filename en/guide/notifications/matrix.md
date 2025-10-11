@@ -16,7 +16,7 @@
 - `Host` (Required)<br>
   URL part: <code>matrix://user:password@<strong>host</strong>/</code>
 
-## Query/Param Props
+## Query Parameters
 
 Props can be supplied through URL query params: `?key=value&key=value` etc.
 

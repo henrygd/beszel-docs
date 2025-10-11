@@ -39,9 +39,7 @@
 - **Topic** - 目标主题名称（必填）<br>
   URL 部分: <code>ntfy://username:password@host/<strong>topic</strong></code>
 
-## 查询/参数属性
-
-属性可以通过参数参数提供，或通过 URL 使用 `?key=value&key=value` 等方式提供。
+## 查询参数
 
 - **Actions** - 通知的自定义用户操作按钮，参见 https://docs.ntfy.sh/publish/#action-buttons<br>
   默认值: 空

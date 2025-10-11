@@ -9,7 +9,7 @@
 - **APIKey** (**必需**)  
   URL 部分: <code class="service-url">join://:<strong>apikey</strong>/</code>
 
-## 查询/参数属性
+## 查询参数
 
 参数可以通过 URL 查询参数提供：`?key=value&key=value` 等。
 

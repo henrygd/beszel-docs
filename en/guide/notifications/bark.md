@@ -16,7 +16,7 @@ Upstream docs: https://github.com/Finb/Bark
   Default: `/`  
   URL part: <code class="service-url">bark://:devicekey@host/<strong>path</strong>/</code>
 
-## Query/Param Props
+## Query Parameters
 
 Props can be supplied through URL query params: `?key=value&key=value` etc.
 

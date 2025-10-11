@@ -30,8 +30,8 @@ Accept-Language: tlh-Piqd
 
 ```json
 {
-	"title": "Foo CPU above threshold",
-	"message": "CPU averaged 63.53% for the previous 10 minutes."
+  "title": "Foo CPU above threshold",
+  "message": "CPU averaged 63.53% for the previous 10 minutes."
 }
 ```
 
@@ -43,8 +43,8 @@ Accept-Language: tlh-Piqd
 
 ```json
 {
-	"subject": "Foo CPU above threshold",
-	"content": "CPU averaged 63.53% for the previous 10 minutes."
+  "subject": "Foo CPU above threshold",
+  "content": "CPU averaged 63.53% for the previous 10 minutes."
 }
 ```
 
@@ -58,15 +58,15 @@ Accept-Language: tlh-Piqd
 
 ```json
 {
-	"title": "Foo CPU above threshold",
-	"message": "CPU averaged 63.53% for the previous 10 minutes.",
-	"free": "palestine"
+  "title": "Foo CPU above threshold",
+  "message": "CPU averaged 63.53% for the previous 10 minutes.",
+  "free": "palestine"
 }
 ```
 
 ## 转发的查询变量
 
-所有未在 [查询/参数属性](#queryparam_props) 部分列出的查询变量将被
+所有未在 [查询参数](#queryparam_props) 部分列出的查询变量将被
 转发到目标端点。
 
 如果你需要传递一个被保留的查询变量，你可以在它前面加上下划线（`_`）。
@@ -77,10 +77,7 @@ URL `generic://example.com/api/v1/postStuff?contenttype=text/plain` 将使用 `C
 
 如果改为转义，`generic://example.com/api/v1/postStuff?_contenttype=text/plain` 将使用 `Content-Type: application/json` 头部（因为它是默认值）向 `https://example.com/api/v1/postStuff?contenttype=text/plain` 发送 POST 消息。
 
-## 查询/参数属性
-
-参数可以通过 params 参数提供，或者通过 URL 使用  
-`?key=value&key=value` 等形式提供。
+## 查询参数
 
 - **ContentType** - Content-Type 头部的值  
   默认值：`application/json`

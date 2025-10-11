@@ -17,7 +17,7 @@ The shoutrrr service URL should look like this:
 - **Host** - API server hostname (Required)<br>
   URL part: <code>zulip://botmail:botkey@<strong>host:port</strong>/</code>
 
-## Query/Param Props
+## Query Parameters
 
 Props can be supplied through the URL using `?key=value&key=value` etc.
 

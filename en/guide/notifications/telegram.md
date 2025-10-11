@@ -9,10 +9,7 @@
 - **Token** - API Bot token (Required)<br>
   URL part: <code>telegram://<strong>token</strong>@telegram/</code>
 
-## Query/Param Props
-
-Props can be either supplied using the params argument, or through the URL using
-?key=value&key=value etc.
+## Query Parameters
 
 - **Chats** - Chat IDs or Channel names (using @channel-name) (Required)<br>
   Aliases: channels

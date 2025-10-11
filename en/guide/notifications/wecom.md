@@ -6,7 +6,7 @@ Send notifications to WeChat Work (Enterprise WeChat) using webhook bots.
 
 <span class="bk">wecom://**`key`**</span>
 
-## Optional Query/Param Props
+## Optional Query Parameters
 
 - **`mentioned_list`** - Users to mention (comma-separated)
 

@@ -16,7 +16,7 @@ Note that the token uses a prefix to determine the type, usually either `hook` (
 - **Channel** - Channel to send messages to in Cxxxxxxxxxx format (Required)<br>
   URL part: <code>slack://token:token@<strong>channel</strong>/</code>
 
-## Query/Param Props
+## Query Parameters
 
 Props can be supplied through URL query params: `?key=value&key=value` etc.
 

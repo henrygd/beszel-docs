@@ -16,7 +16,7 @@ Slack 通知服务使用 [Slack Webhooks](https://api.slack.com/messaging/webhoo
 - **Channel** - 发送消息的频道，格式为 Cxxxxxxxxxx（必需）<br>
   URL 部分: <code>slack://token:token@<strong>channel</strong>/</code>
 
-## 查询/参数属性
+## 查询参数
 
 参数可以通过 URL 查询参数提供：`?key=value&key=value` 等。
 

@@ -17,7 +17,7 @@
 - **APIKey** - OpsGenie API 密钥（必填）<br>
   URL 部分: <code>opsgenie://host:port/<strong>apikey</strong></code>
 
-## 查询/参数属性
+## 查询参数
 
 属性可以通过 URL 查询参数提供: `?key=value&key=value` 等。
 

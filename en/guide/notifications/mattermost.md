@@ -20,7 +20,7 @@
   Default: empty<br>
   URL part: <code>mattermost://username@host:port/token/<strong>channel</strong></code>
 
-## Query/Param Props
+## Query Parameters
 
 Props can be supplied through URL query params: `?key=value&key=value` etc.
 

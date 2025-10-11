@@ -9,7 +9,7 @@
 - **APIKey** (**Required**)  
   URL part: <code class="service-url">join://:<strong>apikey</strong>/</code>
 
-## Query/Param Props
+## Query Parameters
 
 Props can be supplied through URL query params: `?key=value&key=value` etc.
 

@@ -16,7 +16,7 @@
   默认值：`/`  
   URL 部分: <code class="service-url">bark://:devicekey@host/<strong>path</strong>/</code>
 
-## 查询/参数属性
+## 查询参数
 
 参数可以通过 URL 查询参数提供：`?key=value&key=value` 等。
 

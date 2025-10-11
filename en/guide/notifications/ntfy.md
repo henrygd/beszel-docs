@@ -39,9 +39,7 @@ If using an access token, you do not need to provide a username or password.
 - **Topic** - Target topic name (Required)<br>
   URL part: <code>ntfy://username:password@host/<strong>topic</strong></code>
 
-## Query/Param Props
-
-Props can be either supplied using the params argument, or through the URL using `?key=value&key=value` etc.
+## Query Parameters
 
 - **Actions** - Custom user action buttons for notifications, see https://docs.ntfy.sh/publish/#action-buttons<br>
   Default: empty

@@ -14,7 +14,7 @@
 - **Token** - Application token (**Required**)  
   URL part: <code class="service-url">gotify://host:port/path/<strong>token</strong></code>
 
-## Query/Param Props
+## Query Parameters
 
 Props can be supplied through URL query params: `?key=value&key=value` etc.
 

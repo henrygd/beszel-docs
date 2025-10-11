@@ -294,8 +294,9 @@ brew services start beszel-agent
 
 - `-Key`：SSH 密钥（如果未提供则进入交互模式）
 - `-Port`：端口（默认：45876）
-- `-Url`：中心 URL（可选，用于向后兼容）
-- `-Token`：令牌（可选，用于向后兼容）
+- `-Url`：中心 URL
+- `-Token`：令牌
+- `-ConfigureFirewall`：添加防火墙规则
 
 ```powershell
 & iwr -useb https://get.beszel.dev -OutFile "$env:TEMP\install-agent.ps1"; & Powershell -ExecutionPolicy Bypass -File "$env:TEMP\install-agent.ps1"

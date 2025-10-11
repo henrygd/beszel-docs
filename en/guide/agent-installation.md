@@ -291,8 +291,9 @@ It also installs [NSSM](https://nssm.cc/usage) and creates a service to keep the
 
 - `-Key`: SSH key (interactive if not provided)
 - `-Port`: Port (default: 45876)
-- `-Url`: Hub URL (optional for backwards compatibility)
-- `-Token`: Token (optional for backwards compatibility)
+- `-Url`: Hub URL
+- `-Token`: Token
+- `-ConfigureFirewall`: Add an incoming firewall rule.
 
 ```powershell
 & iwr -useb https://get.beszel.dev -OutFile "$env:TEMP\install-agent.ps1"; & Powershell -ExecutionPolicy Bypass -File "$env:TEMP\install-agent.ps1"
