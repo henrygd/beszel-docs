@@ -12,6 +12,7 @@
 | `AUTO_LOGIN`            | 未设置 | 自动认证的用户邮箱。                                                                                                             |
 | `CSP`                   | 未设置 | 添加具有此值的 [Content-Security-Policy](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Content-Security-Policy) 头。 |
 | `DISABLE_PASSWORD_AUTH` | false  | 禁用密码认证。                                                                                                                   |
+| `MFA_OTP`               | false  | 为用户和/或超级用户启用 OTP 认证。                                                                                                |
 | `SHARE_ALL_SYSTEMS`     | false  | 允许所有用户访问所有系统。                                                                                                       |
 | `TRUSTED_AUTH_HEADER`   | 未设置 | 用于转发身份验证的可信头。                                                                                                       |
 | `USER_CREATION`         | false  | 启用 OAuth2 / OIDC 的自动用户创建。                                                                                              |
@@ -25,6 +26,12 @@
 ### `DISABLE_PASSWORD_AUTH`
 
 这不会完全禁用身份验证。如果您想使用 OAuth 代替密码登录，它会禁用密码登录。
+
+### `MFA_OTP`
+
+如果为 `true`，将为用户和超级用户启用通过电子邮件一次性密码 (OTP) 的多因素认证 (MFA)。如果设置为 `superusers`，只有超级用户需要使用 OTP（登录 PocketBase 时）。
+
+除非您已配置 SMTP 服务器，否则不要启用此功能。
 
 ### `SHARE_ALL_SYSTEMS`
 

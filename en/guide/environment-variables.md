@@ -12,6 +12,7 @@ Environment variables may optionally be prefixed with `BESZEL_HUB_`.
 | `AUTO_LOGIN`            | unset   | Email address of a user to automatically authenticate.                                                                                      |
 | `CSP`                   | unset   | Adds a [Content-Security-Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy) header with this value. |
 | `DISABLE_PASSWORD_AUTH` | false   | Disables password authentication.                                                                                                           |
+| `MFA_OTP`               |  false  | Enables OTP authentication for users and/or superusers.                                                                                                      |
 | `SHARE_ALL_SYSTEMS`     | false   | Allows access to all systems by all users.                                                                                                  |
 | `TRUSTED_AUTH_HEADER`   | unset   | Trusted header for forwarded authentication.                                                                                                |
 | `USER_CREATION`         | false   | Enables automatic user creation for OAuth2 / OIDC.                                                                                          |
@@ -25,6 +26,12 @@ Don't set this unless you want to completely bypass authentication and use only 
 ### `DISABLE_PASSWORD_AUTH`
 
 This does not disable authentication entirely. It disables password login if you want to use OAuth instead.
+
+### `MFA_OTP`
+
+If `true`, multi-factor authentication (MFA) via email one-time password (OTP) will be enabled for users and superusers. If set to `superusers`, only superusers will be required to use OTP (when logging into PocketBase).
+
+Do not enable this unless you've configured an SMTP server.
 
 ### `SHARE_ALL_SYSTEMS`
 
