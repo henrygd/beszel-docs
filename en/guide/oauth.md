@@ -75,6 +75,7 @@ This is not a complete list, just providers known to work. If you're using somet
 - [authentik](https://integrations.goauthentik.io/monitoring/beszel/)
 - Gitea
 - GitLab
+- [Kanidm](https://kanidm.com)
 - Keycloak
 - mailcow
 - [Pocket ID](https://pocket-id.org/docs/client-examples/beszel)
