@@ -10,6 +10,7 @@
 | ----------------------- | ------ | -------------------------------------------------------------------------------------------------------------------------------- |
 | `APP_URL`               | 未设置 | Web 界面的 URL。如果 [从子路径提供服务](./reverse-proxy)，则必须设置。                                                           |
 | `AUTO_LOGIN`            | 未设置 | 自动认证的用户邮箱。                                                                                                             |
+| `CONTAINER_DETAILS`     | true   | 允许在 Web 界面中查看容器详情（inspect, logs）。                                                                                  |
 | `CSP`                   | 未设置 | 添加具有此值的 [Content-Security-Policy](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Content-Security-Policy) 头。 |
 | `DISABLE_PASSWORD_AUTH` | false  | 禁用密码认证。                                                                                                                   |
 | `MFA_OTP`               | false  | 为用户和/或超级用户启用 OTP 认证。                                                                                                |
