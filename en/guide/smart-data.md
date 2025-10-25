@@ -151,10 +151,6 @@ sudo usermod -aG disk beszel
 sudo systemctl restart beszel-agent
 ```
 
-::: warning Security consideration
-The `disk` group provides read/write access to all block devices. While this is the standard approach used by most system monitoring tools, it grants broader access than strictly necessary for S.M.A.R.T. monitoring alone.
-:::
-
 ::: tip Note for NVMe devices
 Some systems set NVMe character devices (`/dev/nvme0`) to mode `600` (owner-only), even if SATA devices work fine with the `disk` group. If NVMe S.M.A.R.T. still doesn't work after adding the user to the `disk` group, see Solution 2 below.
 :::

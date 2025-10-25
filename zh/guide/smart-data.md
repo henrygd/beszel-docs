@@ -151,10 +151,6 @@ sudo usermod -aG disk beszel
 sudo systemctl restart beszel-agent
 ```
 
-::: warning 安全考虑
-`disk` 组提供对所有块设备的读写访问。虽然这是大多数系统监控工具使用的标准方法，但它授予的访问权限比仅 S.M.A.R.T. 监控严格需要的更广泛。
-:::
-
 ::: tip NVMe 设备的注意事项
 某些系统将 NVMe 字符设备（`/dev/nvme0`）设置为模式 `600`（仅所有者），即使 SATA 设备在 `disk` 组下工作正常。如果在将用户添加到 `disk` 组后 NVMe S.M.A.R.T. 仍然无法工作，请参见下面的解决方案 2。
 :::
