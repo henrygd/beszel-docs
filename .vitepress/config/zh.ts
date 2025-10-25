@@ -132,7 +132,7 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
 				{ text: "Podman 监控", link: "podman" },
 				{ text: "REST API", link: "rest-api" },
 				{ text: "反向代理", link: "reverse-proxy" },
-				{ text: "S.M.A.R.T. 监控", link: "smart-monitoring" },
+				{ text: "S.M.A.R.T. 数据", link: "smart-data" },
 				{ text: "用户账户", link: "user-accounts" },
 			],
 		},

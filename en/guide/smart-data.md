@@ -2,6 +2,38 @@
 
 Beszel parses S.M.A.R.T. data from `smartctl` and displays it on the system page if available. This usually requires increased permissions.
 
+To make sure your system is compatible, install `smartmontools` on the agent machine and scan for devices: {#install}
+
+
+::: code-group 
+
+```bash [Debian/Ubuntu]
+sudo apt install smartmontools
+```
+
+```bash [Fedora]
+sudo dnf install smartmontools
+```
+
+```bash [Arch]
+sudo pacman -S smartmontools
+```
+
+```bash [FreeBSD]
+pkg install smartmontools
+```
+
+```bash [macOS]
+brew install smartmontools
+```
+
+:::
+
+
+```bash
+sudo smartctl --scan
+```
+
 ## Docker agent
 
 Switch to the `:alpine` image and add the following to your `docker-compose.yml`. Make sure to replace the device names with your actual devices.
@@ -25,31 +57,7 @@ Note that we are using `sda` and `nvme0` in our example, not `sda1` or `nvme0n1`
 
 ## Binary agent
 
-Install `smartctl` (from the `smartmontools` package) on the agent machine:
-
-::: code-group
-
-```bash [Debian/Ubuntu]
-sudo apt install smartmontools
-```
-
-```bash [Fedora]
-sudo dnf install smartmontools
-```
-
-```bash [Arch]
-sudo pacman -S smartmontools
-```
-
-```bash [FreeBSD]
-pkg install smartmontools
-```
-
-```bash [macOS]
-brew install smartmontools
-```
-
-:::
+Make sure `smartctl` is installed by following the [installation instructions](#install).
 
 `smartctl` needs elevated privileges to talk to disks:
 
@@ -76,7 +84,7 @@ sudo systemctl restart beszel-agent
 
 If this doesn't work, try [adding the `beszel` user to the `disk` group](#disk-group).
 
-### Alternative: file capabilities on smartctl (group-restricted)
+### Alternative: file capabilities on smartctl 
 
 If you don't use systemd or prefer not to change the service, you can add the needed capabilities to the `smartctl` binary and restrict execution to a dedicated group. This lets the agent user run `smartctl` with just the required privileges.
 

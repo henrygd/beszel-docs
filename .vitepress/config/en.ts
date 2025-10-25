@@ -106,7 +106,7 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
 				{ text: "Podman Monitoring", link: "podman" },
 				{ text: "REST API", link: "rest-api" },
 				{ text: "Reverse Proxy", link: "reverse-proxy" },
-				{ text: "S.M.A.R.T. Monitoring", link: "smart-monitoring" },
+				{ text: "S.M.A.R.T. Data", link: "smart-data" },
 				{ text: "User Accounts", link: "user-accounts" },
 				// { text: 'Home Assistant agent', link: 'home-assistant' },
 			],

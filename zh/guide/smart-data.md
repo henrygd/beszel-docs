@@ -2,30 +2,8 @@
 
 Beszel 从 `smartctl` 解析 S.M.A.R.T. 数据，并在系统页面上显示（如果可用）。这通常需要提升权限。
 
-## Docker 代理
+要确保你的系统兼容，请在代理机器上安装 `smartmontools` 并扫描设备： {#install}
 
-切换到 `:alpine` 镜像，并在你的 `docker-compose.yml` 中添加以下内容。请确保将设备名称替换为你的实际设备。
-
-```yaml
-beszel-agent:
-  image: henrygd/beszel-agent:alpine
-   devices:
-   - /dev/sda:/dev/sda
-   - /dev/nvme0:/dev/nvme0
-   cap_add:
-   - SYS_RAWIO # SATA S.M.A.R.T. 数据所需
-   - SYS_ADMIN # NVMe S.M.A.R.T. 数据所需
-```
-
-::: tip 传入基础控制器名称，而不是块设备/分区
-
-注意我们在示例中使用的是 `sda` 和 `nvme0`，而不是 `sda1` 或 `nvme0n1`。
-
-:::
-
-## 二进制代理
-
-在代理机器上安装 `smartctl`（来自 `smartmontools` 包）：
 
 ::: code-group
 
@@ -50,6 +28,36 @@ brew install smartmontools
 ```
 
 :::
+
+
+```bash
+sudo smartctl --scan
+```
+
+## Docker 代理
+
+切换到 `:alpine` 镜像，并在你的 `docker-compose.yml` 中添加以下内容。请确保将设备名称替换为你的实际设备。
+
+```yaml
+beszel-agent:
+  image: henrygd/beszel-agent:alpine
+   devices:
+   - /dev/sda:/dev/sda
+   - /dev/nvme0:/dev/nvme0
+   cap_add:
+   - SYS_RAWIO # SATA S.M.A.R.T. 数据所需
+   - SYS_ADMIN # NVMe S.M.A.R.T. 数据所需
+```
+
+::: tip 传入基础控制器名称，而不是块设备/分区
+
+注意我们在示例中使用的是 `sda` 和 `nvme0`，而不是 `sda1` 或 `nvme0n1`。
+
+:::
+
+## 二进制代理
+
+确保 `smartctl` 已安装，遵循[安装说明](#install)。
 
 `smartctl` 需要提升权限才能与磁盘通信：
 
