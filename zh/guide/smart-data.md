@@ -123,6 +123,63 @@ sudo -u beszel smartctl -H /dev/nvme0
 
 如果这些命令成功，代理将能够解析 S.M.A.R.T. 数据。
 
+## Windows
+
+从官方 SourceForge 页面下载并安装 `smartmontools`：
+
+1. 访问 [https://sourceforge.net/projects/smartmontools/files/](https://sourceforge.net/projects/smartmontools/files/)
+2. 下载最新的 Windows 安装程序（`.exe` 文件）
+3. 以管理员身份运行安装程序
+4. 按照安装向导完成设置
+
+安装后，验证 `smartctl` 是否可从命令行访问：
+
+```cmd
+smartctl --version
+```
+
+### 将 smartctl 添加到 PATH
+
+::: details 点击展开/折叠
+
+如果你的系统找不到 `smartctl` 可执行文件，你需要手动将 smartmontools 安装目录添加到系统的 PATH 环境变量中。
+
+要将 smartctl 添加到你的 PATH：
+
+1. 打开**编辑系统环境变量**对话框：
+   - 按 `Win + R`，输入 `sysdm.cpl`，按 Enter 并转到高级选项卡。
+   - 或在开始菜单中搜索"环境变量"
+
+2. 点击**环境变量...**
+
+3. 在**系统变量**部分，选择 **Path** 并点击**编辑...**
+
+4. 点击**新建**并添加 smartmontools 安装目录：
+   ```
+   C:\Program Files\smartmontools\bin
+   ```
+
+   ::: tip 安装路径可能有所不同
+   确切路径取决于你的安装位置。
+
+
+5. 打开新的命令提示符或 PowerShell 窗口并验证安装：
+   ```cmd
+   smartctl --version
+   ```
+
+:::
+
+### 扫描设备
+
+一旦 `smartctl` 工作正常，扫描可用设备：
+
+```cmd
+smartctl --scan
+```
+
+代理现在应该能够从你的 Windows 系统收集 S.M.A.R.T. 数据。
+
 ## 故障排除
 
 ### 尽管设置了能力，命令仍需要 sudo
