@@ -123,6 +123,63 @@ sudo -u beszel smartctl -H /dev/nvme0
 
 If these commands succeed, the agent will be able to parse S.M.A.R.T. data.
 
+## Windows
+
+Download and install `smartmontools` from the official SourceForge page:
+
+1. Go to [https://sourceforge.net/projects/smartmontools/files/](https://sourceforge.net/projects/smartmontools/files/)
+2. Download the latest Windows installer (`.exe` file)
+3. Run the installer as Administrator
+4. Follow the installation wizard to complete the setup
+
+After installation, verify that `smartctl` is accessible from the command line:
+
+```cmd
+smartctl --version
+```
+
+### Adding smartctl to PATH
+
+::: details Click to expand/collapse
+
+If your system cannot find the `smartctl` executable, you will need to manually add the smartmontools installation directory to your system's PATH environment variable.
+
+To add smartctl to your PATH:
+
+1. Open the **Edit the system environment variables** dialog:
+   - Press `Win + R`, type `sysdm.cpl`, press Enter and go the Advanced tab.
+   - Or search for "Environment Variables" in the Start menu
+
+2. Click **Environment Variables...**
+
+3. In the **System variables** section, select **Path** and click **Edit...**
+
+4. Click **New** and add the smartmontools installation directory:
+   ```
+   C:\Program Files\smartmontools\bin
+   ```
+   
+   ::: tip Installation path may vary
+   The exact path depends on your installation location.
+   
+
+5. Open a new Command Prompt or PowerShell window and verify the installation:
+   ```cmd
+   smartctl --version
+   ```
+
+:::
+
+### Scan for devices
+
+Once `smartctl` is working, scan for available devices:
+
+```cmd
+smartctl --scan
+```
+
+The agent should now be able to collect S.M.A.R.T. data from your Windows system.
+
 ## Troubleshooting
 
 ### Commands still require sudo despite capabilities being set
