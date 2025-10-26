@@ -45,7 +45,7 @@ beszel-agent:
    - /dev/sda:/dev/sda
    - /dev/nvme0:/dev/nvme0
    cap_add:
-   - SYS_RAWIO # required for SATA S.M.A.R.T. data
+   - SYS_RAWIO # required for S.M.A.R.T. data
    - SYS_ADMIN # required for NVMe S.M.A.R.T. data
 ```
 
@@ -152,7 +152,7 @@ sudo systemctl restart beszel-agent
 ```
 
 ::: tip Note for NVMe devices
-Some systems set NVMe character devices (`/dev/nvme0`) to mode `600` (owner-only), even if SATA devices work fine with the `disk` group. If NVMe S.M.A.R.T. still doesn't work after adding the user to the `disk` group, see Solution 2 below.
+Some systems set NVMe character devices (`/dev/nvme0`) to mode `600` (owner-only), even if SATA devices work fine with the `disk` group. If NVMe S.M.A.R.T. still doesn't work after adding the user to the `disk` group, see the solution below.
 :::
 
 #### Adjust NVMe device permissions 

@@ -45,7 +45,7 @@ beszel-agent:
    - /dev/sda:/dev/sda
    - /dev/nvme0:/dev/nvme0
    cap_add:
-   - SYS_RAWIO # SATA S.M.A.R.T. 数据所需
+   - SYS_RAWIO # S.M.A.R.T. 数据所需
    - SYS_ADMIN # NVMe S.M.A.R.T. 数据所需
 ```
 
@@ -152,7 +152,7 @@ sudo systemctl restart beszel-agent
 ```
 
 ::: tip NVMe 设备的注意事项
-某些系统将 NVMe 字符设备（`/dev/nvme0`）设置为模式 `600`（仅所有者），即使 SATA 设备在 `disk` 组下工作正常。如果在将用户添加到 `disk` 组后 NVMe S.M.A.R.T. 仍然无法工作，请参见下面的解决方案 2。
+某些系统将 NVMe 字符设备（`/dev/nvme0`）设置为模式 `600`（仅所有者），即使 SATA 设备在 `disk` 组下工作正常。如果在将用户添加到 `disk` 组后 NVMe S.M.A.R.T. 仍然无法工作，请参见下面的解决方案。
 :::
 
 #### 调整 NVMe 设备权限
