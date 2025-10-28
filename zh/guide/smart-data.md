@@ -42,11 +42,11 @@ sudo smartctl --scan
 beszel-agent:
   image: henrygd/beszel-agent:alpine
    devices:
-   - /dev/sda:/dev/sda
-   - /dev/nvme0:/dev/nvme0
+      - /dev/sda:/dev/sda
+      - /dev/nvme0:/dev/nvme0
    cap_add:
-   - SYS_RAWIO # S.M.A.R.T. 数据所需
-   - SYS_ADMIN # NVMe S.M.A.R.T. 数据所需
+      - SYS_RAWIO # S.M.A.R.T. 数据所需
+      - SYS_ADMIN # NVMe S.M.A.R.T. 数据所需
 ```
 
 ::: tip 传入基础控制器名称，而不是块设备/分区
