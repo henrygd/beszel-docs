@@ -75,7 +75,14 @@ AmbientCapabilities=CAP_SYS_RAWIO CAP_SYS_ADMIN
 CapabilityBoundingSet=CAP_SYS_RAWIO CAP_SYS_ADMIN
 ```
 
-2. 重新加载并重启：
+2. 如果你的服务文件中已有 `DeviceAllow` 行（例如用于 Nvidia GPU），你还必须为你的驱动器添加 `DeviceAllow` 规则：
+
+```ini
+DeviceAllow=/dev/sda r
+DeviceAllow=/dev/nvme0 r
+```
+
+3. 重新加载并重启：
 
 ```bash
 sudo systemctl daemon-reload

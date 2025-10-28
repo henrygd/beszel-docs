@@ -75,7 +75,14 @@ AmbientCapabilities=CAP_SYS_RAWIO CAP_SYS_ADMIN
 CapabilityBoundingSet=CAP_SYS_RAWIO CAP_SYS_ADMIN
 ```
 
-2. Reload and restart:
+2. If you have existing `DeviceAllow` lines in your service file (for Nvidia GPUs, for example), you must also add `DeviceAllow` rules for your drives:
+
+```ini
+DeviceAllow=/dev/sda r
+DeviceAllow=/dev/nvme0 r
+```
+
+3. Reload and restart:
 
 ```bash
 sudo systemctl daemon-reload
