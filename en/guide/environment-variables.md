@@ -66,6 +66,7 @@ Environment variables may optionally be prefixed with `BESZEL_AGENT_`.
 | `PRIMARY_SENSOR`    | unset   | Display specific temperature sensor in 'All Systems' table.                                    |
 | `SENSORS`           | unset   | Whitelist or blacklist temperature sensors.                                                    |
 | `SKIP_GPU`          | false   | Disable GPU monitoring.                                                                        |
+| `SMART_DEVICES`     | unset   | List of S.M.A.R.T. devices to monitor.                                                        |
 | `SYS_SENSORS`       | unset   | Overrides sys path for sensors. See [#160](https://github.com/henrygd/beszel/discussions/160). |
 | `SYSTEM_NAME`       | unset   | Override system name on universal token registration. Defaults to hostname if unset.           |
 | `TOKEN`             | unset   | WebSocket registration token. Provided in hub.                                                 |
@@ -128,6 +129,16 @@ Treated as a whitelist by default. Can be used as a blacklist by prefixing with 
 | `-foo_*`        | Blacklist | Excludes sensors matching `foo_*`; all others allowed. |
 | `-foo_1,bar_*`  | Blacklist | Excludes `foo_1` and `bar_*`; all others allowed.      |
 | `""`            | Disabled  | Disable temperature monitoring with an empty string.   |
+
+### `SMART_DEVICES`
+
+Used to override the devices detected by `smartctl --scan`. Each device is specified as a colon-separated pair of the device path and (optionally) the device type. For example:
+
+```dotenv
+SMART_DEVICES=/dev/nvme0:nvme,/dev/sda:sat
+```
+
+This does not need to be a full list and will be merged with other devices detected by `smartctl --scan`.
 
 ## Deprecations
 

@@ -64,6 +64,7 @@
 | `PRIMARY_SENSOR`    | 未设置 | 在"所有系统"表格中显示的特定温度传感器。                                                     |
 | `SENSORS`           | 未设置 | 温度传感器的白名单或黑名单。                                                                 |
 | `SKIP_GPU`          | false  | 禁用 GPU 监控。                                                                              |
+| `SMART_DEVICES`     | 未设置 | 要监控的 S.M.A.R.T. 设备列表。                                                                |
 | `SYS_SENSORS`       | 未设置 | 覆盖用于传感器的系统路径。请参阅 [#160](https://github.com/henrygd/beszel/discussions/160)。 |
 | `SYSTEM_NAME`       | 未设置 | 在通用令牌注册时覆盖系统名称。未设置时默认为主机名。                                         |
 | `TOKEN`             | 未设置 | WebSocket 注册令牌。在中心提供。                                                             |
@@ -126,6 +127,16 @@
 | `-foo_*`       | 黑名单 | 排除匹配 `foo_*` 的传感器；允许所有其他。 |
 | `-foo_1,bar_*` | 黑名单 | 排除 `foo_1` 和 `bar_*`；允许所有其他。   |
 | `""`           | 禁用   | 使用空字符串禁用温度监控。                |
+
+### `SMART_DEVICES`
+
+用于覆盖 `smartctl --scan` 检测到的设备。每个设备指定为冒号分隔的对，由设备路径和（可选的）设备类型组成。例如：
+
+```dotenv
+SMART_DEVICES=/dev/nvme0:nvme,/dev/sda:sat
+```
+
+这不需要是完整列表，将与 `smartctl --scan` 检测到的其他设备合并。
 
 ## 已弃用
 
