@@ -38,6 +38,8 @@ sudo smartctl --scan
 
 切换到 `:alpine` 镜像，并在你的 `docker-compose.yml` 中添加以下内容。请确保将设备名称替换为你的实际设备。
 
+> 非基础镜像如 `beszel-agent-intel` 和 `beszel-agent-nvidia` 也可以工作。
+
 ```yaml
 beszel-agent:
   image: henrygd/beszel-agent:alpine

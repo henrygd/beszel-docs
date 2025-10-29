@@ -38,6 +38,8 @@ sudo smartctl --scan
 
 Switch to the `:alpine` image and add the following to your `docker-compose.yml`. Make sure to replace the device names with your actual devices.
 
+> Non-base images like `beszel-agent-intel` and `beszel-agent-nvidia` also work.
+
 ```yaml
 beszel-agent:
   image: henrygd/beszel-agent:alpine
