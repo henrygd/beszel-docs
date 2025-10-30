@@ -71,6 +71,8 @@ Environment variables may optionally be prefixed with `BESZEL_AGENT_`.
 | `SYSTEM_NAME`       | unset   | Override system name on universal token registration. Defaults to hostname if unset.           |
 | `TOKEN`             | unset   | WebSocket registration token. Provided in hub.                                                 |
 | `TOKEN_FILE`        | unset   | Read token from a file instead of an environment variable.                                     |
+| `CONTAINER_EXCLUDE` | unset   | Exclude containers from being monitored                                                    |
+
 
 ### `DATA_DIR`
 
@@ -139,6 +141,30 @@ SMART_DEVICES=/dev/nvme0:nvme,/dev/sda:sat
 ```
 
 This does not need to be a full list and will be merged with other devices detected by `smartctl --scan`.
+
+
+### `CONTAINER_EXCLUDE`
+
+Exclude containers from being monitored based on their name. Supports comma-separated patterns with wildcard matching using `*`.
+
+Examples:
+
+```bash
+# Exclude specific containers by exact name
+CONTAINER_EXCLUDE="test-web,test-api"
+
+# Exclude all containers starting with "test-"
+CONTAINER_EXCLUDE="test-*"
+
+# Exclude all containers ending with "-staging"
+CONTAINER_EXCLUDE="*-staging"
+
+# Exclude containers with pattern in the middle
+CONTAINER_EXCLUDE="*-temp-*"
+
+# Multiple patterns (exclude test containers and staging containers)
+CONTAINER_EXCLUDE="test-*,*-staging,dev-*"
+```
 
 ## Deprecations
 
