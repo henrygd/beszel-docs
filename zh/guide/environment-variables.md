@@ -53,6 +53,7 @@
 | `EXTRA_FILESYSTEMS` | 未设置 | 如果使用二进制文件，则监控额外的磁盘。请参阅 [其他磁盘](./additional-disks.md)。             |
 | `FILESYSTEM`        | 未设置 | 用于根磁盘统计的设备、分区或挂载点。                                                         |
 | `HUB_URL`           | 未设置 | 中心的 URL。                                                                                 |
+| `INTEL_GPU_DEVICE`  | 未设置 | 指定 `intel_gpu_top` 的 `-d` 值。请参阅 [Intel GPU](./gpu.md#intel)。                         |
 | `KEY`               | 未设置 | 用于身份验证的公共 SSH 密钥（可多个）。在中心提供。                                          |
 | `KEY_FILE`          | 未设置 | 从文件中读取公钥（可多个），而不是从环境变量中读取。                                         |
 | `LHM`               | false  | 为 Windows 传感器使用 LibreHardwareMonitor。                                                 |

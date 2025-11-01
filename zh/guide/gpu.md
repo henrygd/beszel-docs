@@ -63,11 +63,7 @@ systemctl restart beszel-agent
 
 您必须使用二进制代理并安装 `tegrastats`。
 
-`henrygd/beszel-agent-nvidia` 镜像可能不起作用，但我无法测试以确认。如果您尝试了，请告诉我结果如何 :)。
-
 ## Intel GPU {#intel}
-
-Intel 支持是新的，仍在解决一些问题。
 
 请注意，目前每个系统仅支持一个 GPU。我们可能会在未来添加对多个 GPU 的支持。
 
@@ -94,14 +90,6 @@ ls /dev/dri
 by-path  card0  renderD128
 ```
 
-如果不起作用，您可能需要为 `perf_event_paranoid` 内核参数设置一个较低的值。有关更多信息，请参阅 [issue #1150](https://github.com/henrygd/beszel/issues/1150) 或 [#1203](https://github.com/henrygd/beszel/issues/1203#issuecomment-3336457430)。
-
-```bash
-sudo sysctl kernel.perf_event_paranoid=2
-```
-
-如果以上方法都不起作用，请尝试在 `CAP_PERFMON` 之外添加 `CAP_SYS_ADMIN` 和 `CAP_DAC_OVERRIDE`。
-
 ### 二进制代理 {#intel-binary}
 
 您必须安装 `intel_gpu_top`。这通常是 `intel-gpu-tools` 包的一部分。
@@ -124,7 +112,31 @@ sudo pacman -S intel-gpu-tools
 sudo setcap cap_perfmon=ep /usr/bin/intel_gpu_top
 ```
 
-如果不起作用，您可能需要为 `perf_event_paranoid` 内核参数设置一个较低的值。有关更多信息，请参阅 [issue #1150](https://github.com/henrygd/beszel/issues/1150) 或 [#1203](https://github.com/henrygd/beszel/issues/1203#issuecomment-3336457430)。
+
+### 故障排除 {#intel-troubleshooting}
+
+要独立测试 `intel_gpu_top` 命令：
+
+```bash
+# docker
+docker exec -it beszel-agent intel_gpu_top -s 3000 -l
+# binary
+sudo -u beszel intel_gpu_top -s 3000 -l
+```
+
+#### 指定设备名称
+
+在某些系统上，您需要为 `intel_gpu_top` 指定设备名称。使用 `INTEL_GPU_DEVICE` 环境变量来设置 `-d` 值。
+
+```dotenv
+INTEL_GPU_DEVICE=drm:/dev/dri/card0
+```
+
+这相当于运行 `intel_gpu_top -s 3000 -l -d drm:/dev/dri/card0`。
+
+#### 降低 `perf_event_paranoid` 内核参数
+
+您可能需要降低 `perf_event_paranoid` 内核参数的值。有关更多信息，请参阅 [issue #1150](https://github.com/henrygd/beszel/issues/1150) 或 [#1203](https://github.com/henrygd/beszel/issues/1203#issuecomment-3336457430)。
 
 ```bash
 sudo sysctl kernel.perf_event_paranoid=2

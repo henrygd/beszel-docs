@@ -63,11 +63,7 @@ systemctl restart beszel-agent
 
 You must use the binary agent and have `tegrastats` installed.
 
-The `henrygd/beszel-agent-nvidia` image likely doesn't work, but I can't test it to confirm. Let me know one way or the other if you try it :).
-
 ## Intel GPUs {#intel}
-
-Support for Intel is new and wrinkles are still being ironed out.
 
 Note that only one GPU per system is supported. We may add support for multiple GPUs in the future.
 
@@ -94,14 +90,6 @@ ls /dev/dri
 by-path  card0  renderD128
 ```
 
-You may need to set a lower value for the `perf_event_paranoid` kernel parameter. See [issue #1150](https://github.com/henrygd/beszel/issues/1150) or [#1203](https://github.com/henrygd/beszel/issues/1203#issuecomment-3336457430) for more information.
-
-```bash
-sudo sysctl kernel.perf_event_paranoid=2
-```
-
-If none of the above works, try adding `CAP_SYS_ADMIN` and `CAP_DAC_OVERRIDE` in addition to `CAP_PERFMON`.
-
 ### Binary agent {#intel-binary}
 
 You must have `intel_gpu_top` installed. This is typically part of the `intel-gpu-tools` package.
@@ -124,7 +112,31 @@ Assuming you're not running the agent as root, you'll need to set the `cap_perfm
 sudo setcap cap_perfmon=ep /usr/bin/intel_gpu_top
 ```
 
-If that doesn't work, you may need to set a lower value for the `perf_event_paranoid` kernel parameter. See [issue #1150](https://github.com/henrygd/beszel/issues/1150) or [#1203](https://github.com/henrygd/beszel/issues/1203#issuecomment-3336457430) for more information.
+
+### Troubleshooting {#intel-troubleshooting}
+
+To independently test the `intel_gpu_top` command:
+
+```bash
+# docker
+docker exec -it beszel-agent intel_gpu_top -s 3000 -l
+# binary
+sudo -u beszel intel_gpu_top -s 3000 -l
+```
+
+#### Specify the device name
+
+On some systems you need to specify the device name for `intel_gpu_top`. Use the `INTEL_GPU_DEVICE` environment variable to set the `-d` value.
+
+```dotenv
+INTEL_GPU_DEVICE=drm:/dev/dri/card0
+```
+
+This is equivalent to running `intel_gpu_top -s 3000 -l -d drm:/dev/dri/card0`.
+
+#### Lower the `perf_event_paranoid` kernel parameter
+
+You may need to lower the value for the `perf_event_paranoid` kernel parameter. See [issue #1150](https://github.com/henrygd/beszel/issues/1150) or [#1203](https://github.com/henrygd/beszel/issues/1203#issuecomment-3336457430) for more information.
 
 ```bash
 sudo sysctl kernel.perf_event_paranoid=2
