@@ -38,6 +38,9 @@ EXTRA_FILESYSTEMS="sdb,sdc1,mmcblk0,/mnt/network-share" KEY="..." ./beszel-agent
 ```
 
 ```ini [beszel-agent.service]
+[Unit]
+RequiresMountsFor=/mnt/ssd /mnt/media
+
 [Service]
 Environment="EXTRA_FILESYSTEMS=sdb,sdc1,mmcblk0,/mnt/network-share"
 ```
@@ -45,6 +48,8 @@ Environment="EXTRA_FILESYSTEMS=sdb,sdc1,mmcblk0,/mnt/network-share"
 :::
 
 如果使用 Systemd，服务配置文件通常位于 `/etc/systemd/system/beszel-agent.service`。
+
+在 Unit 部分添加 `RequiresMountsFor` 以在代理启动前挂载磁盘。挂载点应与 `/etc/fstab` 匹配
 
 编辑服务后，使用 `systemctl daemon-reload` 重新加载系统单元，然后使用 `systemctl restart beszel-agent` 重启服务。
 
