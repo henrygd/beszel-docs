@@ -55,6 +55,7 @@ Environment variables may optionally be prefixed with `BESZEL_AGENT_`.
 | `EXTRA_FILESYSTEMS` | unset   | Monitor extra disks if using binary. See [Additional Disks](./additional-disks).               |
 | `FILESYSTEM`        | unset   | Device, partition, or mount point to use for root disk stats.                                  |
 | `HUB_URL`           | unset   | URL of the hub.                                                                                |
+| `INTEL_GPU_DEVICE`  | unset   | Specify `-d` value for `intel_gpu_top`. See [Intel GPU](./gpu.md#intel). |
 | `KEY`               | unset   | Public SSH key(s) to use for authentication. Provided in hub.                                  |
 | `KEY_FILE`          | unset   | Read public keys from a file instead of an environment variable.                               |
 | `LHM`               | false   | Use LibreHardwareMonitor for Windows sensors.                                                  |
@@ -71,6 +72,8 @@ Environment variables may optionally be prefixed with `BESZEL_AGENT_`.
 | `SYSTEM_NAME`       | unset   | Override system name on universal token registration. Defaults to hostname if unset.           |
 | `TOKEN`             | unset   | WebSocket registration token. Provided in hub.                                                 |
 | `TOKEN_FILE`        | unset   | Read token from a file instead of an environment variable.                                     |
+| `EXCLUDE_CONTAINERS` | unset   | Exclude containers from being monitored                                                    |
+
 
 ### `DATA_DIR`
 
@@ -139,6 +142,30 @@ SMART_DEVICES=/dev/nvme0:nvme,/dev/sda:sat
 ```
 
 This does not need to be a full list and will be merged with other devices detected by `smartctl --scan`.
+
+
+### `EXCLUDE_CONTAINERS`
+
+Exclude containers from being monitored based on their name. Supports comma-separated patterns with wildcard matching using `*`.
+
+Examples:
+
+```bash
+# Exclude specific containers by exact name
+EXCLUDE_CONTAINERS="test-web,test-api"
+
+# Exclude all containers starting with "test-"
+EXCLUDE_CONTAINERS="test-*"
+
+# Exclude all containers ending with "-staging"
+EXCLUDE_CONTAINERS="*-staging"
+
+# Exclude containers with pattern in the middle
+EXCLUDE_CONTAINERS="*-temp-*"
+
+# Multiple patterns (exclude test containers and staging containers)
+EXCLUDE_CONTAINERS="test-*,*-staging,dev-*"
+```
 
 ## Deprecations
 

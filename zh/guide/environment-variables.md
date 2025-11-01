@@ -53,6 +53,7 @@
 | `EXTRA_FILESYSTEMS` | 未设置 | 如果使用二进制文件，则监控额外的磁盘。请参阅 [其他磁盘](./additional-disks.md)。             |
 | `FILESYSTEM`        | 未设置 | 用于根磁盘统计的设备、分区或挂载点。                                                         |
 | `HUB_URL`           | 未设置 | 中心的 URL。                                                                                 |
+| `INTEL_GPU_DEVICE`  | 未设置 | 指定 `intel_gpu_top` 的 `-d` 值。请参阅 [Intel GPU](./gpu.md#intel)。                         |
 | `KEY`               | 未设置 | 用于身份验证的公共 SSH 密钥（可多个）。在中心提供。                                          |
 | `KEY_FILE`          | 未设置 | 从文件中读取公钥（可多个），而不是从环境变量中读取。                                         |
 | `LHM`               | false  | 为 Windows 传感器使用 LibreHardwareMonitor。                                                 |
@@ -69,6 +70,8 @@
 | `SYSTEM_NAME`       | 未设置 | 在通用令牌注册时覆盖系统名称。未设置时默认为主机名。                                         |
 | `TOKEN`             | 未设置 | WebSocket 注册令牌。在中心提供。                                                             |
 | `TOKEN_FILE`        | 未设置 | 从文件中读取令牌，而不是从环境变量中读取。                                                   |
+| `EXCLUDE_CONTAINERS` | 未设置   | 將容器排除在監控範圍之外 |
+
 
 ### `DATA_DIR`
 
@@ -137,6 +140,29 @@ SMART_DEVICES=/dev/nvme0:nvme,/dev/sda:sat
 ```
 
 这不需要是完整列表，将与 `smartctl --scan` 检测到的其他设备合并。
+
+### `EXCLUDE_CONTAINERS`
+
+根据容器名称排除不需要监控的容器。支持使用 `*` 通配符的逗号分隔模式匹配。
+
+示例
+
+```bash
+# 通过精确名称排除特定容器
+EXCLUDE_CONTAINERS="test-web,test-api"
+
+# 排除所有以 "test-" 开头的容器
+EXCLUDE_CONTAINERS="test-*"
+
+# 排除所有以 "-staging" 结尾的容器
+EXCLUDE_CONTAINERS="*-staging"
+
+# 排除中间包含特定模式的容器
+EXCLUDE_CONTAINERS="*-temp-*"
+
+# 多个模式（排除测试容器和预发布容器）
+EXCLUDE_CONTAINERS="test-*,*-staging,dev-*"
+```
 
 ## 已弃用
 
