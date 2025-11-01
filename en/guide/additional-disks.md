@@ -38,6 +38,9 @@ EXTRA_FILESYSTEMS="sdb,sdc1,mmcblk0,/mnt/network-share" KEY="..." ./beszel-agent
 ```
 
 ```ini [beszel-agent.service]
+[Unit]
+RequiresMountsFor=/mnt/ssd /mnt/media
+
 [Service]
 Environment="EXTRA_FILESYSTEMS=sdb,sdc1,mmcblk0,/mnt/network-share"
 ```
@@ -45,6 +48,8 @@ Environment="EXTRA_FILESYSTEMS=sdb,sdc1,mmcblk0,/mnt/network-share"
 :::
 
 If using Systemd, the service configuration is usually located in `/etc/systemd/system/beszel-agent.service`.
+
+Add `RequiresMountsFor` in Unit section to mount disks before the agent starts. Mount points should match `/etc/fstab`
 
 After editing the service, reload system units with `systemctl daemon-reload`, followed by restarting the service with `systemctl restart beszel-agent`.
 
