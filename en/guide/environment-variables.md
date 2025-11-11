@@ -52,6 +52,8 @@ Environment variables may optionally be prefixed with `BESZEL_AGENT_`.
 | ------------------- | ------- | ---------------------------------------------------------------------------------------------- |
 | `DATA_DIR`          | unset   | Persistent data directory.                                                                     |
 | `DOCKER_HOST`       | unset   | Overrides the Docker host (docker.sock).                                                       |
+| `EXCLUDE_CONTAINERS` | unset   | Exclude containers from being monitored.                                                    |
+| `EXCLUDE_SMART` | unset   | Exclude S.M.A.R.T. devices from being monitored.                                                    |
 | `EXTRA_FILESYSTEMS` | unset   | Monitor extra disks if using binary. See [Additional Disks](./additional-disks).               |
 | `FILESYSTEM`        | unset   | Device, partition, or mount point to use for root disk stats.                                  |
 | `HUB_URL`           | unset   | URL of the hub.                                                                                |
@@ -72,7 +74,6 @@ Environment variables may optionally be prefixed with `BESZEL_AGENT_`.
 | `SYSTEM_NAME`       | unset   | Override system name on universal token registration. Defaults to hostname if unset.           |
 | `TOKEN`             | unset   | WebSocket registration token. Provided in hub.                                                 |
 | `TOKEN_FILE`        | unset   | Read token from a file instead of an environment variable.                                     |
-| `EXCLUDE_CONTAINERS` | unset   | Exclude containers from being monitored                                                    |
 
 
 ### `DATA_DIR`
