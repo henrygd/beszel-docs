@@ -107,6 +107,7 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
 				{ text: "REST API", link: "rest-api" },
 				{ text: "Reverse Proxy", link: "reverse-proxy" },
 				{ text: "S.M.A.R.T. Data", link: "smart-data" },
+				{ text: "Systemd Services", link: "systemd" },
 				{ text: "User Accounts", link: "user-accounts" },
 				// { text: 'Home Assistant agent', link: 'home-assistant' },
 			],

@@ -133,6 +133,7 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
 				{ text: "REST API", link: "rest-api" },
 				{ text: "反向代理", link: "reverse-proxy" },
 				{ text: "S.M.A.R.T. 数据", link: "smart-data" },
+				{ text: "Systemd 服务", link: "systemd" },
 				{ text: "用户账户", link: "user-accounts" },
 			],
 		},
