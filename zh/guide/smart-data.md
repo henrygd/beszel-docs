@@ -134,6 +134,10 @@ sudo -u beszel smartctl -H /dev/nvme0
 
 ## Windows
 
+自 0.16.0 版本起，`smartctl` 已包含在 Windows 代理包中。
+
+如果它无法正常工作，您可以按照我们之前的指南手动安装 `smartmontools`：
+
 从官方 SourceForge 页面下载并安装 `smartmontools`：
 
 1. 访问 [https://sourceforge.net/projects/smartmontools/files/](https://sourceforge.net/projects/smartmontools/files/)

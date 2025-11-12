@@ -134,6 +134,10 @@ If these commands succeed, the agent will be able to parse S.M.A.R.T. data.
 
 ## Windows
 
+As of 0.16.0, `smartctl` is included in the Windows agent package.
+
+If it's not working properly, you can follow our previous guide to install `smartmontools` manually:
+
 Download and install `smartmontools` from the official SourceForge page:
 
 1. Go to [https://sourceforge.net/projects/smartmontools/files/](https://sourceforge.net/projects/smartmontools/files/)
