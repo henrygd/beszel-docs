@@ -31,7 +31,7 @@ Beszel 提供 systemd 服务的基本概览，显示其状态、CPU 使用率、
 services:
   beszel-agent:
     volumes:
-      - /run/dbus/system_bus_socket:/run/dbus/system_bus_socket:ro
+      - /var/run/dbus/system_bus_socket:/var/run/dbus/system_bus_socket:ro
 ```
 
 如果日志显示 AppArmor 错误，请添加以下安全选项：

@@ -31,7 +31,7 @@ Mount the system D-Bus socket to allow the agent to communicate with systemd:
 services:
   beszel-agent:
     volumes:
-      - /run/dbus/system_bus_socket:/run/dbus/system_bus_socket:ro
+      - /var/run/dbus/system_bus_socket:/var/run/dbus/system_bus_socket:ro
 ```
 
 If logs show an AppArmor error, add the following security option:
