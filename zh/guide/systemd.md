@@ -43,14 +43,13 @@ services:
       - apparmor:unconfined
 ```
 
-
 如果服务仍然没有出现，请尝试同时挂载 systemd 私有套接字：
 
 ```yaml
 services:
   beszel-agent:
     volumes:
-      - /run/systemd/private:/run/systemd/private:ro
+      - /var/run/systemd/private:/var/run/systemd/private:ro
 ```
 
 作为最后的手段，您可以使用特权访问运行容器。这对于测试很有用，但不建议用于生产环境。
@@ -76,13 +75,17 @@ Systemd 支持系统级服务和用户特定服务：
 
 1. 检查代理日志以查找权限或连接错误
 2. 验证 systemd 可访问性：
+
    ```bash
    dbus-send --system --dest=org.freedesktop.systemd1 --type=method_call --print-reply /org/freedesktop/systemd1 org.freedesktop.systemd1.Manager.ListUnits
    ```
+
 3. 检查 systemd 版本兼容性（需要 systemd 243+ 才能获得 `ListUnitsByPatterns` 方法支持）：
+
    ```bash
    systemctl --version
    ```
+
 4. 验证代理权限以访问 systemd 服务
 
 ### 常见错误

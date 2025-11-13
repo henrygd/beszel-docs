@@ -43,14 +43,13 @@ services:
       - apparmor:unconfined
 ```
 
-
 If services still don't appear, try mounting the systemd private socket as well:
 
 ```yaml
 services:
   beszel-agent:
     volumes:
-      - /run/systemd/private:/run/systemd/private:ro
+      - /var/run/systemd/private:/var/run/systemd/private:ro
 ```
 
 As a last resort, you can run the container with privileged access. This is useful for testing but not recommended for production.
@@ -76,13 +75,17 @@ The agent monitors system services by default. User services require additional 
 
 1. Check agent logs for permission or connection errors
 2. Verify systemd accessibility:
+
    ```bash
    dbus-send --system --dest=org.freedesktop.systemd1 --type=method_call --print-reply /org/freedesktop/systemd1 org.freedesktop.systemd1.Manager.ListUnits
    ```
+
 3. Check systemd version compatibility (requires systemd 243+ for `ListUnitsByPatterns` method support):
+
    ```bash
    systemctl --version
    ```
+
 4. Verify agent permissions for accessing systemd services
 
 ### Common Errors
@@ -107,3 +110,4 @@ Method not supported in systemd < 243. Upgrade to systemd 243 or later.
 ## Compatibility
 
 **Systemd version**: Requires systemd 243+ for `ListUnitsByPatterns` method support
+
