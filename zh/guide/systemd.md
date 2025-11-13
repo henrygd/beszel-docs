@@ -25,10 +25,6 @@ Beszel 提供 systemd 服务的基本概览，显示其状态、CPU 使用率、
 
 ## Docker 代理
 
-根据您的系统配置，有几种方法可用。如果您知道此处未列出的其他方法，请告诉我们。
-
-### 方法 1：系统总线套接字
-
 挂载系统 D-Bus 套接字以允许代理与 systemd 通信：
 
 ```yaml
@@ -38,11 +34,17 @@ services:
       - /run/dbus/system_bus_socket:/run/dbus/system_bus_socket:ro
 ```
 
-如果日志显示 AppArmor 错误，请参阅[此部分](#apparmor-error)。
+如果日志显示 AppArmor 错误，请添加以下安全选项：
 
-### 方法 2：Systemd 私有套接字
+```yaml
+services:
+  beszel-agent:
+    security_opt:
+      - apparmor:unconfined
+```
 
-对于 D-Bus 套接字方法不起作用的系统，挂载 systemd 私有套接字：
+
+如果服务仍然没有出现，请尝试同时挂载 systemd 私有套接字：
 
 ```yaml
 services:
@@ -51,11 +53,7 @@ services:
       - /run/systemd/private:/run/systemd/private:ro
 ```
 
-如果日志显示 AppArmor 错误，请参阅[此部分](#apparmor-error)。
-
-### 方法 3：特权容器 (不推荐)
-
-作为最后的手段，您可以使用特权访问运行容器。
+作为最后的手段，您可以使用特权访问运行容器。这对于测试很有用，但不建议用于生产环境。
 
 ```yaml
 services:

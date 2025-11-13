@@ -25,10 +25,6 @@ If services don't appear on the system page, check the agent logs for errors.
 
 ## Docker agent
 
-A few approaches are available depending on your system configuration. If you know an alternative method not listed here, please let us know.
-
-### Method 1: System Bus Socket
-
 Mount the system D-Bus socket to allow the agent to communicate with systemd:
 
 ```yaml
@@ -38,11 +34,17 @@ services:
       - /run/dbus/system_bus_socket:/run/dbus/system_bus_socket:ro
 ```
 
-If logs show an AppArmor error, see [this section](#apparmor-error).
+If logs show an AppArmor error, add the following security option:
 
-### Method 2: Systemd Private Socket
+```yaml
+services:
+  beszel-agent:
+    security_opt:
+      - apparmor:unconfined
+```
 
-For systems where the D-Bus socket approach doesn't work, mount the systemd private socket:
+
+If services still don't appear, try mounting the systemd private socket as well:
 
 ```yaml
 services:
@@ -51,11 +53,7 @@ services:
       - /run/systemd/private:/run/systemd/private:ro
 ```
 
-If logs show an AppArmor error, see [this section](#apparmor-error).
-
-### Method 3: Privileged Container (not recommended)
-
-As a last resort, you can run the container with privileged access.
+As a last resort, you can run the container with privileged access. This is useful for testing but not recommended for production.
 
 ```yaml
 services:
