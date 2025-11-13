@@ -9,7 +9,6 @@ The agent collects data for systemd services that have been active at least once
 - Service status (active, inactive, failed, etc.)
 - CPU and memory usage
 - Restart counts
-- Service start/stop times
 - Unit file state and description
 - Lifecycle (became active, became inactive, etc.)
 
@@ -26,7 +25,7 @@ If services don't appear on the system page, check the agent logs for errors.
 
 ## Docker agent
 
-Several approaches are available depending on your security requirements and system configuration. If you know of an alternative method not listed here, please let us know.
+A few approaches are available depending on your system configuration. If you know an alternative method not listed here, please let us know.
 
 ### Method 1: System Bus Socket
 
@@ -39,6 +38,8 @@ services:
       - /run/dbus/system_bus_socket:/run/dbus/system_bus_socket:ro
 ```
 
+If logs show an AppArmor error, see [this section](#apparmor-error).
+
 ### Method 2: Systemd Private Socket
 
 For systems where the D-Bus socket approach doesn't work, mount the systemd private socket:
@@ -50,20 +51,17 @@ services:
       - /run/systemd/private:/run/systemd/private:ro
 ```
 
+If logs show an AppArmor error, see [this section](#apparmor-error).
+
 ### Method 3: Privileged Container (not recommended)
 
-As a last resort, run the container with privileged access:
+As a last resort, you can run the container with privileged access.
 
 ```yaml
 services:
   beszel-agent:
     privileged: true
 ```
-
-### Security Considerations
-- **Method 1** is the most secure and recommended approach
-- **Method 2** provides access to systemd internals but is more secure than **Method 3**
-- **Method 3** gives the container full system access and should only be used when other methods fail
 
 <!-- ## User Services vs System Services
 
@@ -89,21 +87,24 @@ The agent monitors system services by default. User services require additional 
    ```
 4. Verify agent permissions for accessing systemd services
 
-### Permission Errors
+### Common Errors
 
 Common error messages and solutions:
 
-- `Failed to connect to system bus`: Check D-Bus socket mounting in Docker
-- `Access denied`: Agent may need additional capabilities or user permissions
-- `Connection refused`: Systemd may not be running or socket paths may be incorrect
-- `Rejected send message, 2 matched rules`: D-Bus policy is blocking access (common with systemd < 243).
-- `Unknown method 'ListUnitsByPatterns'`: Method not supported in systemd < 243. Systemd monitoring will not work.
+#### `An AppArmor policy prevents this sender from sending this message to this recipient` { #apparmor-error }
 
-### Docker-Specific Issues
+Add the following to your `docker-compose.yml`:
 
-- **Socket not found**: Verify the host has the socket file at the expected path
-- **Permission denied**: Container user may need different UID/GID mapping
-- **Connection timeout**: Firewall rules may be blocking D-Bus communication
+```yaml
+services:
+  beszel-agent:
+    security_opt:
+      - apparmor:unconfined
+```
+
+#### `Unknown method 'ListUnitsByPatterns'`
+
+Method not supported in systemd < 243. Upgrade to systemd 243 or later.
 
 ## Compatibility
 
