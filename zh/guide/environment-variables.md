@@ -66,6 +66,7 @@
 | `NICS`              | 未设置 | 网络接口的白名单或黑名单。                                                                   |
 | `PRIMARY_SENSOR`    | 未设置 | 在"所有系统"表格中显示的特定温度传感器。                                                     |
 | `SENSORS`           | 未设置 | 温度传感器的白名单或黑名单。                                                                 |
+| `SERVICE_PATTERNS`  | 未设置 | 要监控的 systemd 服务模式列表。                                                              |
 | `SKIP_GPU`          | false  | 禁用 GPU 监控。                                                                              |
 | `SMART_DEVICES`     | 未设置 | 要监控的 S.M.A.R.T. 设备列表。                                                                |
 | `SYS_SENSORS`       | 未设置 | 覆盖用于传感器的系统路径。请参阅 [#160](https://github.com/henrygd/beszel/discussions/160)。 |
@@ -131,6 +132,14 @@
 | `-foo_*`       | 黑名单 | 排除匹配 `foo_*` 的传感器；允许所有其他。 |
 | `-foo_1,bar_*` | 黑名单 | 排除 `foo_1` 和 `bar_*`；允许所有其他。   |
 | `""`           | 禁用   | 使用空字符串禁用温度监控。                |
+
+### `SERVICE_PATTERNS`
+
+用于匹配 systemd 服务名称的逗号分隔的 glob 模式列表。匹配任何模式的服务将被监控。其他服务将被忽略。
+
+```dotenv
+SERVICE_PATTERNS="beszel*,docker*,kubelet*"
+```
 
 ### `SMART_DEVICES`
 

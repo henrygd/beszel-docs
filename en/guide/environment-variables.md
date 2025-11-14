@@ -68,6 +68,7 @@ Environment variables may optionally be prefixed with `BESZEL_AGENT_`.
 | `NICS`              | unset   | Whitelist or blacklist network interfaces.                                                     |
 | `PRIMARY_SENSOR`    | unset   | Display specific temperature sensor in 'All Systems' table.                                    |
 | `SENSORS`           | unset   | Whitelist or blacklist temperature sensors.                                                    |
+| `SERVICE_PATTERNS`  | unset   | List of systemd service patterns to monitor.                                                      |
 | `SKIP_GPU`          | false   | Disable GPU monitoring.                                                                        |
 | `SMART_DEVICES`     | unset   | List of S.M.A.R.T. devices to monitor.                                                        |
 | `SYS_SENSORS`       | unset   | Overrides sys path for sensors. See [#160](https://github.com/henrygd/beszel/discussions/160). |
@@ -133,6 +134,15 @@ Treated as a whitelist by default. Can be used as a blacklist by prefixing with 
 | `-foo_*`        | Blacklist | Excludes sensors matching `foo_*`; all others allowed. |
 | `-foo_1,bar_*`  | Blacklist | Excludes `foo_1` and `bar_*`; all others allowed.      |
 | `""`            | Disabled  | Disable temperature monitoring with an empty string.   |
+
+
+### `SERVICE_PATTERNS`
+
+Comma-separated list of glob patterns to match systemd service names. Services matching any of the patterns will be monitored. Others will be ignored.
+
+```dotenv
+SERVICE_PATTERNS="beszel*,docker*,kubelet*"
+```
 
 ### `SMART_DEVICES`
 
