@@ -88,6 +88,14 @@ The agent monitors system services by default. User services require additional 
 
 4. Verify agent permissions for accessing systemd services
 
+### Missing memory stats
+
+If you're missing memory stats for running services, your OS provider may have disabled cgroup memory accounting. This is common with Raspberry Pi. 
+
+Enabling cgroup memory accounting is very simple. Instructions can be found in [discussion #1433 on GitHub](https://github.com/henrygd/beszel/discussions/1433), or the following guide:
+
+https://akashrajpurohit.com/blog/resolving-missing-memory-stats-in-docker-stats-on-raspberry-pi/
+
 ### Common Errors
 
 Common error messages and solutions:

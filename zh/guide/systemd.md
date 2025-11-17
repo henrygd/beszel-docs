@@ -88,6 +88,14 @@ Systemd 支持系统级服务和用户特定服务：
 
 4. 验证代理权限以访问 systemd 服务
 
+### 缺少内存统计信息
+
+如果您发现运行中的服务缺少内存统计信息，您的操作系统提供商可能已禁用 cgroup 内存记账。这在 Raspberry Pi 上很常见。
+
+启用 cgroup 内存记账非常简单。可以在 [GitHub 讨论 #1433](https://github.com/henrygd/beszel/discussions/1433) 中找到说明，或参考以下指南：
+
+https://akashrajpurohit.com/blog/resolving-missing-memory-stats-in-docker-stats-on-raspberry-pi/
+
 ### 常见错误
 
 常见错误消息和解决方案：
