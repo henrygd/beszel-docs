@@ -1,6 +1,6 @@
 # Beszel documentation website
 
-Documentation for [Beszel](https://github.com/beszel/beszel), powered by [VitePress](https://vitepress.dev/).
+Documentation for [Beszel](https://github.com/henrygd/beszel), powered by [VitePress](https://vitepress.dev/).
 
 ### Install dependencies
 
