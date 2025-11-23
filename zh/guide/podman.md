@@ -13,34 +13,98 @@ systemctl --user start podman.socket
 
 重新启动代理以使其连接到 Podman API。
 
-## 权限
+## 授予权限
 
-您必须以运行 Podman 的相同用户身份运行代理程序。
+代理程序需要对 Podman 套接字的读/写访问权限。这可以通过多种方式实现：
 
-::: code-group
+- 以运行 Podman 的相同用户身份运行代理程序
+- 创建代理套接字
+- 更改套接字目录的所有权和权限
+- 使用 ACL
 
-```ini [beszel-agent.service]
-[Service]
-User=beszel # [!code --]
-User=1000 # [!code ++]
-```
+下面介绍了前两种方法：
 
-```bash [podman run]
+:::: details 以相同用户身份运行（容器或二进制代理程序）
+
+### 容器
+
+如果作为 Podman 容器运行，请直接挂载 Podman 套接字：
+
+```bash
 podman run -d \
   --name beszel-agent \
   --user 1000 \
   --network host \
   --restart unless-stopped \
-  -v /var/run/docker.sock:/var/run/docker.sock:ro \
-  -e KEY="<public key>" \
+  -v /run/user/1000/podman/podman.sock:/run/user/1000/podman/podman.sock:ro \
+  -e KEY="<公钥>" \
   -e LISTEN=45876 \
   docker.io/henrygd/beszel-agent:latest
 ```
 
-::: code-group
+::: tip 注意
+如果不同，请将 1000 替换为您的实际用户 ID。您可以通过运行 `id -u` 来找到它
+:::
 
-## 指定不同的套接字路径
+### 二进制代理程序
 
-代理程序会在 `/run/user/{uid}/podman/podman.sock` 处检查 Podman 套接字。
+如果运行二进制代理程序，请将用户更改为运行 Podman 的相同用户。例如，如果 Podman 以用户 `1000` 身份运行，请在服务文件 `/etc/systemd/system/beszel-agent.service` 中将用户更改为 `1000`：
 
-如果您需要使用不同的路径，请在 `DOCKER_HOST` 环境变量中指定它：`DOCKER_HOST=unix:///path/to/podman.sock`
+```ini
+[Service]
+User=1000
+```
+
+重新启动代理以使其连接到 Podman API。
+
+```bash
+sudo systemctl daemon-reload
+sudo systemctl restart beszel-agent.service
+```
+
+::::
+
+:::: details 创建代理套接字（二进制代理程序）
+
+创建 `beszel` 用户可以访问的代理套接字：
+
+```bash
+sudo groupadd podman-socket
+sudo usermod -aG podman-socket-proxy $USER
+sudo usermod -aG podman-socket-proxy beszel
+cat > ~/.config/systemd/user/podman-socket-proxy.service << 'EOF'
+[Unit]
+Description=Beszel 的 Podman 套接字代理
+After=network.target podman.socket
+Wants=podman.socket
+Requires=podman.socket
+
+[Service]
+Type=simple
+ExecStartPre=/usr/bin/mkdir -p /run/podman-socket-proxy
+ExecStartPre=/usr/bin/chown %u:podman-socket-proxy /run/podman-socket-proxy
+ExecStart=/usr/bin/socat UNIX-LISTEN:/run/podman-socket-proxy/podman.sock,fork,user=%u,group=podman-socket-proxy,mode=0660 UNIX-CONNECT:%t/podman/podman.sock
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
+EOF
+systemctl --user daemon-reload
+systemctl --user enable --now podman-socket-proxy.service
+```
+
+将 `DOCKER_HOST` 环境变量添加到您的代理程序服务文件 `/etc/systemd/system/beszel-agent.service` 中：
+
+```ini
+[Service]
+Environment="DOCKER_HOST=unix:///run/podman-socket-proxy/podman.sock"  # [!code ++]
+```
+
+重新启动代理以使其连接到 Podman API。
+
+```bash
+sudo systemctl restart beszel-agent.service
+```
+
+::::

@@ -61,11 +61,13 @@ docker run -d \
 ```
 
 ```bash [podman run]
+# 如果不同，请将 1000 替换为您的实际用户 ID。
 podman run -d \
   --name beszel-agent \
+  --user 1000 \
   --network host \
   --restart unless-stopped \
-  -v /var/run/docker.sock:/var/run/docker.sock:ro \
+  -v /run/user/1000/podman/podman.sock:/run/user/1000/podman/podman.sock:ro \
   -e KEY="<公钥>" \
   -e LISTEN=45876 \
   docker.io/henrygd/beszel-agent:latest
