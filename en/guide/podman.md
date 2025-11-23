@@ -17,16 +17,57 @@ Restart the agent to allow it to connect to the Podman API.
 
 The agent requires read/write access to the Podman socket. This can be achieved in various ways:
 
-- creating a proxy socket
-- running the agent as the same user that runs Podman
-- changing the socket directory ownership and permissions
-- using ACLs
+- Running the agent as the same user that runs Podman
+- Creating a proxy socket
+- Changing the socket directory ownership and permissions
+- Using ACLs
 
-Below, only the first two methods are covered for binary agent and agent running in podman container, respectively.
+The first two methods are covered below:
 
-:::: details create a proxy socket for binary agent
+:::: details Running as the same user (container or binary agent)
 
-Сreate a proxy socket that the `beszel` user can access:
+### Container
+
+If running as a Podman container, mount the Podman socket directly:
+
+```bash
+podman run -d \
+  --name beszel-agent \
+  --user 1000 \
+  --network host \
+  --restart unless-stopped \
+  -v /run/user/1000/podman/podman.sock:/run/user/1000/podman/podman.sock:ro \
+  -e KEY="<public key>" \
+  -e LISTEN=45876 \
+  docker.io/henrygd/beszel-agent:latest
+```
+
+::: tip Note
+Replace 1000 with your actual user ID if different. You can find it by running `id -u`
+:::
+
+### Binary agent
+
+If running binary agent, change the user to the same user that runs Podman. With systemd, for example, if Podman is running as user `1000`, change the user to `1000` in the service file `/etc/systemd/system/beszel-agent.service`:
+
+```ini
+[Service]
+User=1000
+```
+
+Restart the agent to allow it to connect to the Podman API.
+
+```bash
+sudo systemctl daemon-reload
+sudo systemctl restart beszel-agent.service
+```
+
+::::
+
+
+:::: details Creating a proxy socket (binary agent)
+
+Create a proxy socket that the `beszel` user can access:
 
 ```bash
 sudo groupadd podman-socket
@@ -66,27 +107,5 @@ Restart the agent to allow it to connect to the Podman API.
 ```bash
 sudo systemctl restart beszel-agent.service
 ```
-
-::::
-
-:::: details Podman agent
-
-Mount the Podman socket directly:
-
-```bash
-podman run -d \
-  --name beszel-agent \
-  --user 1000 \
-  --network host \
-  --restart unless-stopped \
-  -v /run/user/1000/podman/podman.sock:/var/run/docker.sock:ro \
-  -e KEY="<public key>" \
-  -e LISTEN=45876 \
-  docker.io/henrygd/beszel-agent:latest
-```
-
-::: tip Note
-Replace 1000 with your actual user ID if different. You can find it by running `id -u`
-:::
 
 ::::
