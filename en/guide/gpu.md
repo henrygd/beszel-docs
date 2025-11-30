@@ -112,6 +112,15 @@ Assuming you're not running the agent as root, you'll need to set the `cap_perfm
 sudo setcap cap_perfmon=ep /usr/bin/intel_gpu_top
 ```
 
+If running the agent as a systemd service, [add the `CAP_PERFMON` ambient capability](./environment-variables.md#systemd) to the `beszel-agent` service so that non-root services can still access performance counters:
+
+```ini
+[Service]
+AmbientCapabilities=CAP_PERFMON
+```
+
+This is required because file-based capabilities set with `setcap` on `intel_gpu_top` are not inherited by child processes when the service is run as a non-root user. See [issue #1480](https://github.com/henrygd/beszel/issues/1480) for additional context.
+
 
 ### Troubleshooting {#intel-troubleshooting}
 

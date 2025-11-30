@@ -112,6 +112,15 @@ sudo pacman -S intel-gpu-tools
 sudo setcap cap_perfmon=ep /usr/bin/intel_gpu_top
 ```
 
+如果将代理作为 systemd 服务运行，请[在 `beszel-agent` 服务中添加 `CAP_PERFMON` 环境能力](./environment-variables.md#systemd)，这样以非 root 用户运行的服务仍然可以访问性能计数器：
+
+```ini
+[Service]
+AmbientCapabilities=CAP_PERFMON
+```
+
+这是必需的，因为当使用非 root 用户运行服务时，通过 `setcap` 设置在 `intel_gpu_top` 可执行文件上的文件能力不会被子进程继承。有关更多背景信息，请参阅 [issue #1480](https://github.com/henrygd/beszel/issues/1480)。
+
 
 ### 故障排除 {#intel-troubleshooting}
 
