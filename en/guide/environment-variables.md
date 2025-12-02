@@ -51,6 +51,7 @@ Environment variables may optionally be prefixed with `BESZEL_AGENT_`.
 | Name                | Default | Description                                                                                    |
 | ------------------- | ------- | ---------------------------------------------------------------------------------------------- |
 | `DATA_DIR`          | unset   | Persistent data directory.                                                                     |
+| `DISK_USAGE_CACHE`  | unset   | Provide a duration like `5m` or `1h` to cache usage of extra disks and avoid waking them to recheck. |
 | `DOCKER_HOST`       | unset   | Overrides the Docker host (docker.sock).                                                       |
 | `EXCLUDE_CONTAINERS` | unset   | Exclude containers from being monitored.                                                    |
 | `EXCLUDE_SMART` | unset   | Exclude S.M.A.R.T. devices from being monitored.                                                    |
@@ -70,6 +71,7 @@ Environment variables may optionally be prefixed with `BESZEL_AGENT_`.
 | `SENSORS`           | unset   | Whitelist or blacklist temperature sensors.                                                    |
 | `SERVICE_PATTERNS`  | unset   | List of systemd service patterns to monitor.                                                      |
 | `SKIP_GPU`          | false   | Disable GPU monitoring.                                                                        |
+| `SKIP_SYSTEMD`          | false   | Disable Systemd service monitoring.                                                                        |
 | `SMART_DEVICES`     | unset   | List of S.M.A.R.T. devices to monitor.                                                        |
 | `SYS_SENSORS`       | unset   | Overrides sys path for sensors. See [#160](https://github.com/henrygd/beszel/discussions/160). |
 | `SYSTEM_NAME`       | unset   | Override system name on universal token registration. Defaults to hostname if unset.           |

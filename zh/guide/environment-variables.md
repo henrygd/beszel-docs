@@ -49,6 +49,7 @@
 | 名称                | 默认值 | 描述                                                                                         |
 | ------------------- | ------ | -------------------------------------------------------------------------------------------- |
 | `DATA_DIR`          | 未设置 | 持久数据目录。                                                                               |
+| `DISK_USAGE_CACHE`  | 未设置 | 提供类似 `5m` 或 `1h` 的持续时间来缓存额外磁盘的使用情况，避免唤醒它们进行重新检查。     |
 | `DOCKER_HOST`       | 未设置 | 覆盖 Docker 主机 (docker.sock)。                                                             |
 | `EXCLUDE_CONTAINERS` | 未设置 | 排除容器不被监控。                                                                           |
 | `EXCLUDE_SMART`     | 未设置 | 排除 S.M.A.R.T. 设备不被监控。                                                               |
@@ -68,6 +69,7 @@
 | `SENSORS`           | 未设置 | 温度传感器的白名单或黑名单。                                                                 |
 | `SERVICE_PATTERNS`  | 未设置 | 要监控的 systemd 服务模式列表。                                                              |
 | `SKIP_GPU`          | false  | 禁用 GPU 监控。                                                                              |
+| `SKIP_SYSTEMD`      | false  | 禁用 Systemd 服务监控。                                                                      |
 | `SMART_DEVICES`     | 未设置 | 要监控的 S.M.A.R.T. 设备列表。                                                                |
 | `SYS_SENSORS`       | 未设置 | 覆盖用于传感器的系统路径。请参阅 [#160](https://github.com/henrygd/beszel/discussions/160)。 |
 | `SYSTEM_NAME`       | 未设置 | 在通用令牌注册时覆盖系统名称。未设置时默认为主机名。                                         |
