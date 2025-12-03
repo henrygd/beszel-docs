@@ -43,12 +43,12 @@ Switch to the `:alpine` image and add the following to your `docker-compose.yml`
 ```yaml
 beszel-agent:
   image: henrygd/beszel-agent:alpine
-   devices:
-      - /dev/sda:/dev/sda
-      - /dev/nvme0:/dev/nvme0
-   cap_add:
-      - SYS_RAWIO # required for S.M.A.R.T. data
-      - SYS_ADMIN # required for NVMe S.M.A.R.T. data
+  devices:
+    - /dev/sda:/dev/sda
+    - /dev/nvme0:/dev/nvme0
+  cap_add:
+    - SYS_RAWIO # required for S.M.A.R.T. data
+    - SYS_ADMIN # required for NVMe S.M.A.R.T. data
 ```
 
 ::: tip Pass in the base controller name, not the block / partition
