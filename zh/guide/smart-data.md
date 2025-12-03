@@ -4,7 +4,6 @@ Beszel 从 `smartctl` 解析 S.M.A.R.T. 数据，并在系统页面上显示（�
 
 要确保你的系统兼容，请在代理机器上安装 `smartmontools` 并扫描设备： {#install}
 
-
 ::: code-group
 
 ```bash [Debian/Ubuntu]
@@ -29,7 +28,6 @@ brew install smartmontools
 
 :::
 
-
 ```bash
 sudo smartctl --scan
 ```
@@ -43,12 +41,12 @@ sudo smartctl --scan
 ```yaml
 beszel-agent:
   image: henrygd/beszel-agent:alpine
-   devices:
-      - /dev/sda:/dev/sda
-      - /dev/nvme0:/dev/nvme0
-   cap_add:
-      - SYS_RAWIO # S.M.A.R.T. 数据所需
-      - SYS_ADMIN # NVMe S.M.A.R.T. 数据所需
+  devices:
+    - /dev/sda:/dev/sda
+    - /dev/nvme0:/dev/nvme0
+  cap_add:
+    - SYS_RAWIO # S.M.A.R.T. 数据所需
+    - SYS_ADMIN # NVMe S.M.A.R.T. 数据所需
 ```
 
 ::: tip 传入基础控制器名称，而不是块设备/分区
@@ -168,6 +166,7 @@ smartctl --version
 3. 在**系统变量**部分，选择 **Path** 并点击**编辑...**
 
 4. 点击**新建**并添加 smartmontools 安装目录：
+
    ```
    C:\Program Files\smartmontools\bin
    ```
@@ -175,8 +174,8 @@ smartctl --version
    ::: tip 安装路径可能有所不同
    确切路径取决于你的安装位置。
 
-
 5. 打开新的命令提示符或 PowerShell 窗口并验证安装：
+
    ```cmd
    smartctl --version
    ```
