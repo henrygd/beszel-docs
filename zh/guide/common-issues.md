@@ -80,3 +80,22 @@ volumes:
 较长时间段的记录是通过平均较短时期的统计数据创建的。代理程序必须不间断运行才能使这些记录填充完整的数据集。
 
 暂停/取消暂停代理程序超过一分钟将导致数据不完整，重置当前间隔的计时。
+
+## Authelia forward-auth 无法工作
+
+如果您使用的是 Authelia v4.39.15 或更高版本并启用了 forward-auth，且遇到认证问题（重复弹出登录提示或授权错误），您可能需要在 Authelia 配置中添加 `authn_strategies`。
+
+在您的 Authelia `configuration.yml` 中，更新 forward-auth 端点配置：
+
+```yaml
+server:
+  # ...
+  endpoints:
+    authz:
+      forward-auth:
+        implementation: 'ForwardAuth'
+        authn_strategies:
+          - name: 'CookieSession'
+```
+
+查看 [issue #1482](https://github.com/henrygd/beszel/issues/1482) 了解更多详情。

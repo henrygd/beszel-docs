@@ -80,3 +80,22 @@ Upgrade your Docker version on the agent system if possible. There is a bug in D
 Records for longer time periods are created by averaging stats from shorter periods. The agent must run uninterrupted for a full set of data to populate these records.
 
 Pausing/unpausing the agent for longer than one minute will result in incomplete data, resetting the timing for the current interval.
+
+## Authelia forward-auth not working
+
+If you're using Authelia v4.39.15 or later with forward-auth and experiencing authentication issues (repeated login prompts or authorization errors), you may need to add `authn_strategies` to your Authelia configuration.
+
+In your Authelia `configuration.yml`, update the forward-auth endpoint configuration:
+
+```yaml
+server:
+  # ...
+  endpoints:
+    authz:
+      forward-auth:
+        implementation: 'ForwardAuth'
+        authn_strategies:
+          - name: 'CookieSession'
+```
+
+See [issue #1482](https://github.com/henrygd/beszel/issues/1482) for more details.
