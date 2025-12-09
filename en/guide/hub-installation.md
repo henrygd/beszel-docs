@@ -52,7 +52,7 @@ podman run -d \
 
 Beszel is written in pure Go and can be easily compiled (or cross-compiled) if a prebuilt binary isn't available.
 
-### 1. Linux install script
+### 1. Linux / FreeBSD install script
 
 This command downloads and runs our `install-hub.sh` script. The script installs the latest binary and creates a systemd service to keep it running after reboot.
 
