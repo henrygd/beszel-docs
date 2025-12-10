@@ -59,6 +59,12 @@ systemctl daemon-reload
 systemctl restart beszel-agent
 ```
 
+### Power Usage Warning
+
+`nvidia-smi` prevents NVIDIA GPUs from entering RTD3 power saving mode which leads increased power consumption. On laptops this can drastically reduce idle battery life.
+
+You may prevent this by disabling GPU monitoring via `SKIP_GPU=true`. 
+
 ## Nvidia Jetson {#nvidia-jetson}
 
 You must use the binary agent and have `tegrastats` installed.
