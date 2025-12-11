@@ -20,6 +20,12 @@ sudo ln -s /opt/rocm/bin/rocm-smi /usr/local/bin/rocm-smi
 
 ## Nvidia GPU {#nvidia}
 
+::: warning 功耗警告
+`nvidia-smi` 会阻止 GPU 进入 RTD3 节能模式，这可能导致笔记本电脑的功耗增加。
+
+我们正在开发解决方案。有关更多信息，请参阅 [issue #1522](https://github.com/henrygd/beszel/issues/1522)。
+:::
+
 ### Docker 代理 {#nvidia-docker}
 
 确保主机系统上安装了 NVIDIA Container Toolkit。

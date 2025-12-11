@@ -20,6 +20,12 @@ sudo ln -s /opt/rocm/bin/rocm-smi /usr/local/bin/rocm-smi
 
 ## Nvidia GPUs {#nvidia}
 
+::: warning Power usage warning
+`nvidia-smi` prevents GPUs from entering RTD3 power saving mode, which may cause increased power consumption on laptops.
+
+We are working on a solution. See [issue #1522](https://github.com/henrygd/beszel/issues/1522) for more information.
+:::
+
 ### Docker agent
 
 Make sure NVIDIA Container Toolkit is installed on the host system.
@@ -59,11 +65,7 @@ systemctl daemon-reload
 systemctl restart beszel-agent
 ```
 
-### Power Usage Warning
 
-`nvidia-smi` prevents NVIDIA GPUs from entering RTD3 power saving mode which leads increased power consumption. On laptops this can drastically reduce idle battery life.
-
-You may prevent this by disabling GPU monitoring via `SKIP_GPU=true`. 
 
 ## Nvidia Jetson {#nvidia-jetson}
 
