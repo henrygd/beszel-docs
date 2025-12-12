@@ -283,7 +283,7 @@ brew install beszel-agent
 brew services start beszel-agent
 ```
 
-## WinGet / Scoop (Windows)
+## WinGet / Scoop (Windows) {#windows}
 
 The agent is available as a package in [WinGet](https://winstall.app/apps/henrygd.beszel-agent) and [Scoop](https://scoop.sh/).
 
@@ -303,7 +303,10 @@ It also installs [NSSM](https://nssm.cc/usage) and creates a service to keep the
 
 > The script's source code is available [on GitHub](https://github.com/henrygd/beszel/blob/main/supplemental/scripts/install-agent.ps1).
 
-A community-maintained GUI installer is available at [vmhomelab/beszel-agent-installer](https://github.com/vmhomelab/beszel-agent-installer) and uses [Chocolatey](https://chocolatey.org/) to install the agent.
+There are also community-developed GUI applications to install and manage the agent:
+
+- [vmhomelab/beszel-agent-installer](https://github.com/vmhomelab/beszel-agent-installer) which uses [Chocolatey](https://chocolatey.org/).
+- [MiranoVerhoef/BeszelAgentManager](https://github.com/MiranoVerhoef/BeszelAgentManager) which uses WinGet.
 
 ### Edit configuration
 

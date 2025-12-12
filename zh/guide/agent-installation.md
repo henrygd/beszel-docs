@@ -306,7 +306,10 @@ brew services start beszel-agent
 
 > 脚本的源代码可在 [GitHub](https://github.com/henrygd/beszel/blob/main/supplemental/scripts/install-agent.ps1) 上获取。
 
-社区维护的 GUI 安装程序可在 [vmhomelab/beszel-agent-installer](https://github.com/vmhomelab/beszel-agent-installer) 获取，并使用 [Chocolatey](https://chocolatey.org/) 来安装代理。
+还有社区开发的 GUI 应用程序用于安装和管理代理：
+
+- [vmhomelab/beszel-agent-installer](https://github.com/vmhomelab/beszel-agent-installer)，使用 [Chocolatey](https://chocolatey.org/)。
+- [MiranoVerhoef/BeszelAgentManager](https://github.com/MiranoVerhoef/BeszelAgentManager)，使用 WinGet。
 
 ### 编辑配置
 
