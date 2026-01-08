@@ -67,7 +67,9 @@ systemctl restart beszel-agent
 
 ## Nvidia Jetson {#nvidia-jetson}
 
-您必须使用二进制代理并安装 `tegrastats`。
+二进制代理应自动工作，无需额外配置。
+
+Docker 代理目前需要绑定挂载 `/usr/bin/tegrastats` 并使用自定义的 `dockerfile`。有关详细信息，请参阅[讨论 #1600](https://github.com/henrygd/beszel/discussions/1600)。欢迎提供反馈。
 
 ## Intel GPU {#intel}
 

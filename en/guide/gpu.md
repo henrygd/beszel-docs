@@ -69,7 +69,10 @@ systemctl restart beszel-agent
 
 ## Nvidia Jetson {#nvidia-jetson}
 
-You must use the binary agent and have `tegrastats` installed.
+The binary agent should work automatically with no additional configuration.
+
+The docker agent currently requires bind mounting `/usr/bin/tegrastats` and using a custom `dockerfile`. See [discussion #1600](https://github.com/henrygd/beszel/discussions/1600) for more information. Feedback is welcome.
+
 
 ## Intel GPUs {#intel}
 
