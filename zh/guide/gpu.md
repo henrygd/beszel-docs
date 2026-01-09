@@ -69,7 +69,35 @@ systemctl restart beszel-agent
 
 二进制代理应自动工作，无需额外配置。
 
-Docker 代理目前需要绑定挂载 `/usr/bin/tegrastats` 并使用自定义的 `dockerfile`。有关详细信息，请参阅[讨论 #1600](https://github.com/henrygd/beszel/discussions/1600)。欢迎提供反馈。
+### Docker 代理
+
+Docker 代理需要自定义镜像和 `tegrastats` 的绑定挂载。
+
+#### 1. 创建自定义 Dockerfile
+
+在 `docker-compose.yml` 所在的目录中创建一个 `Dockerfile`：
+
+```dockerfile
+FROM frolvlad/alpine-glibc:latest
+
+COPY --from=henrygd/beszel-agent:latest /agent /agent
+RUN chmod +x /agent
+
+ENTRYPOINT ["/agent"]
+```
+
+#### 2. 更新 docker-compose.yml
+
+将 `image: henrygd/beszel-agent` 替换为 `build: .` 以使用您的自定义镜像，并绑定挂载 `tegrastats`：
+
+```yaml
+beszel-agent:
+  build: .
+  volumes:
+    - /usr/bin/tegrastats:/usr/bin/tegrastats:ro
+```
+
+有关更多信息，请参阅[讨论 #1600](https://github.com/henrygd/beszel/discussions/1600)。
 
 ## Intel GPU {#intel}
 

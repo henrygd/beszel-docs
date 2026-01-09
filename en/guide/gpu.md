@@ -71,7 +71,35 @@ systemctl restart beszel-agent
 
 The binary agent should work automatically with no additional configuration.
 
-The docker agent currently requires bind mounting `/usr/bin/tegrastats` and using a custom `dockerfile`. See [discussion #1600](https://github.com/henrygd/beszel/discussions/1600) for more information. Feedback is welcome.
+### Docker agent
+
+The Docker agent requires a custom image and a bind mount for `tegrastats`.
+
+#### 1. Create a custom Dockerfile
+
+Create a `Dockerfile` in the same directory as your `docker-compose.yml`:
+
+```dockerfile
+FROM frolvlad/alpine-glibc:latest
+
+COPY --from=henrygd/beszel-agent:latest /agent /agent
+RUN chmod +x /agent
+
+ENTRYPOINT ["/agent"]
+```
+
+#### 2. Update docker-compose.yml
+
+Replace `image: henrygd/beszel-agent` with `build: .` to use your custom image, and bind mount `tegrastats`:
+
+```yaml
+beszel-agent:
+  build: .
+  volumes:
+    - /usr/bin/tegrastats:/usr/bin/tegrastats:ro
+```
+
+See [discussion #1600](https://github.com/henrygd/beszel/discussions/1600) for more information.
 
 
 ## Intel GPUs {#intel}
