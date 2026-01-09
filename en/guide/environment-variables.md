@@ -69,15 +69,15 @@ Environment variables may optionally be prefixed with `BESZEL_AGENT_`.
 | `NICS`              | unset   | Whitelist or blacklist network interfaces.                                                     |
 | `PRIMARY_SENSOR`    | unset   | Display specific temperature sensor in 'All Systems' table.                                    |
 | `SENSORS`           | unset   | Whitelist or blacklist temperature sensors.                                                    |
-| `SERVICE_PATTERNS`  | unset   | List of systemd service patterns to monitor.                                                      |
+| `SERVICE_PATTERNS`  | unset   | List of systemd service patterns to monitor.                                                   |
 | `SKIP_GPU`          | false   | Disable GPU monitoring.                                                                        |
-| `SKIP_SYSTEMD`          | false   | Disable Systemd service monitoring.                                                                        |
+| `SKIP_SYSTEMD`      | false   | Disable Systemd service monitoring.                                                            |
 | `SMART_DEVICES`     | unset   | List of S.M.A.R.T. devices to monitor.                                                        |
+| `SMART_INTERVAL`    | 1h      | Interval to check S.M.A.R.T. devices.                                                         |
 | `SYS_SENSORS`       | unset   | Overrides sys path for sensors. See [#160](https://github.com/henrygd/beszel/discussions/160). |
 | `SYSTEM_NAME`       | unset   | Override system name on universal token registration. Defaults to hostname if unset.           |
 | `TOKEN`             | unset   | WebSocket registration token. Provided in hub.                                                 |
 | `TOKEN_FILE`        | unset   | Read token from a file instead of an environment variable.                                     |
-
 
 ### `DATA_DIR`
 
@@ -137,7 +137,6 @@ Treated as a whitelist by default. Can be used as a blacklist by prefixing with 
 | `-foo_1,bar_*`  | Blacklist | Excludes `foo_1` and `bar_*`; all others allowed.      |
 | `""`            | Disabled  | Disable temperature monitoring with an empty string.   |
 
-
 ### `SERVICE_PATTERNS`
 
 Comma-separated list of glob patterns to match systemd service names. Services matching any of the patterns will be monitored. Others will be ignored.
@@ -155,7 +154,6 @@ SMART_DEVICES=/dev/nvme0:nvme,/dev/sda:sat
 ```
 
 This does not need to be a full list and will be merged with other devices detected by `smartctl --scan`.
-
 
 ### `EXCLUDE_CONTAINERS`
 

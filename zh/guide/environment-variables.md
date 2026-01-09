@@ -71,6 +71,7 @@
 | `SKIP_GPU`          | false  | 禁用 GPU 监控。                                                                              |
 | `SKIP_SYSTEMD`      | false  | 禁用 Systemd 服务监控。                                                                      |
 | `SMART_DEVICES`     | 未设置 | 要监控的 S.M.A.R.T. 设备列表。                                                                |
+| `SMART_INTERVAL`    | 1h     | 检查 S.M.A.R.T. 设备的间隔时间。                                                              |
 | `SYS_SENSORS`       | 未设置 | 覆盖用于传感器的系统路径。请参阅 [#160](https://github.com/henrygd/beszel/discussions/160)。 |
 | `SYSTEM_NAME`       | 未设置 | 在通用令牌注册时覆盖系统名称。未设置时默认为主机名。                                         |
 | `TOKEN`             | 未设置 | WebSocket 注册令牌。在中心提供。                                                             |
