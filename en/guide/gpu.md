@@ -88,13 +88,14 @@ RUN chmod +x /agent
 ENTRYPOINT ["/agent"]
 ```
 
-#### 2. Update docker-compose.yml
+#### 2. Update Docker Compose
 
-Replace `image: henrygd/beszel-agent` with `build: .` to use your custom image, and bind mount `tegrastats`:
+Update your `docker-compose.yml` to use your custom image, and bind mount `tegrastats`:
 
 ```yaml
 beszel-agent:
-  build: .
+  image: henrygd/beszel-agent # [!code --]
+  build: . # [!code ++]
   volumes:
     - /usr/bin/tegrastats:/usr/bin/tegrastats:ro
 ```
