@@ -67,6 +67,7 @@ Environment variables may optionally be prefixed with `BESZEL_AGENT_`.
 | `MEM_CALC`          | unset   | Overrides the default memory calculation.                                                      |
 | `NETWORK`           | unset   | Network for listener. "tcp", "tcp4", "tcp6", or "unix".                                        |
 | `NICS`              | unset   | Whitelist or blacklist network interfaces.                                                     |
+| `NVML`              | false   | Use experimental NVML integration for GPU monitoring.                                         |
 | `PRIMARY_SENSOR`    | unset   | Display specific temperature sensor in 'All Systems' table.                                    |
 | `SENSORS`           | unset   | Whitelist or blacklist temperature sensors.                                                    |
 | `SERVICE_PATTERNS`  | unset   | List of systemd service patterns to monitor.                                                   |

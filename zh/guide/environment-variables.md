@@ -65,6 +65,7 @@
 | `MEM_CALC`          | 未设置 | 覆盖默认内存计算。                                                                           |
 | `NETWORK`           | 未设置 | 监听器的网络类型。"tcp"、"tcp4"、"tcp6" 或 "unix"。                                          |
 | `NICS`              | 未设置 | 网络接口的白名单或黑名单。                                                                   |
+| `NVML`              | false   | 使用实验性 NVML 集成进行 GPU 监控。                                                         |
 | `PRIMARY_SENSOR`    | 未设置 | 在"所有系统"表格中显示的特定温度传感器。                                                     |
 | `SENSORS`           | 未设置 | 温度传感器的白名单或黑名单。                                                                 |
 | `SERVICE_PATTERNS`  | 未设置 | 要监控的 systemd 服务模式列表。                                                              |

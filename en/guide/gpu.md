@@ -23,7 +23,7 @@ sudo ln -s /opt/rocm/bin/rocm-smi /usr/local/bin/rocm-smi
 ::: warning Power usage warning
 `nvidia-smi` prevents GPUs from entering RTD3 power saving mode, which may cause increased power consumption on laptops.
 
-We are working on a solution. See [issue #1522](https://github.com/henrygd/beszel/issues/1522) for more information.
+Alternatively, set `NVML=true` to use the experimental NVML integration, which allows GPUs to enter power-saving mode. Please submit feedback in [issue #1522](https://github.com/henrygd/beszel/issues/1522).
 :::
 
 ### Docker agent
@@ -65,8 +65,6 @@ systemctl daemon-reload
 systemctl restart beszel-agent
 ```
 
-
-
 ## Nvidia Jetson {#nvidia-jetson}
 
 The binary agent should work automatically with no additional configuration.
@@ -101,7 +99,6 @@ beszel-agent:
 ```
 
 See [discussion #1600](https://github.com/henrygd/beszel/discussions/1600) for more information.
-
 
 ## Intel GPUs {#intel}
 
@@ -160,7 +157,6 @@ AmbientCapabilities=CAP_PERFMON
 ```
 
 This is required because file-based capabilities set with `setcap` on `intel_gpu_top` are not inherited by child processes when the service is run as a non-root user. See [issue #1480](https://github.com/henrygd/beszel/issues/1480) for additional context.
-
 
 ### Troubleshooting {#intel-troubleshooting}
 
