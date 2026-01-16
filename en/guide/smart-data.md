@@ -43,7 +43,6 @@ Switch to the `:alpine` image and add the following to your `docker-compose.yml`
 ```yaml
 beszel-agent:
   image: henrygd/beszel-agent:alpine
-  privileged: true
   devices:
     - /dev/sda:/dev/sda
     - /dev/nvme0:/dev/nvme0
@@ -198,7 +197,7 @@ The agent should now be able to collect S.M.A.R.T. data from your Windows system
 
 ### Commands still require sudo despite capabilities being set
 
-If `smartctl` still fails even after setting capabilities (via systemd ambient capabilities or file capabilities), the issue is likely **device permissions**. Even with `CAP_SYS_RAWIO` and `CAP_SYS_ADMIN`, the user needs read access to the device files themselves.
+If `smartctl` still fails even after setting capabilities (via systemd ambient capabilities or file capabilities), the issue is likely device permissions. Even with `CAP_SYS_RAWIO` and `CAP_SYS_ADMIN`, the user needs read access to the device files themselves.
 
 Check your device permissions:
 

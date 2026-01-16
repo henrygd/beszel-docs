@@ -36,7 +36,7 @@ sudo smartctl --scan
 
 切换到 `:alpine` 镜像，并在你的 `docker-compose.yml` 中添加以下内容。请确保将设备名称替换为你的实际设备。
 
-> 非基础镜像如 `beszel-agent-intel` 和 `beszel-agent-nvidia` 也可以工作。
+> 非基础镜像如 `beszel-agent-intel` 和 `beszel-agent-nvidia` 也可以工作且不需要 `:alpine`。
 
 ```yaml
 beszel-agent:
@@ -196,7 +196,7 @@ smartctl --scan
 
 ### 尽管设置了能力，命令仍需要 sudo
 
-如果即使在设置能力后（通过 systemd 环境能力或文件能力）`smartctl` 仍然失败，问题很可能在于**设备权限**。即使拥有 `CAP_SYS_RAWIO` 和 `CAP_SYS_ADMIN`，用户也需要对设备文件本身具有读取权限。
+如果即使在设置能力后（通过 systemd 环境能力或文件能力）`smartctl` 仍然失败，问题很可能在于设备权限。即使拥有 `CAP_SYS_RAWIO` 和 `CAP_SYS_ADMIN`，用户也需要对设备文件本身具有读取权限。
 
 检查你的设备权限：
 
