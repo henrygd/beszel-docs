@@ -4,7 +4,7 @@ Home Assistant Add-ons are maintained by third parties. Currently there are foll
 
 - `Obamium69/hassio-beszel_agent` ([GitHub](https://github.com/Obamium69/hassio-beszel_agent))
 - `matthewhadley/homeassistant-beszel-agent` ([GitHub](https://github.com/matthewhadley/homeassistant-beszel-agent))
-- `vineetchoudhary/home-assistant-beszel-agent` (with S.M.A.R.T. Monitoring) ([GitHub](https://github.com/vineetchoudhary/home-assistant-beszel-agent)
+- `vineetchoudhary/home-assistant-beszel-agent` (with S.M.A.R.T. Monitoring) ([GitHub](https://github.com/vineetchoudhary/home-assistant-beszel-agent))
 
 ## Add Repo to Home Assistant
 
