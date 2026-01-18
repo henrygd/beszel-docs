@@ -1,9 +1,10 @@
 # Home Assistant 代理
 
-Home Assistant 插件由第三方维护。目前有两个选项：
+Home Assistant 插件由第三方维护。目前有以下选项：
 
 - `Obamium69/hassio-beszel_agent` ([GitHub](https://github.com/Obamium69/hassio-beszel_agent))
 - `matthewhadley/homeassistant-beszel-agent` ([GitHub](https://github.com/matthewhadley/homeassistant-beszel-agent))
+- `vineetchoudhary/home-assistant-beszel-agent` (配备S.M.A.R.T.监控功能) ([GitHub](https://github.com/vineetchoudhary/home-assistant-beszel-agent)
 
 ## 将仓库添加到 Home Assistant
 
@@ -28,6 +29,7 @@ Home Assistant 插件由第三方维护。目前有两个选项：
 
 - `https://github.com/Obamium69/hassio-beszel_agent`
 - `https://github.com/matthewhadley/homeassistant-beszel-agent`
+- `https://github.com/vineetchoudhary/home-assistant-beszel-agent`
 
 ## 配置插件
 
