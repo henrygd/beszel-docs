@@ -45,7 +45,7 @@ services:
     environment:
       LISTEN: 45876
       KEY: "<公钥>"
-      HUB_URL: "http://localhost:8090"
+      HUB_URL: "<Hub 地址>"
       TOKEN: "<令牌>"
 ```
 
@@ -56,6 +56,8 @@ docker run -d \
   --restart unless-stopped \
   -v /var/run/docker.sock:/var/run/docker.sock:ro \
   -e KEY="<公钥>" \
+  -e HUB_URL="<Hub 地址>" \
+  -e TOKEN="<令牌>" \
   -e LISTEN=45876 \
   henrygd/beszel-agent:latest
 ```
@@ -69,10 +71,17 @@ podman run -d \
   --restart unless-stopped \
   -v /run/user/1000/podman/podman.sock:/run/user/1000/podman/podman.sock:ro \
   -e KEY="<公钥>" \
+  -e HUB_URL="<Hub 地址>" \
+  -e TOKEN="<令牌>" \
   -e LISTEN=45876 \
   docker.io/henrygd/beszel-agent:latest
 ```
 
+:::
+
+::: warning
+- `KEY`：在 Hub 中手动添加系统时显示的公钥。
+- `TOKEN` 和 `HUB_URL`：用于使用通用令牌自动注册（参见 `/settings/tokens`）。`HUB_URL` 是代理用于连接到 Hub 的地址（例如 `http://localhost:8090`）。
 :::
 
 ### 为什么使用主机网络模式？

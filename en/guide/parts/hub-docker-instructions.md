@@ -2,7 +2,7 @@
 
 ::: tip IMPORTANT
 
-This configuration should work out of the box, but you must follow these steps when adding the system in the web UI:
+You must follow these steps after adding the system in the web UI:
 
 1. Update the `KEY` and `TOKEN` environment variables with your public key and token, then restart the agent:
 
