@@ -223,6 +223,8 @@ The service configuration is usually located in `/etc/systemd/system/beszel-agen
 
 Alternatively, you can create an override file for your modifications with `systemctl edit beszel` or `systemctl edit beszel-agent` ([instructions](https://docs.fedoraproject.org/en-US/quick-docs/systemd-understanding-and-administering/#_modifying_existing_systemd_services)).
 
+You can also use `KEY_FILE` and `TOKEN_FILE` to load secrets from protected files (see [issue #1627](https://github.com/henrygd/beszel/issues/1627)).
+
 After editing the service, reload the configuration and restart:
 
 ```bash

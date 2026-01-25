@@ -122,7 +122,7 @@ curl -sL https://get.beszel.dev -o /tmp/install-agent.sh && chmod +x /tmp/instal
 Download the latest binary from [releases](https://github.com/henrygd/beszel/releases) that matches your server's OS / architecture.
 
 ```bash
-curl -sL "https://github.com/henrygd/beszel/releases/latest/download/beszel-agent_$(uname -s)_$(uname -m | sed -e 's/x86_64/amd64/' -e 's/armv6l/arm/' -e 's/armv7l/arm/' -e 's/aarch64/arm64/').tar.gz" | tar -xz -O beszel-agent | tee ./beszel-agent >/dev/null && chmod +x beszel-agent
+curl -sL "https://github.com/henrygd/beszel/releases/latest/download/beszel-agent_$(uname -s)_$(uname -m | sed -e 's/x86_64/amd64/' -e 's/armv6l/arm/' -e 's/armv7l/arm/' -e 's/aarch64/arm64/').tar.gz" | tar -xz beszel-agent
 ```
 
 #### Start the agent
@@ -130,7 +130,7 @@ curl -sL "https://github.com/henrygd/beszel/releases/latest/download/beszel-agen
 Use `-h` to see all available options.
 
 ```bash
-./beszel-agent -listen "45876" -key "<public key>"
+./beszel-agent -key "<public key>" -token "<token>" -url "<hub url>"
 ```
 
 #### Update the agent
@@ -143,7 +143,7 @@ Use `-h` to see all available options.
 
 If your system uses systemd, you can create a service to keep the agent running after reboot.
 
-1. Create a service file in `/etc/systemd/system/beszel-agent.service`.
+1. Create a service file in `/etc/systemd/system/beszel-agent.service`. Replace the placeholder values (e.g., `<path-to-binary>`, `<public key>`) with your actual configuration. You can also use `KEY_FILE` and `TOKEN_FILE` to load secrets from protected files (see [issue #1627](https://github.com/henrygd/beszel/issues/1627)).
 
 ```ini
 [Unit]
@@ -152,9 +152,11 @@ After=network-online.target
 Wants=network-online.target
 
 [Service]
-ExecStart={/path/to/working/directory}/beszel-agent
-Environment="LISTEN=$LISTEN"
-Environment="KEY=$KEY"
+ExecStart=<path-to-binary>/beszel-agent
+Environment="LISTEN=45876"
+Environment="KEY=<public key>"
+Environment="TOKEN=<token>"
+Environment="HUB_URL=<hub url>"
 # Environment="EXTRA_FILESYSTEMS=sdb"
 Restart=on-failure
 RestartSec=5
@@ -199,7 +201,7 @@ See [Compiling](./compiling.md) for information on how to compile the agent your
 Use `-h` to see all available options.
 
 ```bash
-./beszel-agent -listen "45876" -key "<public key>"
+./beszel-agent -key "<public key>" -token "<token>" -url "<hub url>"
 ```
 
 #### Update the agent
@@ -212,7 +214,7 @@ Use `-h` to see all available options.
 
 If your system uses systemd, you can create a service to keep the agent running after reboot.
 
-1. Create a service file in `/etc/systemd/system/beszel-agent.service`.
+1. Create a service file in `/etc/systemd/system/beszel-agent.service`. Replace the placeholder values (e.g., `<path-to-binary>`, `<public key>`) with your actual configuration. You can also use `KEY_FILE` and `TOKEN_FILE` to load secrets from protected files (see [issue #1627](https://github.com/henrygd/beszel/issues/1627)).
 
 ```ini
 [Unit]
@@ -221,9 +223,11 @@ After=network-online.target
 Wants=network-online.target
 
 [Service]
-ExecStart={/path/to/working/directory}/beszel-agent
-Environment="LISTEN=$LISTEN"
-Environment="KEY=$KEY"
+ExecStart=<path-to-binary>/beszel-agent
+Environment="LISTEN=45876"
+Environment="KEY=<public key>"
+Environment="TOKEN=<token>"
+Environment="HUB_URL=<hub url>"
 # Environment="EXTRA_FILESYSTEMS=sdb"
 Restart=on-failure
 RestartSec=5

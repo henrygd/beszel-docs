@@ -124,7 +124,7 @@ curl -sL https://get.beszel.dev -o /tmp/install-agent.sh && chmod +x /tmp/instal
 从 [releases](https://github.com/henrygd/beszel/releases) 下载与您的服务器操作系统/架构匹配的最新二进制文件。
 
 ```bash
-curl -sL "https://github.com/henrygd/beszel/releases/latest/download/beszel-agent_$(uname -s)_$(uname -m | sed -e 's/x86_64/amd64/' -e 's/armv6l/arm/' -e 's/armv7l/arm/' -e 's/aarch64/arm64/').tar.gz" | tar -xz -O beszel-agent | tee ./beszel-agent >/dev/null && chmod +x beszel-agent
+curl -sL "https://github.com/henrygd/beszel/releases/latest/download/beszel-agent_$(uname -s)_$(uname -m | sed -e 's/x86_64/amd64/' -e 's/armv6l/arm/' -e 's/armv7l/arm/' -e 's/aarch64/arm64/').tar.gz" | tar -xz beszel-agent
 ```
 
 #### 启动代理
@@ -132,7 +132,7 @@ curl -sL "https://github.com/henrygd/beszel/releases/latest/download/beszel-agen
 使用 `-h` 查看所有可用选项。
 
 ```bash
-./beszel-agent -listen "45876" -key "<公钥>"
+./beszel-agent -key "<public key>" -token "<token>" -url "<hub url>"
 ```
 
 #### 更新代理
@@ -145,7 +145,7 @@ curl -sL "https://github.com/henrygd/beszel/releases/latest/download/beszel-agen
 
 如果您的系统使用 systemd，您可以创建一个服务以使中心在重新启动后继续运行。
 
-1. 在 `/etc/systemd/system/beszel-agent.service` 中创建一个服务文件。
+1. 在 `/etc/systemd/system/beszel-agent.service` 中创建一个服务文件。将占位符值（例如 `<path-to-binary>`、`<public key>`）替换为您的实际配置。您还可以使用 `KEY_FILE` 和 `TOKEN_FILE` 从受保护的文件中加载机密（参见 [issue #1627](https://github.com/henrygd/beszel/issues/1627)）。
 
 ```ini
 [Unit]
@@ -154,9 +154,11 @@ After=network-online.target
 Wants=network-online.target
 
 [Service]
-ExecStart={/path/to/working/directory}/beszel-agent
-Environment="LISTEN=$LISTEN"
-Environment="KEY=$KEY"
+ExecStart=<path-to-binary>/beszel-agent
+Environment="LISTEN=45876"
+Environment="KEY=<public key>"
+Environment="TOKEN=<token>"
+Environment="HUB_URL=<hub url>"
 # Environment="EXTRA_FILESYSTEMS=sdb"
 Restart=on-failure
 RestartSec=5
@@ -202,7 +204,7 @@ sudo systemctl start beszel-agent.service
 使用 `-h` 查看所有可用选项。
 
 ```bash
-./beszel-agent -listen "45876" -key "<公钥>"
+./beszel-agent -key "<public key>" -token "<token>" -url "<hub url>"
 ```
 
 #### 更新代理
@@ -215,7 +217,7 @@ sudo systemctl start beszel-agent.service
 
 如果您的系统使用 systemd，您可以创建一个服务以使中心在重新启动后继续运行。
 
-1. 在 `/etc/systemd/system/beszel-agent.service` 中创建一个服务文件。
+1. 在 `/etc/systemd/system/beszel-agent.service` 中创建一个服务文件。将占位符值（例如 `<path-to-binary>`、`<public key>`）替换为您的实际配置。您还可以使用 `KEY_FILE` 和 `TOKEN_FILE` 从受保护的文件中加载机密（参见 [issue #1627](https://github.com/henrygd/beszel/issues/1627)）。
 
 ```ini
 [Unit]
@@ -224,9 +226,11 @@ After=network-online.target
 Wants=network-online.target
 
 [Service]
-ExecStart={/path/to/working/directory}/beszel-agent
-Environment="LISTEN=$LISTEN"
-Environment="KEY=$KEY"
+ExecStart=<path-to-binary>/beszel-agent
+Environment="LISTEN=45876"
+Environment="KEY=<public key>"
+Environment="TOKEN=<token>"
+Environment="HUB_URL=<hub url>"
 # Environment="EXTRA_FILESYSTEMS=sdb"
 Restart=on-failure
 RestartSec=5

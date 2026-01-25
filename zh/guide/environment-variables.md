@@ -222,6 +222,8 @@ nssm set beszel-agent AppEnvironmentExtra "+EXTRA_FILESYSTEMS=D:,E:"
 
 或者，您可以使用 `systemctl edit beszel` 或 `systemctl edit beszel-agent` 创建一个覆盖文件来修改配置（[说明](https://docs.fedoraproject.org/en-US/quick-docs/systemd-understanding-and-administering/#_modifying_existing_systemd_services)）。
 
+您还可以使用 `KEY_FILE` 和 `TOKEN_FILE` 从受保护的文件中加载机密（参见 [issue #1627](https://github.com/henrygd/beszel/issues/1627)）。
+
 编辑服务后，重新加载配置并重启：
 
 ```bash
