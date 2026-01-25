@@ -1,16 +1,16 @@
 # User Accounts
 
+Beszel uses PocketBase for user management. It is important to understand that **regular user accounts** and **PocketBase superuser accounts** are entirely separate.
+
+Both accounts are created for the initial user during setup. However, these are stored in different collections. Updating the email or password for your `user` account will not update the `superuser` credentials, and vice versa.
+
 ## User roles
 
 ### Admin
 
-Admins have access to additional links in the hub, such as backups, SMTP settings, etc.
+Admins have access to additional links in the Hub, such as backups, SMTP settings, etc.
 
-The first user created is automatically set to admin and has a PocketBase superuser account with the same email and password.
-
-::: tip PocketBase superusers are separate from Beszel user roles
-Changing a user's role to admin does not create a PocketBase superuser account. If you want to allow them to access the PocketBase admin panel, you must create a superuser account manually.
-:::
+> Changing a user's role to admin does not create a superuser account. If you want to allow a user to access the PocketBase admin panel (`/_/`), you must create a superuser account for them manually.
 
 ### User
 
@@ -22,9 +22,7 @@ Read-only users cannot create systems but can view any system shared with them b
 
 ## Reset password
 
-For resetting your password you can use the `superusers` command. Upsert will reset your password or create a new superuser if an existing one with your email doesn't exist.
-
-Once you are in PocketBase you can change user passwords in the users table.
+If you lose access to your account, you can use the `superuser` CLI command to reset your superuser password. Once logged into the PocketBase admin panel (`/_/`), you can update passwords for any user (including your own Hub account) in the `users` collection.
 
 ### Docker
 
@@ -57,3 +55,5 @@ To share a system with multiple users, update the system record in PocketBase to
 This can be a labor intensive task if you have many systems or users, however you can [use the API to automate this process](rest-api#adding-users-to-systems).
 
 User groups may be added in the future to make this process easier.
+
+Alternatively, you can use the `SHARE_ALL_SYSTEMS` environment variable to share all systems with all users.
