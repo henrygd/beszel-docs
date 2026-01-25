@@ -109,7 +109,13 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
 				{ text: "S.M.A.R.T. Data", link: "smart-data" },
 				{ text: "Systemd Services", link: "systemd" },
 				{ text: "User Accounts", link: "user-accounts" },
-				// { text: 'Home Assistant agent', link: 'home-assistant' },
+				{
+					text: "Third-Party Integrations",
+					collapsed: true,
+					items: [
+						{ text: 'Home Assistant agent', link: '/third-party-integrations/home-assistant' },
+					],
+				},
 			],
 		},
 		{
