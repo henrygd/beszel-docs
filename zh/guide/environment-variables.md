@@ -85,7 +85,7 @@
 
 ### `DOCKER_HOST`
 
-如果使用代理，Beszel 只需要访问读取容器信息权限。对于 [linuxserver/docker-socket-proxy](https://github.com/linuxserver/docker-socket-proxy) 您将设置 `CONTAINERS=1`。
+Docker 套接字代理通过过滤 API 请求，提供了比直接连接 `docker.sock` 更安全的选择。Beszel 只需要读取容器信息的权限。对于 [linuxserver/docker-socket-proxy](https://github.com/linuxserver/docker-socket-proxy)，您需要设置 `CONTAINERS=1`．
 
 您也可以将其设置为空字符串（`DOCKER_HOST=""`）以完全禁用 Docker 监控。
 

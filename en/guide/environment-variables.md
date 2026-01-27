@@ -86,7 +86,7 @@ Attempts to find a suitable directory if unset. Currently only used to store the
 
 ### `DOCKER_HOST`
 
-If using a proxy, Beszel only needs access to read container information. For [linuxserver/docker-socket-proxy](https://github.com/linuxserver/docker-socket-proxy) you would set `CONTAINERS=1`.
+Docker socket proxies provide a more secure alternative to a direct `docker.sock` connection by filtering API requests. Beszel only needs read access to container information. For [linuxserver/docker-socket-proxy](https://github.com/linuxserver/docker-socket-proxy) you would set `CONTAINERS=1`.
 
 You may also set this to an empty string (`DOCKER_HOST=""`) to completely disable Docker monitoring.
 
