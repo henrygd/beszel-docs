@@ -97,7 +97,9 @@ Multiple keys can be provided if they are separated by newlines. You can also le
 
 ### `LHM`
 
-Windows only. The agent includes [LibreHardwareMonitorLib](https://github.com/LibreHardwareMonitor/LibreHardwareMonitor) for detecting temperature sensors. To use, set `LHM=true` and run the agent as administrator.
+Windows only. The agent includes [LibreHardwareMonitorLib](https://github.com/LibreHardwareMonitor/LibreHardwareMonitor) for detecting temperature sensors.
+
+To use, set `LHM=true` and make sure [PawnIO](https://pawnio.eu/) is installed. If your sensors don't show up, try running the agent as administrator. 
 
 ### `LISTEN`
 

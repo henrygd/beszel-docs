@@ -96,7 +96,9 @@
 
 ### `LHM`
 
-仅限 Windows。代理程序包含 [LibreHardwareMonitorLib](https://github.com/LibreHardwareMonitor/LibreHardwareMonitor) 用于检测温度传感器。要使用，请设置 `LHM=true` 并以管理员身份运行代理程序。
+仅限 Windows。代理程序包含 [LibreHardwareMonitorLib](https://github.com/LibreHardwareMonitor/LibreHardwareMonitor) 用于检测温度传感器。
+
+要使用，请设置 `LHM=true` 并确保已安装 [PawnIO](https://pawnio.eu/)。如果您的传感器没有显示，请尝试以管理员身份运行代理程序。
 
 ### `LISTEN`
 

@@ -55,6 +55,19 @@ beszel-agent:
 
 :::
 
+::: warning 某些 NVMe 驱动器需要映射到分区
+
+某些驱动器制造商（例如 Intel）需要将主机分区映射到控制器名称，才能使 S.M.A.R.T. 数据正常工作。如果你看到缺少容量信息或其他问题，请尝试：
+
+```yaml
+devices:
+  - /dev/nvme0n1:/dev/nvme0
+```
+
+详情请参见 [issue #1637](https://github.com/henrygd/beszel/issues/1637)。
+
+:::
+
 ## 二进制代理
 
 确保 `smartctl` 已安装，遵循[安装说明](#install)。
