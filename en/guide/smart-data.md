@@ -57,6 +57,19 @@ Note that we are using `sda` and `nvme0` in our example, not `sda1` or `nvme0n1`
 
 :::
 
+::: warning Some NVMe drives require mapping to the partition
+
+Some drive manufacturers (e.g., Intel) require mapping the host partition to the controller name for S.M.A.R.T. data to work properly. If you see missing capacity information or other issues, try:
+
+```yaml
+devices:
+  - /dev/nvme0n1:/dev/nvme0
+```
+
+See [issue #1637](https://github.com/henrygd/beszel/issues/1637) for more details.
+
+:::
+
 ## Binary agent
 
 Make sure `smartctl` is installed by following the [installation instructions](#install).

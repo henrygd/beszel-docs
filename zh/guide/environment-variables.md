@@ -72,6 +72,7 @@
 | `SKIP_GPU`          | false  | 禁用 GPU 监控。                                                                              |
 | `SKIP_SYSTEMD`      | false  | 禁用 Systemd 服务监控。                                                                      |
 | `SMART_DEVICES`     | 未设置 | 要监控的 S.M.A.R.T. 设备列表。                                                                |
+| `SMART_DEVICES_SEPARATOR`     | ,   | 用于分割 `SMART_DEVICES` 的分隔符                                                        |
 | `SMART_INTERVAL`    | 1h     | 检查 S.M.A.R.T. 设备的间隔时间。                                                              |
 | `SYS_SENSORS`       | 未设置 | 覆盖用于传感器的系统路径。请参阅 [#160](https://github.com/henrygd/beszel/discussions/160)。 |
 | `SYSTEM_NAME`       | 未设置 | 在通用令牌注册时覆盖系统名称。未设置时默认为主机名。                                         |
@@ -95,7 +96,9 @@ Docker 套接字代理通过过滤 API 请求，提供了比直接连接 `docker
 
 ### `LHM`
 
-仅限 Windows。代理程序包含 [LibreHardwareMonitorLib](https://github.com/LibreHardwareMonitor/LibreHardwareMonitor) 用于检测温度传感器。要使用，请设置 `LHM=true` 并以管理员身份运行代理程序。
+仅限 Windows。代理程序包含 [LibreHardwareMonitorLib](https://github.com/LibreHardwareMonitor/LibreHardwareMonitor) 用于检测温度传感器。
+
+要使用，请设置 `LHM=true` 并确保已安装 [PawnIO](https://pawnio.eu/)。如果您的传感器没有显示，请尝试以管理员身份运行代理程序。
 
 ### `LISTEN`
 

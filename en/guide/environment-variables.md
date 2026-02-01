@@ -74,6 +74,7 @@ Environment variables may optionally be prefixed with `BESZEL_AGENT_`.
 | `SKIP_GPU`          | false   | Disable GPU monitoring.                                                                        |
 | `SKIP_SYSTEMD`      | false   | Disable Systemd service monitoring.                                                            |
 | `SMART_DEVICES`     | unset   | List of S.M.A.R.T. devices to monitor.                                                        |
+| `SMART_DEVICES_SEPARATOR`     | ,   | Separator used to split `SMART_DEVICES`                                                        |
 | `SMART_INTERVAL`    | 1h      | Interval to check S.M.A.R.T. devices.                                                         |
 | `SYS_SENSORS`       | unset   | Overrides sys path for sensors. See [#160](https://github.com/henrygd/beszel/discussions/160). |
 | `SYSTEM_NAME`       | unset   | Override system name on universal token registration. Defaults to hostname if unset.           |
@@ -96,7 +97,9 @@ Multiple keys can be provided if they are separated by newlines. You can also le
 
 ### `LHM`
 
-Windows only. The agent includes [LibreHardwareMonitorLib](https://github.com/LibreHardwareMonitor/LibreHardwareMonitor) for detecting temperature sensors. To use, set `LHM=true` and run the agent as administrator.
+Windows only. The agent includes [LibreHardwareMonitorLib](https://github.com/LibreHardwareMonitor/LibreHardwareMonitor) for detecting temperature sensors.
+
+To use, set `LHM=true` and make sure [PawnIO](https://pawnio.eu/) is installed. If your sensors don't show up, try running the agent as administrator. 
 
 ### `LISTEN`
 
