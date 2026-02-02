@@ -45,7 +45,7 @@ services:
     environment:
       LISTEN: 45876
       KEY: "<public key>"
-      HUB_URL: "http://localhost:8090"
+      HUB_URL: "<hub url>"
       TOKEN: "<token>"
 ```
 
@@ -56,6 +56,8 @@ docker run -d \
   --restart unless-stopped \
   -v /var/run/docker.sock:/var/run/docker.sock:ro \
   -e KEY="<public key>" \
+  -e HUB_URL="<hub url>" \
+  -e TOKEN="<token>" \
   -e LISTEN=45876 \
   henrygd/beszel-agent:latest
 ```
@@ -69,10 +71,17 @@ podman run -d \
   --restart unless-stopped \
   -v /run/user/1000/podman/podman.sock:/run/user/1000/podman/podman.sock:ro \
   -e KEY="<public key>" \
+  -e HUB_URL="<hub url>" \
+  -e TOKEN="<token>" \
   -e LISTEN=45876 \
   docker.io/henrygd/beszel-agent:latest
 ```
 
+:::
+
+::: warning
+- `KEY`: The public key shown when adding a system manually in the Hub.
+- `TOKEN` and `HUB_URL`: Used for auto-registration with a universal token (see `/settings/tokens`). `HUB_URL` is the address the agent uses to connect to the Hub (e.g., `http://localhost:8090`).
 :::
 
 ### Why host network mode?

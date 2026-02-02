@@ -8,7 +8,7 @@
 
 | 名称                    | 默认值 | 描述                                                                                                                             |
 | ----------------------- | ------ | -------------------------------------------------------------------------------------------------------------------------------- |
-| `APP_URL`               | 未设置 | Web 界面的 URL。如果 [从子路径提供服务](./reverse-proxy)，则必须设置。                                                           |
+| `APP_URL`               | 未设置 | Web 界面的 URL。,用于电子邮件和通知中链接的 URL。如果 [从子路径提供服务](./reverse-proxy)，则必须设置。                                                           |
 | `AUTO_LOGIN`            | 未设置 | 自动认证的用户邮箱。                                                                                                             |
 | `CONTAINER_DETAILS`     | true   | 允许在 Web 界面中查看容器详情（inspect, logs）。                                                                                  |
 | `CSP`                   | 未设置 | 添加具有此值的 [Content-Security-Policy](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Content-Security-Policy) 头。 |

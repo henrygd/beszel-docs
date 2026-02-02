@@ -22,7 +22,12 @@ Read-only users cannot create systems but can view any system shared with them b
 
 ## Reset password
 
-If you lose access to your account, you can use the `superuser` CLI command to reset your superuser password. Once logged into the PocketBase admin panel (`/_/`), you can update passwords for any user (including your own Hub account) in the `users` collection.
+If you lose access to your account, you can use the `superuser` CLI command to reset your superuser password. 
+This will only update your PocketBase login password. It will not affect your hub login.
+
+::: tip
+Once logged into the PocketBase admin panel (`/_/`), you can update passwords for any user (including your own Hub account) in the `users` collection.
+:::
 
 ### Docker
 
@@ -50,7 +55,11 @@ See all superuser options:
 
 ## Sharing systems with multiple users
 
-To share a system with multiple users, update the system record in PocketBase to include the users (`/_/#/collections?collection=systems`).
+To share a system with other users, add them to the system record in PocketBase.
+1.	Go to the systems collection (/_/#/collections?collection=systems)
+2.	Open the system you’d like to share
+3.	Click Open picker in the users field
+4.	Choose the user(s) you want to share the system with
 
 This can be a labor intensive task if you have many systems or users, however you can [use the API to automate this process](rest-api#adding-users-to-systems).
 

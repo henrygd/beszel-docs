@@ -8,7 +8,7 @@ Environment variables may optionally be prefixed with `BESZEL_HUB_`.
 
 | Name                    | Default | Description                                                                                                                                 |
 | ----------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
-| `APP_URL`               | unset   | URL of the web UI. Must set if [serving at a subpath](./reverse-proxy).                                                                     |
+| `APP_URL`               | unset   | URL of the web UI, URL used for links in emails and notifications. Must set if [serving at a subpath](./reverse-proxy).                                                                     |
 | `AUTO_LOGIN`            | unset   | Email address of a user to automatically authenticate.                                                                                      |
 | `CONTAINER_DETAILS`     | true    | Allow viewing container details (inspect, logs) in the web UI.       |
 | `CSP`                   | unset   | Adds a [Content-Security-Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy) header with this value. |

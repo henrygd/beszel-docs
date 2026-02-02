@@ -26,6 +26,8 @@ services:
     image: henrygd/beszel:latest
     container_name: beszel
     restart: unless-stopped
+    environment:
+      - APP_URL=http://localhost:8090
     ports:
       - 8090:8090
     volumes:
@@ -89,7 +91,9 @@ code docker-compose.yml
 
 :::
 
-5. Start the service.
+5. Change the `APP_URL` environment variable to the URL you’ll use to access the Hub (for example, a domain name or public IP including port if needed)
+
+6. Start the service.
 
 ```bash
 docker compose up -d

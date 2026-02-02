@@ -22,7 +22,12 @@ Beszel 使用 PocketBase 进行用户管理。请务必了解，**普通用户�
 
 ## 重置密码
 
-如果您丢失了账户访问权限，可以使用 `superuser` CLI 命令重置您的超级用户密码。登录 PocketBase 管理面板 (`/_/`) 后，您可以在 `users` 集合中更新任何用户（包括您自己的 Hub 账户）的密码。
+如果你无法访问你的账户，可以使用 `superuser CLI` 命令来重置你的超级用户密码。
+这只会更新你用于登录 PocketBase 的密码，不会影响你登录 Hub 的密码。
+
+::: tip
+成功登录 PocketBase 管理面板 `（/_/）`后，你可以在 `users` 集合中更新任意用户的密码（包括你自己的 Hub 账户）。
+:::
 
 ### Docker
 
@@ -50,7 +55,11 @@ docker exec beszel /beszel superuser --help
 
 ## 与多个用户共享系统
 
-要与多个用户共享系统，请在 PocketBase 中更新系统记录以包含用户 (`/_/#/collections?collection=systems`)。
+要将一个系统共享给多个用户，请在 PocketBase 中更新该系统记录并添加用户。
+1.	打开 systems 集合（/_/#/collections?collection=systems）
+2.	打开你想要共享的系统
+3.	在 users 字段中点击 Open picker
+4.	选择要共享该系统的用户
 
 如果您有许多系统或用户，这可能是一项繁琐的任务，但您可以[使用 API 自动化此过程](rest-api#将用户添加到系统)。
 
