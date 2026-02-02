@@ -299,6 +299,7 @@ It also installs [NSSM](https://nssm.cc/usage) and creates a service to keep the
 - `-Port`: Port (default: 45876)
 - `-Url`: Hub URL
 - `-Token`: Token
+- `-InstallMethod`: "Auto", "WinGet", or "Scoop"
 - `-ConfigureFirewall`: Add an incoming firewall rule.
 
 ```powershell

@@ -302,6 +302,7 @@ brew services start beszel-agent
 - `-Port`：端口（默认：45876）
 - `-Url`：中心 URL
 - `-Token`：令牌
+- `-InstallMethod`："Auto"、"WinGet" 或 "Scoop"
 - `-ConfigureFirewall`：添加防火墙规则
 
 ```powershell
