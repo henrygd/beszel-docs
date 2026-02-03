@@ -135,6 +135,14 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
 				{ text: "S.M.A.R.T. 数据", link: "smart-data" },
 				{ text: "Systemd 服务", link: "systemd" },
 				{ text: "用户账户", link: "user-accounts" },
+				{
+					text: "第三方集成",
+					collapsed: true,
+					items: [
+						{ text: '家庭助理代理', link: '/third-party-integrations/home-assistant' },
+						{ text: '移动端应用', link: '/third-party-integrations/mobile-apps' },
+					],
+				},
 			],
 		},
 		{

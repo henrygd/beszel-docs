@@ -1,16 +1,18 @@
 # Agent Installation
 
-Beszel Agent supports installation via Docker / Podman, single binary file, Homebrew package, Scoop package, or Home Assistant add-on.
+The agent can be installed via Docker / Podman, single binary file, Homebrew package, WinGet / Scoop package, or Home Assistant add-on.
 
 ::: tip
 Check the [Getting Started](./getting-started.md) guide if you're setting up Beszel for the first time.
 :::
 
-<!-- ## Requirements
+## Required variables
 
-If the agent and hub are on different hosts, you may need to update the firewall on your agent system to allow incoming TCP connections on the agent's port.
+- `KEY`: The public key shown when adding a system in the Hub.
+- `TOKEN`: Used to authenticate the agent (see `/settings/tokens`).
+- `HUB_URL`: Used for outgoing WebSocket connection (not required for SSH connection).
 
-Alternatively, use software like WireGuard, Tailscale ([video instructions](https://www.youtube.com/watch?v=O_9wT-5LoHM)), Cloudflare Tunnel ([instructions](https://github.com/henrygd/beszel/discussions/250)), or Pangolin to securely bypass the firewall. -->
+> More information is available on the [Security](./security.md) and [Environment Variables](./environment-variables.md) pages.
 
 ## Using the Hub
 
@@ -45,7 +47,7 @@ services:
     environment:
       LISTEN: 45876
       KEY: "<public key>"
-      HUB_URL: "http://localhost:8090"
+      HUB_URL: "<hub url>"
       TOKEN: "<token>"
 ```
 
@@ -56,6 +58,8 @@ docker run -d \
   --restart unless-stopped \
   -v /var/run/docker.sock:/var/run/docker.sock:ro \
   -e KEY="<public key>" \
+  -e HUB_URL="<hub url>" \
+  -e TOKEN="<token>" \
   -e LISTEN=45876 \
   henrygd/beszel-agent:latest
 ```
@@ -69,6 +73,8 @@ podman run -d \
   --restart unless-stopped \
   -v /run/user/1000/podman/podman.sock:/run/user/1000/podman/podman.sock:ro \
   -e KEY="<public key>" \
+  -e HUB_URL="<hub url>" \
+  -e TOKEN="<token>" \
   -e LISTEN=45876 \
   docker.io/henrygd/beszel-agent:latest
 ```
