@@ -2,7 +2,7 @@
 
 The beszel agent can be installed onto any Synology NAS as a Synology package. This allows the agent to run on devices that may not support Docker, and provides a more integrated experience with Synology's DSM operating system.
 
-The package is maintained by not-first and published on the SynoCommunity package repository.
+The package is maintained by not-first and published as '[Beszel Agent ADD THIS LINK WHEN AVAILABLE](https://example.com/)' on the [SynoCommunity package repository](https://synocommunity.com/). The code is open source and can be viewed on [Github](https://github.com/SynoCommunity/spksrc/tree/master/spk/beszel-agent).
 
 
 ## Before You Begin
