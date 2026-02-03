@@ -1,16 +1,18 @@
 # Agent Installation
 
-Beszel Agent supports installation via Docker / Podman, single binary file, Homebrew package, Scoop package, or Home Assistant add-on.
+The agent can be installed via Docker / Podman, single binary file, Homebrew package, WinGet / Scoop package, or Home Assistant add-on.
 
 ::: tip
 Check the [Getting Started](./getting-started.md) guide if you're setting up Beszel for the first time.
 :::
 
-<!-- ## Requirements
+## Required variables
 
-If the agent and hub are on different hosts, you may need to update the firewall on your agent system to allow incoming TCP connections on the agent's port.
+- `KEY`: The public key shown when adding a system in the Hub.
+- `TOKEN`: Used to authenticate the agent (see `/settings/tokens`).
+- `HUB_URL`: Used for outgoing WebSocket connection (not required for SSH connection).
 
-Alternatively, use software like WireGuard, Tailscale ([video instructions](https://www.youtube.com/watch?v=O_9wT-5LoHM)), Cloudflare Tunnel ([instructions](https://github.com/henrygd/beszel/discussions/250)), or Pangolin to securely bypass the firewall. -->
+> More information is available on the [Security](./security.md) and [Environment Variables](./environment-variables.md) pages.
 
 ## Using the Hub
 
@@ -77,11 +79,6 @@ podman run -d \
   docker.io/henrygd/beszel-agent:latest
 ```
 
-:::
-
-::: warning
-- `KEY`: The public key shown when adding a system manually in the Hub.
-- `TOKEN` and `HUB_URL`: Used for auto-registration with a universal token (see `/settings/tokens`). `HUB_URL` is the address the agent uses to connect to the Hub (e.g., `http://localhost:8090`).
 :::
 
 ### Why host network mode?

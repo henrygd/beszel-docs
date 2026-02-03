@@ -25,9 +25,7 @@ Beszel 使用 PocketBase 进行用户管理。请务必了解，**普通用户�
 如果你无法访问你的账户，可以使用 `superuser CLI` 命令来重置你的超级用户密码。
 这只会更新你用于登录 PocketBase 的密码，不会影响你登录 Hub 的密码。
 
-::: tip
 成功登录 PocketBase 管理面板 `（/_/）`后，你可以在 `users` 集合中更新任意用户的密码（包括你自己的 Hub 账户）。
-:::
 
 ### Docker
 

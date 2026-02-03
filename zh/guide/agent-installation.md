@@ -1,16 +1,18 @@
 # 代理安装
 
-Beszel 代理支持通过 Docker / Podman、单一二进制文件、Homebrew 包、Scoop 包或 Home Assistant 插件进行安装。
+代理可通过 Docker / Podman、单一二进制文件、Homebrew 包、WinGet / Scoop 包或 Home Assistant 插件进行安装。
 
 ::: tip 提示
 如果您是首次设置 Beszel，请查看 [开始使用](./getting-started.md) 指南。
 :::
 
-<!-- ## 要求
+## 必需变量
 
-如果代理和中心 (hub) 位于不同的主机上，您可能需要在代理系统的防火墙上更新配置，以允许代理端口上的传入 TCP 连接。
+- `KEY`：在 Hub 中添加系统时显示的公钥。
+- `TOKEN`：用于验证代理（参见 `/settings/tokens`）。
+- `HUB_URL`：用于出站 WebSocket 连接（SSH 连接不需要）。
 
-或者，使用 WireGuard、Tailscale ([视频教程](https://www.youtube.com/watch?v=O_9wT-5LoHM))、Cloudflare Tunnel（[说明](https://github.com/henrygd/beszel/discussions/250)）或 Pangolin 等软件安全地绕过防火墙。 -->
+> 更多信息请参阅 [安全](./security.md) 和 [环境变量](./environment-variables.md) 页面。
 
 ## 使用中心 (Hub)
 
@@ -77,11 +79,6 @@ podman run -d \
   docker.io/henrygd/beszel-agent:latest
 ```
 
-:::
-
-::: warning
-- `KEY`：在 Hub 中手动添加系统时显示的公钥。
-- `TOKEN` 和 `HUB_URL`：用于使用通用令牌自动注册（参见 `/settings/tokens`）。`HUB_URL` 是代理用于连接到 Hub 的地址（例如 `http://localhost:8090`）。
 :::
 
 ### 为什么使用主机网络模式？

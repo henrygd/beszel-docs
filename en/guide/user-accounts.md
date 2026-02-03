@@ -25,9 +25,7 @@ Read-only users cannot create systems but can view any system shared with them b
 If you lose access to your account, you can use the `superuser` CLI command to reset your superuser password. 
 This will only update your PocketBase login password. It will not affect your hub login.
 
-::: tip
 Once logged into the PocketBase admin panel (`/_/`), you can update passwords for any user (including your own Hub account) in the `users` collection.
-:::
 
 ### Docker
 
