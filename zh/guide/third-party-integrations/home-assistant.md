@@ -40,6 +40,6 @@ Home Assistant 插件由第三方维护。目前有以下选项：
 </a>
 
 2. 插件现已安装。返回已安装插件的概览，打开代理插件，然后切换到“配置”选项卡。
-3. 按照[这些](./getting-started.md#_3-configure-your-first-system)说明配置代理，然后复制公钥。
+3. 按照[这些](../getting-started.md#_3-configure-your-first-system)说明配置代理，然后复制公钥。
 4. 返回 Home Assistant，将公钥粘贴到输入字段中，然后按下“保存”。
 5. 启动插件。

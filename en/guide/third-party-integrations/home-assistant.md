@@ -40,6 +40,6 @@ Home Assistant Add-ons are maintained by third parties. Currently there are foll
 </a>
 
 2. The add-on is now installed. Go back to the overview of the currently installed add-ons, open the agent add-on, and switch to the "Configuration" tab.
-3. Follow [these](./getting-started.md#_3-configure-your-first-system) instructions to configure the agent, and then copy the public key.
+3. Follow [these](../getting-started.md#_3-configure-your-first-system) instructions to configure the agent, and then copy the public key.
 4. Go back to Home Assistant, paste the public key into the input field, and press "SAVE".
 5. Start the add-on.

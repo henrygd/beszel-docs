@@ -371,4 +371,4 @@ winget uninstall henrygd.beszel-agent
 
 ## Home Assistant
 
-See the [Home Assistant Agent page](./home-assistant.md) for instructions on setting up the agent as a Home Assistant add-on.
+See the [Home Assistant Agent page](./third-party-integrations/home-assistant.md) for instructions on setting up the agent as a Home Assistant add-on.

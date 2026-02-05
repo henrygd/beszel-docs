@@ -374,4 +374,4 @@ winget uninstall henrygd.beszel-agent
 
 ## Home Assistant
 
-请参阅 [Home Assistant 代理页面](./home-assistant.md) 获取将代理设置为 Home Assistant 插件的说明。
+请参阅 [Home Assistant 代理页面](./third-party-integrations/home-assistant.md) 获取将代理设置为 Home Assistant 插件的说明。
