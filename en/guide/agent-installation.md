@@ -377,4 +377,4 @@ See the [Home Assistant Agent page](./home-assistant.md) for instructions on set
 
 The agent can be installed via Docker on Synology NAS systems that support Docker.
 
-For older systems or simpler setups, see the [Synology NAS Agent Package page](./synology-package.md) for instructions on setting up the agent as a native Synology package.
+For older systems or simpler setups, see the [Synology NAS Agent Package page](./third-party-integrations/synology-package.md) for instructions on setting up the agent as a native Synology package.
