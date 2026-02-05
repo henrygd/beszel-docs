@@ -18,6 +18,8 @@ services:
     image: henrygd/beszel
     container_name: beszel
     restart: unless-stopped
+    environment:
+      - APP_URL=http://localhost:8090
     ports:
       - 8090:8090
     volumes:
@@ -30,6 +32,7 @@ docker run -d \
   --name beszel \
   --restart=unless-stopped \
   --volume beszel_data:/beszel_data \
+  -e APP_URL=http://localhost:8090 \
   -p 8090:8090 \
   henrygd/beszel
 ```
@@ -40,6 +43,7 @@ podman run -d \
   --name beszel \
   --restart=unless-stopped \
   --volume beszel_data:/beszel_data \
+  -e APP_URL=http://localhost:8090 \
   -p 8090:8090 \
   docker.io/henrygd/beszel
 ```

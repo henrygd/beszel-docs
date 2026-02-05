@@ -26,6 +26,8 @@ services:
     image: henrygd/beszel:latest
     container_name: beszel
     restart: unless-stopped
+    environment:
+      APP_URL: http://localhost:8090
     ports:
       - 8090:8090
     volumes:
@@ -91,7 +93,9 @@ code docker-compose.yml
 
 :::
 
-5. 启动服务
+5. 将 `APP_URL` 环境变量设置为用于访问 Hub 的 URL（例如域名或公网 IP，如有需要请包含端口号）。
+
+6. 启动服务
 
 ```bash
 docker compose up -d
