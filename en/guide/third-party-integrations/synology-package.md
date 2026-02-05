@@ -53,7 +53,9 @@ You will immediately be prompted with a configuration screen. See the next secti
 
 During the installation process, you will be prompted to input configuration details for the beszel agent.
 
-![synology-agent-package-setup-ui.png](../../image/synology-agent-package-setup-ui.png)
+<a href="/image/synology-agent-package-setup-ui.png" target="_blank">
+   <img src="/image/synology-agent-package-setup-ui.png" height="146" width="554" alt="Beszel agent package configuration screen" />
+</a>
 
 ### Public Key
 
