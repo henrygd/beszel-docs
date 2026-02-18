@@ -1,30 +1,37 @@
 # GPU Monitoring
 
-Beszel can monitor GPU usage, temperature, and power draw.
+Beszel can monitor GPU usage, temperature, memory, and power draw for various GPU vendors and platforms.
 
-## AMD GPUs {#amd}
+## Automatic Detection
 
-::: info Work in progress
-AMD has deprecated `rocm-smi` in favor of `amd-smi`. The agent works with `rocm-smi` on Linux, but hasn't been updated to work with `amd-smi` yet.
-:::
+The agent automatically detects available GPU monitoring tools and selects the best one for your system. You can override this behavior using the `GPU_COLLECTOR` environment variable.
 
-Beszel uses `rocm-smi` to monitor AMD GPUs. This must be available on the system, and you must use the binary agent (not the Docker agent).
+## Environment Variables
 
-#### Make sure <code>rocm-smi</code> is accessible
+| Variable | Description |
+| :--- | :--- |
+| `GPU_COLLECTOR` | Comma-separated list of collectors to use (e.g., `nvml,amd_sysfs`). |
+| `SKIP_GPU` | Set to `true` to disable all GPU monitoring. |
 
-Installing `rocm-smi-lib` on Arch and Debian places the `rocm-smi` binary in `/opt/rocm`. If this isn't in the `PATH` of the user running `beszel-agent`, symlink to `/usr/local/bin`:
+### Available Collectors
 
-```bash
-sudo ln -s /opt/rocm/bin/rocm-smi /usr/local/bin/rocm-smi
-```
+- `nvml`: NVIDIA Management Library (experimental).
+- `nvidia-smi`: NVIDIA System Management Interface (default).
+- `amd_sysfs`: Direct sysfs monitoring for AMD GPUs.
+- `rocm-smi`: ROCm System Management Interface (default if installed).
+- `intel_gpu_top`: Intel GPU monitoring (default for Intel GPUs).
+- `tegrastats`: NVIDIA Jetson monitoring (default for NVIDIA Jetson).
+- `nvtop`: Multi-vendor monitoring (cannot be combined with other collectors).
+- `macmon`: macOS GPU monitoring (Apple Silicon, experimental).
+- `powermetrics`: macOS GPU monitoring (Apple Silicon, requires sudo, experimental).
 
-## Nvidia GPUs {#nvidia}
+## NVIDIA GPUs {#nvidia}
 
-::: warning Power usage warning
-`nvidia-smi` prevents GPUs from entering RTD3 power saving mode, which may cause increased power consumption on laptops.
+### Recommended: NVML
 
-Alternatively, set `NVML=true` to use the experimental NVML integration, which allows GPUs to enter power-saving mode. Please submit feedback in [issue #1522](https://github.com/henrygd/beszel/issues/1522).
-:::
+The experimental NVML integration allows GPUs to enter power-saving modes (RTD3) when idle, which `nvidia-smi` may prevent.
+
+To enable, set `GPU_COLLECTOR=nvml`. Feedback is appreciated and can be left in [issue #1746](https://github.com/henrygd/beszel/issues/1746).
 
 ### Docker agent
 
@@ -47,9 +54,9 @@ beszel-agent:
 
 ### Binary agent {#nvidia-binary}
 
-You must have `nvidia-smi` available on the system.
+You must have `nvidia-smi` or the NVIDIA drivers installed on the system.
 
-If it doesn't work, you may need to allow access to your devices in the service configuration. See [discussion #563](https://github.com/henrygd/beszel/discussions/563#discussioncomment-12230389) for more information.
+If using `nvidia-smi` and it doesn't work, you may need to allow access to your devices in the service configuration. See [discussion #563](https://github.com/henrygd/beszel/discussions/563#discussioncomment-12230389) for more information.
 
 ```ini
 [Service]
@@ -61,13 +68,13 @@ DeviceAllow=/dev/nvidia2 rw
 ```
 
 ```bash
-systemctl daemon-reload
+systemctl daemon-reloadyag
 systemctl restart beszel-agent
 ```
 
-## Nvidia Jetson {#nvidia-jetson}
+## NVIDIA Jetson {#nvidia-jetson}
 
-The binary agent should work automatically with no additional configuration.
+The binary agent should work automatically using `tegrastats`.
 
 ### Docker agent
 
@@ -92,17 +99,34 @@ Update your `docker-compose.yml` to use your custom image, and bind mount `tegra
 
 ```yaml
 beszel-agent:
-  image: henrygd/beszel-agent # [!code --]
-  build: . # [!code ++]
+  build: .
   volumes:
     - /usr/bin/tegrastats:/usr/bin/tegrastats:ro
 ```
 
 See [discussion #1600](https://github.com/henrygd/beszel/discussions/1600) for more information.
 
+## AMD GPUs {#amd}
+
+### Recommended: `amd_sysfs` (Linux)
+
+Beszel can monitor AMD GPUs directly via sysfs, which is more efficient than `rocm-smi`.
+
+If you have `rocm-smi` installed but want to use sysfs, set `GPU_COLLECTOR=amd_sysfs`.
+
+### `rocm-smi` (Deprecated)
+
+Beszel can also use `rocm-smi` to monitor AMD GPUs. This must be available on the system. Note that `rocm-smi` is deprecated and may be removed in a future release.
+
+If `rocm-smi` isn't in the `PATH` of the user running `beszel-agent`, symlink it to `/usr/local/bin`:
+
+```bash
+sudo ln -s /opt/rocm/bin/rocm-smi /usr/local/bin/rocm-smi
+```
+
 ## Intel GPUs {#intel}
 
-Note that only one GPU per system is supported. We may add support for multiple GPUs in the future.
+Note that only one Intel GPU per system is supported.
 
 ### Docker agent {#intel-docker}
 
@@ -123,13 +147,9 @@ Use `ls /dev/dri` to find the name of your GPU:
 ls /dev/dri
 ```
 
-```
-by-path  card0  renderD128
-```
-
 ### Binary agent {#intel-binary}
 
-You must have `intel_gpu_top` installed. This is typically part of the `intel-gpu-tools` package.
+You must have `intel_gpu_top` or `nvtop` installed.
 
 ::: code-group
 
@@ -143,20 +163,19 @@ sudo pacman -S intel-gpu-tools
 
 :::
 
-Assuming you're not running the agent as root, you'll need to set the `cap_perfmon` capability on the `intel_gpu_top` binary.
+Assuming you're not running the agent as root, you'll need to set the `cap_perfmon` capability on the `intel_gpu_top` or `nvtop` binary.
 
 ```bash
 sudo setcap cap_perfmon=ep /usr/bin/intel_gpu_top
+sudo setcap cap_perfmon=ep /usr/bin/nvtop
 ```
 
-If running the agent as a systemd service, [add the `CAP_PERFMON` ambient capability](./environment-variables.md#systemd) to the `beszel-agent` service so that non-root services can still access performance counters:
+If running the agent as a systemd service, [add the `CAP_PERFMON` ambient capability](./environment-variables.md#systemd) to the `beszel-agent` service:
 
 ```ini
 [Service]
 AmbientCapabilities=CAP_PERFMON
 ```
-
-This is required because file-based capabilities set with `setcap` on `intel_gpu_top` are not inherited by child processes when the service is run as a non-root user. See [issue #1480](https://github.com/henrygd/beszel/issues/1480) for additional context.
 
 ### Troubleshooting {#intel-troubleshooting}
 
@@ -171,7 +190,7 @@ sudo -u beszel intel_gpu_top -s 3000 -l
 
 #### Specify the device name
 
-On some systems you need to specify the device name for `intel_gpu_top`. Use the `INTEL_GPU_DEVICE` environment variable to set the `-d` value.
+If you have multiple GPUs or `intel_gpu_top` needs a specific device, use the `INTEL_GPU_DEVICE` environment variable.
 
 ```dotenv
 INTEL_GPU_DEVICE=drm:/dev/dri/card0
@@ -181,15 +200,40 @@ This is equivalent to running `intel_gpu_top -s 3000 -l -d drm:/dev/dri/card0`.
 
 #### Lower the `perf_event_paranoid` kernel parameter
 
-You may need to lower the value for the `perf_event_paranoid` kernel parameter. See [issue #1150](https://github.com/henrygd/beszel/issues/1150) or [#1203](https://github.com/henrygd/beszel/issues/1203#issuecomment-3336457430) for more information.
+You may need to lower the value for the `perf_event_paranoid` kernel parameter:
 
 ```bash
 sudo sysctl kernel.perf_event_paranoid=2
 ```
 
-To make this change persistant across reboots you need to add it to the `sysctl` configuration
+See [issue #1150](https://github.com/henrygd/beszel/issues/1150) or [issue #1203](https://github.com/henrygd/beszel/issues/1203) for more information.
+
+To make this change persistant across reboots you can add it to the sysctl configuration:
 
 ```bash
 echo "kernel.perf_event_paranoid=2" | sudo tee /etc/sysctl.d/99-intel-gpu-beszel.conf
 sudo sysctl --system
 ```
+
+## Apple Silicon (macOS) {#apple}
+
+Apple Silicon GPU monitoring is experimental and requires opt-in by explicitly setting a `GPU_COLLECTOR` value. Feedback is appreciated and can be left in [issue #1746](https://github.com/henrygd/beszel/issues/1746).
+
+
+### Recommended: `macmon`
+
+`macmon` is recommended as it does not require root privileges. You must have `macmon` installed and available in your `PATH`.
+
+To enable, make sure `macmon` is installed, and set `GPU_COLLECTOR=macmon`.
+
+```bash
+brew install macmon
+```
+
+See [vladkens/macmon](https://github.com/vladkens/macmon) for more information about `macmon`.
+
+### `powermetrics`
+
+`powermetrics` is built into macOS but requires the agent to run with `sudo`.
+
+To enable, set `GPU_COLLECTOR=powermetrics`.
