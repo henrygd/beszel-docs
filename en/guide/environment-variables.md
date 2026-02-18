@@ -51,6 +51,7 @@ Environment variables may optionally be prefixed with `BESZEL_AGENT_`.
 | Name                | Default | Description                                                                                    |
 | ------------------- | ------- | ---------------------------------------------------------------------------------------------- |
 | `DATA_DIR`          | unset   | Persistent data directory.                                                                     |
+| `DISABLE_SSH`       | false   | Disable the SSH server completely (WebSocket connection only).                                             |
 | `DISK_USAGE_CACHE`  | unset   | Provide a duration like `5m` or `1h` to cache usage of extra disks and avoid waking them to recheck. |
 | `DOCKER_HOST`       | unset   | Overrides the Docker host (docker.sock).                                                       |
 | `EXCLUDE_CONTAINERS` | unset   | Exclude containers from being monitored.                                                    |

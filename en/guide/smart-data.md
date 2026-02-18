@@ -4,8 +4,7 @@ Beszel parses S.M.A.R.T. data from `smartctl` and displays it on the system page
 
 To make sure your system is compatible, install `smartmontools` on the agent machine and scan for devices: {#install}
 
-
-::: code-group 
+::: code-group
 
 ```bash [Debian/Ubuntu]
 sudo apt install smartmontools
@@ -29,7 +28,6 @@ brew install smartmontools
 
 :::
 
-
 ```bash
 sudo smartctl --scan
 ```
@@ -38,7 +36,7 @@ sudo smartctl --scan
 
 Switch to the `:alpine` image and add the following to your `docker-compose.yml`. Make sure to replace the device names with your actual devices.
 
-> Non-base images like `beszel-agent-intel` and `beszel-agent-nvidia` also work and dont require `:alpine`.
+> Non-base images like `beszel-agent-intel` and `beszel-agent-nvidia` also work and don't require `:alpine`.
 
 ```yaml
 beszel-agent:
@@ -106,7 +104,7 @@ sudo systemctl restart beszel-agent
 
 If this doesn't work, try [adding the `beszel` user to the `disk` group](#disk-group).
 
-### Alternative: file capabilities on smartctl 
+### Alternative: file capabilities on smartctl
 
 If you don't use systemd or prefer not to change the service, you can add the needed capabilities to the `smartctl` binary and restrict execution to a dedicated group. This lets the agent user run `smartctl` with just the required privileges.
 
@@ -181,15 +179,16 @@ To add smartctl to your PATH:
 3. In the **System variables** section, select **Path** and click **Edit...**
 
 4. Click **New** and add the smartmontools installation directory:
+
    ```
    C:\Program Files\smartmontools\bin
    ```
-   
+
    ::: tip Installation path may vary
    The exact path depends on your installation location.
-   
 
 5. Open a new Command Prompt or PowerShell window and verify the installation:
+
    ```cmd
    smartctl --version
    ```
@@ -238,7 +237,7 @@ sudo systemctl restart beszel-agent
 Some systems set NVMe character devices (`/dev/nvme0`) to mode `600` (owner-only), even if SATA devices work fine with the `disk` group. If NVMe S.M.A.R.T. still doesn't work after adding the user to the `disk` group, see the solution below.
 :::
 
-#### Adjust NVMe device permissions 
+#### Adjust NVMe device permissions
 
 If your NVMe devices are still inaccessible after adding the user to the `disk` group, you can adjust the device group to `disk`.
 
@@ -281,4 +280,3 @@ sudo rm /etc/udev/rules.d/99-smartctl-disk-group.rules
 sudo udevadm control --reload-rules
 sudo udevadm trigger
 ```
-
