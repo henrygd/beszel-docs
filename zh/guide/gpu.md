@@ -27,6 +27,8 @@ Agent 会自动检测可用的 GPU 监控工具并为您的系统选择最佳工
 
 ## NVIDIA GPU {#nvidia}
 
+可用收集器：`nvidia-smi`（默认）、`nvml`（实验性）、`nvtop`。
+
 ### 推荐：NVML
 
 实验性的 NVML 集成允许 GPU 在空闲时进入省电模式 (RTD3)，而 `nvidia-smi` 可能会阻止这种情况。
@@ -54,9 +56,7 @@ beszel-agent:
 
 ### 二进制 Agent {#nvidia-binary}
 
-您必须在系统上安装 `nvidia-smi` 或 NVIDIA 驱动程序。
-
-如果使用 `nvidia-smi` 且无法正常工作，您可能需要在服务配置中允许访问您的设备。有关更多信息，请参阅 [discussion #563](https://github.com/henrygd/beszel/discussions/563#discussioncomment-12230389)。
+您可能需要在服务配置中允许访问您的设备。有关更多信息，请参阅 [discussion #563](https://github.com/henrygd/beszel/discussions/563#discussioncomment-12230389)。
 
 ```ini
 [Service]
@@ -108,6 +108,8 @@ beszel-agent:
 
 ## AMD GPU {#amd}
 
+可用收集器：`amd_sysfs`、`nvtop`、`rocm-smi`（已弃用）。
+
 ### 推荐：`amd_sysfs` (Linux)
 
 Beszel 可以通过 sysfs 直接监控 AMD GPU，这比 `rocm-smi` 更高效。
@@ -125,6 +127,8 @@ sudo ln -s /opt/rocm/bin/rocm-smi /usr/local/bin/rocm-smi
 ```
 
 ## Intel GPU {#intel}
+
+可用收集器：`intel_gpu_top`、`nvtop`。
 
 请注意，每个系统仅支持一个 Intel GPU。
 

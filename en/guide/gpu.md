@@ -27,6 +27,8 @@ The agent automatically detects available GPU monitoring tools and selects the b
 
 ## NVIDIA GPUs {#nvidia}
 
+Available collectors: `nvidia-smi` (default), `nvml` (experimental), `nvtop`.
+
 ### Recommended: NVML
 
 The experimental NVML integration allows GPUs to enter power-saving modes (RTD3) when idle, which `nvidia-smi` may prevent.
@@ -54,9 +56,7 @@ beszel-agent:
 
 ### Binary agent {#nvidia-binary}
 
-You must have `nvidia-smi` or the NVIDIA drivers installed on the system.
-
-If using `nvidia-smi` and it doesn't work, you may need to allow access to your devices in the service configuration. See [discussion #563](https://github.com/henrygd/beszel/discussions/563#discussioncomment-12230389) for more information.
+You may need to allow access to your devices in the service configuration. See [discussion #563](https://github.com/henrygd/beszel/discussions/563#discussioncomment-12230389) for more information.
 
 ```ini
 [Service]
@@ -68,7 +68,7 @@ DeviceAllow=/dev/nvidia2 rw
 ```
 
 ```bash
-systemctl daemon-reloadyag
+systemctl daemon-reload
 systemctl restart beszel-agent
 ```
 
@@ -108,6 +108,8 @@ See [discussion #1600](https://github.com/henrygd/beszel/discussions/1600) for m
 
 ## AMD GPUs {#amd}
 
+Available collectors: `amd_sysfs`, `nvtop`, `rocm-smi` (deprecated).
+
 ### Recommended: `amd_sysfs` (Linux)
 
 Beszel can monitor AMD GPUs directly via sysfs, which is more efficient than `rocm-smi`.
@@ -125,6 +127,8 @@ sudo ln -s /opt/rocm/bin/rocm-smi /usr/local/bin/rocm-smi
 ```
 
 ## Intel GPUs {#intel}
+
+Available collectors: `intel_gpu_top`, `nvtop`.
 
 Note that only one Intel GPU per system is supported.
 
