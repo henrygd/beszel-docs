@@ -100,6 +100,7 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
 				{ text: "环境变量", link: "environment-variables" },
 				{ text: "GPU 监控", link: "gpu" },
 				{ text: "健康检查", link: "healthchecks" },
+				{ text: "心跳监控", link: "heartbeat" },
 				{
 					text: "通知",
 					link: "notifications",

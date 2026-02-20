@@ -74,6 +74,7 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
 				{ text: "Environment Variables", link: "environment-variables" },
 				{ text: "GPU Monitoring", link: "gpu" },
 				{ text: "Healthchecks", link: "healthchecks" },
+				{ text: "Heartbeat Monitoring", link: "heartbeat" },
 				{
 					text: "Notifications",
 					link: "notifications",
