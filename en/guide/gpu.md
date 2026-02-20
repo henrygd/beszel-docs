@@ -130,7 +130,7 @@ sudo ln -s /opt/rocm/bin/rocm-smi /usr/local/bin/rocm-smi
 
 Available collectors: `intel_gpu_top`, `nvtop`.
 
-Note that only one Intel GPU per system is supported.
+Note that only one Intel GPU per system is supported with `intel_gpu_top`.
 
 ### Docker agent {#intel-docker}
 

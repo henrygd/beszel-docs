@@ -130,7 +130,7 @@ sudo ln -s /opt/rocm/bin/rocm-smi /usr/local/bin/rocm-smi
 
 可用收集器：`intel_gpu_top`、`nvtop`。
 
-请注意，每个系统仅支持一个 Intel GPU。
+请注意，使用 `intel_gpu_top` 时，每个系统仅支持一个 Intel GPU。
 
 ### Docker Agent {#intel-docker}
 
