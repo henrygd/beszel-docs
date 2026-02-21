@@ -8,10 +8,10 @@ The agent automatically detects available GPU monitoring tools and selects the b
 
 ## Environment Variables
 
-| Variable | Description |
-| :--- | :--- |
+| Variable        | Description                                                         |
+| :-------------- | :------------------------------------------------------------------ |
 | `GPU_COLLECTOR` | Comma-separated list of collectors to use (e.g., `nvml,amd_sysfs`). |
-| `SKIP_GPU` | Set to `true` to disable all GPU monitoring. |
+| `SKIP_GPU`      | Set to `true` to disable all GPU monitoring.                        |
 
 ### Available Collectors
 
@@ -241,3 +241,4 @@ See [vladkens/macmon](https://github.com/vladkens/macmon) for more information a
 `powermetrics` is built into macOS but requires the agent to run with `sudo`.
 
 To enable, set `GPU_COLLECTOR=powermetrics`.
+
