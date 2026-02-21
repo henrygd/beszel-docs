@@ -223,12 +223,11 @@ sudo sysctl --system
 
 Apple Silicon GPU monitoring is experimental and requires opt-in by explicitly setting a `GPU_COLLECTOR` value. Feedback is appreciated and can be left in [issue #1746](https://github.com/henrygd/beszel/issues/1746).
 
-
 ### Recommended: `macmon`
 
-`macmon` is recommended as it does not require root privileges. You must have `macmon` installed and available in your `PATH`.
+`macmon` is recommended as it does not require root privileges. To enable, make sure `macmon` is installed, and set `GPU_COLLECTOR=macmon`.
 
-To enable, make sure `macmon` is installed, and set `GPU_COLLECTOR=macmon`.
+Also add `PATH="/opt/homebrew/bin:$PATH"` if running as a service to ensure the agent can find it.
 
 ```bash
 brew install macmon
