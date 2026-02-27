@@ -2,6 +2,10 @@
 
 Beszel parses S.M.A.R.T. data from `smartctl` and displays it on the system page if available. This usually requires increased permissions.
 
+::: tip Linux sysfs extras
+On Linux, Beszel also reads eMMC wear/EOL indicators and mdraid array health from sysfs. These do not require `smartctl`, but other disks still do.
+:::
+
 To make sure your system is compatible, install `smartmontools` on the agent machine and scan for devices: {#install}
 
 ::: code-group
