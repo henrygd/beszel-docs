@@ -18,6 +18,12 @@
 
 > 注意访问令牌前面的冒号。
 
+### 访问令牌（备选格式）
+
+如果标准访问令牌格式不起作用，请使用此格式。
+
+<span class="bk">generic+https://**`host`**/**`topic`**?@authorization=Bearer+**`accesstoken`**</span>
+
 ## URL 字段
 
 - **Username** - 认证用户名<br>
