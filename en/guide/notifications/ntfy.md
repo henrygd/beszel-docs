@@ -18,6 +18,12 @@ If using an access token, you do not need to provide a username or password.
 
 > Note the colon directly before the access token.
 
+### Access Token (Alternative Format) 
+
+Use this format if the standard access token format does not work.
+
+<span class="bk">generic+https://**`host`**/**`topic`**?@authorization=Bearer+**`accesstoken`**</span>
+
 ## URL Fields
 
 - **Username** - Auth username<br>
