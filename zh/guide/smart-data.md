@@ -2,6 +2,10 @@
 
 Beszel 从 `smartctl` 解析 S.M.A.R.T. 数据，并在系统页面上显示（如果可用）。这通常需要提升权限。
 
+::: tip Linux sysfs 额外支持
+在 Linux 上，Beszel 还会通过 sysfs 读取 eMMC 的磨损/寿命状态以及 mdraid 阵列健康信息。这些不需要 `smartctl`，但其他磁盘仍需要。
+:::
+
 要确保你的系统兼容，请在代理机器上安装 `smartmontools` 并扫描设备： {#install}
 
 ::: code-group
