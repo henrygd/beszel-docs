@@ -15,15 +15,17 @@ Agent 会自动检测可用的 GPU 监控工具并为您的系统选择最佳工
 
 ### 可用收集器
 
-- `nvml`: NVIDIA 管理库（实验性）。
-- `nvidia-smi`: NVIDIA 系统管理界面（默认）。
-- `amd_sysfs`: 通过 sysfs 直接监控 AMD GPU。
-- `rocm-smi`: ROCm 系统管理界面（如果已安装则为默认）。
-- `intel_gpu_top`: Intel GPU 监控（Intel GPU 的默认设置）。
-- `tegrastats`: NVIDIA Jetson 监控（NVIDIA Jetson 的默认设置）。
-- `nvtop`: 多厂商监控（不能与其他收集器结合使用）。
-- `macmon`: macOS GPU 监控（Apple Silicon，实验性）。
-- `powermetrics`: macOS GPU 监控（Apple Silicon，需要 sudo，实验性）。
+| 收集器 | 描述 |
+| :--- | :--- |
+| `nvml` | NVIDIA 管理库（实验性）。 |
+| `nvidia-smi` | NVIDIA 系统管理接口（默认）。 |
+| `amd_sysfs` | 针对 AMD GPU 的直接 sysfs 监控。 |
+| `rocm-smi` | ROCm 系统管理接口（如果已安装则为默认）。 |
+| `intel_gpu_top` | Intel GPU 监控（Intel GPU 的默认设置）。 |
+| `tegrastats` | NVIDIA Jetson 监控（NVIDIA Jetson 的默认设置）。 |
+| `nvtop` | 多厂商。需要 `nvtop` 3.3.2+。不能与其他收集器结合使用。 |
+| `macmon` | macOS GPU 监控（Apple Silicon，实验性）。 |
+| `powermetrics` | macOS GPU 监控（Apple Silicon，需要 sudo，实验性）。 |
 
 ## NVIDIA GPU {#nvidia}
 

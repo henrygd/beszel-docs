@@ -15,15 +15,17 @@ The agent automatically detects available GPU monitoring tools and selects the b
 
 ### Available Collectors
 
-- `nvml`: NVIDIA Management Library (experimental).
-- `nvidia-smi`: NVIDIA System Management Interface (default).
-- `amd_sysfs`: Direct sysfs monitoring for AMD GPUs.
-- `rocm-smi`: ROCm System Management Interface (default if installed).
-- `intel_gpu_top`: Intel GPU monitoring (default for Intel GPUs).
-- `tegrastats`: NVIDIA Jetson monitoring (default for NVIDIA Jetson).
-- `nvtop`: Multi-vendor monitoring (cannot be combined with other collectors).
-- `macmon`: macOS GPU monitoring (Apple Silicon, experimental).
-- `powermetrics`: macOS GPU monitoring (Apple Silicon, requires sudo, experimental).
+| Collector | Description |
+| :--- | :--- |
+| `nvml` | NVIDIA Management Library (experimental). |
+| `nvidia-smi` | NVIDIA System Management Interface (default). |
+| `amd_sysfs` | Direct sysfs monitoring for AMD GPUs. |
+| `rocm-smi` | ROCm System Management Interface (default if installed). |
+| `intel_gpu_top` | Intel GPU monitoring (default for Intel GPUs). |
+| `tegrastats` | NVIDIA Jetson monitoring (default for NVIDIA Jetson). |
+| `nvtop` | Multi-vendor. Requires `nvtop` 3.3.2+. Cannot be combined with others. |
+| `macmon` | macOS GPU monitoring (Apple Silicon, experimental). |
+| `powermetrics` | macOS GPU monitoring (Apple Silicon, requires sudo, experimental). |
 
 ## NVIDIA GPUs {#nvidia}
 
