@@ -15,17 +15,17 @@ The agent automatically detects available GPU monitoring tools and selects the b
 
 ### Available Collectors
 
-| Collector | Description |
-| :--- | :--- |
-| `nvml` | NVIDIA Management Library (experimental). |
-| `nvidia-smi` | NVIDIA System Management Interface (default). |
-| `amd_sysfs` | Direct sysfs monitoring for AMD GPUs. |
-| `rocm-smi` | ROCm System Management Interface (default if installed). |
-| `intel_gpu_top` | Intel GPU monitoring (default for Intel GPUs). |
-| `tegrastats` | NVIDIA Jetson monitoring (default for NVIDIA Jetson). |
-| `nvtop` | Multi-vendor. Requires `nvtop` 3.3.2+. Cannot be combined with others. |
-| `macmon` | macOS GPU monitoring (Apple Silicon, experimental). |
-| `powermetrics` | macOS GPU monitoring (Apple Silicon, requires sudo, experimental). |
+| Collector       | Description                                                            |
+| :-------------- | :--------------------------------------------------------------------- |
+| `nvml`          | NVIDIA Management Library (experimental).                              |
+| `nvidia-smi`    | NVIDIA System Management Interface (default).                          |
+| `amd_sysfs`     | Direct sysfs monitoring for AMD GPUs.                                  |
+| `rocm-smi`      | ROCm System Management Interface (default if installed).               |
+| `intel_gpu_top` | Intel GPU monitoring (default for Intel GPUs).                         |
+| `tegrastats`    | NVIDIA Jetson monitoring (default for NVIDIA Jetson).                  |
+| `nvtop`         | Multi-vendor. Requires `nvtop` 3.3.2+. Cannot be combined with others. |
+| `macmon`        | macOS GPU monitoring (Apple Silicon, experimental).                    |
+| `powermetrics`  | macOS GPU monitoring (Apple Silicon, requires sudo, experimental).     |
 
 ## NVIDIA GPUs {#nvidia}
 
@@ -35,7 +35,7 @@ Available collectors: `nvidia-smi` (default), `nvml` (experimental), `nvtop`.
 
 The experimental NVML integration allows GPUs to enter power-saving modes (RTD3) when idle, which `nvidia-smi` may prevent.
 
-To enable, set `GPU_COLLECTOR=nvml`. Feedback is appreciated and can be left in [issue #1746](https://github.com/henrygd/beszel/issues/1746).
+To enable, set `GPU_COLLECTOR=nvml`. Feedback is appreciated and can be left in [issue #1522](https://github.com/henrygd/beszel/issues/1522).
 
 ### Docker agent
 
@@ -242,4 +242,3 @@ See [vladkens/macmon](https://github.com/vladkens/macmon) for more information a
 `powermetrics` is built into macOS but requires the agent to run with `sudo`.
 
 To enable, set `GPU_COLLECTOR=powermetrics`.
-

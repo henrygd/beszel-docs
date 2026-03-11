@@ -8,24 +8,24 @@ Agent 会自动检测可用的 GPU 监控工具并为您的系统选择最佳工
 
 ## 环境变量
 
-| 变量 | 描述 |
-| :--- | :--- |
+| 变量            | 描述                                                      |
+| :-------------- | :-------------------------------------------------------- |
 | `GPU_COLLECTOR` | 要使用的收集器列表，以逗号分隔（例如 `nvml,amd_sysfs`）。 |
-| `SKIP_GPU` | 设置为 `true` 以禁用所有 GPU 监控。 |
+| `SKIP_GPU`      | 设置为 `true` 以禁用所有 GPU 监控。                       |
 
 ### 可用收集器
 
-| 收集器 | 描述 |
-| :--- | :--- |
-| `nvml` | NVIDIA 管理库（实验性）。 |
-| `nvidia-smi` | NVIDIA 系统管理接口（默认）。 |
-| `amd_sysfs` | 针对 AMD GPU 的直接 sysfs 监控。 |
-| `rocm-smi` | ROCm 系统管理接口（如果已安装则为默认）。 |
-| `intel_gpu_top` | Intel GPU 监控（Intel GPU 的默认设置）。 |
-| `tegrastats` | NVIDIA Jetson 监控（NVIDIA Jetson 的默认设置）。 |
-| `nvtop` | 多厂商。需要 `nvtop` 3.3.2+。不能与其他收集器结合使用。 |
-| `macmon` | macOS GPU 监控（Apple Silicon，实验性）。 |
-| `powermetrics` | macOS GPU 监控（Apple Silicon，需要 sudo，实验性）。 |
+| 收集器          | 描述                                                    |
+| :-------------- | :------------------------------------------------------ |
+| `nvml`          | NVIDIA 管理库（实验性）。                               |
+| `nvidia-smi`    | NVIDIA 系统管理接口（默认）。                           |
+| `amd_sysfs`     | 针对 AMD GPU 的直接 sysfs 监控。                        |
+| `rocm-smi`      | ROCm 系统管理接口（如果已安装则为默认）。               |
+| `intel_gpu_top` | Intel GPU 监控（Intel GPU 的默认设置）。                |
+| `tegrastats`    | NVIDIA Jetson 监控（NVIDIA Jetson 的默认设置）。        |
+| `nvtop`         | 多厂商。需要 `nvtop` 3.3.2+。不能与其他收集器结合使用。 |
+| `macmon`        | macOS GPU 监控（Apple Silicon，实验性）。               |
+| `powermetrics`  | macOS GPU 监控（Apple Silicon，需要 sudo，实验性）。    |
 
 ## NVIDIA GPU {#nvidia}
 
@@ -35,7 +35,7 @@ Agent 会自动检测可用的 GPU 监控工具并为您的系统选择最佳工
 
 实验性的 NVML 集成允许 GPU 在空闲时进入省电模式 (RTD3)，而 `nvidia-smi` 可能会阻止这种情况。
 
-要启用，请设置 `GPU_COLLECTOR=nvml`。欢迎在 [issue #1746](https://github.com/henrygd/beszel/issues/1746) 中提供反馈。
+要启用，请设置 `GPU_COLLECTOR=nvml`。欢迎在 [issue #1522](https://github.com/henrygd/beszel/issues/1522) 中提供反馈。
 
 ### Docker Agent
 
