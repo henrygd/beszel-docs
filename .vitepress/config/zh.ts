@@ -141,6 +141,7 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
 					collapsed: true,
 					items: [
 						{ text: '家庭助理代理', link: '/third-party-integrations/home-assistant' },
+						{ text: '桌面端应用', link: '/third-party-integrations/desktop-apps' },
 						{ text: '移动端应用', link: '/third-party-integrations/mobile-apps' },
 					],
 				},
