@@ -115,6 +115,7 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
 					collapsed: true,
 					items: [
 						{ text: 'Home Assistant Agent', link: '/third-party-integrations/home-assistant' },
+						{ text: 'Desktop Applications', link: '/third-party-integrations/desktop-apps' },
 						{ text: 'Mobile Applications', link: '/third-party-integrations/mobile-apps' },
 					],
 				},

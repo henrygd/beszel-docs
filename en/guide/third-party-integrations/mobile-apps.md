@@ -11,14 +11,16 @@ Unofficial mobile clients for Beszel are maintained by third parties. You need a
 
 ### Features
 
-- **Multi-instance support** — Connect to and switch between multiple Beszel hub instances (e.g. work, home, personal) in one app.
-- **Secure connection** — Connects to your Beszel instance via its API. Credentials are stored in the iOS Keychain.
-- **Custom dashboard** — Pin favorite charts (system CPU, container memory, etc.) to a home screen.
-- **System stats** — Historical CPU, memory, and temperature data for host systems.
-- **Container stats** — Browse Docker containers and view historical CPU and memory usage.
-- **Interactive charts** — Built with Swift Charts; supports time range filtering (e.g. last hour, 24h, 7 days).
-- **Widgets** — Home Screen widgets for quick access.
-- **SSO support** — Log in via the SSO configured on your Beszel instance. Add `beszel-companion://redirect` to the redirect URIs of your SSO providers.
+- **Custom dashboard** — Pin favorite charts to a home screen with search and sorting.
+- **System stats** — Charts for nearly all Beszel metrics: CPU, memory, swap, disk, network, temperatures, GPU, and more.
+- **Container stats** — CPU, memory, and network usage, plus logs and details.
+- **Interactive charts** — Time range filtering (last hour, 24h, 7 days, etc.).
+- **Push notifications** — Alerts when a system goes down or triggers a threshold.
+- **Multi-instance support** — Manage multiple Beszel hubs in one app.
+- **Widgets** — Home & Lock screen widgets.
+- **SSO support** — Log in via your Beszel SSO. Add `beszel-companion://redirect` to your SSO provider's redirect URIs.
+- **Polished experience** — Keychain storage, Face ID / passcode lock, and theme support.
+- **Localization** — English, French, and Polish. [Contribute on Crowdin](https://crowdin.com/project/beszel-swift-app).
 
 ### Installation
 
@@ -55,9 +57,9 @@ Home Screen widgets do not work when the app is installed by sideloading the `.i
 
 ## Summary
 
-| App               | Platform   | Source / Store |
-|-------------------|------------|----------------|
-| Beszel Companion  | iOS        | [App Store](https://apps.apple.com/us/app/beszel/id6747600765) · [GitHub](https://github.com/Loriage/Beszel-Swift-App) |
-| Beszel Mobile     | Android, iOS | [GitHub](https://github.com/bayroqdor/beszel-android) (APK / IPA in Releases) |
+| App              | Platform     | Source / Store                                                                                                         |
+| ---------------- | ------------ | ---------------------------------------------------------------------------------------------------------------------- |
+| Beszel Companion | iOS          | [App Store](https://apps.apple.com/us/app/beszel/id6747600765) · [GitHub](https://github.com/Loriage/Beszel-Swift-App) |
+| Beszel Mobile    | Android, iOS | [GitHub](https://github.com/bayroqdor/beszel-android) (APK / IPA in Releases)                                          |
 
 These projects are not affiliated with the official Beszel project. For issues and feature requests, use the respective GitHub repositories.
