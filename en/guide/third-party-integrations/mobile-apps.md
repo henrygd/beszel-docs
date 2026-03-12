@@ -15,11 +15,11 @@ Unofficial mobile clients for Beszel are maintained by third parties. You need a
 - **System stats** — Charts for nearly all Beszel metrics: CPU, memory, swap, disk, network, temperatures, GPU, and more.
 - **Container stats** — CPU, memory, and network usage, plus logs and details.
 - **Interactive charts** — Time range filtering (last hour, 24h, 7 days, etc.).
-- **Push notifications** — Alerts when a system goes down or triggers a threshold.
+- **Alerts & notifications** — View active alerts and receive push notifications when a system goes down or triggers a threshold (CPU, memory, temperature, GPU, and more).
 - **Multi-instance support** — Manage multiple Beszel hubs in one app.
 - **Widgets** — Home & Lock screen widgets.
-- **SSO support** — Log in via your Beszel SSO. Add `beszel-companion://redirect` to your SSO provider's redirect URIs.
-- **Polished experience** — Keychain storage, Face ID / passcode lock, and theme support.
+- **Secure connections** — SSO / OAuth, mTLS with client certificates, 2FA, and Keychain credential storage. Add `beszel-companion://redirect` to your SSO provider's redirect URIs.
+- **Polished experience** — Face ID / passcode lock and theme support.
 - **Localization** — English, French, and Polish. [Contribute on Crowdin](https://crowdin.com/project/beszel-swift-app).
 
 ### Installation
