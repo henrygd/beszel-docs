@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "docs",
-  "version": "0.18.4",
+  "version": "0.18.5",
   "type": "module",
   "devDependencies": {
     "@types/bun": "^1.1.14",
@@ -17,3 +17,4 @@
     "docs:preview": "vitepress preview"
   }
 }
+
