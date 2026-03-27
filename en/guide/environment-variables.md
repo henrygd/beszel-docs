@@ -159,7 +159,7 @@ Used to override the devices detected by `smartctl --scan`. Each device is speci
 SMART_DEVICES=/dev/nvme0:nvme,/dev/sda:sat
 ```
 
-This does not need to be a full list and will be merged with other devices detected by `smartctl --scan`.
+This does not need to be a full list and will be merged with other devices detected by `smartctl --scan`. Unless it is set to an empty string, in which case SMART monitoring will be disabled entirely.
 
 ### `EXCLUDE_CONTAINERS`
 

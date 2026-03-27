@@ -156,7 +156,7 @@ SERVICE_PATTERNS="beszel*,docker*,kubelet*"
 SMART_DEVICES=/dev/nvme0:nvme,/dev/sda:sat
 ```
 
-这不需要是完整列表，将与 `smartctl --scan` 检测到的其他设备合并。
+这不需要是完整列表，将与 `smartctl --scan` 检测到的其他设备合并。除非它被设置为空字符串，在这种情况下将完全禁用 SMART 监控。
 
 ### `EXCLUDE_CONTAINERS`
 
