@@ -1,5 +1,7 @@
 # IFTTT
 
+<https://shoutrrr.nickfedor.com/services/push/ifttt/>
+
 ## URL Format
 
 <span class="bk">ifttt://**`webhookid`**/?events=**`event1`**[,__`event2`__,...]&value1=**`value1`**&value2=**`value2`**&value3=**`value3`**</span>

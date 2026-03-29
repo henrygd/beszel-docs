@@ -1,5 +1,7 @@
 # Signal
 
+<https://shoutrrr.nickfedor.com/services/chat/signal/>
+
 ## URL Format
 
 <span class="bk">signal://[**`user`**[:__`password`__]@]**`host`**[:__`port`__]/**`source_phone`**/**`recipient1`**[,__`recipient2`__,...]</span>

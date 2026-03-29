@@ -1,6 +1,8 @@
 # Ntfy
 
-Upstream docs: https://docs.ntfy.sh/publish/
+<https://docs.ntfy.sh/publish/>
+
+<https://shoutrrr.nickfedor.com/services/push/ntfy/>
 
 ## URL Format
 

@@ -2,6 +2,8 @@
 
 Send notifications to WeChat Work (Enterprise WeChat) using webhook bots.
 
+<https://shoutrrr.nickfedor.com/services/chat/wecom/>
+
 ## URL Format
 
 <span class="bk">wecom://**`key`**</span>

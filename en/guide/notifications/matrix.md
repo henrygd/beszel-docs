@@ -1,5 +1,7 @@
 # Matrix
 
+<https://shoutrrr.nickfedor.com/services/chat/matrix/>
+
 ## URL Format
 
 <span class="bk">matrix://**`user`**:**`password`**@**`host`**:**`port`**/[?rooms=**`!roomID1`**[,**`roomAlias2`**]][&disableTLS=yes]</span>

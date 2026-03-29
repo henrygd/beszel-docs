@@ -1,5 +1,7 @@
 # Teams
 
+<https://shoutrrr.nickfedor.com/services/chat/teams/>
+
 ::: warning New webhook URL format only
 
 Shoutrrr now only supports the new Teams webhook URL format with an organization-specific domain.

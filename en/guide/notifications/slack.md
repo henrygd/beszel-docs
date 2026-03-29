@@ -2,7 +2,9 @@
 
 The Slack notification service uses either [Slack Webhooks](https://api.slack.com/messaging/webhooks) or the [Bot API](https://api.slack.com/methods/chat.postMessage) to send messages.
 
-See the [guides](https://containrrr.dev/shoutrrr/v0.8/guides/slack/) for information on how to get your _token_ and _channel_.
+See the [guides](https://shoutrrr.nickfedor.com/v0.14.1/guides/slack/) for information on how to get your _token_ and _channel_.
+
+<https://shoutrrr.nickfedor.com/services/chat/slack/>
 
 ## URL Format
 

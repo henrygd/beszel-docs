@@ -1,5 +1,7 @@
 # Zulip Chat
 
+<https://shoutrrr.nickfedor.com/services/chat/zulip/>
+
 ## URL 格式
 
 Shoutrrr 服务 URL 应该如下所示：

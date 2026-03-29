@@ -2,6 +2,8 @@
 
 使用 webhook 机器人向企业微信（Enterprise WeChat）发送通知。
 
+<https://shoutrrr.nickfedor.com/services/chat/wecom/>
+
 ## URL 格式
 
 <span class="bk">wecom://**`key`**</span>
@@ -29,7 +31,6 @@
    f. 您将收到一个 webhook URL。
 
 2. **获取 Webhook 密钥**:
-
    - webhook URL 将类似于: `https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=XXXXXXXXXXXXXXXXXX`
    - `key` 是 URL 中 `?key=` 之后的值。
 

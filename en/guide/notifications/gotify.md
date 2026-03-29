@@ -1,5 +1,7 @@
 # Gotify
 
+<https://shoutrrr.nickfedor.com/services/push/gotify/>
+
 ## URL Format
 
 <span class="bk">gotify://<strong>`host`</strong>:<strong>`port`</strong>/path/<strong>`token`</strong></span>

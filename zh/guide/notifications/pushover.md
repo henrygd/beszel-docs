@@ -1,5 +1,7 @@
 # Pushover
 
+<https://shoutrrr.nickfedor.com/services/push/pushover/>
+
 ## URL 格式
 
 <span class="bk">pushover://shoutrrr:**`apiToken`**@**`userKey`**/?devices=**`device1`**[,__`device2`__, ...]</span>

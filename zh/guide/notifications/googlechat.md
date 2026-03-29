@@ -1,5 +1,7 @@
 # Google Chat
 
+<https://shoutrrr.nickfedor.com/services/chat/googlechat/>
+
 ## URL 格式
 
 你的 Google Chat 传入 Webhook URL 看起来像这样：

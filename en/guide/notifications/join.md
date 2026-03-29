@@ -1,5 +1,7 @@
 # Join
 
+<https://shoutrrr.nickfedor.com/services/push/join/>
+
 ## URL Format
 
 <span class="bk">join://shoutrrr:**`api-key`**@join/?devices=**`device1`**[,**`device2`**, ...][&icon=__`icon`__][&title=__`title`__]</span>

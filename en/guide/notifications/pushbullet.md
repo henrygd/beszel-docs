@@ -1,5 +1,7 @@
 # Pushbullet
 
+<https://shoutrrr.nickfedor.com/services/push/pushbullet/>
+
 ## URL Format
 
 <span class="bk">pushbullet://**`api-token`**[/**`device`**/#**`channel`**/**`email`**]</span>

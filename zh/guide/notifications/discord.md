@@ -1,5 +1,7 @@
 # Discord
 
+<https://shoutrrr.nickfedor.com/services/chat/discord/>
+
 ## URL 格式
 
 你的 Discord Webhook-URL 看起来像这样：

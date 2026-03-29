@@ -1,6 +1,6 @@
 # Lark
 
-使用自定义机器人 webhook 发送通知到 Lark。
+<https://shoutrrr.nickfedor.com/services/chat/lark/>
 
 ## URL 格式
 

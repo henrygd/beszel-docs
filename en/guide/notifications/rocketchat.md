@@ -1,5 +1,7 @@
 # Rocket.chat
 
+<https://shoutrrr.nickfedor.com/services/chat/rocketchat/>
+
 ## URL Format
 
 <span class="bk">rocketchat://[__`username`__@]**`rocketchat-host`**/**`token`**[/__`channel`&#124;`@recipient`__]</span>

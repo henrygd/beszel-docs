@@ -1,5 +1,7 @@
 # Google Chat
 
+<https://shoutrrr.nickfedor.com/services/chat/googlechat/>
+
 ## URL Format
 
 Your Google Chat Incoming Webhook URL will look like this:

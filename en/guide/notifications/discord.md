@@ -1,5 +1,7 @@
 # Discord
 
+<https://shoutrrr.nickfedor.com/services/chat/discord/>
+
 ## URL Format
 
 Your Discord Webhook-URL will look like this:

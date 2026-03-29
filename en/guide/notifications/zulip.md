@@ -1,5 +1,7 @@
 # Zulip Chat
 
+<https://shoutrrr.nickfedor.com/services/chat/zulip/>
+
 ## URL Format
 
 The shoutrrr service URL should look like this:

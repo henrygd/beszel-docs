@@ -4,6 +4,8 @@ The Generic service can be used for any target that is not explicitly supported 
 
 Sometimes this requires customization on the receiving end to interpret the payload, or use of an intermediate proxy to modify the payload.
 
+<https://shoutrrr.nickfedor.com/services/specialized/generic/>
+
 ## URL Format
 
 <span class="bk">generic://example.com</span>

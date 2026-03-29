@@ -1,6 +1,8 @@
 # Ntfy
 
-上游文档: https://docs.ntfy.sh/publish/
+<https://docs.ntfy.sh/publish/>
+
+<https://shoutrrr.nickfedor.com/services/push/ntfy/>
 
 ## URL 格式
 

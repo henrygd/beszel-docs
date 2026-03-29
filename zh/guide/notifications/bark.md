@@ -1,6 +1,6 @@
 # Bark
 
-上游文档：https://github.com/Finb/Bark
+<https://shoutrrr.nickfedor.com/services/push/bark/>
 
 ## URL 格式
 

@@ -1,5 +1,7 @@
 # Mattermost
 
+<https://shoutrrr.nickfedor.com/services/chat/mattermost/>
+
 ## URL 格式
 
 <span class="bk">mattermost://[__`username`__@]**`mattermost-host`**/**`token`**[/**`channel`**][?icon=__`smiley`__&disabletls=__`yes`__]</span>

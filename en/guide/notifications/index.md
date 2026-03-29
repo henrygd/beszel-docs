@@ -2,7 +2,7 @@
 
 Notifications in Beszel are defined using [Shoutrrr](https://github.com/containrrr/shoutrrr) URL schemas.
 
-Shoutrrr is a Go library originally developed for use in [Watchtower](https://github.com/containrrr/watchtower). We use a pinned version of a maintained fork, [nicholas-fedor/shoutrrr](https://github.com/nicholas-fedor/shoutrrr). The docs here are adapted from there.
+Shoutrrr is a Go library originally developed for use in [Watchtower](https://github.com/containrrr/watchtower). We use a maintained fork, [nicholas-fedor/shoutrrr](https://github.com/nicholas-fedor/shoutrrr). The docs here are adapted from there.
 
 URLs are configured in settings (**Settings** > **Notifications**). Alerts are enabled in the systems table.
 
@@ -24,6 +24,7 @@ Click on the service for a more thorough explanation.
 | [Lark](./lark.md)              | lark://**`host`**/**`token`**?secret=**`secret`**                                                                            |
 | [Mattermost](./mattermost.md)  | mattermost://[**`username`**@]**`mattermost-host`**/**`token`**[/**`channel`**]                                              |
 | [Matrix](./matrix.md)          | matrix://**`username`**:**`password`**@**`host`**:**`port`**/[?rooms=**`!roomID1`**[,**`roomAlias2`**]]                      |
+| [MQTT](./mqtt.md)              | mqtts://[**`username`**[:**`password`**]@]**`host`**[:**`port`**]/**`topic`**                                                |
 | [Ntfy](./ntfy.md)              | ntfy://:**`accesstoken`**@**`host`**/**`topic`**                                                                             |
 | [OpsGenie](./opsgenie.md)      | opsgenie://**`host`**/token?responders=**`responder1`**[,**`responder2`**]\_                                                 |
 | [Pushbullet](./pushbullet.md)  | pushbullet://**`api-token`**[/**`device`**/#**`channel`**/**`email`**]                                                       |
@@ -33,6 +34,7 @@ Click on the service for a more thorough explanation.
 | [Slack](./slack.md)            | slack://[**`botname`**@]**`token-a`**/**`token-b`**/**`token-c`**                                                            |
 | [Teams](./teams.md)            | teams://**`group`**@**`tenant`**/**`altId`**/**`groupOwner`**/**`extraId`**?**`host`**=**`organization`**.webhook.office.com |
 | [Telegram](./telegram.md)      | telegram://**`token`**@telegram?chats=**`@channel-1`**[,**`chat-id-1`**,...]                                                 |
+| [Twilio](./twilio.md)          | twilio://**`accountSID`**:**`authToken`**@**`fromNumber`**/**`toNumber`**                                                     |
 | [WeCom](./wecom.md)            | wecom://**`key`**                                                                                                            |
 | [Zulip Chat](./zulip.md)       | zulip://**`bot-mail`**:**`bot-key`**@**`zulip-domain`**/?stream=**`name-or-id`**&topic=**`name`**                            |
 

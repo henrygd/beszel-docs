@@ -1,6 +1,6 @@
 # Bark
 
-Upstream docs: https://github.com/Finb/Bark
+<https://shoutrrr.nickfedor.com/services/push/bark/>
 
 ## URL Format
 

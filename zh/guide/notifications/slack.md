@@ -2,7 +2,9 @@
 
 Slack 通知服务使用 [Slack Webhooks](https://api.slack.com/messaging/webhooks) 或 [Bot API](https://api.slack.com/methods/chat.postMessage) 发送消息。
 
-参阅[指南](https://containrrr.dev/shoutrrr/v0.8/guides/slack/)了解如何获取你的 _token_ 和 _channel_。
+参阅[指南](https://shoutrrr.nickfedor.com/v0.14.1/guides/slack/)了解如何获取你的 _token_ 和 _channel_。
+
+<https://shoutrrr.nickfedor.com/services/chat/slack/>
 
 ## URL 格式
 

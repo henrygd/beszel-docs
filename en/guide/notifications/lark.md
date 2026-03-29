@@ -1,6 +1,6 @@
 # Lark
 
-Send notifications to Lark using a custom bot webhook.
+<https://shoutrrr.nickfedor.com/services/chat/lark/>
 
 ## URL Format
 

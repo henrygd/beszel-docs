@@ -4,6 +4,8 @@
 
 有时这需要在接收端进行自定义以解析 payload，或使用中间代理来修改 payload。
 
+<https://shoutrrr.nickfedor.com/services/specialized/generic/>
+
 ## URL 格式
 
 <span class="bk">generic://example.com</span>

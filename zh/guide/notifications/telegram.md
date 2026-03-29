@@ -1,5 +1,7 @@
 # Telegram
 
+<https://shoutrrr.nickfedor.com/services/chat/telegram/>
+
 ## URL 格式
 
 <span class="bk">telegram://**`token`**@telegram?chats=**`channel-1`**[,__`chat-id-1`__,...]</span>

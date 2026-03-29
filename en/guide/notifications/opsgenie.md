@@ -1,5 +1,7 @@
 # OpsGenie
 
+<https://shoutrrr.nickfedor.com/services/incident/opsgenie/>
+
 ## URL Format
 
 <span class="bk">opsgenie://[__`host`__:__`port`__/]**`apikey`**</span>
