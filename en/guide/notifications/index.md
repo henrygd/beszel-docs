@@ -19,20 +19,20 @@ Click on the service for a more thorough explanation.
 | [Discord](./discord.md)        | discord://**`token`**@**`id`**                                                                                               |
 | [Gotify](./gotify.md)          | gotify://**`gotify-host`**/**`token`**                                                                                       |
 | [Google Chat](./googlechat.md) | googlechat://chat.googleapis.com/v1/spaces/`FOO`/messages?key=`bar`&token=`baz`                                              |
-| [IFTTT](./ifttt.md)            | ifttt://**`key`**/?events=**`event1`**[,__`event2`__,...]&value1=**`value1`**&value2=**`value2`**&value3=**`value3`**        |
-| [Join](./join.md)              | join://shoutrrr:**`api-key`**@join/?devices=**`device1`**[,**`device2`**, ...][&icon=__`icon`__]                             |
+| [IFTTT](./ifttt.md)            | ifttt://**`key`**/?events=**`event1`**[,**`event2`**,...]&value1=**`value1`**&value2=**`value2`**&value3=**`value3`**        |
+| [Join](./join.md)              | join://shoutrrr:**`api-key`**@join/?devices=**`device1`**[,**`device2`**, ...][&icon=**`icon`**]                             |
 | [Lark](./lark.md)              | lark://**`host`**/**`token`**?secret=**`secret`**                                                                            |
-| [Mattermost](./mattermost.md)  | mattermost://[__`username`__@]**`mattermost-host`**/**`token`**[/__`channel`__]                                              |
-| [Matrix](./matrix.md)          | matrix://**`username`**:**`password`**@**`host`**:**`port`**/[?rooms=**`!roomID1`**[,__`roomAlias2`__]]                      |
+| [Mattermost](./mattermost.md)  | mattermost://[**`username`**@]**`mattermost-host`**/**`token`**[/**`channel`**]                                              |
+| [Matrix](./matrix.md)          | matrix://**`username`**:**`password`**@**`host`**:**`port`**/[?rooms=**`!roomID1`**[,**`roomAlias2`**]]                      |
 | [Ntfy](./ntfy.md)              | ntfy://:**`accesstoken`**@**`host`**/**`topic`**                                                                             |
-| [OpsGenie](./opsgenie.md)      | opsgenie://**`host`**/token?responders=**`responder1`**[,__`responder2`__]\_                                                 |
-| [Pushbullet](./pushbullet.md)  | pushbullet://**`api-token`**[/__`device`__/#__`channel`__/__`email`__]                                                       |
-| [Pushover](./pushover.md)      | pushover://shoutrrr:**`apiToken`**@**`userKey`**/?devices=**`device1`**[,__`device2`__, ...]                                 |
-| [Rocketchat](./rocketchat.md)  | rocketchat://[__`username`__@]**`rocketchat-host`**/**`token`**[/__`channel`&#124;`@recipient`__]                            |
-| [Signal](./signal.md)          | signal://[**`user`**[:__`password`__]@]**`host`**[:__`port`__]/**`source_phone`**/**`recipient1`**[,__`recipient2`__,...]    |
-| [Slack](./slack.md)            | slack://[__`botname`__@]**`token-a`**/**`token-b`**/**`token-c`**                                                            |
+| [OpsGenie](./opsgenie.md)      | opsgenie://**`host`**/token?responders=**`responder1`**[,**`responder2`**]\_                                                 |
+| [Pushbullet](./pushbullet.md)  | pushbullet://**`api-token`**[/**`device`**/#**`channel`**/**`email`**]                                                       |
+| [Pushover](./pushover.md)      | pushover://shoutrrr:**`apiToken`**@**`userKey`**/?devices=**`device1`**[,**`device2`**, ...]                                 |
+| [Rocketchat](./rocketchat.md)  | rocketchat://[**`username`**@]**`rocketchat-host`**/**`token`**[/**`channel`&#124;`@recipient`**]                            |
+| [Signal](./signal.md)          | signal://[**`user`**[:**`password`**]@]**`host`**[:**`port`**]/**`source_phone`**/**`recipient1`**[,**`recipient2`**,...]    |
+| [Slack](./slack.md)            | slack://[**`botname`**@]**`token-a`**/**`token-b`**/**`token-c`**                                                            |
 | [Teams](./teams.md)            | teams://**`group`**@**`tenant`**/**`altId`**/**`groupOwner`**/**`extraId`**?**`host`**=**`organization`**.webhook.office.com |
-| [Telegram](./telegram.md)      | telegram://**`token`**@telegram?chats=**`@channel-1`**[,__`chat-id-1`__,...]                                                 |
+| [Telegram](./telegram.md)      | telegram://**`token`**@telegram?chats=**`@channel-1`**[,**`chat-id-1`**,...]                                                 |
 | [WeCom](./wecom.md)            | wecom://**`key`**                                                                                                            |
 | [Zulip Chat](./zulip.md)       | zulip://**`bot-mail`**:**`bot-key`**@**`zulip-domain`**/?stream=**`name-or-id`**&topic=**`name`**                            |
 
