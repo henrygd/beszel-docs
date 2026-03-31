@@ -26,10 +26,9 @@ Unofficial mobile clients for Beszel are maintained by third parties. You need a
 
 - Install from the [App Store](https://apps.apple.com/us/app/beszel/id6747600765), or
 - Sideload the `.ipa` from [releases](https://github.com/Loriage/Beszel-Swift-App/releases).
-
-::: tip
-Home Screen widgets do not work when the app is installed by sideloading the `.ipa`. For full functionality, use the App Store version.
-:::
+  ::: tip
+  Home Screen widgets do not work when the app is installed by sideloading the `.ipa`. For full functionality, use the App Store version.
+  :::
 
 ## Beszel Mobile (Android & iOS)
 
@@ -49,17 +48,35 @@ Home Screen widgets do not work when the app is installed by sideloading the `.i
 ### Installation
 
 **Android:** Download the latest APK from [Releases](https://github.com/bayroqdor/beszel-android/releases).
-
 **iOS:**
 
 - **TrollStore:** Download the `Beszel.ipa` from Releases and install via TrollStore.
 - **Standard:** Sign and install the app yourself using AltStore, Sideloadly, or a developer account (see the [project README](https://github.com/bayroqdor/beszel-android?tab=readme-ov-file) for build instructions).
 
+## Homelab Dashboard (Android & iOS)
+
+**Homelab Dashboard** is a native dual-platform app for managing your homelab, with Beszel integration alongside Portainer, Pi-hole, and Gitea.
+
+- **GitHub:** [JohnnWi/homelab-project](https://github.com/JohnnWi/homelab-project)
+
+### Features
+
+- **Beszel monitoring** — CPU, memory, and disk usage across all connected nodes.
+- **Multi-service** — Unified dashboard for Portainer, Pi-hole, Gitea, and Beszel.
+- **Native UI** — iOS (Swift 6 + SwiftUI) and Android (Kotlin + Jetpack Compose).
+- **Localization** — English, Italian, French, Spanish, and German.
+
+### Installation
+
+**iOS:** Build from source via Xcode 16.0+ (open `HomelabSwift/Homelab.xcodeproj`).
+**Android:** Download the APK from [Releases](https://github.com/JohnnWi/homelab-project/releases) or build via Android Studio.
+
 ## Summary
 
-| App              | Platform     | Source / Store                                                                                                         |
-| ---------------- | ------------ | ---------------------------------------------------------------------------------------------------------------------- |
-| Beszel Companion | iOS          | [App Store](https://apps.apple.com/us/app/beszel/id6747600765) · [GitHub](https://github.com/Loriage/Beszel-Swift-App) |
-| Beszel Mobile    | Android, iOS | [GitHub](https://github.com/bayroqdor/beszel-android) (APK / IPA in Releases)                                          |
+| App               | Platform     | Source / Store                                                                                                         |
+| ----------------- | ------------ | ---------------------------------------------------------------------------------------------------------------------- |
+| Beszel Companion  | iOS          | [App Store](https://apps.apple.com/us/app/beszel/id6747600765) · [GitHub](https://github.com/Loriage/Beszel-Swift-App) |
+| Beszel Mobile     | Android, iOS | [GitHub](https://github.com/bayroqdor/beszel-android) (APK / IPA in Releases)                                          |
+| Homelab Dashboard | Android, iOS | [GitHub](https://github.com/JohnnWi/homelab-project) (APK / build from source)                                         |
 
 These projects are not affiliated with the official Beszel project. For issues and feature requests, use the respective GitHub repositories.
