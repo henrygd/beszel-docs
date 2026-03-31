@@ -56,3 +56,37 @@ Environment="EXTRA_FILESYSTEMS=sdb,sdc1,mmcblk0,/mnt/network-share"
 ::: tip 自定义名称
 您可以使用双下划线为设备指定自定义名称。例如，`sdc1__Jellyfin Media`。这将在图表中使用"Jellyfin Media"作为设备名称。
 :::
+
+## Windows 代理
+
+将 `EXTRA_FILESYSTEMS` 环境变量设置为要监视的驱动器号（以逗号分隔）。例如：
+
+```dotenv
+EXTRA_FILESYSTEMS="D:,E:,F:"
+```
+
+以下说明假设您使用 NSSM 将代理作为 Windows 服务运行。
+
+### CLI
+
+```powershell
+nssm set beszel-agent AppEnvironmentExtra "+EXTRA_FILESYSTEMS=D:,E:,F:"
+```
+
+### GUI
+
+```powershell
+nssm edit beszel-agent
+```
+
+转到 **Environment** 选项卡并添加变量：
+
+```
+EXTRA_FILESYSTEMS=D:,E:,F:
+```
+
+点击 **Edit service**，然后重启服务以应用更改：
+
+```powershell
+nssm restart beszel-agent
+```

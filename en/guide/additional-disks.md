@@ -56,3 +56,38 @@ After editing the service, reload system units with `systemctl daemon-reload`, f
 ::: tip Custom names
 You can give the device a custom name with double underscores. For example, `sdc1__Jellyfin Media`. This will use "Jellyfin Media" for the device name in the charts.
 :::
+
+## Windows agent
+
+Set the `EXTRA_FILESYSTEMS` environment variable to a comma-separated list of drive letters to monitor. For example:
+
+```dotenv
+EXTRA_FILESYSTEMS="D:,E:,F:"
+```
+
+Instructions below assume you run the agent as a Windows service with NSSM.
+
+### CLI
+
+```powershell
+nssm set beszel-agent AppEnvironmentExtra "+EXTRA_FILESYSTEMS=D:,E:,F:"
+```
+
+### GUI
+
+
+```powershell
+nssm edit beszel-agent
+```
+
+Go to the **Environment** tab and add the variable:
+
+```
+EXTRA_FILESYSTEMS=D:,E:,F:
+```
+
+Click **Edit service**, then restart the service to apply the changes:
+
+```powershell
+nssm restart beszel-agent
+```
