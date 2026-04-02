@@ -72,6 +72,7 @@ Environment variables may optionally be prefixed with `BESZEL_AGENT_`.
 | `NVML`                    | false   | Use experimental NVML integration for GPU monitoring.                                                |
 | `PRIMARY_SENSOR`          | unset   | Display specific temperature sensor in 'All Systems' table.                                          |
 | `SENSORS`                 | unset   | Whitelist or blacklist temperature sensors.                                                          |
+| `SENSORS_TIMEOUT`         | 2s      | Duration to customize the temperature collection timeout.                                            |
 | `SERVICE_PATTERNS`        | unset   | List of systemd service patterns to monitor.                                                         |
 | `SKIP_GPU`                | false   | Disable GPU monitoring.                                                                              |
 | `SKIP_SYSTEMD`            | false   | Disable Systemd service monitoring.                                                                  |

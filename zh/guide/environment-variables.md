@@ -69,6 +69,7 @@
 | `NVML`                    | false  | 使用实验性 NVML 集成进行 GPU 监控。                                                          |
 | `PRIMARY_SENSOR`          | 未设置 | 在"所有系统"表格中显示的特定温度传感器。                                                     |
 | `SENSORS`                 | 未设置 | 温度传感器的白名单或黑名单。                                                                 |
+| `SENSORS_TIMEOUT`         | 2s     | 用于自定义温度采集超时的持续时间。                                                           |
 | `SERVICE_PATTERNS`        | 未设置 | 要监控的 systemd 服务模式列表。                                                              |
 | `SKIP_GPU`                | false  | 禁用 GPU 监控。                                                                              |
 | `SKIP_SYSTEMD`            | false  | 禁用 Systemd 服务监控。                                                                      |
