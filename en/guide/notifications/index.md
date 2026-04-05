@@ -6,6 +6,8 @@ Shoutrrr is a Go library originally developed for use in [Watchtower](https://gi
 
 URLs are configured in settings (**Settings** > **Notifications**). Alerts are enabled in the systems table.
 
+If any disks report S.M.A.R.T. data to Beszel, a failure will automatically send a notification as long as at least one notification channel is configured. This behaviour is not currently configurable. See [S.M.A.R.T. Monitoring](../smart-data.md) for more details.
+
 ## Services overview
 
 Click on the service for a more thorough explanation.

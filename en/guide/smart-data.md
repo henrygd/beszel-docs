@@ -2,6 +2,8 @@
 
 Beszel parses S.M.A.R.T. data from `smartctl` and displays it on the system page if available. This usually requires increased permissions.
 
+If at least one notification channel is configured and disks report S.M.A.R.T. data to Beszel, a failure automatically triggers a notification. This behaviour is not currently configurable. Note: If a drive is already reporting failure on first detection by the Beszel agent, no alert will fire.
+
 ::: tip Linux sysfs extras
 On Linux, Beszel also reads eMMC wear/EOL indicators and mdraid array health from sysfs. These do not require `smartctl`, but other disks still do.
 :::
