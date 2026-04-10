@@ -34,8 +34,9 @@ Click on the service for a more thorough explanation.
 | [Slack](./slack.md)            | slack://[**`botname`**@]**`token-a`**/**`token-b`**/**`token-c`**                                                            |
 | [Teams](./teams.md)            | teams://**`group`**@**`tenant`**/**`altId`**/**`groupOwner`**/**`extraId`**?**`host`**=**`organization`**.webhook.office.com |
 | [Telegram](./telegram.md)      | telegram://**`token`**@telegram?chats=**`@channel-1`**[,**`chat-id-1`**,...]                                                 |
-| [Twilio](./twilio.md)          | twilio://**`accountSID`**:**`authToken`**@**`fromNumber`**/**`toNumber`**                                                     |
+| [Twilio](./twilio.md)          | twilio://**`accountSID`**:**`authToken`**@**`fromNumber`**/**`toNumber`**                                                    |
 | [WeCom](./wecom.md)            | wecom://**`key`**                                                                                                            |
 | [Zulip Chat](./zulip.md)       | zulip://**`bot-mail`**:**`bot-key`**@**`zulip-domain`**/?stream=**`name-or-id`**&topic=**`name`**                            |
+| [Ntfy](./wecom.md)            | ntfy://**`ntfy-domain`**/**`ntfy-topic`**?title=**`notification-title`**                                                      |
 
 </div>
