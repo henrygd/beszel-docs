@@ -55,7 +55,8 @@ For example, when using Cloudflare Access you might set `TRUSTED_AUTH_HEADER=Cf-
 Environment variables may optionally be prefixed with `BESZEL_AGENT_`.
 
 | Name                      | Default | Description                                                                                          |
-| ------------------------- | ------- | ---------------------------------------------------------------------------------------------------- |
+|---------------------------|---------|------------------------------------------------------------------------------------------------------|
+| `ALL_PROXY`               | unset   | Use SOCKS5 server to establish WebSocket connection.                                                 |
 | `DATA_DIR`                | unset   | Persistent data directory.                                                                           |
 | `DISABLE_SSH`             | false   | Disable the SSH server completely (WebSocket connection only).                                       |
 | `DISK_USAGE_CACHE`        | unset   | Provide a duration like `5m` or `1h` to cache usage of extra disks and avoid waking them to recheck. |
@@ -88,6 +89,23 @@ Environment variables may optionally be prefixed with `BESZEL_AGENT_`.
 | `SYSTEM_NAME`             | unset   | Override system name on universal token registration. Defaults to hostname if unset.                 |
 | `TOKEN`                   | unset   | WebSocket registration token. Provided in hub.                                                       |
 | `TOKEN_FILE`              | unset   | Read token from a file instead of an environment variable.                                           |
+
+### `ALL_PROXY`
+
+Only `socks5` and `socks5h` schemes are supported.
+If `ALL_PROXY` environment variable is not defined, or it has an invalid scheme, a direct connection will be used. 
+
+Please refer to [golang.org/x/net/proxy](https://cs.opensource.google/go/x/net/+/master:proxy/proxy.go) for more information.
+
+Examples:
+
+```bash
+# Unauthenticated SOCKS5 proxy
+ALL_PROXY="socks5://127.0.0.1:1080"
+
+# Authenticated SOCKS5 proxy
+ALL_PROXY="socks5://username:password@127.0.0.1:1080"
+```
 
 ### `DATA_DIR`
 
