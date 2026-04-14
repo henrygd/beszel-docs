@@ -54,6 +54,7 @@
 
 | 名称                      | 默认值 | 描述                                                                                         |
 | ------------------------- | ------ | -------------------------------------------------------------------------------------------- |
+| `ALL_PROXY`               | 未设置 | 使用 SOCKS5 服务器建立 WebSocket 连接。                                                      |
 | `DATA_DIR`                | 未设置 | 持久数据目录。                                                                               |
 | `DISK_USAGE_CACHE`        | 未设置 | 提供类似 `5m` 或 `1h` 的持续时间来缓存额外磁盘的使用情况，避免唤醒它们进行重新检查。         |
 | `DOCKER_HOST`             | 未设置 | 覆盖 Docker 主机 (docker.sock)。                                                             |
@@ -85,6 +86,23 @@
 | `SYSTEM_NAME`             | 未设置 | 在通用令牌注册时覆盖系统名称。未设置时默认为主机名。                                         |
 | `TOKEN`                   | 未设置 | WebSocket 注册令牌。在中心提供。                                                             |
 | `TOKEN_FILE`              | 未设置 | 从文件中读取令牌，而不是从环境变量中读取。                                                   |
+
+### `ALL_PROXY`
+
+仅支持 `socks5` 和 `socks5h` 协议。
+如果未定义 `ALL_PROXY` 环境变量，或其协议无效，则将使用直接连接。
+
+请参阅 [golang.org/x/net/proxy](https://cs.opensource.google/go/x/net/+/master:proxy/proxy.go) 了解更多信息。
+
+示例：
+
+```bash
+# 无需认证的 SOCKS5 代理
+ALL_PROXY="socks5://127.0.0.1:1080"
+
+# 需要认证的 SOCKS5 代理
+ALL_PROXY="socks5://username:password@127.0.0.1:1080"
+```
 
 ### `DATA_DIR`
 
