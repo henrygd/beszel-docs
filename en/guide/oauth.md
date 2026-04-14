@@ -34,6 +34,10 @@ Please avoid changing this setting directly in PocketBase as it will be overridd
 
 Beszel does not allow automatic user creation by default. To enable it, set `USER_CREATION=true` in the hub environment variables.
 
+## Disable popup
+
+The popup is part of the default PocketBase OAuth flow, but you can disable it by setting `OAUTH_DISABLE_POPUP=true` in the hub environment variables. This will cause Beszel to redirect to the provider's login page instead of opening a popup.
+
 ## Supported external providers
 
 These are publicly available identity services offered by major platforms that users can authenticate with using their existing accounts.
