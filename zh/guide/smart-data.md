@@ -2,6 +2,8 @@
 
 Beszel 从 `smartctl` 解析 S.M.A.R.T. 数据，并在系统页面上显示（如果可用）。这通常需要提升权限。
 
+如果配置了至少一个通知频道，且磁盘向 Beszel 报告 S.M.A.R.T. 数据，则发生故障时会自动触发通知。此行为目前不可配置。注意：如果驱动器在 Beszel 代理首次检测时已报告故障，则不会触发警报。
+
 ::: tip Linux sysfs 额外支持
 在 Linux 上，Beszel 还会通过 sysfs 读取 eMMC 的磨损/寿命状态以及 mdraid 阵列健康信息。这些不需要 `smartctl`，但其他磁盘仍需要。
 :::
