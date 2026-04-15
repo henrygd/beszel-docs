@@ -15,7 +15,7 @@
 
 ## 2. 创建管理员用户
 
-启动中心 (hub) 后，导航至 http://localhost:8090 或您选择的地址。
+启动中心 (hub) 后，导航至 <http://localhost:8090> 或您选择的地址。
 
 系统将提示您创建帐户：
 
@@ -29,8 +29,8 @@
 
 > 注意：从 0.12.0 版本开始，您也可以使用通用令牌（`/settings/tokens`）将代理连接到中心，无需提前配置。
 
-<a href="/image/add-system-socket-2.png" target="_blank">
-<img src="/image/add-system-socket-2.png" height="589" width="896" alt="系统创建表单截图" />
+<a href="/image/add-system-socket-3.png" target="_blank">
+  <img src="/image/add-system-socket-3.png" height="580" width="736" alt="系统创建表单截图" />
 </a>
 
 ## 4. 启动代理
@@ -98,8 +98,8 @@ docker compose up -d
 
 您将在表格中看到新系统。如果它变为绿色，则表示一切正常。
 
-<a href="/image/new-system.png" target="_blank">
-<img src="/image/new-system.png" height="263" width="1418" alt="系统创建表单截图" />
+<a href="/image/new-system-2.png" target="_blank">
+  <img src="/image/new-system-2.png" height="434" width="1838" alt="Screenshot of added system in green" />
 </a>
 
 如果它变为红色，请查看 [常见问题](./common-issues.md) 页面。

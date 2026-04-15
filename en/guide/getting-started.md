@@ -29,8 +29,8 @@ Click the **Add System** button in the top right corner to open the system creat
 
 > Note: As of 0.12.0, you can also use a universal token (`/settings/tokens`) to connect the agent to the hub without needing to configure it ahead of time.
 
-<a href="/image/add-system-socket-2.png" target="_blank">
-  <img src="/image/add-system-socket-2.png" height="589" width="896" alt="Screenshot of system creation form" />
+<a href="/image/add-system-socket-3.png" target="_blank">
+  <img src="/image/add-system-socket-3.png" height="580" width="736" alt="Screenshot of system creation form showing token and key" />
 </a>
 
 ## 4. Start the agent
@@ -98,8 +98,8 @@ Now that the agent is running, click the **Add System** button in the dialog.
 
 You will see the new system in table. If it flips to green, you're good to go.
 
-<a href="/image/new-system.png" target="_blank">
-  <img src="/image/new-system.png" height="263" width="1418" alt="Screenshot of system creation form" />
+<a href="/image/new-system-2.png" target="_blank">
+  <img src="/image/new-system-2.png" height="434" width="1838" alt="Screenshot of added system in green" />
 </a>
 
 If it changes to red, check the [Common Issues](./common-issues.md) page.
