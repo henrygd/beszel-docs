@@ -37,7 +37,7 @@ If you want SMART monitoring, install the `SynoCli Disk Tools` package from Syno
 
 This package provides an updated `smartctl` binary, as the default version included with DSM is severely outdated.
 
-After this installation is complete, run the command `sudo setcap 'cap_sys_rawio+ep' $(readlink -f /usr/local/bin/smartctl)` in a terminal session with root access (e.g SSH) to allow the smartctl binary to access SMART data.
+THIS DOCUMENTATION IS UNFINISHED AS PERMISSION ISSUES REGARDING THE PACKAGE HAVE NOT BEEN RESOLVED.
 
 
 ## Installing the Beszel Agent Package
@@ -68,6 +68,11 @@ This is advised, as by default the beszel agent only monitors the root filesyste
 
 **Example:** `/volume1__Main Storage,/volumeUSB1/usbshare__External Backup`
 
+### Other Environment Variables
+**Optional.** You can set any other environment variables to configure the agent as needed, in a semicolon-separated list.
+
+For example, if you want to enable websocket connection instead of the default SSH, you can set `HUB_URL=<url>;TOKEN=<token>` here.
+
 ### SMART Monitoring
 
 **Optional.** Sets the value of the `ENABLE_SMART` environment variable. See the [relevant documentation](./environment-variables#smart-devices) for more information. Leave blank to disable SMART monitoring. If you have not followed the prerequisite steps above, cancel the installation and do so now.
@@ -76,7 +81,7 @@ This is advised, as by default the beszel agent only monitors the root filesyste
 This requires that you have followed the dependency steps as described in the [prerequisites section](#optional-smart-monitoring-prerequisites) above.
 :::
 
-Specify your drives in the format `/dev/sd{x}:sat`, separated by commas.
+Specify your drives in the format `/dev/sd{x}:sat`, separated by commas. You can see your drives by running `/usr/local/bin/smartctl --scan` in the terminal of your NAS. The `:sat` suffix is required for beszel to be able to read SMART data, and should be included even if your drives are not of the `sat` type.
 
 **Example:** `/dev/sda:sat,/dev/sdb:sat,/dev/sdc:sat`
 
