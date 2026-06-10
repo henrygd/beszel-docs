@@ -102,13 +102,16 @@ Environment variables may optionally be prefixed with `BESZEL_AGENT_`.
 
 | Name                      | Default | Description                                                                                          | Since |
 | ------------------------- | ------- | ---------------------------------------------------------------------------------------------------- | ----- |
+| `ALL_PROXY`               | unset   | SOCKS5 proxy for the agent's outbound WebSocket connection to the hub. | - |
 | `AMD_SYSFS`               | false   | Use AMD sysfs interface instead of `rocm-smi` for AMD GPU data. Deprecated; use `GPU_COLLECTOR` instead.                                    | - |
 | `DATA_DIR`                | unset   | Persistent data directory.                                                                           | - |
 | `DISABLE_SSH`             | false   | Disable the SSH server completely (WebSocket connection only).                                       | 0.18.4 |
 | `DISK_USAGE_CACHE`        | unset   | Provide a duration like `5m` or `1h` to cache usage of extra disks and avoid waking them to recheck. | 0.17.0 |
 | `DOCKER_HOST`             | unset   | Overrides the Docker host (docker.sock).                                                             | - |
+| `DOCKER_TIMEOUT`          | `2100ms`| Overrides the Docker API call timeout. Accepts Go duration format (e.g. `5s`, `2100ms`).            | - |
 | `EXCLUDE_CONTAINERS`      | unset   | Exclude containers from being monitored.                                                             | 0.15.3 |
 | `EXCLUDE_SMART`           | unset   | Exclude S.M.A.R.T. devices from being monitored.                                                     | 0.16.0 |
+| `EXIT_ON_DNS_ERROR`       | false   | Exit the agent instead of retrying when a DNS lookup failure occurs on the hub connection.           | - |
 | `EXTRA_FILESYSTEMS`       | unset   | Monitor extra disks if using binary. See [Additional Disks](./additional-disks).                     | - |
 | `FILESYSTEM`              | unset   | Device, partition, or mount point to use for root disk stats.                                        | - |
 | `GPU_COLLECTOR`           | unset   | Ordered comma-separated list of GPU collectors. Overrides auto-detection. See [`GPU_COLLECTOR`](#gpu-collector). | - |
@@ -137,6 +140,12 @@ Environment variables may optionally be prefixed with `BESZEL_AGENT_`.
 | `TOKEN`                   | unset   | WebSocket registration token. Provided in hub.                                                       | - |
 | `TOKEN_FILE`              | unset   | Read token from a file instead of an environment variable.                                           | - |
 
+### `ALL_PROXY`
+
+Routes the agent's outbound WebSocket connection to the hub through a SOCKS5 proxy. Only `socks5://` and `socks5h://` schemes are supported (`socks5h` resolves DNS on the proxy side).
+
+Example: `ALL_PROXY=socks5h://proxy.example.com:1080`
+
 ### `AMD_SYSFS`
 
 Deprecated in favor of `GPU_COLLECTOR`. When set to `true`, uses the AMD sysfs interface for GPU data collection instead of `rocm-smi`. Set `GPU_COLLECTOR=amd_sysfs` for equivalent behavior.
@@ -150,6 +159,14 @@ Attempts to find a suitable directory if unset. Currently only used to store the
 Docker socket proxies provide a more secure alternative to a direct `docker.sock` connection by filtering API requests. Beszel only needs read access to container information. For [linuxserver/docker-socket-proxy](https://github.com/linuxserver/docker-socket-proxy) you would set `CONTAINERS=1`.
 
 You may also set this to an empty string (`DOCKER_HOST=""`) to completely disable Docker monitoring.
+
+### `DOCKER_TIMEOUT`
+
+Overrides the default Docker API call timeout of `2100ms`. Accepts any Go duration string (e.g. `5s`, `500ms`). Increase this if you see Docker-related timeouts on slow systems.
+
+### `EXIT_ON_DNS_ERROR`
+
+When set to `true`, the agent exits immediately on a DNS lookup failure instead of retrying the connection. Useful in environments where a DNS failure indicates a permanent misconfiguration rather than a transient network issue.
 
 ### `GPU_COLLECTOR` {#gpu-collector}
 

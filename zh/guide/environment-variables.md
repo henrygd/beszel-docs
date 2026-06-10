@@ -98,13 +98,16 @@
 
 | 名称                      | 默认值 | 描述                                                                                         | Since |
 | ------------------------- | ------ | -------------------------------------------------------------------------------------------- | ----- |
+| `ALL_PROXY`               | 未设置 | 代理出站 WebSocket 连接至中心的 SOCKS5 代理。                                                                                                 | - |
 | `AMD_SYSFS`               | false  | 使用 AMD sysfs 接口代替 `rocm-smi` 获取 AMD GPU 数据。已弃用，请改用 `GPU_COLLECTOR`。                                                     | - |
 | `DATA_DIR`                | 未设置 | 持久数据目录。                                                                               | - |
 | `DISABLE_SSH`             | false  | 禁用 SSH 服务器（仅 WebSocket 连接）。                                                         | 0.18.4 |
 | `DISK_USAGE_CACHE`        | 未设置 | 提供类似 `5m` 或 `1h` 的持续时间来缓存额外磁盘的使用情况，避免唤醒它们进行重新检查。         | 0.17.0 |
 | `DOCKER_HOST`             | 未设置 | 覆盖 Docker 主机 (docker.sock)。                                                             | - |
+| `DOCKER_TIMEOUT`          | `2100ms`| 覆盖 Docker API 调用超时。接受 Go 时长格式（如 `5s`、`2100ms`）。                     | - |
 | `EXCLUDE_CONTAINERS`      | 未设置 | 排除容器不被监控。                                                                           | 0.15.3 |
 | `EXCLUDE_SMART`           | 未设置 | 排除 S.M.A.R.T. 设备不被监控。                                                               | 0.16.0 |
+| `EXIT_ON_DNS_ERROR`       | false  | 发生 DNS 查询失败时退出代理，而非重试连接。                                              | - |
 | `EXTRA_FILESYSTEMS`       | 未设置 | 如果使用二进制文件，则监控额外的磁盘。请参阅 [其他磁盘](./additional-disks.md)。             | - |
 | `FILESYSTEM`              | 未设置 | 用于根磁盘统计的设备、分区或挂载点。                                                         | - |
 | `GPU_COLLECTOR`           | 未设置 | 按优先级排列的 GPU 采集器逗号分隔列表，覆盖自动检测。详见 [`GPU_COLLECTOR`](#gpu-collector)。 | - |
@@ -133,6 +136,12 @@
 | `TOKEN`                   | 未设置 | WebSocket 注册令牌。在中心提供。                                                             | - |
 | `TOKEN_FILE`              | 未设置 | 从文件中读取令牌，而不是从环境变量中读取。                                                   | - |
 
+### `ALL_PROXY`
+
+将代理出站 WebSocket 连接路由通过 SOCKS5 代理。仅支持 `socks5://` 和 `socks5h://` 协议（`socks5h` 在代理端解析 DNS）。
+
+示例：`ALL_PROXY=socks5h://proxy.example.com:1080`
+
 ### `AMD_SYSFS`
 
 已弃用，请改用 `GPU_COLLECTOR`。设置为 `true` 时，使用 AMD sysfs 接口采集 GPU 数据，而非 `rocm-smi`。等效于设置 `GPU_COLLECTOR=amd_sysfs`。
@@ -146,6 +155,14 @@
 Docker 套接字代理通过过滤 API 请求，提供了比直接连接 `docker.sock` 更安全的选择。Beszel 只需要读取容器信息的权限。对于 [linuxserver/docker-socket-proxy](https://github.com/linuxserver/docker-socket-proxy)，您需要设置 `CONTAINERS=1`．
 
 您也可以将其设置为空字符串（`DOCKER_HOST=""`）以完全禁用 Docker 监控。
+
+### `DOCKER_TIMEOUT`
+
+覆盖默认 Docker API 调用超时（`2100ms`）。接受任意 Go 时长字符串（如 `5s`、`500ms`）。若在慢速系统上出现 Docker 超时，可适当增大此值。
+
+### `EXIT_ON_DNS_ERROR`
+
+设置为 `true` 时，代理在发生 DNS 查询失败时立即退出，而非重试连接。适用于 DNS 失败表示永久性配置错误而非临时网络问题的环境。
 
 ### `GPU_COLLECTOR` {#gpu-collector}
 
