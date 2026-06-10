@@ -14,6 +14,9 @@
 | `CONTAINER_DETAILS`     | true   | 允许在 Web 界面中查看容器详情（inspect, logs）。                                                                                 |
 | `CSP`                   | 未设置 | 添加具有此值的 [Content-Security-Policy](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Content-Security-Policy) 头。 |
 | `DISABLE_PASSWORD_AUTH` | false  | 禁用密码认证。                                                                                                                   |
+| `HEARTBEAT_INTERVAL`    | `60`   | 心跳 ping 之间的间隔秒数。若未设置 `HEARTBEAT_URL` 则无效。                                                                     |
+| `HEARTBEAT_METHOD`      | `POST` | 心跳 ping 使用的 HTTP 方法。有效值：`GET`、`POST`、`HEAD`。                                                                     |
+| `HEARTBEAT_URL`         | 未设置 | 定期 ping 的外部 URL。启用[心跳监控](#heartbeat-monitoring)。为空时禁用此功能。                                                  |
 | `MFA_OTP`               | false  | 为用户和/或超级用户启用 OTP 认证。                                                                                               |
 | `SHARE_ALL_SYSTEMS`     | false  | 允许所有用户访问所有系统。                                                                                                       |
 | `TRUSTED_AUTH_HEADER`   | 未设置 | 用于转发身份验证的可信头。                                                                                                       |
@@ -38,6 +41,47 @@
 ### `SHARE_ALL_SYSTEMS`
 
 如果为 true，所有用户都可以看到系统。除非用户被分配了 `readonly` 角色，否则他们还可以编辑或删除任何系统。
+
+### 心跳监控 {#heartbeat-monitoring}
+
+若通过环境变量设置，这些值优先生效，且设置页面将变为只读。
+
+设置 `HEARTBEAT_URL` 后，Beszel 会定期向指定 URL 发送出站 ping（例如 [Healthchecks.io](https://healthchecks.io)、[BetterStack](https://betterstack.com) 或 [Uptime Kuma](https://github.com/louislam/uptime-kuma) 端点）。这让您可以通过"死人开关"方式监控 Beszel 实例自身的健康状态——若 ping 停止到达，外部服务将向您发出警报。
+
+使用默认的 `POST` 方法时，Beszel 会发送包含当前状态摘要的 JSON 负载：
+
+```json
+{
+  "status": "error",
+  "timestamp": "2026-02-20T14:30:00Z",
+  "msg": "1 system(s) down: Production-DB",
+  "systems": {
+    "total": 5,
+    "up": 3,
+    "down": 1,
+    "paused": 1,
+    "pending": 0
+  },
+  "down_systems": [
+    {
+      "id": "abc123def456",
+      "name": "Production DB",
+      "host": "db.example.com"
+    }
+  ],
+  "triggered_alerts": [
+    {
+      "system_id": "xyz789ghi012",
+      "system_name": "Web Server 01",
+      "alert_name": "CPU",
+      "threshold": 80
+    }
+  ],
+  "beszel_version": "0.18.4"
+}
+```
+
+对于仅需要简单 ping 请求而无需请求体的服务，请使用 `GET` 或 `HEAD`。
 
 ### `TRUSTED_AUTH_HEADER`
 

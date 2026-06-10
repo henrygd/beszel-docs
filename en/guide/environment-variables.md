@@ -14,6 +14,9 @@ Environment variables may optionally be prefixed with `BESZEL_HUB_`.
 | `CONTAINER_DETAILS`     | true    | Allow viewing container details (inspect, logs) in the web UI.                                                                              |
 | `CSP`                   | unset   | Adds a [Content-Security-Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy) header with this value. |
 | `DISABLE_PASSWORD_AUTH` | false   | Disables password authentication.                                                                                                           |
+| `HEARTBEAT_INTERVAL`    | `60`    | Seconds between heartbeat pings. Has no effect if `HEARTBEAT_URL` is unset.                                                                 |
+| `HEARTBEAT_METHOD`      | `POST`  | HTTP method for heartbeat pings. Valid values: `GET`, `POST`, `HEAD`.                                                                        |
+| `HEARTBEAT_URL`         | unset   | External URL to ping periodically. Enables [heartbeat monitoring](#heartbeat-monitoring). Feature is disabled if empty.                      |
 | `MFA_OTP`               | false   | Enables OTP authentication for users and/or superusers.                                                                                     |
 | `SHARE_ALL_SYSTEMS`     | false   | Allows access to all systems by all users.                                                                                                  |
 | `TRUSTED_AUTH_HEADER`   | unset   | Trusted header for forwarded authentication.                                                                                                |
@@ -38,6 +41,47 @@ Do not enable this unless you've configured an SMTP server.
 ### `SHARE_ALL_SYSTEMS`
 
 If true, systems will be visible to all users. Users can also edit or delete any system unless they are assigned the `readonly` role.
+
+### Heartbeat monitoring
+
+If set via environment variables, these values take precedence and the settings page becomes read-only.
+
+When `HEARTBEAT_URL` is set, Beszel sends a periodic outbound ping to the specified URL (e.g. a [Healthchecks.io](https://healthchecks.io), [BetterStack](https://betterstack.com), or [Uptime Kuma](https://github.com/louislam/uptime-kuma) endpoint). This lets you monitor the health of your Beszel instance itself using a dead man's switch approach — if pings stop arriving, the external service alerts you.
+
+When using the default `POST` method, Beszel sends a JSON payload with a summary of the current state:
+
+```json
+{
+  "status": "error",
+  "timestamp": "2026-02-20T14:30:00Z",
+  "msg": "1 system(s) down: Production-DB",
+  "systems": {
+    "total": 5,
+    "up": 3,
+    "down": 1,
+    "paused": 1,
+    "pending": 0
+  },
+  "down_systems": [
+    {
+      "id": "abc123def456",
+      "name": "Production DB",
+      "host": "db.example.com"
+    }
+  ],
+  "triggered_alerts": [
+    {
+      "system_id": "xyz789ghi012",
+      "system_name": "Web Server 01",
+      "alert_name": "CPU",
+      "threshold": 80
+    }
+  ],
+  "beszel_version": "0.18.4"
+}
+```
+
+Use `GET` or `HEAD` for services that only require a simple ping request without a body.
 
 ### `TRUSTED_AUTH_HEADER`
 
