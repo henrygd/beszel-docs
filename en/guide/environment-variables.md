@@ -102,6 +102,7 @@ Environment variables may optionally be prefixed with `BESZEL_AGENT_`.
 
 | Name                      | Default | Description                                                                                          | Since |
 | ------------------------- | ------- | ---------------------------------------------------------------------------------------------------- | ----- |
+| `AMD_SYSFS`               | false   | Use AMD sysfs interface instead of `rocm-smi` for AMD GPU data. Deprecated; use `GPU_COLLECTOR` instead.                                    | - |
 | `DATA_DIR`                | unset   | Persistent data directory.                                                                           | - |
 | `DISABLE_SSH`             | false   | Disable the SSH server completely (WebSocket connection only).                                       | 0.18.4 |
 | `DISK_USAGE_CACHE`        | unset   | Provide a duration like `5m` or `1h` to cache usage of extra disks and avoid waking them to recheck. | 0.17.0 |
@@ -110,6 +111,7 @@ Environment variables may optionally be prefixed with `BESZEL_AGENT_`.
 | `EXCLUDE_SMART`           | unset   | Exclude S.M.A.R.T. devices from being monitored.                                                     | 0.16.0 |
 | `EXTRA_FILESYSTEMS`       | unset   | Monitor extra disks if using binary. See [Additional Disks](./additional-disks).                     | - |
 | `FILESYSTEM`              | unset   | Device, partition, or mount point to use for root disk stats.                                        | - |
+| `GPU_COLLECTOR`           | unset   | Ordered comma-separated list of GPU collectors. Overrides auto-detection. See [`GPU_COLLECTOR`](#gpu-collector). | - |
 | `HUB_URL`                 | unset   | URL of the hub.                                                                                      | - |
 | `INTEL_GPU_DEVICE`        | unset   | Specify `-d` value for `intel_gpu_top`. See [Intel GPU](./gpu.md#intel).                             | 0.15.3 |
 | `KEY`                     | unset   | Public SSH key(s) to use for authentication. Provided in hub.                                        | - |
@@ -135,6 +137,10 @@ Environment variables may optionally be prefixed with `BESZEL_AGENT_`.
 | `TOKEN`                   | unset   | WebSocket registration token. Provided in hub.                                                       | - |
 | `TOKEN_FILE`              | unset   | Read token from a file instead of an environment variable.                                           | - |
 
+### `AMD_SYSFS`
+
+Deprecated in favor of `GPU_COLLECTOR`. When set to `true`, uses the AMD sysfs interface for GPU data collection instead of `rocm-smi`. Set `GPU_COLLECTOR=amd_sysfs` for equivalent behavior.
+
 ### `DATA_DIR`
 
 Attempts to find a suitable directory if unset. Currently only used to store the system fingerprint, but may be used in the future for a SQLite database. The fingerprint is deterministic, so in most cases you can ignore warnings if no directory is found.
@@ -144,6 +150,23 @@ Attempts to find a suitable directory if unset. Currently only used to store the
 Docker socket proxies provide a more secure alternative to a direct `docker.sock` connection by filtering API requests. Beszel only needs read access to container information. For [linuxserver/docker-socket-proxy](https://github.com/linuxserver/docker-socket-proxy) you would set `CONTAINERS=1`.
 
 You may also set this to an empty string (`DOCKER_HOST=""`) to completely disable Docker monitoring.
+
+### `GPU_COLLECTOR` {#gpu-collector}
+
+Comma-separated list of collectors to try in order. Overrides the default auto-detection priority. Valid values:
+
+| Value          | Description                                      |
+| -------------- | ------------------------------------------------ |
+| `nvtop`        | nvtop (multi-vendor)                             |
+| `nvml`         | NVIDIA Management Library (requires `NVML=true`) |
+| `nvidia-smi`   | NVIDIA System Management Interface               |
+| `intel_gpu_top`| Intel GPU top                                    |
+| `amd_sysfs`    | AMD sysfs interface                              |
+| `rocm-smi`     | AMD ROCm System Management Interface             |
+| `macmon`       | macmon (Apple Silicon)                           |
+| `powermetrics` | powermetrics (macOS)                             |
+
+Example: `GPU_COLLECTOR=nvml,nvidia-smi` tries NVML first, falling back to nvidia-smi.
 
 ### `KEY` / `KEY_FILE`
 

@@ -98,6 +98,7 @@
 
 | 名称                      | 默认值 | 描述                                                                                         | Since |
 | ------------------------- | ------ | -------------------------------------------------------------------------------------------- | ----- |
+| `AMD_SYSFS`               | false  | 使用 AMD sysfs 接口代替 `rocm-smi` 获取 AMD GPU 数据。已弃用，请改用 `GPU_COLLECTOR`。                                                     | - |
 | `DATA_DIR`                | 未设置 | 持久数据目录。                                                                               | - |
 | `DISABLE_SSH`             | false  | 禁用 SSH 服务器（仅 WebSocket 连接）。                                                         | 0.18.4 |
 | `DISK_USAGE_CACHE`        | 未设置 | 提供类似 `5m` 或 `1h` 的持续时间来缓存额外磁盘的使用情况，避免唤醒它们进行重新检查。         | 0.17.0 |
@@ -106,6 +107,7 @@
 | `EXCLUDE_SMART`           | 未设置 | 排除 S.M.A.R.T. 设备不被监控。                                                               | 0.16.0 |
 | `EXTRA_FILESYSTEMS`       | 未设置 | 如果使用二进制文件，则监控额外的磁盘。请参阅 [其他磁盘](./additional-disks.md)。             | - |
 | `FILESYSTEM`              | 未设置 | 用于根磁盘统计的设备、分区或挂载点。                                                         | - |
+| `GPU_COLLECTOR`           | 未设置 | 按优先级排列的 GPU 采集器逗号分隔列表，覆盖自动检测。详见 [`GPU_COLLECTOR`](#gpu-collector)。 | - |
 | `HUB_URL`                 | 未设置 | 中心的 URL。                                                                                 | - |
 | `INTEL_GPU_DEVICE`        | 未设置 | 指定 `intel_gpu_top` 的 `-d` 值。请参阅 [Intel GPU](./gpu.md#intel)。                        | 0.15.3 |
 | `KEY`                     | 未设置 | 用于身份验证的公共 SSH 密钥（可多个）。在中心提供。                                          | - |
@@ -131,6 +133,10 @@
 | `TOKEN`                   | 未设置 | WebSocket 注册令牌。在中心提供。                                                             | - |
 | `TOKEN_FILE`              | 未设置 | 从文件中读取令牌，而不是从环境变量中读取。                                                   | - |
 
+### `AMD_SYSFS`
+
+已弃用，请改用 `GPU_COLLECTOR`。设置为 `true` 时，使用 AMD sysfs 接口采集 GPU 数据，而非 `rocm-smi`。等效于设置 `GPU_COLLECTOR=amd_sysfs`。
+
 ### `DATA_DIR`
 
 如果未设置，则尝试查找合适的目录。目前仅用于存储系统指纹，但将来可能用于 SQLite 数据库。指纹是确定性的，因此在大多数情况下，如果找不到目录，可以忽略警告。
@@ -140,6 +146,23 @@
 Docker 套接字代理通过过滤 API 请求，提供了比直接连接 `docker.sock` 更安全的选择。Beszel 只需要读取容器信息的权限。对于 [linuxserver/docker-socket-proxy](https://github.com/linuxserver/docker-socket-proxy)，您需要设置 `CONTAINERS=1`．
 
 您也可以将其设置为空字符串（`DOCKER_HOST=""`）以完全禁用 Docker 监控。
+
+### `GPU_COLLECTOR` {#gpu-collector}
+
+按优先级排列的采集器逗号分隔列表，覆盖默认自动检测顺序。有效值：
+
+| 值               | 说明                                              |
+| ---------------- | ------------------------------------------------- |
+| `nvtop`          | nvtop（多厂商）                                   |
+| `nvml`           | NVIDIA 管理库（需要 `NVML=true`）                 |
+| `nvidia-smi`     | NVIDIA 系统管理接口                               |
+| `intel_gpu_top`  | Intel GPU top                                     |
+| `amd_sysfs`      | AMD sysfs 接口                                    |
+| `rocm-smi`       | AMD ROCm 系统管理接口                             |
+| `macmon`         | macmon（Apple Silicon）                           |
+| `powermetrics`   | powermetrics（macOS）                             |
+
+示例：`GPU_COLLECTOR=nvml,nvidia-smi` 优先尝试 NVML，失败时回退到 nvidia-smi。
 
 ### `KEY` / `KEY_FILE`
 
