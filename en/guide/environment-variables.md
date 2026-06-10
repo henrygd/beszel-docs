@@ -18,6 +18,7 @@ Environment variables may optionally be prefixed with `BESZEL_HUB_`.
 | `HEARTBEAT_METHOD`      | `POST`  | HTTP method for heartbeat pings. Valid values: `GET`, `POST`, `HEAD`.                                                                        |
 | `HEARTBEAT_URL`         | unset   | External URL to ping periodically. Enables [heartbeat monitoring](#heartbeat-monitoring). Feature is disabled if empty.                      |
 | `MFA_OTP`               | false   | Enables OTP authentication for users and/or superusers.                                                                                     |
+| `OAUTH_DISABLE_POPUP`   | false   | Disables the OAuth2 popup window. Useful when OAuth is used behind a reverse proxy or in embedded browser environments.                      |
 | `SHARE_ALL_SYSTEMS`     | false   | Allows access to all systems by all users.                                                                                                  |
 | `TRUSTED_AUTH_HEADER`   | unset   | Trusted header for forwarded authentication.                                                                                                |
 | `USER_CREATION`         | false   | Enables automatic user creation for OAuth2 / OIDC.                                                                                          |
@@ -41,6 +42,10 @@ Do not enable this unless you've configured an SMTP server.
 ### `SHARE_ALL_SYSTEMS`
 
 If true, systems will be visible to all users. Users can also edit or delete any system unless they are assigned the `readonly` role.
+
+### `OAUTH_DISABLE_POPUP`
+
+When set to `true`, the OAuth2 login flow opens in the same window instead of a popup. Set this if your reverse proxy or browser environment blocks popup windows.
 
 ### Heartbeat monitoring
 

@@ -18,6 +18,7 @@
 | `HEARTBEAT_METHOD`      | `POST` | 心跳 ping 使用的 HTTP 方法。有效值：`GET`、`POST`、`HEAD`。                                                                     |
 | `HEARTBEAT_URL`         | 未设置 | 定期 ping 的外部 URL。启用[心跳监控](#heartbeat-monitoring)。为空时禁用此功能。                                                  |
 | `MFA_OTP`               | false  | 为用户和/或超级用户启用 OTP 认证。                                                                                               |
+| `OAUTH_DISABLE_POPUP`   | false  | 禁用 OAuth2 弹出窗口。适用于反向代理或嵌入式浏览器环境中使用 OAuth 的场景。                                                      |
 | `SHARE_ALL_SYSTEMS`     | false  | 允许所有用户访问所有系统。                                                                                                       |
 | `TRUSTED_AUTH_HEADER`   | 未设置 | 用于转发身份验证的可信头。                                                                                                       |
 | `USER_CREATION`         | false  | 启用 OAuth2 / OIDC 的自动用户创建。                                                                                              |
@@ -41,6 +42,10 @@
 ### `SHARE_ALL_SYSTEMS`
 
 如果为 true，所有用户都可以看到系统。除非用户被分配了 `readonly` 角色，否则他们还可以编辑或删除任何系统。
+
+### `OAUTH_DISABLE_POPUP`
+
+设置为 `true` 时，OAuth2 登录流程将在同一窗口中打开，而非弹出窗口。当反向代理或浏览器环境阻止弹出窗口时，请设置此选项。
 
 ### 心跳监控 {#heartbeat-monitoring}
 
