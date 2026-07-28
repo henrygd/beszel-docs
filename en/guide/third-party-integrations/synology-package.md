@@ -83,8 +83,9 @@ Specify your drives in the format `/dev/sd{x}:sat`, separated by commas. You can
 - `/dev/sdr:sat` is typically used for an external USB drive
 
 ::: info
-Although your disks may not be of the `sat` type, this is the required format for beszel to be able to read SMART data.
+Although your disks may not be of the `sat` type, this is seemingly the required format for Synology `smartctl` to be able to read SMART data 🤷.
 :::
+
 
 ---
 
