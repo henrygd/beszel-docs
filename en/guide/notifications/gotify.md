@@ -35,3 +35,11 @@ Props can be supplied through URL query params: `?key=value&key=value` etc.
 ::: tip With subpath
 <span class="bk">gotify://example.com:443/path/to/gotify/AzyoeNS.D4iJLVa/?priority=0</span>
 :::
+
+## Exceptions
+
+If using Gotify 3.x which prepends tokens with 'gtfya.' (e.g. 'gtfya.AzyoeNS.D4iJLVa') you must use the generic notification syntax, not the gotify notification syntax.
+
+Example: generic://gotify.yourdomain.com/message?token=gtfya.AzyoeNS.D4iJLVa&@content-type=application/json&template=json
+
+Note: when using the generic syntax, Shoutrrr expects communication over HTTPS.
