@@ -13,7 +13,22 @@ zpool list
 zfs list
 ```
 
-Because the agent shells out to these tools, ZFS monitoring requires the **binary agent** running on the host (or any system with OpenZFS installed). The default Docker agent image does not include the ZFS utilities.
+## Docker agent
+
+Use the `:alpine` image, which includes the ZFS utilities, and map the ZFS control device into the container:
+
+```yaml
+beszel-agent:
+  image: henrygd/beszel-agent:alpine
+  devices:
+    - /dev/zfs:/dev/zfs
+```
+
+Mapping `/dev/zfs` is required — without it the ZFS commands cannot communicate with the kernel and no pool data will be reported.
+
+## Binary agent
+
+The binary agent needs `zpool` and `zfs` available to its user on the host, which OpenZFS provides on Proxmox, TrueNAS, and most distributions that ship ZFS.
 
 ## What is displayed
 

@@ -13,7 +13,22 @@ zpool list
 zfs list
 ```
 
-由于代理需要调用这些工具，ZFS 监控要求使用在宿主机上运行的**二进制代理**（或其他安装了 OpenZFS 的系统）。默认的 Docker 代理镜像不包含 ZFS 工具。
+## Docker 代理
+
+使用包含 ZFS 工具的 `:alpine` 镜像，并将 ZFS 控制设备映射到容器中：
+
+```yaml
+beszel-agent:
+  image: henrygd/beszel-agent:alpine
+  devices:
+    - /dev/zfs:/dev/zfs
+```
+
+必须映射 `/dev/zfs` — 如果没有它，ZFS 命令无法与内核通信，也不会报告任何存储池数据。
+
+## 二进制代理
+
+二进制代理需要其用户可以在宿主机上访问 `zpool` 和 `zfs`，Proxmox、TrueNAS 以及大多数自带 ZFS 的发行版都提供 OpenZFS。
 
 ## 显示内容
 
