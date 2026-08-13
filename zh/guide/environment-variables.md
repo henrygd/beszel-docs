@@ -150,6 +150,8 @@ Docker 套接字代理通过过滤 API 请求，提供了比直接连接 `docker
 SERVICE_PATTERNS="beszel*,docker*,kubelet*"
 ```
 
+只有匹配的服务才有资格触发 [故障服务警报](./systemd.md#警报)。
+
 ### `SMART_DEVICES`
 
 用于覆盖 `smartctl --scan` 检测到的设备。每个设备指定为冒号分隔的对，由设备路径和（可选的）设备类型组成。例如：

@@ -154,6 +154,8 @@ Comma-separated list of glob patterns to match systemd service names. Services m
 SERVICE_PATTERNS="beszel*,docker*,kubelet*"
 ```
 
+Only matched services are eligible to trigger the [Failed Services alert](./systemd.md#alerts).
+
 ### `SMART_DEVICES`
 
 Used to override the devices detected by `smartctl --scan`. Each device is specified as a colon-separated pair of the device path and (optionally) the device type. For example:
