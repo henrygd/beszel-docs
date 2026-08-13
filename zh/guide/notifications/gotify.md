@@ -35,3 +35,11 @@
 ::: tip 带子路径
 <span class="bk">gotify://example.com:443/path/to/gotify/AzyoeNS.D4iJLVa/?priority=0</span>
 :::
+
+## 例外情况
+
+如果使用 Gotify 3.x（其令牌带有 'gtfya.' 前缀，例如 'gtfya.AzyoeNS.D4iJLVa'），则必须使用通用通知语法，而不是 gotify 通知语法。
+
+示例：generic://gotify.yourdomain.com/message?token=gtfya.AzyoeNS.D4iJLVa&@content-type=application/json&template=json
+
+注意：使用通用语法时，Shoutrrr 需要通过 HTTPS 进行通信。
