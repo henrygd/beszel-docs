@@ -14,7 +14,11 @@ Environment variables may optionally be prefixed with `BESZEL_HUB_`.
 | `CONTAINER_DETAILS`     | true    | Allow viewing container details (inspect, logs) in the web UI.                                                                              |
 | `CSP`                   | unset   | Adds a [Content-Security-Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy) header with this value. |
 | `DISABLE_PASSWORD_AUTH` | false   | Disables password authentication.                                                                                                           |
+| `HEARTBEAT_INTERVAL`    | `60`    | Seconds between heartbeat pings. Has no effect if `HEARTBEAT_URL` is unset.                                                                 |
+| `HEARTBEAT_METHOD`      | `POST`  | HTTP method for heartbeat pings. Valid values: `GET`, `POST`, `HEAD`.                                                                        |
+| `HEARTBEAT_URL`         | unset   | External URL to ping periodically. Enables [heartbeat monitoring](#heartbeat-monitoring). Feature is disabled if empty.                      |
 | `MFA_OTP`               | false   | Enables OTP authentication for users and/or superusers.                                                                                     |
+| `OAUTH_DISABLE_POPUP`   | false   | Disables the OAuth2 popup window. Useful when OAuth is used behind a reverse proxy or in embedded browser environments.                      |
 | `SHARE_ALL_SYSTEMS`     | false   | Allows access to all systems by all users.                                                                                                  |
 | `TRUSTED_AUTH_HEADER`   | unset   | Trusted header for forwarded authentication.                                                                                                |
 | `USER_CREATION`         | false   | Enables automatic user creation for OAuth2 / OIDC.                                                                                          |
@@ -39,6 +43,51 @@ Do not enable this unless you've configured an SMTP server.
 
 If true, systems will be visible to all users. Users can also edit or delete any system unless they are assigned the `readonly` role.
 
+### `OAUTH_DISABLE_POPUP`
+
+When set to `true`, the OAuth2 login flow opens in the same window instead of a popup. Set this if your reverse proxy or browser environment blocks popup windows.
+
+### Heartbeat monitoring
+
+If set via environment variables, these values take precedence and the settings page becomes read-only.
+
+When `HEARTBEAT_URL` is set, Beszel sends a periodic outbound ping to the specified URL (e.g. a [Healthchecks.io](https://healthchecks.io), [BetterStack](https://betterstack.com), or [Uptime Kuma](https://github.com/louislam/uptime-kuma) endpoint). This lets you monitor the health of your Beszel instance itself using a dead man's switch approach — if pings stop arriving, the external service alerts you.
+
+When using the default `POST` method, Beszel sends a JSON payload with a summary of the current state:
+
+```json
+{
+  "status": "error",
+  "timestamp": "2026-02-20T14:30:00Z",
+  "msg": "1 system(s) down: Production-DB",
+  "systems": {
+    "total": 5,
+    "up": 3,
+    "down": 1,
+    "paused": 1,
+    "pending": 0
+  },
+  "down_systems": [
+    {
+      "id": "abc123def456",
+      "name": "Production DB",
+      "host": "db.example.com"
+    }
+  ],
+  "triggered_alerts": [
+    {
+      "system_id": "xyz789ghi012",
+      "system_name": "Web Server 01",
+      "alert_name": "CPU",
+      "threshold": 80
+    }
+  ],
+  "beszel_version": "0.18.4"
+}
+```
+
+Use `GET` or `HEAD` for services that only require a simple ping request without a body.
+
 ### `TRUSTED_AUTH_HEADER`
 
 Don't set this unless you are implementing your own authentication and want to bypass the built-in authentication. The specified header should include the authenticated user's email.
@@ -53,14 +102,19 @@ Environment variables may optionally be prefixed with `BESZEL_AGENT_`.
 
 | Name                      | Default | Description                                                                                          | Since |
 | ------------------------- | ------- | ---------------------------------------------------------------------------------------------------- | ----- |
+| `ALL_PROXY`               | unset   | SOCKS5 proxy for the agent's outbound WebSocket connection to the hub. | - |
+| `AMD_SYSFS`               | false   | Use AMD sysfs interface instead of `rocm-smi` for AMD GPU data. Deprecated; use `GPU_COLLECTOR` instead.                                    | - |
 | `DATA_DIR`                | unset   | Persistent data directory.                                                                           | - |
 | `DISABLE_SSH`             | false   | Disable the SSH server completely (WebSocket connection only).                                       | 0.18.4 |
 | `DISK_USAGE_CACHE`        | unset   | Provide a duration like `5m` or `1h` to cache usage of extra disks and avoid waking them to recheck. | 0.17.0 |
 | `DOCKER_HOST`             | unset   | Overrides the Docker host (docker.sock).                                                             | - |
+| `DOCKER_TIMEOUT`          | `2100ms`| Overrides the Docker API call timeout. Accepts Go duration format (e.g. `5s`, `2100ms`).            | - |
 | `EXCLUDE_CONTAINERS`      | unset   | Exclude containers from being monitored.                                                             | 0.15.3 |
 | `EXCLUDE_SMART`           | unset   | Exclude S.M.A.R.T. devices from being monitored.                                                     | 0.16.0 |
+| `EXIT_ON_DNS_ERROR`       | false   | Exit the agent instead of retrying when a DNS lookup failure occurs on the hub connection.           | - |
 | `EXTRA_FILESYSTEMS`       | unset   | Monitor extra disks if using binary. See [Additional Disks](./additional-disks).                     | - |
 | `FILESYSTEM`              | unset   | Device, partition, or mount point to use for root disk stats.                                        | - |
+| `GPU_COLLECTOR`           | unset   | Ordered comma-separated list of GPU collectors. Overrides auto-detection. See [`GPU_COLLECTOR`](#gpu-collector). | - |
 | `HUB_URL`                 | unset   | URL of the hub.                                                                                      | - |
 | `INTEL_GPU_DEVICE`        | unset   | Specify `-d` value for `intel_gpu_top`. See [Intel GPU](./gpu.md#intel).                             | 0.15.3 |
 | `KEY`                     | unset   | Public SSH key(s) to use for authentication. Provided in hub.                                        | - |
@@ -86,6 +140,16 @@ Environment variables may optionally be prefixed with `BESZEL_AGENT_`.
 | `TOKEN`                   | unset   | WebSocket registration token. Provided in hub.                                                       | - |
 | `TOKEN_FILE`              | unset   | Read token from a file instead of an environment variable.                                           | - |
 
+### `ALL_PROXY`
+
+Routes the agent's outbound WebSocket connection to the hub through a SOCKS5 proxy. Only `socks5://` and `socks5h://` schemes are supported (`socks5h` resolves DNS on the proxy side).
+
+Example: `ALL_PROXY=socks5h://proxy.example.com:1080`
+
+### `AMD_SYSFS`
+
+Deprecated in favor of `GPU_COLLECTOR`. When set to `true`, uses the AMD sysfs interface for GPU data collection instead of `rocm-smi`. Set `GPU_COLLECTOR=amd_sysfs` for equivalent behavior.
+
 ### `DATA_DIR`
 
 Attempts to find a suitable directory if unset. Currently only used to store the system fingerprint, but may be used in the future for a SQLite database. The fingerprint is deterministic, so in most cases you can ignore warnings if no directory is found.
@@ -95,6 +159,31 @@ Attempts to find a suitable directory if unset. Currently only used to store the
 Docker socket proxies provide a more secure alternative to a direct `docker.sock` connection by filtering API requests. Beszel only needs read access to container information. For [linuxserver/docker-socket-proxy](https://github.com/linuxserver/docker-socket-proxy) you would set `CONTAINERS=1`.
 
 You may also set this to an empty string (`DOCKER_HOST=""`) to completely disable Docker monitoring.
+
+### `DOCKER_TIMEOUT`
+
+Overrides the default Docker API call timeout of `2100ms`. Accepts any Go duration string (e.g. `5s`, `500ms`). Increase this if you see Docker-related timeouts on slow systems.
+
+### `EXIT_ON_DNS_ERROR`
+
+When set to `true`, the agent exits immediately on a DNS lookup failure instead of retrying the connection. Useful in environments where a DNS failure indicates a permanent misconfiguration rather than a transient network issue.
+
+### `GPU_COLLECTOR` {#gpu-collector}
+
+Comma-separated list of collectors to try in order. Overrides the default auto-detection priority. Valid values:
+
+| Value          | Description                                      |
+| -------------- | ------------------------------------------------ |
+| `nvtop`        | nvtop (multi-vendor)                             |
+| `nvml`         | NVIDIA Management Library (requires `NVML=true`) |
+| `nvidia-smi`   | NVIDIA System Management Interface               |
+| `intel_gpu_top`| Intel GPU top                                    |
+| `amd_sysfs`    | AMD sysfs interface                              |
+| `rocm-smi`     | AMD ROCm System Management Interface             |
+| `macmon`       | macmon (Apple Silicon)                           |
+| `powermetrics` | powermetrics (macOS)                             |
+
+Example: `GPU_COLLECTOR=nvml,nvidia-smi` tries NVML first, falling back to nvidia-smi.
 
 ### `KEY` / `KEY_FILE`
 

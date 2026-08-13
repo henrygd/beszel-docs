@@ -14,7 +14,11 @@
 | `CONTAINER_DETAILS`     | true   | 允许在 Web 界面中查看容器详情（inspect, logs）。                                                                                 |
 | `CSP`                   | 未设置 | 添加具有此值的 [Content-Security-Policy](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Content-Security-Policy) 头。 |
 | `DISABLE_PASSWORD_AUTH` | false  | 禁用密码认证。                                                                                                                   |
+| `HEARTBEAT_INTERVAL`    | `60`   | 心跳 ping 之间的间隔秒数。若未设置 `HEARTBEAT_URL` 则无效。                                                                     |
+| `HEARTBEAT_METHOD`      | `POST` | 心跳 ping 使用的 HTTP 方法。有效值：`GET`、`POST`、`HEAD`。                                                                     |
+| `HEARTBEAT_URL`         | 未设置 | 定期 ping 的外部 URL。启用[心跳监控](#heartbeat-monitoring)。为空时禁用此功能。                                                  |
 | `MFA_OTP`               | false  | 为用户和/或超级用户启用 OTP 认证。                                                                                               |
+| `OAUTH_DISABLE_POPUP`   | false  | 禁用 OAuth2 弹出窗口。适用于反向代理或嵌入式浏览器环境中使用 OAuth 的场景。                                                      |
 | `SHARE_ALL_SYSTEMS`     | false  | 允许所有用户访问所有系统。                                                                                                       |
 | `TRUSTED_AUTH_HEADER`   | 未设置 | 用于转发身份验证的可信头。                                                                                                       |
 | `USER_CREATION`         | false  | 启用 OAuth2 / OIDC 的自动用户创建。                                                                                              |
@@ -39,6 +43,51 @@
 
 如果为 true，所有用户都可以看到系统。除非用户被分配了 `readonly` 角色，否则他们还可以编辑或删除任何系统。
 
+### `OAUTH_DISABLE_POPUP`
+
+设置为 `true` 时，OAuth2 登录流程将在同一窗口中打开，而非弹出窗口。当反向代理或浏览器环境阻止弹出窗口时，请设置此选项。
+
+### 心跳监控 {#heartbeat-monitoring}
+
+若通过环境变量设置，这些值优先生效，且设置页面将变为只读。
+
+设置 `HEARTBEAT_URL` 后，Beszel 会定期向指定 URL 发送出站 ping（例如 [Healthchecks.io](https://healthchecks.io)、[BetterStack](https://betterstack.com) 或 [Uptime Kuma](https://github.com/louislam/uptime-kuma) 端点）。这让您可以通过"死人开关"方式监控 Beszel 实例自身的健康状态——若 ping 停止到达，外部服务将向您发出警报。
+
+使用默认的 `POST` 方法时，Beszel 会发送包含当前状态摘要的 JSON 负载：
+
+```json
+{
+  "status": "error",
+  "timestamp": "2026-02-20T14:30:00Z",
+  "msg": "1 system(s) down: Production-DB",
+  "systems": {
+    "total": 5,
+    "up": 3,
+    "down": 1,
+    "paused": 1,
+    "pending": 0
+  },
+  "down_systems": [
+    {
+      "id": "abc123def456",
+      "name": "Production DB",
+      "host": "db.example.com"
+    }
+  ],
+  "triggered_alerts": [
+    {
+      "system_id": "xyz789ghi012",
+      "system_name": "Web Server 01",
+      "alert_name": "CPU",
+      "threshold": 80
+    }
+  ],
+  "beszel_version": "0.18.4"
+}
+```
+
+对于仅需要简单 ping 请求而无需请求体的服务，请使用 `GET` 或 `HEAD`。
+
 ### `TRUSTED_AUTH_HEADER`
 
 除非您正在实现自己的身份验证并希望绕过内置身份验证，否则不要设置此选项。指定的头应包含已认证用户的电子邮件。例如，当使用 Cloudflare Access 时，您可能会设置 `TRUSTED_AUTH_HEADER=Cf-Access-Authenticated-User-Email`，因为 Cloudflare 使用该头来提供用户电子邮件。
@@ -49,14 +98,19 @@
 
 | 名称                      | 默认值 | 描述                                                                                         | Since |
 | ------------------------- | ------ | -------------------------------------------------------------------------------------------- | ----- |
+| `ALL_PROXY`               | 未设置 | 代理出站 WebSocket 连接至中心的 SOCKS5 代理。                                                                                                 | - |
+| `AMD_SYSFS`               | false  | 使用 AMD sysfs 接口代替 `rocm-smi` 获取 AMD GPU 数据。已弃用，请改用 `GPU_COLLECTOR`。                                                     | - |
 | `DATA_DIR`                | 未设置 | 持久数据目录。                                                                               | - |
 | `DISABLE_SSH`             | false  | 禁用 SSH 服务器（仅 WebSocket 连接）。                                                         | 0.18.4 |
 | `DISK_USAGE_CACHE`        | 未设置 | 提供类似 `5m` 或 `1h` 的持续时间来缓存额外磁盘的使用情况，避免唤醒它们进行重新检查。         | 0.17.0 |
 | `DOCKER_HOST`             | 未设置 | 覆盖 Docker 主机 (docker.sock)。                                                             | - |
+| `DOCKER_TIMEOUT`          | `2100ms`| 覆盖 Docker API 调用超时。接受 Go 时长格式（如 `5s`、`2100ms`）。                     | - |
 | `EXCLUDE_CONTAINERS`      | 未设置 | 排除容器不被监控。                                                                           | 0.15.3 |
 | `EXCLUDE_SMART`           | 未设置 | 排除 S.M.A.R.T. 设备不被监控。                                                               | 0.16.0 |
+| `EXIT_ON_DNS_ERROR`       | false  | 发生 DNS 查询失败时退出代理，而非重试连接。                                              | - |
 | `EXTRA_FILESYSTEMS`       | 未设置 | 如果使用二进制文件，则监控额外的磁盘。请参阅 [其他磁盘](./additional-disks.md)。             | - |
 | `FILESYSTEM`              | 未设置 | 用于根磁盘统计的设备、分区或挂载点。                                                         | - |
+| `GPU_COLLECTOR`           | 未设置 | 按优先级排列的 GPU 采集器逗号分隔列表，覆盖自动检测。详见 [`GPU_COLLECTOR`](#gpu-collector)。 | - |
 | `HUB_URL`                 | 未设置 | 中心的 URL。                                                                                 | - |
 | `INTEL_GPU_DEVICE`        | 未设置 | 指定 `intel_gpu_top` 的 `-d` 值。请参阅 [Intel GPU](./gpu.md#intel)。                        | 0.15.3 |
 | `KEY`                     | 未设置 | 用于身份验证的公共 SSH 密钥（可多个）。在中心提供。                                          | - |
@@ -82,6 +136,16 @@
 | `TOKEN`                   | 未设置 | WebSocket 注册令牌。在中心提供。                                                             | - |
 | `TOKEN_FILE`              | 未设置 | 从文件中读取令牌，而不是从环境变量中读取。                                                   | - |
 
+### `ALL_PROXY`
+
+将代理出站 WebSocket 连接路由通过 SOCKS5 代理。仅支持 `socks5://` 和 `socks5h://` 协议（`socks5h` 在代理端解析 DNS）。
+
+示例：`ALL_PROXY=socks5h://proxy.example.com:1080`
+
+### `AMD_SYSFS`
+
+已弃用，请改用 `GPU_COLLECTOR`。设置为 `true` 时，使用 AMD sysfs 接口采集 GPU 数据，而非 `rocm-smi`。等效于设置 `GPU_COLLECTOR=amd_sysfs`。
+
 ### `DATA_DIR`
 
 如果未设置，则尝试查找合适的目录。目前仅用于存储系统指纹，但将来可能用于 SQLite 数据库。指纹是确定性的，因此在大多数情况下，如果找不到目录，可以忽略警告。
@@ -91,6 +155,31 @@
 Docker 套接字代理通过过滤 API 请求，提供了比直接连接 `docker.sock` 更安全的选择。Beszel 只需要读取容器信息的权限。对于 [linuxserver/docker-socket-proxy](https://github.com/linuxserver/docker-socket-proxy)，您需要设置 `CONTAINERS=1`．
 
 您也可以将其设置为空字符串（`DOCKER_HOST=""`）以完全禁用 Docker 监控。
+
+### `DOCKER_TIMEOUT`
+
+覆盖默认 Docker API 调用超时（`2100ms`）。接受任意 Go 时长字符串（如 `5s`、`500ms`）。若在慢速系统上出现 Docker 超时，可适当增大此值。
+
+### `EXIT_ON_DNS_ERROR`
+
+设置为 `true` 时，代理在发生 DNS 查询失败时立即退出，而非重试连接。适用于 DNS 失败表示永久性配置错误而非临时网络问题的环境。
+
+### `GPU_COLLECTOR` {#gpu-collector}
+
+按优先级排列的采集器逗号分隔列表，覆盖默认自动检测顺序。有效值：
+
+| 值               | 说明                                              |
+| ---------------- | ------------------------------------------------- |
+| `nvtop`          | nvtop（多厂商）                                   |
+| `nvml`           | NVIDIA 管理库（需要 `NVML=true`）                 |
+| `nvidia-smi`     | NVIDIA 系统管理接口                               |
+| `intel_gpu_top`  | Intel GPU top                                     |
+| `amd_sysfs`      | AMD sysfs 接口                                    |
+| `rocm-smi`       | AMD ROCm 系统管理接口                             |
+| `macmon`         | macmon（Apple Silicon）                           |
+| `powermetrics`   | powermetrics（macOS）                             |
+
+示例：`GPU_COLLECTOR=nvml,nvidia-smi` 优先尝试 NVML，失败时回退到 nvidia-smi。
 
 ### `KEY` / `KEY_FILE`
 
