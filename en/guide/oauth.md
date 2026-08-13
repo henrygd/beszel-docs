@@ -79,4 +79,5 @@ This is not a complete list, just providers known to work. If you're using somet
 - Keycloak
 - mailcow
 - [Pocket ID](https://pocket-id.org/docs/client-examples/beszel)
+- [VoidAuth](https://voidauth.app/#/OIDC-Guides?id=-beszel)
 - ZITADEL
