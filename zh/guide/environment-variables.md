@@ -100,6 +100,7 @@
 | ------------------------- | ------ | -------------------------------------------------------------------------------------------- | ----- |
 | `ALL_PROXY`               | 未设置 | 代理出站 WebSocket 连接至中心的 SOCKS5 代理。                                                                                                 | - |
 | `AMD_SYSFS`               | false  | 使用 AMD sysfs 接口代替 `rocm-smi` 获取 AMD GPU 数据。已弃用，请改用 `GPU_COLLECTOR`。                                                     | - |
+| `CA_CERT_FILE`            | 未设置 | 如果中心使用私有 CA 或自签名 CA，则设置为 PEM 证书文件。                                                                                       | 0.19.0 |
 | `DATA_DIR`                | 未设置 | 持久数据目录。                                                                               | - |
 | `DISABLE_SSH`             | false  | 禁用 SSH 服务器（仅 WebSocket 连接）。                                                         | 0.18.4 |
 | `DISK_USAGE_CACHE`        | 未设置 | 提供类似 `5m` 或 `1h` 的持续时间来缓存额外磁盘的使用情况，避免唤醒它们进行重新检查。         | 0.17.0 |
@@ -145,6 +146,26 @@
 ### `AMD_SYSFS`
 
 已弃用，请改用 `GPU_COLLECTOR`。设置为 `true` 时，使用 AMD sysfs 接口采集 GPU 数据，而非 `rocm-smi`。等效于设置 `GPU_COLLECTOR=amd_sysfs`。
+
+### `CA_CERT_FILE`
+
+代理与中心之间的 HTTPS 连接使用标准的证书和主机名验证。受操作系统信任的公共证书无需额外配置。
+
+如果中心使用私有 CA 或自签名 CA，请将 `CA_CERT_FILE` 设置为 PEM 证书文件：
+
+```yaml
+services:
+  beszel-agent:
+    volumes:
+      - ./hub-ca.crt:/etc/beszel/hub-ca.crt:ro
+    environment:
+      HUB_URL: https://hub.internal.example
+      CA_CERT_FILE: /etc/beszel/hub-ca.crt
+```
+
+该文件可以包含一个或多个 CA 证书。这些证书会添加到系统信任存储中，因此受公共信任的证书仍可正常使用。
+
+证书必须包含与 `HUB_URL` 中主机名匹配的主题备用名称（SAN）。如果文件缺失、无法读取、为空或格式错误，代理将无法启动。
 
 ### `DATA_DIR`
 

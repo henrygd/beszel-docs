@@ -104,6 +104,7 @@ Environment variables may optionally be prefixed with `BESZEL_AGENT_`.
 | ------------------------- | ------- | ---------------------------------------------------------------------------------------------------- | ----- |
 | `ALL_PROXY`               | unset   | SOCKS5 proxy for the agent's outbound WebSocket connection to the hub. | - |
 | `AMD_SYSFS`               | false   | Use AMD sysfs interface instead of `rocm-smi` for AMD GPU data. Deprecated; use `GPU_COLLECTOR` instead.                                    | - |
+| `CA_CERT_FILE`            | unset   | Set to a PEM certificate file if hub uses private or self-signed CA.                                 | 0.19.0 |
 | `DATA_DIR`                | unset   | Persistent data directory.                                                                           | - |
 | `DISABLE_SSH`             | false   | Disable the SSH server completely (WebSocket connection only).                                       | 0.18.4 |
 | `DISK_USAGE_CACHE`        | unset   | Provide a duration like `5m` or `1h` to cache usage of extra disks and avoid waking them to recheck. | 0.17.0 |
@@ -149,6 +150,26 @@ Example: `ALL_PROXY=socks5h://proxy.example.com:1080`
 ### `AMD_SYSFS`
 
 Deprecated in favor of `GPU_COLLECTOR`. When set to `true`, uses the AMD sysfs interface for GPU data collection instead of `rocm-smi`. Set `GPU_COLLECTOR=amd_sysfs` for equivalent behavior.
+
+### `CA_CERT_FILE`
+
+Agent-to-hub HTTPS connections use standard certificate and hostname verification. Public certificates trusted by the operating system require no additional configuration.
+
+For hubs using a private or self-signed CA, set CA_CERT_FILE to a PEM certificate file:
+
+```yaml
+services:
+  beszel-agent:
+    volumes:
+      - ./hub-ca.crt:/etc/beszel/hub-ca.crt:ro
+    environment:
+      HUB_URL: https://hub.internal.example
+      CA_CERT_FILE: /etc/beszel/hub-ca.crt
+```
+
+The file may contain one or more CA certificates. These are added to the system trust store, so publicly trusted certificates continue to work.
+
+The certificate must include a Subject Alternative Name (SAN) matching the hostname in HUB_URL. Missing, unreadable, empty, or malformed files prevent the agent from starting.
 
 ### `DATA_DIR`
 
