@@ -5,7 +5,7 @@ You can use Beszel to monitor disks, partitions, or remote mounts.
 The charts will use the name of the device or partition if available, and fall back to the directory name. You will not get I/O stats for network mounted drives.
 
 ::: tip Finding device information
-Use `lsblk` to find the names and mount points of your partitions.
+Use `lsblk -o NAME,KNAME,SIZE,TYPE,MOUNTPOINT` to find the names and mountpoints of your partitions. It is important to use the device's kernel name (KNAME) instead of the name reported by the device mapper (NAME). This can fix issues with reporting I/O stats of encrypted disks or logical volumes.
 
 If you have trouble, set `LOG_LEVEL=debug` on the agent and check the logs for the lines starting with `DEBUG Disk partitions` and `DEBUG Disk I/O diskstats`.
 :::
