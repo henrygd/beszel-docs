@@ -155,6 +155,10 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
               link: "/third-party-integrations/mobile-apps",
             },
             {
+              text: "Synology Agent 软件包",
+              link: "/third-party-integrations/synology-package",
+            },
+            {
               text: "其他",
               link: "/third-party-integrations/other",
             },
