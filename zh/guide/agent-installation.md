@@ -375,3 +375,9 @@ winget uninstall henrygd.beszel-agent
 ## Home Assistant
 
 请参阅 [Home Assistant 代理页面](./third-party-integrations/home-assistant.md) 获取将代理设置为 Home Assistant 插件的说明。
+
+## Synology NAS
+
+支持 Docker 的 Synology NAS 系统可以通过 Docker 安装代理。
+
+对于较旧的系统或更简单的设置，请参阅 [Synology NAS Agent 软件包页面](./third-party-integrations/synology-package.md)，了解如何将代理作为原生 Synology 软件包进行设置。
