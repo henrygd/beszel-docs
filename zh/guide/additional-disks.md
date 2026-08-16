@@ -5,7 +5,7 @@
 图表将使用设备或分区的名称（如果可用），否则将回退到目录名。您将无法获得网络挂载驱动器的 I/O 统计信息。
 
 ::: tip 查找设备信息
-使用 `lsblk` 命令查找分区的名称和挂载点。
+使用 `lsblk -o NAME,KNAME,SIZE,TYPE,MOUNTPOINT` 查找分区的名称和挂载点。请务必使用设备的内核名称（KNAME），而不是设备映射器报告的名称（NAME）。这可以解决加密设备或逻辑卷 I/O 统计信息报告异常的问题。
 
 如果遇到问题，请在代理上设置 `LOG_LEVEL=debug` 并检查日志中以 `DEBUG Disk partitions` 和 `DEBUG Disk I/O diskstats` 开头的行。
 
