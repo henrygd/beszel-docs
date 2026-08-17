@@ -69,7 +69,7 @@ You can try the following VSCode config to make it easier to work on the project
 
 ```json
 {
-  "go.buildFlags": ["-tags=testing,development"],
+  "go.buildFlags": ["-tags=testing,development,no_ui"],
   "biome.configurationPath": "./internal/site/biome.json",
   "biome.lsp.bin": "./internal/site/node_modules/@biomejs/biome/bin/biome"
 }

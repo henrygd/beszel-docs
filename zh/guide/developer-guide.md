@@ -69,7 +69,7 @@ echo "locales/" >> .git/info/exclude
 
 ```json
 {
-  "go.buildFlags": ["-tags=testing,development"],
+  "go.buildFlags": ["-tags=testing,development,no_ui"],
   "biome.configurationPath": "./internal/site/biome.json",
   "biome.lsp.bin": "./internal/site/node_modules/@biomejs/biome/bin/biome"
 }
