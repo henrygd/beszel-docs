@@ -243,7 +243,7 @@ Comma-separated list of glob patterns to match systemd service names. Services m
 SERVICE_PATTERNS="beszel*,docker*,kubelet*"
 ```
 
-Only matched services are eligible to trigger the [Failed Services alert](./systemd.md#alerts).
+<!-- Only matched services are eligible to trigger the [Failed Services alert](./systemd.md#alerts). -->
 
 ### `SMART_DEVICES`
 
