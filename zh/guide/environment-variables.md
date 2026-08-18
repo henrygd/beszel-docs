@@ -47,6 +47,8 @@
 
 设置为 `true` 时，OAuth2 登录流程将在同一窗口中打开，而非弹出窗口。当反向代理或浏览器环境阻止弹出窗口时，请设置此选项。
 
+重定向流程要求用户在提供商的设置中，将应用的基础 URL（例如 `https://beszel.example.com`）注册为额外的 OAuth 重定向 URI，与现有的 `{url}/api/oauth2-redirect` 条目并列。
+
 ### 心跳监控 {#heartbeat-monitoring}
 
 若通过环境变量设置，这些值优先生效，且设置页面将变为只读。

@@ -47,6 +47,8 @@ If true, systems will be visible to all users. Users can also edit or delete any
 
 When set to `true`, the OAuth2 login flow opens in the same window instead of a popup. Set this if your reverse proxy or browser environment blocks popup windows.
 
+The redirect flow requires users to register their app's base URL (e.g., `https://beszel.example.com`) as an additional OAuth redirect URI in their provider settings, alongside the existing `{url}/api/oauth2-redirect` entry.
+
 ### Heartbeat monitoring
 
 If set via environment variables, these values take precedence and the settings page becomes read-only.
