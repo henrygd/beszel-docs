@@ -49,7 +49,7 @@ Beszel Agent 可以作为 Synology 软件包安装到任何 Synology NAS 上。�
 
 #### 要监控的文件系统
 
-**可选。** 设置 `EXTRA_FILESYSTEMS` 环境变量的值。有关更多信息，请参阅[相关文档](./additional-disks#binary-agent)。
+**可选。** 设置 `EXTRA_FILESYSTEMS` 环境变量的值。有关更多信息，请参阅[相关文档](../additional-disks#binary-agent)。
 
 建议填写此项，因为 Beszel Agent 默认只监控根文件系统（`/`），而根文件系统可能不包含 NAS 上的所有磁盘。请使用 `/volume{n}__Label` 格式指定要监控的其他文件系统，并以逗号分隔。如果连接了外部 USB 驱动器，可以使用 `/volumeUSB{n}/usbshare__Label` 格式指定。
 
@@ -57,7 +57,7 @@ Beszel Agent 可以作为 Synology 软件包安装到任何 Synology NAS 上。�
 
 #### SMART 监控
 
-**可选。** 设置 `ENABLE_SMART` 环境变量的值。有关更多信息，请参阅[相关文档](./environment-variables#smart-devices)。留空则禁用 SMART 监控。
+**可选。** 设置 `ENABLE_SMART` 环境变量的值。有关更多信息，请参阅[相关文档](../environment-variables#smart-devices)。留空则禁用 SMART 监控。
 
 ::: warning
 设置此变量后，需要执行一些步骤，以确保 Beszel Agent 具有读取硬盘 SMART 数据所需的权限。

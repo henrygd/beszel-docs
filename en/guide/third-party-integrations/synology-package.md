@@ -53,7 +53,7 @@ During the installation process, you will be prompted to input configuration det
 
 
 #### Filesystems to Monitor
-**Optional.** Sets the value of the `EXTRA_FILESYSTEMS` environment variable. See the [relevant documentation](./additional-disks#binary-agent) for more information.
+**Optional.** Sets the value of the `EXTRA_FILESYSTEMS` environment variable. See the [relevant documentation](../additional-disks#binary-agent) for more information.
 
 This is advised, as by default the beszel agent only monitors the root filesystem (`/`), which may not include all disks on your NAS. Utilise the path format `/volume{n}__Label` to specify additional filesystems to monitor, separated by commas. If an external USB drive is connected, it can be specified using the `/volumeUSB{n}/usbshare__Label` format.
 
@@ -62,7 +62,7 @@ This is advised, as by default the beszel agent only monitors the root filesyste
 
 #### SMART Monitoring
 
-**Optional.** Sets the value of the `ENABLE_SMART` environment variable. See the [relevant documentation](./environment-variables#smart-devices) for more information. Leave blank to disable SMART monitoring.
+**Optional.** Sets the value of the `ENABLE_SMART` environment variable. See the [relevant documentation](../environment-variables#smart-devices) for more information. Leave blank to disable SMART monitoring.
 
 ::: warning
 After setting this variable, you will need to take some steps to ensure that the beszel agent has the necessary permissions to read SMART data from your drives.
