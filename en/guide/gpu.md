@@ -21,7 +21,7 @@ The agent automatically detects available GPU monitoring tools and selects the b
 | `nvidia-smi`    | NVIDIA System Management Interface (default).                          |
 | `amd_sysfs`     | Direct sysfs monitoring for AMD GPUs.                                  |
 | `rocm-smi`      | ROCm System Management Interface (default if installed).               |
-| `intel_sysfs`   | Direct sysfs monitoring for Intel GPUs on Linux.                       |
+| `intel_sysfs`   | Direct sysfs monitoring for Intel GPUs on Linux (limited metrics).     |
 | `intel_gpu_top` | Intel GPU monitoring.                                                  |
 | `tegrastats`    | NVIDIA Jetson monitoring (default for NVIDIA Jetson).                  |
 | `nvtop`         | Multi-vendor. Requires `nvtop` 3.3.2+. Cannot be combined with others. |
@@ -133,15 +133,39 @@ sudo ln -s /opt/rocm/bin/rocm-smi /usr/local/bin/rocm-smi
 
 Available collectors: `intel_sysfs`, `intel_gpu_top`, `nvtop`.
 
-On Linux, `intel_sysfs` is automatically detected when compatible Intel DRM hwmon energy counters are available. It reads power and temperature directly from sysfs and does not require additional userspace tools. You can select it explicitly with `GPU_COLLECTOR=intel_sysfs`.
+### Intel Arc / Xe driver
 
-With the Xe kernel driver, GPU utilization and memory usage are unavailable because the required sysfs attributes are not exposed. Power monitoring is still supported.
+Intel GPUs using the Xe kernel driver are supported through `nvtop`. Beszel automatically skips `intel_gpu_top` on Xe systems and uses `nvtop` when available.
 
-Note that only one Intel GPU per system is supported with `intel_gpu_top`.
+`nvtop` provides GPU usage, temperature, power, and memory metrics on Xe. In Docker, add `pid: host` to the agent service for GPU utilization; without it, utilization reports 0% while temperature, power, and memory remain available.
+
+### `intel_sysfs`
+
+On Linux, `intel_sysfs` is automatically detected when compatible Intel DRM hwmon energy counters are available. It has no userspace tool dependency, but metric availability is limited to what the kernel exposes through sysfs and varies by driver and hardware.
+
+On Xe, `intel_sysfs` can report power and temperature when those hwmon attributes are available, but GPU utilization and memory usage are not exposed. For more complete Xe monitoring, use `nvtop`.
+
+You can select the sysfs collector explicitly with `GPU_COLLECTOR=intel_sysfs`.
+
+### `intel_gpu_top`
+
+`intel_gpu_top` is supported for Intel GPUs using the i915 driver, but not the Xe driver. Only one Intel GPU per system is supported with this collector.
 
 ### Docker agent {#intel-docker}
 
-For `intel_gpu_top`, use the `henrygd/beszel-agent-intel` image with the additional options below.
+Use the `henrygd/beszel-agent-intel` image.
+
+For Xe / Intel Arc, add `pid: host` to enable GPU utilization through `nvtop`:
+
+```yaml
+beszel-agent:
+  image: henrygd/beszel-agent-intel
+  pid: host
+  devices:
+    - /dev/dri:/dev/dri
+```
+
+For `intel_gpu_top` on i915, add `CAP_PERFMON` and expose the GPU device:
 
 ```yaml
 beszel-agent:
