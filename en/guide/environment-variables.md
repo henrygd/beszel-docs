@@ -19,7 +19,7 @@ Environment variables may optionally be prefixed with `BESZEL_HUB_`.
 | `HEARTBEAT_URL`         | unset   | External URL to ping periodically. Enables [heartbeat monitoring](#heartbeat-monitoring). Feature is disabled if empty.                      |
 | `MFA_OTP`               | false   | Enables OTP authentication for users and/or superusers.                                                                                     |
 | `OAUTH_DISABLE_POPUP`   | false   | Disables the OAuth2 popup window. Useful when OAuth is used behind a reverse proxy or in embedded browser environments.                      |
-| `SHARE_ALL_SYSTEMS`     | false   | Allows access to all systems by all users.                                                                                                  |
+| `SHARE_ALL_SYSTEMS`     | false   | Allows access to all systems by all users. Users can also edit or delete any system unless they are assigned the `readonly` role.            |
 | `TRUSTED_AUTH_HEADER`   | unset   | Trusted header for forwarded authentication.                                                                                                |
 | `USER_CREATION`         | false   | Enables automatic user creation for OAuth2 / OIDC.                                                                                          |
 | `USER_EMAIL`            | unset   | Create first user with this email.                                                                                                          |
@@ -53,7 +53,7 @@ The redirect flow requires users to register their app's base URL (e.g., `https:
 
 If set via environment variables, these values take precedence and the settings page becomes read-only.
 
-When `HEARTBEAT_URL` is set, Beszel sends a periodic outbound ping to the specified URL (e.g. a [Healthchecks.io](https://healthchecks.io), [BetterStack](https://betterstack.com), or [Uptime Kuma](https://github.com/louislam/uptime-kuma) endpoint). This lets you monitor the health of your Beszel instance itself using a dead man's switch approach — if pings stop arriving, the external service alerts you.
+When `HEARTBEAT_URL` is set, Beszel sends a periodic outbound ping to the specified URL (e.g., a [Healthchecks.io](https://healthchecks.io), [BetterStack](https://betterstack.com), or [Uptime Kuma](https://github.com/louislam/uptime-kuma) endpoint). This lets you monitor the health of your Beszel instance itself using a dead man's switch approach — if pings stop arriving, the external service alerts you.
 
 When using the default `POST` method, Beszel sends a JSON payload with a summary of the current state:
 
@@ -174,16 +174,17 @@ When set to `true`, the agent exits immediately on a DNS lookup failure instead 
 
 Comma-separated list of collectors to try in order. Overrides the default auto-detection priority. Valid values:
 
-| Value          | Description                                      |
-| -------------- | ------------------------------------------------ |
-| `nvtop`        | nvtop (multi-vendor)                             |
-| `nvml`         | NVIDIA Management Library (requires `NVML=true`) |
-| `nvidia-smi`   | NVIDIA System Management Interface               |
-| `intel_gpu_top`| Intel GPU top                                    |
-| `amd_sysfs`    | AMD sysfs interface                              |
-| `rocm-smi`     | AMD ROCm System Management Interface             |
-| `macmon`       | macmon (Apple Silicon)                           |
-| `powermetrics` | powermetrics (macOS)                             |
+| Value           | Description                                      |
+| --------------- | ------------------------------------------------ |
+| `nvtop`         | nvtop (multi-vendor)                             |
+| `nvml`          | NVIDIA Management Library (requires `NVML=true`) |
+| `nvidia-smi`    | NVIDIA System Management Interface               |
+| `intel_sysfs`   | Intel sysfs interface                            |
+| `intel_gpu_top` | Intel GPU top                                    |
+| `amd_sysfs`     | AMD sysfs interface                              |
+| `rocm-smi`      | AMD ROCm System Management Interface             |
+| `macmon`        | macmon (Apple Silicon)                           |
+| `powermetrics`  | powermetrics (macOS)                             |
 
 Example: `GPU_COLLECTOR=nvml,nvidia-smi` tries NVML first, falling back to nvidia-smi.
 
@@ -214,7 +215,7 @@ Default depends on the address value. If the address starts with `/`, it is trea
 Treated as a whitelist by default. Can be used as a blacklist by prefixing with `-`.
 
 | `NICS` value   | Mode      | Action                                                    |
-| -------------- | --------- | --------------------------------------------------------- |
+| --------------- | --------- | --------------------------------------------------------- |
 | `foo_*`        | Whitelist | Only interfaces matching `foo_*` are allowed.             |
 | `foo_1,bar_*`  | Whitelist | Only `foo_1` and `bar_*` interfaces allowed.              |
 | `-foo_*`       | Blacklist | Excludes interfaces matching `foo_*`; all others allowed. |
@@ -232,10 +233,10 @@ Treated as a whitelist by default. Can be used as a blacklist by prefixing with 
 | `SENSORS` value | Mode      | Action                                                 |
 | --------------- | --------- | ------------------------------------------------------ |
 | `foo_*`         | Whitelist | Only sensors matching `foo_*` are allowed.             |
-| `foo_1,bar_*`   | Whitelist | Only `foo_1` and `bar_*` sensors allowed.              |
+| `foo_1,bar_*`   | Whitelist | Only sensors matching `foo_1` and `bar_*` are allowed. |
 | `-foo_*`        | Blacklist | Excludes sensors matching `foo_*`; all others allowed. |
-| `-foo_1,bar_*`  | Blacklist | Excludes `foo_1` and `bar_*`; all others allowed.      |
-| `""`            | Disabled  | Disable temperature monitoring with an empty string.   |
+| `-foo_1,bar_*` | Blacklist | Excludes `foo_1` and `bar_*`; all others allowed.      |
+| `""`           | Disabled  | Disable temperature monitoring with an empty string.   |
 
 ### `SERVICE_PATTERNS`
 
