@@ -19,7 +19,7 @@
 | `HEARTBEAT_URL`         | 未设置 | 定期 ping 的外部 URL。启用[心跳监控](#heartbeat-monitoring)。为空时禁用此功能。                                                  |
 | `MFA_OTP`               | false  | 为用户和/或超级用户启用 OTP 认证。                                                                                               |
 | `OAUTH_DISABLE_POPUP`   | false  | 禁用 OAuth2 弹出窗口。适用于反向代理或嵌入式浏览器环境中使用 OAuth 的场景。                                                      |
-| `SHARE_ALL_SYSTEMS`     | false  | 允许所有用户访问所有系统。                                                                                                       |
+| `SHARE_ALL_SYSTEMS`     | false  | 允许所有用户访问所有系统。除非用户被分配了 `readonly` 角色，否则他们还可以编辑或删除任何系统。                                    |
 | `TRUSTED_AUTH_HEADER`   | 未设置 | 用于转发身份验证的可信头。                                                                                                       |
 | `USER_CREATION`         | false  | 启用 OAuth2 / OIDC 的自动用户创建。                                                                                              |
 | `USER_EMAIL`            | 未设置 | 使用此邮箱创建第一个用户。                                                                                                       |
@@ -175,6 +175,7 @@ Docker 套接字代理通过过滤 API 请求，提供了比直接连接 `docker
 | `nvtop`          | nvtop（多厂商）                                   |
 | `nvml`           | NVIDIA 管理库（需要 `NVML=true`）                 |
 | `nvidia-smi`     | NVIDIA 系统管理接口                               |
+| `intel_sysfs`    | Intel sysfs 接口                                  |
 | `intel_gpu_top`  | Intel GPU top                                     |
 | `amd_sysfs`      | AMD sysfs 接口                                    |
 | `rocm-smi`       | AMD ROCm 系统管理接口                             |

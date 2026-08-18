@@ -21,7 +21,8 @@ Agent 会自动检测可用的 GPU 监控工具并为您的系统选择最佳工
 | `nvidia-smi`    | NVIDIA 系统管理接口（默认）。                           |
 | `amd_sysfs`     | 针对 AMD GPU 的直接 sysfs 监控。                        |
 | `rocm-smi`      | ROCm 系统管理接口（如果已安装则为默认）。               |
-| `intel_gpu_top` | Intel GPU 监控（Intel GPU 的默认设置）。                |
+| `intel_sysfs`   | 针对 Linux 上 Intel GPU 的直接 sysfs 监控（指标有限）。 |
+| `intel_gpu_top` | Intel GPU 监控。                                        |
 | `tegrastats`    | NVIDIA Jetson 监控（NVIDIA Jetson 的默认设置）。        |
 | `nvtop`         | 多厂商。需要 `nvtop` 3.3.2+。不能与其他收集器结合使用。 |
 | `macmon`        | macOS GPU 监控（Apple Silicon，实验性）。               |
@@ -130,13 +131,41 @@ sudo ln -s /opt/rocm/bin/rocm-smi /usr/local/bin/rocm-smi
 
 ## Intel GPU {#intel}
 
-可用收集器：`intel_gpu_top`、`nvtop`。
+可用收集器：`intel_sysfs`、`intel_gpu_top`、`nvtop`。
 
-请注意，使用 `intel_gpu_top` 时，每个系统仅支持一个 Intel GPU。
+### Intel Arc / Xe 驱动程序
+
+使用 Xe 内核驱动程序的 Intel GPU 通过 `nvtop` 提供支持。在 Xe 系统上，Beszel 会自动跳过 `intel_gpu_top`，并在可用时使用 `nvtop`。
+
+`nvtop` 在 Xe 上提供 GPU 使用率、温度、功耗和内存指标。在 Docker 中，为 GPU 使用率请在代理服务中添加 `pid: host`；不添加的话使用率会显示为 0%，但温度、功耗和内存仍然可用。
+
+### `intel_sysfs`
+
+在 Linux 上，当存在兼容的 Intel DRM hwmon 能量计数器时，会自动检测到 `intel_sysfs`。它不依赖任何用户空间工具，但指标的可用性仅限于内核通过 sysfs 暴露的内容，并因驱动程序和硬件而异。
+
+在 Xe 上，当存在相应的 hwmon 属性时，`intel_sysfs` 可以报告功耗和温度，但不暴露 GPU 使用率和内存使用情况。要获得更完整的 Xe 监控，请使用 `nvtop`。
+
+您可以通过 `GPU_COLLECTOR=intel_sysfs` 显式选择 sysfs 收集器。
+
+### `intel_gpu_top`
+
+`intel_gpu_top` 支持使用 i915 驱动程序的 Intel GPU，但不支持 Xe 驱动程序。使用此收集器时，每个系统仅支持一个 Intel GPU。
 
 ### Docker Agent {#intel-docker}
 
-使用 `henrygd/beszel-agent-intel` 镜像并添加以下额外选项。
+使用 `henrygd/beszel-agent-intel` 镜像。
+
+对于 Xe / Intel Arc，请添加 `pid: host` 以通过 `nvtop` 启用 GPU 使用率：
+
+```yaml
+beszel-agent:
+  image: henrygd/beszel-agent-intel
+  pid: host
+  devices:
+    - /dev/dri:/dev/dri
+```
+
+对于 i915 上的 `intel_gpu_top`，请添加 `CAP_PERFMON` 并暴露 GPU 设备：
 
 ```yaml
 beszel-agent:
@@ -155,7 +184,7 @@ ls /dev/dri
 
 ### 二进制 Agent {#intel-binary}
 
-您必须安装 `intel_gpu_top` 或 `nvtop`。
+对于 `intel_gpu_top` 或 `nvtop`，请安装相应的工具。`intel_sysfs` 不需要这两种工具。
 
 ::: code-group
 
