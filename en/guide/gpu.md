@@ -21,7 +21,8 @@ The agent automatically detects available GPU monitoring tools and selects the b
 | `nvidia-smi`    | NVIDIA System Management Interface (default).                          |
 | `amd_sysfs`     | Direct sysfs monitoring for AMD GPUs.                                  |
 | `rocm-smi`      | ROCm System Management Interface (default if installed).               |
-| `intel_gpu_top` | Intel GPU monitoring (default for Intel GPUs).                         |
+| `intel_sysfs`   | Direct sysfs monitoring for Intel GPUs on Linux.                       |
+| `intel_gpu_top` | Intel GPU monitoring.                                                  |
 | `tegrastats`    | NVIDIA Jetson monitoring (default for NVIDIA Jetson).                  |
 | `nvtop`         | Multi-vendor. Requires `nvtop` 3.3.2+. Cannot be combined with others. |
 | `macmon`        | macOS GPU monitoring (Apple Silicon, experimental).                    |
@@ -130,13 +131,17 @@ sudo ln -s /opt/rocm/bin/rocm-smi /usr/local/bin/rocm-smi
 
 ## Intel GPUs {#intel}
 
-Available collectors: `intel_gpu_top`, `nvtop`.
+Available collectors: `intel_sysfs`, `intel_gpu_top`, `nvtop`.
+
+On Linux, `intel_sysfs` is automatically detected when compatible Intel DRM hwmon energy counters are available. It reads power and temperature directly from sysfs and does not require additional userspace tools. You can select it explicitly with `GPU_COLLECTOR=intel_sysfs`.
+
+With the Xe kernel driver, GPU utilization and memory usage are unavailable because the required sysfs attributes are not exposed. Power monitoring is still supported.
 
 Note that only one Intel GPU per system is supported with `intel_gpu_top`.
 
 ### Docker agent {#intel-docker}
 
-Use the `henrygd/beszel-agent-intel` image with the additional options below.
+For `intel_gpu_top`, use the `henrygd/beszel-agent-intel` image with the additional options below.
 
 ```yaml
 beszel-agent:
@@ -155,7 +160,7 @@ ls /dev/dri
 
 ### Binary agent {#intel-binary}
 
-You must have `intel_gpu_top` or `nvtop` installed.
+For `intel_gpu_top` or `nvtop`, install the appropriate tool. `intel_sysfs` does not require either tool.
 
 ::: code-group
 
