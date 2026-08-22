@@ -106,6 +106,18 @@ DeviceAllow=/dev/sda r
 DeviceAllow=/dev/nvme0 r
 ```
 
+::: warning Some NVMe drives require mapping to the partition
+
+Some drive manufacturers (e.g., Intel) require mapping the host partition to the controller name for S.M.A.R.T. data to work properly. If you see missing capacity information or other issues, try:
+
+```ini
+DeviceAllow=/dev/nvme0n1 r
+```
+
+See [issue #1637](https://github.com/henrygd/beszel/issues/1637) for more details.
+
+:::
+
 3. Reload and restart:
 
 ```bash
