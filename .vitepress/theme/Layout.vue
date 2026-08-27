@@ -44,8 +44,5 @@ watchEffect(() => {
 		<template #home-hero-image>
 			<HomeImages />
 		</template>
-		<template #sidebar-nav-after>
-			<BuyMeACoffee :lang="lang" />
-		</template>
 	</DefaultTheme.Layout>
 </template>
