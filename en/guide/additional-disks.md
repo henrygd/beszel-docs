@@ -16,6 +16,8 @@ Set the `FILESYSTEM` environment variable to override the device, partition, or 
 
 You can optionally add a custom display name after double underscores. For example, `FILESYSTEM=sda__OS` uses `sda` for root disk stats and displays the disk as "OS" in the interface.
 
+The configuration for additional disks differs depending on your deployment method.
+
 ## Docker agent
 
 Mount a folder from the target filesystem in the container's `/extra-filesystems` directory:
