@@ -66,9 +66,9 @@ Note that we are using `sda` and `nvme0` in our example, not `sda1` or `nvme0n1`
 
 :::
 
-::: warning Some NVMe drives require mapping to the partition
+::: warning Some NVMe drives require access to the namespace device
 
-Some drive manufacturers (e.g., Intel) require mapping the host partition to the controller name for S.M.A.R.T. data to work properly. If you see missing capacity information or other issues, try:
+Some NVMe drives may only report complete S.M.A.R.T. information, such as capacity, when accessed through the namespace device (for example, `/dev/nvme0n1`) rather than the controller (`/dev/nvme0`). For Docker, map the namespace device to the controller path:
 
 ```yaml
 devices:
@@ -106,9 +106,9 @@ DeviceAllow=/dev/sda r
 DeviceAllow=/dev/nvme0 r
 ```
 
-::: warning Some NVMe drives require mapping to the partition
+::: warning Some NVMe drives require access to the namespace device
 
-Some drive manufacturers (e.g., Intel) require mapping the host partition to the controller name for S.M.A.R.T. data to work properly. If you see missing capacity information or other issues, try:
+Some NVMe drives may only report complete S.M.A.R.T. information, such as capacity, when accessed through the namespace device (for example, `/dev/nvme0n1`) rather than the controller (`/dev/nvme0`). For a systemd installation, also allow access to the namespace device:
 
 ```ini
 DeviceAllow=/dev/nvme0n1 r
