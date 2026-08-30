@@ -65,9 +65,9 @@ beszel-agent:
 
 :::
 
-::: warning 某些 NVMe 驱动器需要映射到分区
+::: warning 某些 NVMe 驱动器需要访问命名空间设备
 
-某些驱动器制造商（例如 Intel）需要将主机分区映射到控制器名称，才能使 S.M.A.R.T. 数据正常工作。如果你看到缺少容量信息或其他问题，请尝试：
+某些 NVMe 驱动器可能只有通过命名空间设备（例如 `/dev/nvme0n1`）而不是控制器（`/dev/nvme0`）访问时，才能报告完整的 S.M.A.R.T. 信息，例如容量。对于 Docker，请将命名空间设备映射到控制器路径：
 
 ```yaml
 devices:
@@ -104,6 +104,18 @@ CapabilityBoundingSet=CAP_SYS_RAWIO CAP_SYS_ADMIN
 DeviceAllow=/dev/sda r
 DeviceAllow=/dev/nvme0 r
 ```
+
+::: warning 某些 NVMe 驱动器需要访问命名空间设备
+
+某些 NVMe 驱动器可能只有通过命名空间设备（例如 `/dev/nvme0n1`）而不是控制器（`/dev/nvme0`）访问时，才能报告完整的 S.M.A.R.T. 信息，例如容量。对于 systemd 安装，还需要允许访问命名空间设备：
+
+```ini
+DeviceAllow=/dev/nvme0n1 r
+```
+
+详情请参见 [issue #1637](https://github.com/henrygd/beszel/issues/1637)。
+
+:::
 
 3. 重新加载并重启：
 
