@@ -193,7 +193,7 @@ If your system cannot find the `smartctl` executable, you will need to manually 
 
 To add smartctl to your PATH:
 
-1. Open the **Edit system environment variables** dialog:
+1. Open the **Edit the system environment variables** dialog:
    - Press `Win + R`, type `sysdm.cpl`, press Enter and go the Advanced tab.
    - Or search for "Environment Variables" in the Start menu
 
