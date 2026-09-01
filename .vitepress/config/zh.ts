@@ -138,6 +138,7 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
         { text: "S.M.A.R.T. 数据", link: "smart-data" },
         { text: "Systemd 服务", link: "systemd" },
         { text: "用户账户", link: "user-accounts" },
+        { text: "ZFS 存储池", link: "zfs" },
         {
           text: "第三方集成",
           collapsed: true,

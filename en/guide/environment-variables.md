@@ -139,7 +139,8 @@ Environment variables may optionally be prefixed with `BESZEL_AGENT_`.
 | `SYS_SENSORS`             | unset   | Overrides sys path for sensors. See [#160](https://github.com/henrygd/beszel/discussions/160).       | - |
 | `SYSTEM_NAME`             | unset   | Override system name on universal token registration. Defaults to hostname if unset.                 | 0.13.0 |
 | `TOKEN`                   | unset   | WebSocket registration token. Provided in hub.                                                       | - |
-| `TOKEN_FILE`              | unset   | Read token from a file instead of an environment variable.                                           | - |
+| `TOKEN_FILE`              | unset   | Read token from a file instead of an environment variable.                                       | - |
+| `ZFS_INTERVAL`            | 1h      | Interval to refresh ZFS pool details (scrub, vdevs, datasets).                                    | - |
 
 ### `ALL_PROXY`
 

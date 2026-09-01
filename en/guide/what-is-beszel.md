@@ -26,6 +26,7 @@ It has a friendly web interface, simple configuration, and is ready to use out o
 - **Docker stats**: Tracks CPU, memory, and network usage history for each container.
 - **Alerts**: Configurable alerts for CPU, memory, disk, bandwidth, temperature, load average, and status.
 - **S.M.A.R.T.**: Disk health data and notifications on drive failure.
+- **ZFS**: Pool capacity, health, I/O, and per-dataset usage.
 - **Multi-user**: Users manage their own systems. Admins can share systems across users.
 - **OAuth / OIDC**: Supports many OAuth2 providers. Password auth can be disabled.
 - **Automatic backups**: Save and restore data from disk or S3-compatible storage.
@@ -63,3 +64,4 @@ Beszel consists of two main components: the **hub** and the **agent**.
 - **Temperature** - Host system sensors.
 - **GPU usage / power draw** - Nvidia, AMD, and Intel.
 - **Battery** - Host system battery charge.
+- **ZFS** - Pool capacity, health, I/O, scrub status, and per-dataset usage.
