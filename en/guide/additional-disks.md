@@ -14,7 +14,13 @@ Use `lsblk -o NAME,KNAME,SIZE,TYPE,MOUNTPOINT` to find the names and mountpoints
 If you have trouble, set `LOG_LEVEL=debug` on the agent and check the logs for the lines starting with `DEBUG Disk partitions` and `DEBUG Disk I/O diskstats`.
 :::
 
-The configuration differs depending on your deployment method.
+## Root disk
+
+Set the `FILESYSTEM` environment variable to override the device, partition, or mount point used for root disk stats.
+
+You can optionally add a custom display name after double underscores. For example, `FILESYSTEM=sda__OS` uses `sda` for root disk stats and displays the disk as "OS" in the interface.
+
+The configuration for additional disks differs depending on your deployment method.
 
 ## Docker agent
 
