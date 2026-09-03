@@ -32,9 +32,9 @@ The binary agent needs `zpool` and `zfs` available to its user on the host, whic
 
 ## What is displayed
 
-- **Pools table** — each pool with its health state, capacity, allocation, and I/O throughput. I/O comes from a streaming `zpool iostat` watcher, so it is always current.
-- **Per-pool charts** — a stacked usage chart broken down by dataset (snapshots and bookmarks are excluded) and an I/O chart.
-- **Pool details** — clicking a pool opens a sheet with scrub status, per-vdev error counters, and a sortable, filterable list of datasets with their usage.
+- **Pools table** — each pool with its health state, capacity, allocation, and scrub status.
+- **Per-pool charts** — usage and I/O charts.
+- **Pool details** — clicking a pool opens a sheet with per-vdev error counters, and a sortable, filterable list of datasets with their usage.
 
 ## Refresh interval
 
