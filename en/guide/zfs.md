@@ -30,6 +30,15 @@ Mapping `/dev/zfs` is required — without it the ZFS commands cannot communicat
 
 The binary agent needs `zpool` and `zfs` available to its user on the host, which OpenZFS provides on Proxmox, TrueNAS, and most distributions that ship ZFS.
 
+If ZFS pools are not detected when running the agent as a systemd service, you may need to allow access to the ZFS control device:
+
+```ini
+[Service]
+DeviceAllow=/dev/zfs rw
+```
+
+After updating the service, reload systemd and restart the agent.
+
 ## What is displayed
 
 - **Pools table** — each pool with its health state, capacity, allocation, and scrub status.
