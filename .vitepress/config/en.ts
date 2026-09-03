@@ -112,6 +112,7 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
 				{ text: "S.M.A.R.T. Data", link: "smart-data" },
 				{ text: "Systemd Services", link: "systemd" },
 				{ text: "User Accounts", link: "user-accounts" },
+				{ text: "ZFS Pools", link: "zfs" },
 				{
 					text: "Third-Party Integrations",
 					collapsed: true,

@@ -4,6 +4,10 @@ You can use Beszel to monitor disks, partitions, or remote mounts.
 
 The charts will use the name of the device or partition if available, and fall back to the directory name. You will not get I/O stats for network mounted drives.
 
+::: tip ZFS
+ZFS pools and datasets are monitored automatically — there is no need to add them to `EXTRA_FILESYSTEMS`. If you do add a ZFS mount point, its usage is reported from `zfs list` instead of the mounted filesystem, and no diskstats I/O warning is shown for it. See [ZFS Monitoring](./zfs).
+:::
+
 ::: tip Finding device information
 Use `lsblk -o NAME,KNAME,SIZE,TYPE,MOUNTPOINT` to find the names and mountpoints of your partitions. It is important to use the device's kernel name (KNAME) instead of the name reported by the device mapper (NAME). This can fix issues with reporting I/O stats of encrypted devices or logical volumes.
 
