@@ -30,6 +30,15 @@ beszel-agent:
 
 二进制代理需要其用户可以在宿主机上访问 `zpool` 和 `zfs`，Proxmox、TrueNAS 以及大多数自带 ZFS 的发行版都提供 OpenZFS。
 
+如果在 systemd 服务中运行代理时未检测到 ZFS 存储池，可能需要显式允许访问 ZFS 控制设备。将以下内容添加到服务配置中：
+
+```ini
+[Service]
+DeviceAllow=/dev/zfs rw
+```
+
+然后重新加载 systemd 并重启代理。
+
 ## 显示内容
 
 - **存储池表格** — 显示每个存储池的健康状态、容量、已分配空间和清理（scrub）状态。
