@@ -16,58 +16,45 @@
 
 ## Docker Swarm
 
-::: tip 0.12.0 更新
-这些指南是在引入通用令牌和代理发起的 WebSocket 连接之前编写的。
-
-现在在集群环境中部署代理应该更简单了。欢迎在我们的 [GitHub 讨论](https://github.com/henrygd/beszel/discussions) 页面分享反馈或更新的示例。
-:::
-
-推荐的方法是分别定义每个代理，并将其约束到唯一的主机/端口。
-
-更多信息请在 GitHub 问题中搜索 "swarm"，或查看 [aeoneros](https://github.com/aeoneros) 的示例：
-
-https://wiki.aeoneros.com/books/beszel/page/quickstart-guide
+Beszel 代理应以 `global` 模式运行，即在每个节点上运行一次：
 
 ```yaml
-x-common-config: &common-config
-  image: henrygd/beszel-agent:latest
-  restart: unless-stopped
-  network_mode: host
-  volumes:
-    - /var/run/docker.sock:/var/run/docker.sock:ro
-  environment:
-    KEY: 'YOUR_PUBLIC_KEY_FROM_HUB'
-  deploy: &common-deploy
-    mode: replicated
-    replicas: 1
-
 services:
-  beszel-agent1:
-    <<: *common-config
-    ports:
-      - 45876:45876
-    environment:
-      <<: *common-config.environment
-      LISTEN: '45876'
+  beszel-agent:
+    image: henrygd/beszel-agent:0.19.0 # 替换为最新版本
     deploy:
-      <<: *common-deploy
-      placement:
-        constraints:
-          - node.hostname == host-one
+      mode: global
+    environment:
+      BESZEL_AGENT_HUB_URL: http://beszel-hub:8090
+      BESZEL_AGENT_KEY_FILE: /run/secrets/hub-key
+      BESZEL_AGENT_TOKEN_FILE: /run/secrets/hub-token
+    networks:
+      - beszel-hub
+    secrets:
+      - hub-key
+      - hub-token
+    volumes:
+      - type: bind
+        source: /var/run/docker.sock
+        target: /var/run/docker.sock
+        read_only: true
 
-  beszel-agent2:
-    <<: *common-config
-    ports:
-      - 45877:45877
-    environment:
-      <<: *common-config.environment
-      LISTEN: '45877'
-    deploy:
-      <<: *common-deploy
-      placement:
-        constraints:
-          - node.hostname == host-two
+networks:
+  beszel-hub:
+    internal: true
+
+secrets:
+  hub-key:
+    name: beszel-hub-key-1
+    external: true
+  hub-token:
+    name: beszel-hub-token-1
+    external: true
 ```
+
+`secrets` 应在 Hub 部署完成后、部署代理之前创建。
+
+在此示例中，Hub 与名为 `beszel-hub` 的服务运行在同一集群中。共用的 `beszel-hub` 网络可确保 Hub 与代理之间能够相互通信；不允许外部流量。如果 Hub 位于外部，请相应地更新 `BESZEL_AGENT_HUB_URL` 并删除内部 `beszel-hub` 网络。
 
 ## HashiCorp Nomad
 
