@@ -18,58 +18,45 @@ For other useful examples see [this discussion](https://github.com/henrygd/besze
 
 ## Docker Swarm
 
-::: tip 0.12.0 Update
-This guide was written prior to the introduction of universal tokens and agent-initiated WebSocket connections.
-
-It should now be simpler to deploy agents in cluster environments. Feel free to share feedback or updated examples on our [GitHub Discussions](https://github.com/henrygd/beszel/discussions) page.
-:::
-
-The recommended approach is to define each agent separately and constrain it to a unique host / port.
-
-For more info please search our GitHub issues for "swarm" or see examples by [aeoneros](https://github.com/aeoneros):
-
-https://wiki.aeoneros.com/books/beszel/page/quickstart-guide
+Beszel agents should run in `global` mode, thus once on every node:
 
 ```yaml
-x-common-config: &common-config
-  image: henrygd/beszel-agent:latest
-  restart: unless-stopped
-  network_mode: host
-  volumes:
-    - /var/run/docker.sock:/var/run/docker.sock:ro
-  environment:
-    KEY: 'YOUR_PUBLIC_KEY_FROM_HUB'
-  deploy: &common-deploy
-    mode: replicated
-    replicas: 1
-
 services:
-  beszel-agent1:
-    <<: *common-config
-    ports:
-      - 45876:45876
-    environment:
-      <<: *common-config.environment
-      LISTEN: '45876'
+  beszel-agent:
+    image: henrygd/beszel-agent:0.19.0 # Replace with the latest version
     deploy:
-      <<: *common-deploy
-      placement:
-        constraints:
-          - node.hostname == host-one
+      mode: global
+    environment:
+      BESZEL_AGENT_HUB_URL: http://beszel-hub:8090
+      BESZEL_AGENT_KEY_FILE: /run/secrets/hub-key
+      BESZEL_AGENT_TOKEN_FILE: /run/secrets/hub-token
+    networks:
+      - beszel-hub
+    secrets:
+      - hub-key
+      - hub-token
+    volumes:
+      - type: bind
+        source: /var/run/docker.sock
+        target: /var/run/docker.sock
+        read_only: true
 
-  beszel-agent2:
-    <<: *common-config
-    ports:
-      - 45877:45877
-    environment:
-      <<: *common-config.environment
-      LISTEN: '45877'
-    deploy:
-      <<: *common-deploy
-      placement:
-        constraints:
-          - node.hostname == host-two
+networks:
+  beszel-hub:
+    internal: true
+
+secrets:
+  hub-key:
+    name: beszel-hub-key-1
+    external: true
+  hub-token:
+    name: beszel-hub-token-1
+    external: true
 ```
+
+The `secrets` should be created once the hub was deployed but before deploying the agents.
+
+In this example the Hub runs in the same cluster as service named `beszel-hub`. The common `beszel-hub` network ensures that hub and agents can communicate with each other; no external traffic is allowed. If the hub is located externally, update the `BESZEL_AGENT_HUB_URL` accordingly and drop the internal `beszel-hub` network.
 
 ## HashiCorp Nomad
 
