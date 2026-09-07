@@ -52,6 +52,10 @@ podman run -d \
 
 <!--@include: ./parts/hub-docker-instructions.md-->
 
+### Backing up the hub
+
+Back up the whole `beszel_data` directory. It holds `data.db` and `auxiliary.db` together with their `-wal` files, and on a running hub most recent data is in the `-wal` until SQLite checkpoints it: copying `data.db` alone gives you a valid but empty database, and because `USER_EMAIL` and `USER_PASSWORD` recreate the account on an empty database, you can sign in to the restored hub and find no systems in it. Stop the hub before copying, or use the backup feature under **Settings** in the hub, which can save to disk or to S3-compatible storage and restore from either.
+
 ## Binary
 
 Beszel is written in pure Go and can be easily compiled (or cross-compiled) if a prebuilt binary isn't available.
