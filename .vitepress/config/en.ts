@@ -110,9 +110,9 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
 				{ text: "REST API", link: "rest-api" },
 				{ text: "Reverse Proxy", link: "reverse-proxy" },
 				{ text: "S.M.A.R.T. Data", link: "smart-data" },
+				{ text: "Storage Pools", link: "storage-pools" },
 				{ text: "Systemd Services", link: "systemd" },
 				{ text: "User Accounts", link: "user-accounts" },
-				{ text: "ZFS Pools", link: "zfs" },
 				{
 					text: "Third-Party Integrations",
 					collapsed: true,
