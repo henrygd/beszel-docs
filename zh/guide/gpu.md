@@ -57,6 +57,14 @@ beszel-agent:
               - utility
 ```
 
+### Slim 镜像变体 {#nvidia-slim}
+
+slim 镜像使用 distroless 基础镜像，不包含 shell、包管理器或 `nvidia-smi`。
+
+主机系统上的 NVIDIA Container Toolkit 会将 `nvidia-smi` 和 `nvml` 所需的 NVIDIA 工具和驱动组件挂载到容器中。
+
+使用 `henrygd/beszel-agent-nvidia:slim`，并采用上文所示的相同 NVIDIA Container Toolkit 配置即可。
+
 ### 二进制 Agent {#nvidia-binary}
 
 您可能需要在服务配置中允许访问您的设备。有关更多信息，请参阅 [discussion #563](https://github.com/henrygd/beszel/discussions/563#discussioncomment-12230389)。
