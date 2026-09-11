@@ -21,6 +21,7 @@ Environment variables may optionally be prefixed with `BESZEL_HUB_`.
 | `OAUTH_DISABLE_POPUP`   | false   | Disables the OAuth2 popup window. Useful when OAuth is used behind a reverse proxy or in embedded browser environments.                      |
 | `SHARE_ALL_SYSTEMS`     | false   | Allows access to all systems by all users. Users can also edit or delete any system unless they are assigned the `readonly` role.            |
 | `TRUSTED_AUTH_HEADER`   | unset   | Trusted header for forwarded authentication.                                                                                                |
+| `TRUSTED_PROXY_IPS`     | unset   | Comma-separated IPs or CIDR ranges. When set, `TRUSTED_AUTH_HEADER` is only honored on requests from these addresses.                       |
 | `USER_CREATION`         | false   | Enables automatic user creation for OAuth2 / OIDC.                                                                                          |
 | `USER_EMAIL`            | unset   | Create first user with this email.                                                                                                          |
 | `USER_PASSWORD`         | unset   | Create first user with this password.                                                                                                       |
@@ -95,6 +96,14 @@ Use `GET` or `HEAD` for services that only require a simple ping request without
 Don't set this unless you are implementing your own authentication and want to bypass the built-in authentication. The specified header should include the authenticated user's email.
 
 For example, when using Cloudflare Access you might set `TRUSTED_AUTH_HEADER=Cf-Access-Authenticated-User-Email` because Cloudflare uses that header to provide the user email.
+
+### `TRUSTED_PROXY_IPS`
+
+By default the hub honors `TRUSTED_AUTH_HEADER` on every request, wherever it comes from. If the hub can be reached without going through your reverse proxy, anyone who can reach it directly can set the header themselves.
+
+Set `TRUSTED_PROXY_IPS` to the addresses your proxy connects from, as a comma-separated list of IPs or CIDR ranges. The header is then ignored on requests from any other address, which fall through to the normal login. For example, `TRUSTED_PROXY_IPS=172.18.0.5` for a proxy container with a fixed address, or `TRUSTED_PROXY_IPS=10.0.0.0/8,fd00::/8` for private ranges.
+
+The check uses the address the connection comes from, not `X-Forwarded-For`, so list the proxy itself. Entries that are not a valid IP or CIDR range are skipped with a warning in the hub's console output. If none of the entries are valid, the header is not trusted from anywhere.
 
 ## Agent
 
