@@ -108,6 +108,7 @@
 | `DISK_USAGE_CACHE`        | 未设置 | 提供类似 `5m` 或 `1h` 的持续时间来缓存额外磁盘的使用情况，避免唤醒它们进行重新检查。         | 0.17.0 |
 | `DOCKER_HOST`             | 未设置 | 覆盖 Docker 主机 (docker.sock)。                                                             | - |
 | `DOCKER_TIMEOUT`          | `2100ms`| 覆盖 Docker API 调用超时。接受 Go 时长格式（如 `5s`、`2100ms`）。                     | - |
+| `DOCKER_VOLUME_INTERVAL`  | 未设置 | 提供 `30m` 或 `1h` 之类的时长，按该间隔采集 Docker 卷大小。未设置则禁用。 | - |
 | `EXCLUDE_CONTAINERS`      | 未设置 | 排除容器不被监控。                                                                           | 0.15.3 |
 | `EXCLUDE_SMART`           | 未设置 | 排除 S.M.A.R.T. 设备不被监控。                                                               | 0.16.0 |
 | `EXIT_ON_DNS_ERROR`       | false  | 发生 DNS 查询失败时退出代理，而非重试连接。                                              | - |
@@ -183,6 +184,16 @@ Docker 套接字代理通过过滤 API 请求，提供了比直接连接 `docker
 ### `DOCKER_TIMEOUT`
 
 覆盖默认 Docker API 调用超时（`2100ms`）。接受任意 Go 时长字符串（如 `5s`、`500ms`）。若在慢速系统上出现 Docker 超时，可适当增大此值。
+
+### `DOCKER_VOLUME_INTERVAL`
+
+启用 Docker 卷使用图表，显示每个卷的大小。默认禁用，仅在设置此变量后才会采集。
+
+大小来自 Docker API 的 `/system/df` 接口，该接口会遍历每个卷中的所有文件。在大容量卷上较慢，并会增加 Docker 守护进程的负载，因此使用独立的间隔，而不与其他指标一起采集。最小值为 `1m`。
+
+```
+DOCKER_VOLUME_INTERVAL=30m
+```
 
 ### `EXIT_ON_DNS_ERROR`
 

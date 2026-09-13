@@ -112,6 +112,7 @@ Environment variables may optionally be prefixed with `BESZEL_AGENT_`.
 | `DISK_USAGE_CACHE`        | unset   | Provide a duration like `5m` or `1h` to cache usage of extra disks and avoid waking them to recheck. | 0.17.0 |
 | `DOCKER_HOST`             | unset   | Overrides the Docker host (docker.sock).                                                             | - |
 | `DOCKER_TIMEOUT`          | `2100ms`| Overrides the Docker API call timeout. Accepts Go duration format (e.g. `5s`, `2100ms`).            | - |
+| `DOCKER_VOLUME_INTERVAL`  | unset   | Provide a duration like `30m` or `1h` to collect Docker volume sizes at that interval. Disabled if unset. | - |
 | `EXCLUDE_CONTAINERS`      | unset   | Exclude containers from being monitored.                                                             | 0.15.3 |
 | `EXCLUDE_SMART`           | unset   | Exclude S.M.A.R.T. devices from being monitored.                                                     | 0.16.0 |
 | `EXIT_ON_DNS_ERROR`       | false   | Exit the agent instead of retrying when a DNS lookup failure occurs on the hub connection.           | - |
@@ -187,6 +188,16 @@ You may also set this to an empty string (`DOCKER_HOST=""`) to completely disabl
 ### `DOCKER_TIMEOUT`
 
 Overrides the default Docker API call timeout of `2100ms`. Accepts any Go duration string (e.g. `5s`, `500ms`). Increase this if you see Docker-related timeouts on slow systems.
+
+### `DOCKER_VOLUME_INTERVAL`
+
+Enables the Docker volume usage chart, which shows the size of each volume. Disabled by default, and only collected if you set this variable.
+
+Sizes come from the Docker API's `/system/df` endpoint, which walks every file in every volume. This is slow on large volumes and adds load to the Docker daemon, so the value is a separate interval rather than being collected with the other metrics. The minimum is `1m`.
+
+```
+DOCKER_VOLUME_INTERVAL=30m
+```
 
 ### `EXIT_ON_DNS_ERROR`
 

@@ -59,6 +59,7 @@ Beszel consists of two main components: the **hub** and the **agent**.
 - **Memory usage** - Host system and containers. Includes swap and ZFS ARC.
 - **Disk usage** - Host system. Supports multiple partitions and devices.
 - **Disk I/O** - Host system. Supports multiple partitions and devices.
+- **Docker volume usage** - Size of each volume. Opt-in, see [`DOCKER_VOLUME_INTERVAL`](./environment-variables#docker-volume-interval).
 - **Network usage** - Host system and containers.
 - **Load average** - Host system.
 - **Temperature** - Host system sensors.
