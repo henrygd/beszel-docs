@@ -56,6 +56,13 @@ beszel-agent:
             capabilities:
               - utility
 ```
+### Slim image variant {#nvidia-slim}
+
+The slim image uses a distroless base and does not bundle a shell, package manager, or `nvidia-smi`.
+
+The NVIDIA Container Toolkit on the host system mounts the NVIDIA utilities and driver components required for `nvidia-smi` and `nvml` into the container.
+
+Use `henrygd/beszel-agent-nvidia:slim` with the same NVIDIA Container Toolkit configuration shown above.
 
 ### Binary agent {#nvidia-binary}
 
