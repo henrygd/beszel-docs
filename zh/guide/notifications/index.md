@@ -31,6 +31,7 @@ URL 在设置中配置（**设置** > **通知**）。警报在系统表中启�
 | [Pushover](./pushover.md)      | pushover://shoutrrr:**`apiToken`**@**`userKey`**/?devices=**`device1`**[,__`device2`__, ...]                                 |
 | [Rocketchat](./rocketchat.md)  | rocketchat://[__`username`__@]**`rocketchat-host`**/**`token`**[/__`channel`&#124;`@recipient`__]                            |
 | [Signal](./signal.md)          | signal://[**`user`**[:__`password`__]@]**`host`**[:__`port`__]/**`source_phone`**/**`recipient1`**[,__`recipient2`__,...]    |
+| [Signalgrid](./signalgrid.md)  | signalgrid://**`clientKey`**@**`channel`**                                                                                   |
 | [Slack](./slack.md)            | slack://[__`botname`__@]**`token-a`**/**`token-b`**/**`token-c`**                                                            |
 | [Teams](./teams.md)            | teams://**`group`**@**`tenant`**/**`altId`**/**`groupOwner`**/**`extraId`**?**`host`**=**`organization`**.webhook.office.com |
 | [Telegram](./telegram.md)      | telegram://**`token`**@telegram?chats=**`@channel-1`**[,**`chat-id-1`**,...]                                                 |

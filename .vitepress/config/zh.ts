@@ -123,6 +123,7 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
             { text: "Pushover", link: "/notifications/pushover" },
             { text: "Rocketchat", link: "/notifications/rocketchat" },
             { text: "Signal", link: "/notifications/signal" },
+            { text: "Signalgrid", link: "/notifications/signalgrid" },
             { text: "Slack", link: "/notifications/slack" },
             { text: "Teams", link: "/notifications/teams" },
             { text: "Telegram", link: "/notifications/telegram" },
