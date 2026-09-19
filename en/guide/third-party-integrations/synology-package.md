@@ -68,10 +68,8 @@ This is advised, as by default the beszel agent only monitors the root filesyste
 After setting this variable, you will need to take some steps to ensure that the beszel agent has the necessary permissions to read SMART data from your drives.
 
 1. Install the `SynoCli Disk Tools` package from the SynoCommunity repository.
-2. Run the follow command on your NAS either an SSH session or via a manual task:
-   `sed -i 's/package/root/g' /var/packages/beszel-agent/conf/privilege`
+2. Follow the steps in [Setting Root Privileges](/guide/third-party-integrations/synology-package#setting-root-privileges) to give the package permission to read disk data
 
-*This has to be done after installation and after each package update and beszel-agent must be restarted after changing the privilege file. A scheduled task can be used to automate this process on boot.*
 :::
 
 Specify your drives in the format `/dev/sd{x}:sat`, separated by commas. You can see your drives by running `/usr/local/bin/smartctl --scan` in the terminal of your NAS. The `:sat` suffix is required for beszel to be able to read SMART data, and should be included even if your drives are not of the `sat` type.
@@ -94,3 +92,11 @@ Although your disks may not be of the `sat` type, this is seemingly the required
 
 For example, if you want to enable websocket connection instead of the default SSH, you can set `HUB_URL=<url>;TOKEN=<token>` here.
 
+#### Setting Root Privileges
+
+Synology heavily restricts what a package can do by default. If you want beszel-agent to be able to conduct SMART monitoring or to report on running Docker containers, you must manually upgrade its privileges to root.
+
+Run the follow command on your NAS either an SSH session or via a manual task:
+```sed -i 's/package/root/g' /var/packages/beszel-agent/conf/privilege```
+
+*This has to be done after installation and after each package update and beszel-agent must be restarted after changing the privilege file. A scheduled task can be used to automate this process on boot.*
