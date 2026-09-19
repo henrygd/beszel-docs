@@ -31,6 +31,7 @@ Click on the service for a more thorough explanation.
 | [Pushover](./pushover.md)      | pushover://shoutrrr:**`apiToken`**@**`userKey`**/?devices=**`device1`**[,**`device2`**, ...]                                 |
 | [Rocketchat](./rocketchat.md)  | rocketchat://[**`username`**@]**`rocketchat-host`**/**`token`**[/**`channel`&#124;`@recipient`**]                            |
 | [Signal](./signal.md)          | signal://[**`user`**[:**`password`**]@]**`host`**[:**`port`**]/**`source_phone`**/**`recipient1`**[,**`recipient2`**,...]    |
+| [Signalgrid](./signalgrid.md)  | signalgrid://**`clientKey`**@**`channel`**                                                                                   |
 | [Slack](./slack.md)            | slack://[**`botname`**@]**`token-a`**/**`token-b`**/**`token-c`**                                                            |
 | [Teams](./teams.md)            | teams://**`group`**@**`tenant`**/**`altId`**/**`groupOwner`**/**`extraId`**?**`host`**=**`organization`**.webhook.office.com |
 | [Telegram](./telegram.md)      | telegram://**`token`**@telegram?chats=**`@channel-1`**[,**`chat-id-1`**,...]                                                 |
