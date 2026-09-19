@@ -21,6 +21,7 @@
 | `OAUTH_DISABLE_POPUP`   | false  | 禁用 OAuth2 弹出窗口。适用于反向代理或嵌入式浏览器环境中使用 OAuth 的场景。                                                      |
 | `SHARE_ALL_SYSTEMS`     | false  | 允许所有用户访问所有系统。除非用户被分配了 `readonly` 角色，否则他们还可以编辑或删除任何系统。                                    |
 | `TRUSTED_AUTH_HEADER`   | 未设置 | 用于转发身份验证的可信头。                                                                                                       |
+| `TRUSTED_PROXY_IPS`     | 未设置 | 逗号分隔的 IP 或 CIDR 范围。设置后，仅对来自这些地址的请求信任 `TRUSTED_AUTH_HEADER`。                                           |
 | `USER_CREATION`         | false  | 启用 OAuth2 / OIDC 的自动用户创建。                                                                                              |
 | `USER_EMAIL`            | 未设置 | 使用此邮箱创建第一个用户。                                                                                                       |
 | `USER_PASSWORD`         | 未设置 | 使用此密码创建第一个用户。                                                                                                       |
@@ -93,6 +94,14 @@
 ### `TRUSTED_AUTH_HEADER`
 
 除非您正在实现自己的身份验证并希望绕过内置身份验证，否则不要设置此选项。指定的头应包含已认证用户的电子邮件。例如，当使用 Cloudflare Access 时，您可能会设置 `TRUSTED_AUTH_HEADER=Cf-Access-Authenticated-User-Email`，因为 Cloudflare 使用该头来提供用户电子邮件。
+
+### `TRUSTED_PROXY_IPS`
+
+默认情况下，中心会对所有请求的 `TRUSTED_AUTH_HEADER` 予以信任，无论请求来自何处。如果无需经过反向代理即可直接访问中心，任何能直接访问中心的人都可以自行设置该头。
+
+将 `TRUSTED_PROXY_IPS` 设置为代理连接来源的地址，以逗号分隔的 IP 或 CIDR 范围列表表示。来自其他地址的请求将忽略该头，并回落到常规登录。例如，为固定地址的代理容器设置 `TRUSTED_PROXY_IPS=172.18.0.5`，或为私有网段设置 `TRUSTED_PROXY_IPS=10.0.0.0/8,fd00::/8`。
+
+该检查使用连接来源的地址，而非 `X-Forwarded-For`，因此请填写代理本身的地址。不是有效 IP 或 CIDR 范围的条目将被跳过，并在中心的控制台输出中显示警告。如果所有条目均无效，则该头在任何地址都不被信任。
 
 ## 代理 (Agent)
 
