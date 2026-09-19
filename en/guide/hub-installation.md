@@ -51,6 +51,10 @@ podman run -d \
 :::
 
 <!--@include: ./parts/hub-docker-instructions.md-->
+## Easypanel
+
+[Easypanel](https://easypanel.io/) can deploy Beszel with one click using its [official template](https://easypanel.io/templates/beszel), which runs the Docker image above with a persistent volume for you.
+
 
 ## Binary
 
