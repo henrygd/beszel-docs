@@ -35,6 +35,10 @@ If services don't appear on the system page, check the agent logs for errors.
 
 Mount the system D-Bus socket to allow the agent to communicate with systemd:
 
+::: tip
+Rootless Docker / Podman may not be able to access the system D-Bus socket. Use the binary agent instead.
+:::
+
 ```yaml
 services:
   beszel-agent:
