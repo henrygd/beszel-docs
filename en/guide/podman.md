@@ -13,6 +13,36 @@ systemctl --user start podman.socket
 
 Restart the agent to allow it to connect to the Podman API.
 
+### Rootful Podman
+
+If Podman runs as root, enable the system-wide socket instead:
+
+```bash
+sudo systemctl enable --now podman.socket
+```
+
+The socket is at `/run/podman/podman.sock`. The agent only detects the rootless socket automatically, so set `DOCKER_HOST` to point at the rootful one:
+
+```bash
+DOCKER_HOST=unix:///run/podman/podman.sock
+```
+
+For a container agent, also mount the socket:
+
+```bash
+podman run -d \
+  --name beszel-agent \
+  --network host \
+  --restart unless-stopped \
+  -v /run/podman/podman.sock:/run/podman/podman.sock:ro \
+  -e DOCKER_HOST=unix:///run/podman/podman.sock \
+  -e KEY="<public key>" \
+  -e LISTEN=45876 \
+  docker.io/henrygd/beszel-agent:latest
+```
+
+If you see `permission denied` on a system with SELinux (Fedora, RHEL, etc.), see [SELinux](#selinux).
+
 ## Granting Permissions
 
 The agent requires read/write access to the Podman socket. This can be achieved in various ways:
@@ -109,3 +139,62 @@ sudo systemctl restart beszel-agent.service
 ```
 
 ::::
+
+## SELinux
+
+On systems with SELinux enforcing (Fedora, RHEL, CentOS, Rocky Linux), a containerized agent may be blocked from connecting to the Podman socket, even when the file permissions are correct. The agent logs:
+
+```
+Containers err="Get \"http://localhost/containers/json\": dial unix /run/podman/podman.sock: connect: permission denied"
+```
+
+You can confirm SELinux is the cause by checking the audit log:
+
+```bash
+sudo ausearch -m avc -ts recent | grep podman
+```
+
+A denial looks like `denied { connectto } ... scontext=...:container_t:s0 tcontext=...:container_runtime_t:s0`. The agent runs as `container_t`, which isn't allowed to connect to a socket owned by the container runtime.
+
+To fix it, run the agent container with the `container_runtime_t` SELinux type:
+
+::: code-group
+
+```yaml [docker-compose.yml]
+services:
+  beszel-agent:
+    image: henrygd/beszel-agent
+    container_name: beszel-agent
+    restart: unless-stopped
+    network_mode: host
+    security_opt:
+      - label=type:container_runtime_t # [!code ++]
+    volumes:
+      - ./beszel_agent_data:/var/lib/beszel-agent:Z
+      - /run/podman/podman.sock:/run/podman/podman.sock:ro
+    environment:
+      DOCKER_HOST: unix:///run/podman/podman.sock
+```
+
+```bash [podman run]
+podman run -d \
+  --name beszel-agent \
+  --network host \
+  --restart unless-stopped \
+  --security-opt label=type:container_runtime_t \
+  -v ./beszel_agent_data:/var/lib/beszel-agent:Z \
+  -v /run/podman/podman.sock:/run/podman/podman.sock:ro \
+  -e DOCKER_HOST=unix:///run/podman/podman.sock \
+  -e KEY="<public key>" \
+  docker.io/henrygd/beszel-agent:latest
+```
+
+:::
+
+::: warning Do not add `:Z` to the socket mount
+`:Z` relabels the host path, which is not what you want for the Podman socket. Use `:Z` only on data volumes like `beszel_agent_data`.
+:::
+
+::: tip Note
+`container_runtime_t` gives the container the same SELinux type as the container runtime, which is more access than a normal container has. If that's a concern, you can write a custom SELinux policy module that only allows `connectto` on the socket, or run the agent as a binary instead.
+:::

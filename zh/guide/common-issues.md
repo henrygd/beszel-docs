@@ -75,6 +75,10 @@ volumes:
 
 其他主机级指标（传感器、风扇、电池、GPU、ZFS、S.M.A.R.T.、systemd 服务）在无根容器中也可能不可用。如果您需要这些指标，请改用[二进制代理](./agent-installation.md#二进制文件)。
 
+## Podman：套接字权限被拒绝（SELinux）
+
+如果代理程序在 Fedora、RHEL 或其他启用了 SELinux 强制模式的系统上以容器方式运行，并记录 `dial unix /run/podman/podman.sock: connect: permission denied`，则说明 SELinux 阻止了该连接。请参阅 Podman 指南的 [SELinux 部分](./podman.md#selinux)。
+
 ## Docker 容器填充不可靠
 
 如果可能，请升级代理程序系统上的 Docker 版本。Docker 24 及更早版本可能存在导致此问题的错误。我们已经向代理程序添加了缓解此问题的解决方法，但这不是完美的解决方案。

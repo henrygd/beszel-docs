@@ -75,6 +75,10 @@ See [issue #640](https://github.com/henrygd/beszel/issues/640) where [terceraper
 
 Other host-level metrics (sensors, fans, battery, GPU, ZFS, S.M.A.R.T., systemd services) may also be unavailable in rootless containers. If you need them, use the [binary agent](./agent-installation.md#binary) instead.
 
+## Podman: permission denied on the socket (SELinux)
+
+If the agent runs in a container on Fedora, RHEL, or another SELinux-enforcing system and logs `dial unix /run/podman/podman.sock: connect: permission denied`, SELinux is blocking the connection. See the [SELinux section](./podman.md#selinux) of the Podman guide.
+
 ## Docker containers are not populating reliably
 
 Upgrade your Docker version on the agent system if possible. There is a bug in Docker 24, and possibly earlier versions, that may cause this issue. We've added a workaround to the agent to mitigate this issue, but it's not a perfect fix.

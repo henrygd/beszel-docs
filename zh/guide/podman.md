@@ -13,6 +13,36 @@ systemctl --user start podman.socket
 
 重新启动代理以使其连接到 Podman API。
 
+### Rootful Podman
+
+如果 Podman 以 root 身份运行，请改为启用系统级套接字：
+
+```bash
+sudo systemctl enable --now podman.socket
+```
+
+该套接字位于 `/run/podman/podman.sock`。代理程序只会自动检测 rootless 套接字，因此请将 `DOCKER_HOST` 设置为指向 rootful 套接字：
+
+```bash
+DOCKER_HOST=unix:///run/podman/podman.sock
+```
+
+如果使用容器代理程序，还需要挂载该套接字：
+
+```bash
+podman run -d \
+  --name beszel-agent \
+  --network host \
+  --restart unless-stopped \
+  -v /run/podman/podman.sock:/run/podman/podman.sock:ro \
+  -e DOCKER_HOST=unix:///run/podman/podman.sock \
+  -e KEY="<公钥>" \
+  -e LISTEN=45876 \
+  docker.io/henrygd/beszel-agent:latest
+```
+
+如果在启用了 SELinux 的系统（Fedora、RHEL 等）上看到 `permission denied`，请参阅 [SELinux](#selinux)。
+
 ## 授予权限
 
 代理程序需要对 Podman 套接字的读/写访问权限。这可以通过多种方式实现：
@@ -108,3 +138,62 @@ sudo systemctl restart beszel-agent.service
 ```
 
 ::::
+
+## SELinux
+
+在 SELinux 处于强制模式（enforcing）的系统（Fedora、RHEL、CentOS、Rocky Linux）上，即使文件权限正确，容器化的代理程序也可能被阻止连接到 Podman 套接字。代理程序会记录以下日志：
+
+```
+Containers err="Get \"http://localhost/containers/json\": dial unix /run/podman/podman.sock: connect: permission denied"
+```
+
+您可以通过检查审计日志来确认是否由 SELinux 引起：
+
+```bash
+sudo ausearch -m avc -ts recent | grep podman
+```
+
+拒绝记录类似于 `denied { connectto } ... scontext=...:container_t:s0 tcontext=...:container_runtime_t:s0`。代理程序以 `container_t` 身份运行，该类型不允许连接到由容器运行时拥有的套接字。
+
+要解决此问题，请使用 `container_runtime_t` SELinux 类型运行代理容器：
+
+::: code-group
+
+```yaml [docker-compose.yml]
+services:
+  beszel-agent:
+    image: henrygd/beszel-agent
+    container_name: beszel-agent
+    restart: unless-stopped
+    network_mode: host
+    security_opt:
+      - label=type:container_runtime_t # [!code ++]
+    volumes:
+      - ./beszel_agent_data:/var/lib/beszel-agent:Z
+      - /run/podman/podman.sock:/run/podman/podman.sock:ro
+    environment:
+      DOCKER_HOST: unix:///run/podman/podman.sock
+```
+
+```bash [podman run]
+podman run -d \
+  --name beszel-agent \
+  --network host \
+  --restart unless-stopped \
+  --security-opt label=type:container_runtime_t \
+  -v ./beszel_agent_data:/var/lib/beszel-agent:Z \
+  -v /run/podman/podman.sock:/run/podman/podman.sock:ro \
+  -e DOCKER_HOST=unix:///run/podman/podman.sock \
+  -e KEY="<公钥>" \
+  docker.io/henrygd/beszel-agent:latest
+```
+
+:::
+
+::: warning 不要在套接字挂载上添加 `:Z`
+`:Z` 会重新标记主机路径，这不适用于 Podman 套接字。请仅在 `beszel_agent_data` 等数据卷上使用 `:Z`。
+:::
+
+::: tip 注意
+`container_runtime_t` 会让容器获得与容器运行时相同的 SELinux 类型，其访问权限高于普通容器。如果您对此有顾虑，可以编写自定义 SELinux 策略模块，仅允许对该套接字执行 `connectto`，或者改用二进制代理程序运行。
+:::
