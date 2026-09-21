@@ -251,7 +251,7 @@ Treated as a whitelist by default. Can be used as a blacklist by prefixing with 
 | `foo_1,bar_*`  | Whitelist | Only `foo_1` and `bar_*` interfaces allowed.              |
 | `-foo_*`       | Blacklist | Excludes interfaces matching `foo_*`; all others allowed. |
 | `-foo_1,bar_*` | Blacklist | Excludes `foo_1` and `bar_*`; all others allowed.         |
-| `""`           | Disabled  | Disable network monitoring with an empty string.          |
+| `""`           | Disabled  | Disable interface bandwidth monitoring (empty string).   |
 
 ### `PRIMARY_SENSOR`
 

@@ -37,7 +37,7 @@ features:
     details: Tracks CPU, memory, and network usage history for each container.
     icon: <svg width="32" height="32" viewBox="0 0 16 16"><path fill="none" stroke="#8aadf4" stroke-linecap="round" stroke-linejoin="round" d="M.5 8.5H11l.75-.5a5.35 5.35 0 0 1 0-3.5c1 .6 1 1.88 1.74 2c.77-.09 1.23.01 2 .52c0 0-.97 1.77-2.5 1.98c-1.93 3.65-4.5 5.5-6.98 5.5C0 14.5.5 8.5.5 8.5m1 0v-2m0 0h8m-6 2v-4m0 0h4m-2-2h2m-2 6v-6m2 6v-6m2 6v-2"/></svg>
   - title: Alerts
-    details: Configurable alerts for CPU, memory, disk, bandwidth, temperature, and system status.
+    details: Configurable alerts for most metrics. Supports many notification services.
     icon: <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#f5a97f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/><path d="M4 2C2.8 3.7 2 5.7 2 8"/><path d="M22 8c0-2.3-.8-4.3-2-6"/></svg>
   - title: Multi-user
     details: Each user manages their own systems. Admins can share systems across users.
