@@ -35,6 +35,10 @@ Beszel 提供 systemd 服务的基本概览，显示其状态、CPU 使用率、
 
 挂载系统 D-Bus 套接字以允许代理与 systemd 通信：
 
+::: tip
+无根 Docker / Podman 可能无法访问系统 D-Bus 套接字。请改用二进制代理。
+:::
+
 ```yaml
 services:
   beszel-agent:

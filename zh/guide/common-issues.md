@@ -73,6 +73,8 @@ volumes:
 
 请参阅 [issue #640](https://github.com/henrygd/beszel/issues/640)，其中 [tercerapersona](https://github.com/tercerapersona) 发布了解决方案。使用适合您用户的正确套接字路径，如果 CPU 统计信息缺失，请[启用 cgroup CPU 委派](https://rootlesscontaine.rs/getting-started/common/cgroup2/#enabling-cpu-cpuset-and-io-delegation)。
 
+其他主机级指标（传感器、风扇、电池、GPU、ZFS、S.M.A.R.T.、systemd 服务）在无根容器中也可能不可用。如果您需要这些指标，请改用[二进制代理](./agent-installation.md#二进制文件)。
+
 ## Docker 容器填充不可靠
 
 如果可能，请升级代理程序系统上的 Docker 版本。Docker 24 及更早版本可能存在导致此问题的错误。我们已经向代理程序添加了缓解此问题的解决方法，但这不是完美的解决方案。
