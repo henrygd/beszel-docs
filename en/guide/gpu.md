@@ -217,6 +217,14 @@ If running the agent as a systemd service, [add the `CAP_PERFMON` ambient capabi
 ```ini
 [Service]
 AmbientCapabilities=CAP_PERFMON
+CapabilityBoundingSet=CAP_PERFMON
+```
+
+If you already set these for [S.M.A.R.T. data](./smart-data) or [network monitors](./network-monitors), list all capabilities on the same lines instead of adding duplicate entries. An ambient capability that is missing from `CapabilityBoundingSet` is silently dropped.
+
+```ini
+AmbientCapabilities=CAP_SYS_RAWIO CAP_SYS_ADMIN CAP_PERFMON
+CapabilityBoundingSet=CAP_SYS_RAWIO CAP_SYS_ADMIN CAP_PERFMON
 ```
 
 ### Troubleshooting {#intel-troubleshooting}
