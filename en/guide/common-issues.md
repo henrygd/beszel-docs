@@ -73,6 +73,10 @@ If container charts show empty data or don't appear at all, you may need to enab
 
 See [issue #640](https://github.com/henrygd/beszel/issues/640) where [tercerapersona](https://github.com/tercerapersona) posted a solution. Use the correct socket path for your user and [enable cgroup CPU delegation](https://rootlesscontaine.rs/getting-started/common/cgroup2/#enabling-cpu-cpuset-and-io-delegation) if CPU stats are missing.
 
+## Podman: permission denied on the socket (SELinux)
+
+If the agent runs in a container on Fedora, RHEL, or another SELinux-enforcing system and logs `dial unix /run/podman/podman.sock: connect: permission denied`, SELinux is blocking the connection. See the [SELinux section](./podman.md#selinux) of the Podman guide.
+
 ## Docker containers are not populating reliably
 
 Upgrade your Docker version on the agent system if possible. There is a bug in Docker 24, and possibly earlier versions, that may cause this issue. We've added a workaround to the agent to mitigate this issue, but it's not a perfect fix.
