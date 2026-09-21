@@ -218,6 +218,14 @@ sudo setcap cap_perfmon=ep /usr/bin/nvtop
 ```ini
 [Service]
 AmbientCapabilities=CAP_PERFMON
+CapabilityBoundingSet=CAP_PERFMON
+```
+
+如果您已经为 [S.M.A.R.T. 数据](./smart-data)或[网络监控](./network-monitors)设置了这些选项，请将所有权限写在同一行，而不是重复添加。未包含在 `CapabilityBoundingSet` 中的环境能力会被静默丢弃。
+
+```ini
+AmbientCapabilities=CAP_SYS_RAWIO CAP_SYS_ADMIN CAP_PERFMON
+CapabilityBoundingSet=CAP_SYS_RAWIO CAP_SYS_ADMIN CAP_PERFMON
 ```
 
 ### 故障排除 {#intel-troubleshooting}
