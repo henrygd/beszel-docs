@@ -69,3 +69,4 @@ Beszel consists of two main components: the **hub** and the **agent**.
 - **Containers** - Status and metrics of all running Docker / Podman containers.
 - **S.M.A.R.T.** - Host system disk health (includes eMMC wear/EOL and Linux mdraid array health via sysfs when available).
 - **ZFS** - Pool capacity, usage, health, I/O throughput, scrub status, and per-dataset usage.
+- **Network monitors** - ICMP, TCP, HTTP, and DNS response time and packet loss, probed from the agent. See [Network Monitoring](./network-monitors).
