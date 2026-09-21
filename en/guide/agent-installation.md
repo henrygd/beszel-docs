@@ -81,6 +81,12 @@ podman run -d \
 
 :::
 
+::: warning Rootless Docker / Podman
+Rootless containers can't access most host-level resources. Container stats work with the [correct socket path and cgroup delegation](./common-issues.md#docker-stats-missing-with-rootless-agent), but temperature sensors, fans, battery, GPU, ZFS, S.M.A.R.T., and systemd service monitoring may be unavailable or require extra configuration.
+
+If you need these metrics, consider running the [binary agent](#binary) as a systemd service instead.
+:::
+
 ### Why host network mode?
 
 The agent must use host network mode to access the host's network interface stats. This automatically exposes the port, so change the port using an environment variable if needed.
