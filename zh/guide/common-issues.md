@@ -73,6 +73,8 @@ volumes:
 
 请参阅 [issue #640](https://github.com/henrygd/beszel/issues/640)，其中 [tercerapersona](https://github.com/tercerapersona) 发布了解决方案。使用适合您用户的正确套接字路径，如果 CPU 统计信息缺失，请[启用 cgroup CPU 委派](https://rootlesscontaine.rs/getting-started/common/cgroup2/#enabling-cpu-cpuset-and-io-delegation)。
 
+其他主机级指标（传感器、风扇、电池、GPU、ZFS、S.M.A.R.T.、systemd 服务）在无根容器中也可能不可用。如果您需要这些指标，请改用[二进制代理](./agent-installation.md#二进制文件)。
+
 ## Podman：套接字权限被拒绝（SELinux）
 
 如果代理程序在 Fedora、RHEL 或其他启用了 SELinux 强制模式的系统上以容器方式运行，并记录 `dial unix /run/podman/podman.sock: connect: permission denied`，则说明 SELinux 阻止了该连接。请参阅 Podman 指南的 [SELinux 部分](./podman.md#selinux)。

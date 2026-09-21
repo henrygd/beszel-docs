@@ -46,6 +46,10 @@ sudo smartctl --scan
 
 切换到 `:alpine` 镜像，并在你的 `docker-compose.yml` 中添加以下内容。请确保将设备名称替换为你的实际设备。
 
+::: tip
+这在无根 Docker / Podman 中可能无法工作，因为无根容器无法授予所需的设备访问权限和能力。请改用二进制代理。
+:::
+
 > 非基础镜像如 `beszel-agent-intel` 和 `beszel-agent-nvidia` 也可以工作且不需要 `:alpine`。
 
 ```yaml
