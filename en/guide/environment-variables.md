@@ -120,6 +120,7 @@ Environment variables may optionally be prefixed with `BESZEL_AGENT_`.
 | `DISABLE_SSH`             | false   | Disable the SSH server completely (WebSocket connection only).                                       | 0.18.4 |
 | `DISK_USAGE_CACHE`        | unset   | Provide a duration like `5m` or `1h` to cache usage of extra disks and avoid waking them to recheck. | 0.17.0 |
 | `DOCKER_HOST`             | unset   | Overrides the Docker host (docker.sock).                                                             | - |
+| `DOCKER_IMAGE_CHECK`      | true    | Check container images for available updates. Set to `false` to disable registry requests.           | - |
 | `DOCKER_TIMEOUT`          | `2100ms`| Overrides the Docker API call timeout. Accepts Go duration format (e.g. `5s`, `2100ms`).            | - |
 | `EXCLUDE_CONTAINERS`      | unset   | Exclude containers from being monitored.                                                             | 0.15.3 |
 | `EXCLUDE_SMART`           | unset   | Exclude S.M.A.R.T. devices from being monitored.                                                     | 0.16.0 |
@@ -192,6 +193,10 @@ Attempts to find a suitable directory if unset. Currently only used to store the
 Docker socket proxies provide a more secure alternative to a direct `docker.sock` connection by filtering API requests. Beszel only needs read access to container information. For [linuxserver/docker-socket-proxy](https://github.com/linuxserver/docker-socket-proxy) you would set `CONTAINERS=1`.
 
 You may also set this to an empty string (`DOCKER_HOST=""`) to completely disable Docker monitoring.
+
+### `DOCKER_IMAGE_CHECK`
+
+The agent periodically queries container image registries to check whether newer images are available. Set `DOCKER_IMAGE_CHECK=false` to disable these checks and prevent the associated outbound registry requests. Image update checks are enabled by default.
 
 ### `DOCKER_TIMEOUT`
 

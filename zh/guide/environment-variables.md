@@ -116,6 +116,7 @@
 | `DISABLE_SSH`             | false  | 禁用 SSH 服务器（仅 WebSocket 连接）。                                                         | 0.18.4 |
 | `DISK_USAGE_CACHE`        | 未设置 | 提供类似 `5m` 或 `1h` 的持续时间来缓存额外磁盘的使用情况，避免唤醒它们进行重新检查。         | 0.17.0 |
 | `DOCKER_HOST`             | 未设置 | 覆盖 Docker 主机 (docker.sock)。                                                             | - |
+| `DOCKER_IMAGE_CHECK`      | true   | 检查容器镜像是否有可用更新。设置为 `false` 可禁用镜像仓库请求。                              | - |
 | `DOCKER_TIMEOUT`          | `2100ms`| 覆盖 Docker API 调用超时。接受 Go 时长格式（如 `5s`、`2100ms`）。                     | - |
 | `EXCLUDE_CONTAINERS`      | 未设置 | 排除容器不被监控。                                                                           | 0.15.3 |
 | `EXCLUDE_SMART`           | 未设置 | 排除 S.M.A.R.T. 设备不被监控。                                                               | 0.16.0 |
@@ -188,6 +189,10 @@ services:
 Docker 套接字代理通过过滤 API 请求，提供了比直接连接 `docker.sock` 更安全的选择。Beszel 只需要读取容器信息的权限。对于 [linuxserver/docker-socket-proxy](https://github.com/linuxserver/docker-socket-proxy)，您需要设置 `CONTAINERS=1`．
 
 您也可以将其设置为空字符串（`DOCKER_HOST=""`）以完全禁用 Docker 监控。
+
+### `DOCKER_IMAGE_CHECK`
+
+代理会定期查询容器镜像仓库，以检查是否有较新的镜像可用。设置 `DOCKER_IMAGE_CHECK=false` 可禁用这些检查，并阻止相关的出站镜像仓库请求。默认启用镜像更新检查。
 
 ### `DOCKER_TIMEOUT`
 
