@@ -20,6 +20,7 @@
 | `MFA_OTP`               | false  | 为用户和/或超级用户启用 OTP 认证。                                                                                               |
 | `OAUTH_DISABLE_POPUP`   | false  | 禁用 OAuth2 弹出窗口。适用于反向代理或嵌入式浏览器环境中使用 OAuth 的场景。                                                      |
 | `SHARE_ALL_SYSTEMS`     | false  | 允许所有用户访问所有系统。除非用户被分配了 `readonly` 角色，否则他们还可以编辑或删除任何系统。                                    |
+| `SYNC_SYSTEM_NAMES`     | false  | 设为 `true` 时，代理连接后使用其主机名更新系统显示名称。                                                                         |
 | `TRUSTED_AUTH_HEADER`   | 未设置 | 用于转发身份验证的可信头。                                                                                                       |
 | `TRUSTED_PROXY_IPS`     | 未设置 | 逗号分隔的 IP 或 CIDR 范围。设置后，仅对来自这些地址的请求信任 `TRUSTED_AUTH_HEADER`。                                           |
 | `USER_CREATION`         | false  | 启用 OAuth2 / OIDC 的自动用户创建。                                                                                              |
@@ -43,6 +44,10 @@
 ### `SHARE_ALL_SYSTEMS`
 
 如果为 true，所有用户都可以看到系统。除非用户被分配了 `readonly` 角色，否则他们还可以编辑或删除任何系统。
+
+### `SYNC_SYSTEM_NAMES`
+
+在中心设置 `SYNC_SYSTEM_NAMES=true` 后，系统显示名称会与代理报告的主机名同步。中心在每次代理连接时获取一次系统详情，并用报告的主机名替换自定义显示名称。代理在启动时读取主机名，因此更改主机名后需重启代理。
 
 ### `OAUTH_DISABLE_POPUP`
 

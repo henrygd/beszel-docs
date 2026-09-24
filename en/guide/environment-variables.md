@@ -20,6 +20,7 @@ Environment variables may optionally be prefixed with `BESZEL_HUB_`.
 | `MFA_OTP`               | false   | Enables OTP authentication for users and/or superusers.                                                                                     |
 | `OAUTH_DISABLE_POPUP`   | false   | Disables the OAuth2 popup window. Useful when OAuth is used behind a reverse proxy or in embedded browser environments.                      |
 | `SHARE_ALL_SYSTEMS`     | false   | Allows access to all systems by all users. Users can also edit or delete any system unless they are assigned the `readonly` role.            |
+| `SYNC_SYSTEM_NAMES`     | false   | Set to `true` to update system display names from agent hostnames when agents connect.                                                      |
 | `TRUSTED_AUTH_HEADER`   | unset   | Trusted header for forwarded authentication.                                                                                                |
 | `TRUSTED_PROXY_IPS`     | unset   | Comma-separated IPs or CIDR ranges. When set, `TRUSTED_AUTH_HEADER` is only honored on requests from these addresses.                       |
 | `USER_CREATION`         | false   | Enables automatic user creation for OAuth2 / OIDC.                                                                                          |
@@ -43,6 +44,10 @@ Do not enable this unless you've configured an SMTP server.
 ### `SHARE_ALL_SYSTEMS`
 
 If true, systems will be visible to all users. Users can also edit or delete any system unless they are assigned the `readonly` role.
+
+### `SYNC_SYSTEM_NAMES`
+
+Set `SYNC_SYSTEM_NAMES=true` on the hub to keep system display names in sync with the hostnames reported by their agents. The hub fetches system details once per agent connection and replaces any custom display name with the reported hostname. The agent reads its hostname at startup, so restart the agent after changing its hostname.
 
 ### `OAUTH_DISABLE_POPUP`
 
