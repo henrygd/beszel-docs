@@ -179,3 +179,11 @@ sudo systemctl start beszel.service
 ```
 
 :::
+
+## 备份 Hub
+
+您可以通过以下两种方式备份 Hub：
+
+1. 使用 Hub 中 `/#/settings/backups` 页面提供的备份功能。备份可以保存到磁盘或兼容 S3 的存储中，也可以从这两种存储中恢复。
+
+2. 停止 Hub，然后复制整个 `beszel_data` 目录。
