@@ -179,3 +179,11 @@ sudo systemctl start beszel.service
 ```
 
 :::
+
+## Backing up the hub
+
+There are two methods you can use to back up the hub:
+
+1. Use the backup feature located in the hub at `/#/settings/backups`, which can save to disk or to S3-compatible storage and restore from either.
+
+2. Stop the hub and copy the whole `beszel_data` directory.
