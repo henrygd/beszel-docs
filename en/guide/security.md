@@ -10,6 +10,8 @@ SSH mode requires the hub host to allow forwarded packets between the hub contai
 
 When the hub is started for the first time, it generates an ED25519 key. The agent's SSH server is configured to accept connections using this key only. It does not provide a pseudo-terminal or accept input, so it's impossible to execute commands on the agent even if your private key is compromised.
 
+The hub does not verify the agent's SSH host key, so SSH mode assumes a trusted network path between the hub and agent. Someone who can intercept that traffic can't access the agent or the hub, but they could impersonate the agent and send the hub false metrics. If your hub and agents communicate over an untrusted network, such as the public internet, we recommend using WebSocket mode with an HTTPS hub URL.
+
 ## WebSocket connection
 
 The WebSocket connection is initiated by the agent and connects to the hub's URL.
