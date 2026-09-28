@@ -25,6 +25,52 @@ Beszel 提供 systemd 服务的基本概览，显示其状态、CPU 使用率、
 
 与 CPU、内存等警报不同，此警报没有延迟/持续时间设置。一旦检测到故障服务就会立即触发。代理每 10 分钟仅刷新一次 systemd 状态，因此故障可能需要长达 10 分钟左右才会被察觉——重启代理会强制立即刷新。由于存在此轮询间隔，能够迅速自愈的瞬态故障通常不会被检测到。
 
+## 服务日志
+
+点击某个服务，即可在服务详情上方查看其最近的日志条目（来自 systemd 日志的最后 200 行）。使用日志上方的按钮可以刷新日志或全屏查看。
+
+代理只会返回其所监控服务的日志。使用 [`SERVICE_PATTERNS`](./environment-variables.md#service_patterns) 控制监控哪些服务。
+
+如果代理无法读取系统日志，或者通过 [`SKIP_SYSTEMD_LOGS`](./environment-variables.md#skip_systemd_logs) 禁用了日志，日志面板将被隐藏。
+
+::: warning 日志可能包含敏感信息
+所有能够在 Beszel 中查看该系统的用户（包括只读用户）都可以读取其服务日志。
+:::
+
+### 日志访问权限 { #journal-access }
+
+代理使用 `journalctl` 读取日志，因此需要读取系统日志的权限。代理在启动时检查访问权限，因此更改权限后请重启代理。
+
+如果您使用安装脚本安装代理，脚本会将 `SupplementaryGroups=systemd-journal` 添加到 `beszel-agent` 服务中。这样代理服务即可读取日志，而无需将 `beszel` 用户添加到该组。对于现有安装，重新运行安装脚本即可添加此设置。
+
+如需手动设置，请运行 `sudo systemctl edit beszel-agent` 并添加：
+
+```ini
+[Service]
+SupplementaryGroups=systemd-journal
+```
+
+然后重启代理：
+
+```bash
+sudo systemctl restart beszel-agent
+```
+
+以 root 身份运行的代理已经可以读取日志。
+
+官方 Docker 镜像不包含 `journalctl`，因此服务日志仅适用于二进制代理。
+
+### 禁用日志
+
+设置 `SKIP_SYSTEMD_LOGS=true` 可禁止代理提供日志。
+
+您也可以运行 `sudo systemctl edit beszel-agent` 并添加一个空的 `SupplementaryGroups=` 来移除代理的日志访问权限。重新运行安装脚本时会保留此覆盖设置。
+
+```ini
+[Service]
+SupplementaryGroups=
+```
+
 ## 二进制代理
 
 当以二进制方式运行代理时，通常不需要额外的 systemd 监控配置。代理以足够的权限运行来访问 systemd 服务信息。
@@ -95,6 +141,20 @@ Systemd 支持系统级服务和用户特定服务：
    ```
 
 4. 验证代理权限以访问 systemd 服务
+
+### 日志未显示
+
+1. 确保代理和 Hub 均已更新到最新版本。
+2. 对于二进制代理，请检查服务是否具有日志访问权限。输出应为 `SupplementaryGroups=systemd-journal`：
+
+   ```bash
+   systemctl show beszel-agent -p SupplementaryGroups
+   ```
+
+   如果为空，请参阅 [日志访问权限](#journal-access)。
+
+3. 更改权限后重启代理。日志访问权限仅在代理启动时检查。
+4. 确保 `SKIP_SYSTEMD_LOGS` 未设置为 `true`。
 
 ### 缺少内存统计信息
 

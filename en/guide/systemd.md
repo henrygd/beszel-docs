@@ -25,6 +25,52 @@ Notes:
 <!---->
 <!-- There's no delay/duration setting for this alert, unlike CPU, Memory, etc. It fires as soon as a failed service is observed. The agent only refreshes systemd state every 10 minutes, so a failure can take up to about that long to be noticed — restarting the agent forces an immediate refresh. Because of this polling interval, transient failures that self-heal quickly are often never observed. -->
 
+## Service Logs
+
+Click a service to see its most recent log entries (the last 200 lines from the systemd journal) above the service details. Use the buttons above the logs to refresh them or view them fullscreen.
+
+The agent only returns logs for services it monitors. Use [`SERVICE_PATTERNS`](./environment-variables.md#service_patterns) to control which services those are.
+
+The logs panel is hidden if the agent can't read the system journal or if logs are disabled with [`SKIP_SYSTEMD_LOGS`](./environment-variables.md#skip_systemd_logs).
+
+::: warning Logs may contain sensitive information
+Everyone who can view the system in Beszel can read its service logs, including read-only users.
+:::
+
+### Journal access
+
+The agent reads logs with `journalctl`, so it needs permission to read the system journal. The agent checks for access when it starts, so restart it after changing permissions.
+
+If you installed the agent with the install script, the script adds `SupplementaryGroups=systemd-journal` to the `beszel-agent` service. This lets the agent service read the journal without adding the `beszel` user to the group. Re-run the install script to add it to an existing installation.
+
+To set it up manually, run `sudo systemctl edit beszel-agent` and add:
+
+```ini
+[Service]
+SupplementaryGroups=systemd-journal
+```
+
+Then restart the agent:
+
+```bash
+sudo systemctl restart beszel-agent
+```
+
+Agents running as root can already read the journal.
+
+The official Docker images don't include `journalctl`, so service logs are only available with the binary agent.
+
+### Disabling logs
+
+Set `SKIP_SYSTEMD_LOGS=true` to stop the agent from serving logs.
+
+You can also remove the agent's journal access by running `sudo systemctl edit beszel-agent` and adding an empty `SupplementaryGroups=`. This override is kept if you re-run the install script.
+
+```ini
+[Service]
+SupplementaryGroups=
+```
+
 ## Binary agent
 
 When running the agent as a binary, no additional configuration is typically required for systemd monitoring. The agent runs with sufficient privileges to access systemd service information.
@@ -95,6 +141,20 @@ The agent monitors system services by default. User services require additional 
    ```
 
 4. Verify agent permissions for accessing systemd services
+
+### Logs Not Appearing
+
+1. Make sure the agent and hub are both up to date.
+2. For a binary agent, check that the service has journal access. The output should be `SupplementaryGroups=systemd-journal`:
+
+   ```bash
+   systemctl show beszel-agent -p SupplementaryGroups
+   ```
+
+   If it's empty, see [Journal access](#journal-access).
+
+3. Restart the agent after changing permissions. Journal access is only checked when the agent starts.
+4. Make sure `SKIP_SYSTEMD_LOGS` is not set to `true`.
 
 ### Missing memory stats
 

@@ -150,6 +150,7 @@ Environment variables may optionally be prefixed with `BESZEL_AGENT_`.
 | `SERVICE_PATTERNS`        | unset   | List of systemd service patterns to monitor.                                                         | 0.18.5 |
 | `SKIP_GPU`                | false   | Disable GPU monitoring.                                                                              | 0.12.12 |
 | `SKIP_SYSTEMD`            | false   | Disable Systemd service monitoring.                                                                  | 0.17.0 |
+| `SKIP_SYSTEMD_LOGS`       | false   | Disable systemd service logs. See [Systemd Services](./systemd.md#service-logs).                     | - |
 | `SMART_DEVICES`           | unset   | List of S.M.A.R.T. devices to monitor.                                                               | 0.15.1 |
 | `SMART_DEVICES_SEPARATOR` | ,       | Separator used to split `SMART_DEVICES`                                                              | 0.18.3 |
 | `SMART_INTERVAL`          | 1h      | Interval to check S.M.A.R.T. devices.                                                                | 0.18.0 |
@@ -288,6 +289,14 @@ SERVICE_PATTERNS="beszel*,docker*,kubelet*"
 ```
 
 <!-- Only matched services are eligible to trigger the [Failed Services alert](./systemd.md#alerts). -->
+
+### `SKIP_SYSTEMD_LOGS`
+
+Set to `true` to stop the agent from serving systemd service logs. The logs panel is hidden in the web UI.
+
+```dotenv
+SKIP_SYSTEMD_LOGS=true
+```
 
 ### `SMART_DEVICES`
 
