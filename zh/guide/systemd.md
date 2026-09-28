@@ -2,6 +2,59 @@
 
 Beszel 提供 systemd 服务的基本概览，显示其状态、CPU 使用率、内存消耗和其他指标。这提供了对系统服务健康状况和资源使用的可见性。
 
+## 二进制代理
+
+当以二进制方式运行代理时，通常不需要额外的 systemd 监控配置。代理以足够的权限运行来访问 systemd 服务信息。
+
+如果服务没有出现在系统页面上，请检查代理日志中的权限相关错误。
+
+## Docker 代理
+
+挂载系统 D-Bus 套接字以允许代理与 systemd 通信：
+
+```yaml
+services:
+  beszel-agent:
+    volumes:
+      - /var/run/dbus/system_bus_socket:/var/run/dbus/system_bus_socket:ro
+```
+
+如果日志显示 AppArmor 错误，请添加以下安全选项：
+
+```yaml
+services:
+  beszel-agent:
+    security_opt:
+      - apparmor:unconfined
+```
+
+如果服务仍然没有出现，请尝试同时挂载 systemd 私有套接字：
+
+```yaml
+services:
+  beszel-agent:
+    volumes:
+      - /var/run/systemd/private:/var/run/systemd/private:ro
+```
+
+作为最后的手段，您可以使用特权访问运行容器。这对于测试很有用，但不建议用于生产环境。
+
+```yaml
+services:
+  beszel-agent:
+    privileged: true
+```
+
+<!-- ## 用户服务 vs 系统服务
+
+Systemd 支持系统级服务和用户特定服务：
+
+- **系统服务**：以 root 或专用系统用户身份运行，由 `systemctl` 管理
+- **用户服务**：按用户运行，由 `systemctl --user` 管理
+
+代理默认监控系统服务。用户服务需要额外配置，通常需要代理作为目标用户运行。 -->
+
+
 ## 显示内容
 
 代理收集至少运行过一次的 systemd 服务的数据（包括失败或退出的服务），包括：
@@ -70,58 +123,6 @@ sudo systemctl restart beszel-agent
 [Service]
 SupplementaryGroups=
 ```
-
-## 二进制代理
-
-当以二进制方式运行代理时，通常不需要额外的 systemd 监控配置。代理以足够的权限运行来访问 systemd 服务信息。
-
-如果服务没有出现在系统页面上，请检查代理日志中的权限相关错误。
-
-## Docker 代理
-
-挂载系统 D-Bus 套接字以允许代理与 systemd 通信：
-
-```yaml
-services:
-  beszel-agent:
-    volumes:
-      - /var/run/dbus/system_bus_socket:/var/run/dbus/system_bus_socket:ro
-```
-
-如果日志显示 AppArmor 错误，请添加以下安全选项：
-
-```yaml
-services:
-  beszel-agent:
-    security_opt:
-      - apparmor:unconfined
-```
-
-如果服务仍然没有出现，请尝试同时挂载 systemd 私有套接字：
-
-```yaml
-services:
-  beszel-agent:
-    volumes:
-      - /var/run/systemd/private:/var/run/systemd/private:ro
-```
-
-作为最后的手段，您可以使用特权访问运行容器。这对于测试很有用，但不建议用于生产环境。
-
-```yaml
-services:
-  beszel-agent:
-    privileged: true
-```
-
-<!-- ## 用户服务 vs 系统服务
-
-Systemd 支持系统级服务和用户特定服务：
-
-- **系统服务**：以 root 或专用系统用户身份运行，由 `systemctl` 管理
-- **用户服务**：按用户运行，由 `systemctl --user` 管理
-
-代理默认监控系统服务。用户服务需要额外配置，通常需要代理作为目标用户运行。 -->
 
 ## 故障排除
 

@@ -2,6 +2,59 @@
 
 Beszel provides a basic overview of systemd services, displaying their status, CPU usage, memory consumption, and other metrics.
 
+## Binary agent
+
+When running the agent as a binary, no additional configuration is typically required for systemd monitoring. The agent runs with sufficient privileges to access systemd service information.
+
+If services don't appear on the system page, check the agent logs for errors.
+
+## Docker agent
+
+Mount the system D-Bus socket to allow the agent to communicate with systemd:
+
+```yaml
+services:
+  beszel-agent:
+    volumes:
+      - /var/run/dbus/system_bus_socket:/var/run/dbus/system_bus_socket:ro
+```
+
+If logs show an AppArmor error, add the following security option:
+
+```yaml
+services:
+  beszel-agent:
+    security_opt:
+      - apparmor:unconfined
+```
+
+If services still don't appear, try mounting the systemd private socket as well:
+
+```yaml
+services:
+  beszel-agent:
+    volumes:
+      - /var/run/systemd/private:/var/run/systemd/private:ro
+```
+
+As a last resort, you can run the container with privileged access. This is useful for testing but not recommended for production.
+
+```yaml
+services:
+  beszel-agent:
+    privileged: true
+```
+
+<!-- ## User Services vs System Services
+
+Systemd supports both system-wide services and user-specific services:
+
+- **System services**: Run as root or dedicated system users, managed by `systemctl`
+- **User services**: Run per-user, managed by `systemctl --user`
+
+The agent monitors system services by default. User services require additional configuration and typically need the agent to run as the target user. -->
+
+
 ## What Gets Displayed
 
 The agent collects data for systemd services that have been active at least once (including failed or exited ones), showing:
@@ -70,58 +123,6 @@ You can also remove the agent's journal access by running `sudo systemctl edit b
 [Service]
 SupplementaryGroups=
 ```
-
-## Binary agent
-
-When running the agent as a binary, no additional configuration is typically required for systemd monitoring. The agent runs with sufficient privileges to access systemd service information.
-
-If services don't appear on the system page, check the agent logs for errors.
-
-## Docker agent
-
-Mount the system D-Bus socket to allow the agent to communicate with systemd:
-
-```yaml
-services:
-  beszel-agent:
-    volumes:
-      - /var/run/dbus/system_bus_socket:/var/run/dbus/system_bus_socket:ro
-```
-
-If logs show an AppArmor error, add the following security option:
-
-```yaml
-services:
-  beszel-agent:
-    security_opt:
-      - apparmor:unconfined
-```
-
-If services still don't appear, try mounting the systemd private socket as well:
-
-```yaml
-services:
-  beszel-agent:
-    volumes:
-      - /var/run/systemd/private:/var/run/systemd/private:ro
-```
-
-As a last resort, you can run the container with privileged access. This is useful for testing but not recommended for production.
-
-```yaml
-services:
-  beszel-agent:
-    privileged: true
-```
-
-<!-- ## User Services vs System Services
-
-Systemd supports both system-wide services and user-specific services:
-
-- **System services**: Run as root or dedicated system users, managed by `systemctl`
-- **User services**: Run per-user, managed by `systemctl --user`
-
-The agent monitors system services by default. User services require additional configuration and typically need the agent to run as the target user. -->
 
 ## Troubleshooting
 
