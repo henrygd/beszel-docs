@@ -298,6 +298,7 @@ curl -sL https://get.beszel.dev/brew -o /tmp/install-agent.sh && chmod +x /tmp/i
 mkdir -p ~/.config/beszel ~/.cache/beszel
 echo 'KEY="ssh-ed25519 AAAA..."' > ~/.config/beszel/beszel-agent.env
 brew tap henrygd/beszel
+brew trust henrygd/beszel/beszel-agent # 安装非官方 tap 中的 formula 前，需要先将其设为受信任
 brew install beszel-agent
 brew services start beszel-agent
 ```
