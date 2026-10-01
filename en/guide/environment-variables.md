@@ -14,6 +14,7 @@ Environment variables may optionally be prefixed with `BESZEL_HUB_`.
 | `CONTAINER_DETAILS`     | true    | Allow viewing container details (inspect, logs) in the web UI.                                                                              |
 | `CSP`                   | unset   | Adds a [Content-Security-Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy) header with this value. |
 | `DISABLE_PASSWORD_AUTH` | false   | Disables password authentication.                                                                                                           |
+| `DISABLE_SSH`           | false   | Disables SSH connections from the hub to agents. Agents must connect via WebSocket.                                                         |
 | `HEARTBEAT_INTERVAL`    | `60`    | Seconds between heartbeat pings. Has no effect if `HEARTBEAT_URL` is unset.                                                                 |
 | `HEARTBEAT_METHOD`      | `POST`  | HTTP method for heartbeat pings. Valid values: `GET`, `POST`, `HEAD`.                                                                        |
 | `HEARTBEAT_URL`         | unset   | External URL to ping periodically. Enables [heartbeat monitoring](#heartbeat-monitoring). Feature is disabled if empty.                      |
@@ -34,6 +35,14 @@ Don't set this unless you want to completely bypass authentication and use only 
 ### `DISABLE_PASSWORD_AUTH`
 
 This does not disable authentication entirely. It disables password login if you want to use OAuth instead.
+
+### `DISABLE_SSH`
+
+By default, the hub tries to reach an agent over SSH whenever that agent has no active WebSocket connection. Set `DISABLE_SSH=true` to turn this off. A disconnected system is marked as down, and the hub waits for the agent to reconnect via WebSocket instead of repeatedly dialing it.
+
+This is useful if all of your agents connect via WebSocket, especially if some are regularly powered off. Agents need `HUB_URL` and `TOKEN` set to connect to the hub.
+
+This is separate from the agent's [`DISABLE_SSH`](#agent) variable, which disables the agent's SSH server.
 
 ### `MFA_OTP`
 

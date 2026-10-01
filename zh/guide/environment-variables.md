@@ -14,6 +14,7 @@
 | `CONTAINER_DETAILS`     | true   | 允许在 Web 界面中查看容器详情（inspect, logs）。                                                                                 |
 | `CSP`                   | 未设置 | 添加具有此值的 [Content-Security-Policy](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Content-Security-Policy) 头。 |
 | `DISABLE_PASSWORD_AUTH` | false  | 禁用密码认证。                                                                                                                   |
+| `DISABLE_SSH`           | false  | 禁用中心到代理的 SSH 连接。代理必须通过 WebSocket 连接。                                                                         |
 | `HEARTBEAT_INTERVAL`    | `60`   | 心跳 ping 之间的间隔秒数。若未设置 `HEARTBEAT_URL` 则无效。                                                                     |
 | `HEARTBEAT_METHOD`      | `POST` | 心跳 ping 使用的 HTTP 方法。有效值：`GET`、`POST`、`HEAD`。                                                                     |
 | `HEARTBEAT_URL`         | 未设置 | 定期 ping 的外部 URL。启用[心跳监控](#heartbeat-monitoring)。为空时禁用此功能。                                                  |
@@ -34,6 +35,14 @@
 ### `DISABLE_PASSWORD_AUTH`
 
 这不会完全禁用身份验证。如果您想使用 OAuth 代替密码登录，它会禁用密码登录。
+
+### `DISABLE_SSH`
+
+默认情况下，当代理没有活动的 WebSocket 连接时，中心会尝试通过 SSH 连接该代理。设置 `DISABLE_SSH=true` 可关闭此行为。断开连接的系统会被标记为离线，中心将等待代理通过 WebSocket 重新连接，而不是反复尝试连接。
+
+如果您的所有代理都通过 WebSocket 连接，尤其是其中一些会定期关机时，此选项很有用。代理需要设置 `HUB_URL` 和 `TOKEN` 才能连接到中心。
+
+这与代理的 `DISABLE_SSH` 变量不同，后者用于禁用代理的 SSH 服务器。
 
 ### `MFA_OTP`
 
