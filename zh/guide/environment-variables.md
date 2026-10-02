@@ -155,7 +155,8 @@
 | `SERVICE_PATTERNS`        | 未设置 | 要监控的 systemd 服务模式列表。                                                              | 0.18.5 |
 | `SKIP_GPU`                | false  | 禁用 GPU 监控。                                                                              | 0.12.12 |
 | `SKIP_SYSTEMD`            | false  | 禁用 Systemd 服务监控。                                                                      | 0.17.0 |
-| `SKIP_SYSTEMD_LOGS`       | false  | 禁用 systemd 服务日志。参见 [Systemd 服务](./systemd.md#服务日志)。                          | -      |
+| `SKIP_SYSTEMD_LOGS`       | false  | 禁用 systemd 服务日志。参见 [Systemd 服务](./systemd.md#服务日志)。                          | 0.21.0 |
+| `SKIP_WIFI`               | false  | 禁用 Wi-Fi 信号监控。                                                                        | 0.21.0 |
 | `SMART_DEVICES`           | 未设置 | 要监控的 S.M.A.R.T. 设备列表。                                                               | 0.15.1 |
 | `SMART_DEVICES_SEPARATOR` | ,      | 用于分割 `SMART_DEVICES` 的分隔符                                                            | 0.18.3 |
 | `SMART_INTERVAL`          | 1h     | 检查 S.M.A.R.T. 设备的间隔时间。                                                             | 0.18.0 |

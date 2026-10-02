@@ -159,7 +159,8 @@ Environment variables may optionally be prefixed with `BESZEL_AGENT_`.
 | `SERVICE_PATTERNS`        | unset   | List of systemd service patterns to monitor.                                                         | 0.18.5 |
 | `SKIP_GPU`                | false   | Disable GPU monitoring.                                                                              | 0.12.12 |
 | `SKIP_SYSTEMD`            | false   | Disable Systemd service monitoring.                                                                  | 0.17.0 |
-| `SKIP_SYSTEMD_LOGS`       | false   | Disable systemd service logs. See [Systemd Services](./systemd.md#service-logs).                     | - |
+| `SKIP_SYSTEMD_LOGS`       | false   | Disable systemd service logs. See [Systemd Services](./systemd.md#service-logs).                     | 0.21.0 |
+| `SKIP_WIFI`               | false   | Disable Wi-Fi signal monitoring.                                                                     | 0.21.0 |
 | `SMART_DEVICES`           | unset   | List of S.M.A.R.T. devices to monitor.                                                               | 0.15.1 |
 | `SMART_DEVICES_SEPARATOR` | ,       | Separator used to split `SMART_DEVICES`                                                              | 0.18.3 |
 | `SMART_INTERVAL`          | 1h      | Interval to check S.M.A.R.T. devices.                                                                | 0.18.0 |
