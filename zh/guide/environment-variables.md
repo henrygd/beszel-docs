@@ -14,12 +14,14 @@
 | `CONTAINER_DETAILS`     | true   | 允许在 Web 界面中查看容器详情（inspect, logs）。                                                                                 |
 | `CSP`                   | 未设置 | 添加具有此值的 [Content-Security-Policy](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Content-Security-Policy) 头。 |
 | `DISABLE_PASSWORD_AUTH` | false  | 禁用密码认证。                                                                                                                   |
+| `DISABLE_SSH`           | false  | 禁用中心到代理的 SSH 连接。代理必须通过 WebSocket 连接。                                                                         |
 | `HEARTBEAT_INTERVAL`    | `60`   | 心跳 ping 之间的间隔秒数。若未设置 `HEARTBEAT_URL` 则无效。                                                                     |
 | `HEARTBEAT_METHOD`      | `POST` | 心跳 ping 使用的 HTTP 方法。有效值：`GET`、`POST`、`HEAD`。                                                                     |
 | `HEARTBEAT_URL`         | 未设置 | 定期 ping 的外部 URL。启用[心跳监控](#heartbeat-monitoring)。为空时禁用此功能。                                                  |
 | `MFA_OTP`               | false  | 为用户和/或超级用户启用 OTP 认证。                                                                                               |
 | `OAUTH_DISABLE_POPUP`   | false  | 禁用 OAuth2 弹出窗口。适用于反向代理或嵌入式浏览器环境中使用 OAuth 的场景。                                                      |
 | `SHARE_ALL_SYSTEMS`     | false  | 允许所有用户访问所有系统。除非用户被分配了 `readonly` 角色，否则他们还可以编辑或删除任何系统。                                    |
+| `SYNC_SYSTEM_NAMES`     | false  | 设为 `true` 时，代理连接后使用其主机名更新系统显示名称。                                                                         |
 | `TRUSTED_AUTH_HEADER`   | 未设置 | 用于转发身份验证的可信头。                                                                                                       |
 | `TRUSTED_PROXY_IPS`     | 未设置 | 逗号分隔的 IP 或 CIDR 范围。设置后，仅对来自这些地址的请求信任 `TRUSTED_AUTH_HEADER`。                                           |
 | `USER_CREATION`         | false  | 启用 OAuth2 / OIDC 的自动用户创建。                                                                                              |
@@ -34,6 +36,14 @@
 
 这不会完全禁用身份验证。如果您想使用 OAuth 代替密码登录，它会禁用密码登录。
 
+### `DISABLE_SSH`
+
+默认情况下，当代理没有活动的 WebSocket 连接时，中心会尝试通过 SSH 连接该代理。设置 `DISABLE_SSH=true` 可关闭此行为。断开连接的系统会被标记为离线，中心将等待代理通过 WebSocket 重新连接，而不是反复尝试连接。
+
+如果您的所有代理都通过 WebSocket 连接，尤其是其中一些会定期关机时，此选项很有用。代理需要设置 `HUB_URL` 和 `TOKEN` 才能连接到中心。
+
+这与代理的 `DISABLE_SSH` 变量不同，后者用于禁用代理的 SSH 服务器。
+
 ### `MFA_OTP`
 
 如果为 `true`，将为用户和超级用户启用通过电子邮件一次性密码 (OTP) 的多因素认证 (MFA)。如果设置为 `superusers`，只有超级用户需要使用 OTP（登录 PocketBase 时）。
@@ -43,6 +53,10 @@
 ### `SHARE_ALL_SYSTEMS`
 
 如果为 true，所有用户都可以看到系统。除非用户被分配了 `readonly` 角色，否则他们还可以编辑或删除任何系统。
+
+### `SYNC_SYSTEM_NAMES`
+
+在中心设置 `SYNC_SYSTEM_NAMES=true` 后，系统显示名称会与代理报告的主机名同步。中心在每次代理连接时获取一次系统详情，并用报告的主机名替换自定义显示名称。代理在启动时读取主机名，因此更改主机名后需重启代理。
 
 ### `OAUTH_DISABLE_POPUP`
 
@@ -116,6 +130,7 @@
 | `DISABLE_SSH`             | false  | 禁用 SSH 服务器（仅 WebSocket 连接）。                                                         | 0.18.4 |
 | `DISK_USAGE_CACHE`        | 未设置 | 提供类似 `5m` 或 `1h` 的持续时间来缓存额外磁盘的使用情况，避免唤醒它们进行重新检查。         | 0.17.0 |
 | `DOCKER_HOST`             | 未设置 | 覆盖 Docker 主机 (docker.sock)。                                                             | - |
+| `DOCKER_IMAGE_CHECK`      | true   | 检查容器镜像是否有可用更新。设置为 `false` 可禁用镜像仓库请求。                              | - |
 | `DOCKER_TIMEOUT`          | `2100ms`| 覆盖 Docker API 调用超时。接受 Go 时长格式（如 `5s`、`2100ms`）。                     | - |
 | `EXCLUDE_CONTAINERS`      | 未设置 | 排除容器不被监控。                                                                           | 0.15.3 |
 | `EXCLUDE_SMART`           | 未设置 | 排除 S.M.A.R.T. 设备不被监控。                                                               | 0.16.0 |
@@ -140,6 +155,8 @@
 | `SERVICE_PATTERNS`        | 未设置 | 要监控的 systemd 服务模式列表。                                                              | 0.18.5 |
 | `SKIP_GPU`                | false  | 禁用 GPU 监控。                                                                              | 0.12.12 |
 | `SKIP_SYSTEMD`            | false  | 禁用 Systemd 服务监控。                                                                      | 0.17.0 |
+| `SKIP_SYSTEMD_LOGS`       | false  | 禁用 systemd 服务日志。参见 [Systemd 服务](./systemd.md#服务日志)。                          | 0.21.0 |
+| `SKIP_WIFI`               | false  | 禁用 Wi-Fi 信号监控。                                                                        | 0.21.0 |
 | `SMART_DEVICES`           | 未设置 | 要监控的 S.M.A.R.T. 设备列表。                                                               | 0.15.1 |
 | `SMART_DEVICES_SEPARATOR` | ,      | 用于分割 `SMART_DEVICES` 的分隔符                                                            | 0.18.3 |
 | `SMART_INTERVAL`          | 1h     | 检查 S.M.A.R.T. 设备的间隔时间。                                                             | 0.18.0 |
@@ -188,6 +205,10 @@ services:
 Docker 套接字代理通过过滤 API 请求，提供了比直接连接 `docker.sock` 更安全的选择。Beszel 只需要读取容器信息的权限。对于 [linuxserver/docker-socket-proxy](https://github.com/linuxserver/docker-socket-proxy)，您需要设置 `CONTAINERS=1`．
 
 您也可以将其设置为空字符串（`DOCKER_HOST=""`）以完全禁用 Docker 监控。
+
+### `DOCKER_IMAGE_CHECK`
+
+代理会定期查询容器镜像仓库，以检查是否有较新的镜像可用。设置 `DOCKER_IMAGE_CHECK=false` 可禁用这些检查，并阻止相关的出站镜像仓库请求。默认启用镜像更新检查。
 
 ### `DOCKER_TIMEOUT`
 
@@ -274,6 +295,14 @@ SERVICE_PATTERNS="beszel*,docker*,kubelet*"
 ```
 
 只有匹配的服务才有资格触发 [故障服务警报](./systemd.md#警报)。
+
+### `SKIP_SYSTEMD_LOGS`
+
+设置为 `true` 可禁止代理提供 systemd 服务日志。Web UI 中的日志面板将被隐藏。
+
+```dotenv
+SKIP_SYSTEMD_LOGS=true
+```
 
 ### `SMART_DEVICES`
 

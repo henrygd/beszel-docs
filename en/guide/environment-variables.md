@@ -14,12 +14,14 @@ Environment variables may optionally be prefixed with `BESZEL_HUB_`.
 | `CONTAINER_DETAILS`     | true    | Allow viewing container details (inspect, logs) in the web UI.                                                                              |
 | `CSP`                   | unset   | Adds a [Content-Security-Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy) header with this value. |
 | `DISABLE_PASSWORD_AUTH` | false   | Disables password authentication.                                                                                                           |
+| `DISABLE_SSH`           | false   | Disables SSH connections from the hub to agents. Agents must connect via WebSocket.                                                         |
 | `HEARTBEAT_INTERVAL`    | `60`    | Seconds between heartbeat pings. Has no effect if `HEARTBEAT_URL` is unset.                                                                 |
 | `HEARTBEAT_METHOD`      | `POST`  | HTTP method for heartbeat pings. Valid values: `GET`, `POST`, `HEAD`.                                                                        |
 | `HEARTBEAT_URL`         | unset   | External URL to ping periodically. Enables [heartbeat monitoring](#heartbeat-monitoring). Feature is disabled if empty.                      |
 | `MFA_OTP`               | false   | Enables OTP authentication for users and/or superusers.                                                                                     |
 | `OAUTH_DISABLE_POPUP`   | false   | Disables the OAuth2 popup window. Useful when OAuth is used behind a reverse proxy or in embedded browser environments.                      |
 | `SHARE_ALL_SYSTEMS`     | false   | Allows access to all systems by all users. Users can also edit or delete any system unless they are assigned the `readonly` role.            |
+| `SYNC_SYSTEM_NAMES`     | false   | Set to `true` to update system display names from agent hostnames when agents connect.                                                      |
 | `TRUSTED_AUTH_HEADER`   | unset   | Trusted header for forwarded authentication.                                                                                                |
 | `TRUSTED_PROXY_IPS`     | unset   | Comma-separated IPs or CIDR ranges. When set, `TRUSTED_AUTH_HEADER` is only honored on requests from these addresses.                       |
 | `USER_CREATION`         | false   | Enables automatic user creation for OAuth2 / OIDC.                                                                                          |
@@ -34,6 +36,14 @@ Don't set this unless you want to completely bypass authentication and use only 
 
 This does not disable authentication entirely. It disables password login if you want to use OAuth instead.
 
+### `DISABLE_SSH`
+
+By default, the hub tries to reach an agent over SSH whenever that agent has no active WebSocket connection. Set `DISABLE_SSH=true` to turn this off. A disconnected system is marked as down, and the hub waits for the agent to reconnect via WebSocket instead of repeatedly dialing it.
+
+This is useful if all of your agents connect via WebSocket, especially if some are regularly powered off. Agents need `HUB_URL` and `TOKEN` set to connect to the hub.
+
+This is separate from the agent's [`DISABLE_SSH`](#agent) variable, which disables the agent's SSH server.
+
 ### `MFA_OTP`
 
 If `true`, multi-factor authentication (MFA) via email one-time password (OTP) will be enabled for users and superusers. If set to `superusers`, only superusers will be required to use OTP (when logging into PocketBase).
@@ -43,6 +53,10 @@ Do not enable this unless you've configured an SMTP server.
 ### `SHARE_ALL_SYSTEMS`
 
 If true, systems will be visible to all users. Users can also edit or delete any system unless they are assigned the `readonly` role.
+
+### `SYNC_SYSTEM_NAMES`
+
+Set `SYNC_SYSTEM_NAMES=true` on the hub to keep system display names in sync with the hostnames reported by their agents. The hub fetches system details once per agent connection and replaces any custom display name with the reported hostname. The agent reads its hostname at startup, so restart the agent after changing its hostname.
 
 ### `OAUTH_DISABLE_POPUP`
 
@@ -120,6 +134,7 @@ Environment variables may optionally be prefixed with `BESZEL_AGENT_`.
 | `DISABLE_SSH`             | false   | Disable the SSH server completely (WebSocket connection only).                                       | 0.18.4 |
 | `DISK_USAGE_CACHE`        | unset   | Provide a duration like `5m` or `1h` to cache usage of extra disks and avoid waking them to recheck. | 0.17.0 |
 | `DOCKER_HOST`             | unset   | Overrides the Docker host (docker.sock).                                                             | - |
+| `DOCKER_IMAGE_CHECK`      | true    | Check container images for available updates. Set to `false` to disable registry requests.           | - |
 | `DOCKER_TIMEOUT`          | `2100ms`| Overrides the Docker API call timeout. Accepts Go duration format (e.g. `5s`, `2100ms`).            | - |
 | `EXCLUDE_CONTAINERS`      | unset   | Exclude containers from being monitored.                                                             | 0.15.3 |
 | `EXCLUDE_SMART`           | unset   | Exclude S.M.A.R.T. devices from being monitored.                                                     | 0.16.0 |
@@ -144,6 +159,8 @@ Environment variables may optionally be prefixed with `BESZEL_AGENT_`.
 | `SERVICE_PATTERNS`        | unset   | List of systemd service patterns to monitor.                                                         | 0.18.5 |
 | `SKIP_GPU`                | false   | Disable GPU monitoring.                                                                              | 0.12.12 |
 | `SKIP_SYSTEMD`            | false   | Disable Systemd service monitoring.                                                                  | 0.17.0 |
+| `SKIP_SYSTEMD_LOGS`       | false   | Disable systemd service logs. See [Systemd Services](./systemd.md#service-logs).                     | 0.21.0 |
+| `SKIP_WIFI`               | false   | Disable Wi-Fi signal monitoring.                                                                     | 0.21.0 |
 | `SMART_DEVICES`           | unset   | List of S.M.A.R.T. devices to monitor.                                                               | 0.15.1 |
 | `SMART_DEVICES_SEPARATOR` | ,       | Separator used to split `SMART_DEVICES`                                                              | 0.18.3 |
 | `SMART_INTERVAL`          | 1h      | Interval to check S.M.A.R.T. devices.                                                                | 0.18.0 |
@@ -192,6 +209,10 @@ Attempts to find a suitable directory if unset. Currently only used to store the
 Docker socket proxies provide a more secure alternative to a direct `docker.sock` connection by filtering API requests. Beszel only needs read access to container information. For [linuxserver/docker-socket-proxy](https://github.com/linuxserver/docker-socket-proxy) you would set `CONTAINERS=1`.
 
 You may also set this to an empty string (`DOCKER_HOST=""`) to completely disable Docker monitoring.
+
+### `DOCKER_IMAGE_CHECK`
+
+The agent periodically queries container image registries to check whether newer images are available. Set `DOCKER_IMAGE_CHECK=false` to disable these checks and prevent the associated outbound registry requests. Image update checks are enabled by default.
 
 ### `DOCKER_TIMEOUT`
 
@@ -278,6 +299,14 @@ SERVICE_PATTERNS="beszel*,docker*,kubelet*"
 ```
 
 <!-- Only matched services are eligible to trigger the [Failed Services alert](./systemd.md#alerts). -->
+
+### `SKIP_SYSTEMD_LOGS`
+
+Set to `true` to stop the agent from serving systemd service logs. The logs panel is hidden in the web UI.
+
+```dotenv
+SKIP_SYSTEMD_LOGS=true
+```
 
 ### `SMART_DEVICES`
 
