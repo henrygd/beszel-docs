@@ -38,7 +38,7 @@ The experimental NVML integration allows GPUs to enter power-saving modes (RTD3)
 
 To enable, set `GPU_COLLECTOR=nvml`. Feedback is appreciated and can be left in [issue #1522](https://github.com/henrygd/beszel/issues/1522).
 
-### Docker agent
+### Docker agent {#nvidia-docker}
 
 Make sure NVIDIA Container Toolkit is installed on the host system.
 
@@ -56,6 +56,8 @@ beszel-agent:
             capabilities:
               - utility
 ```
+Intel iGPUs are also monitored by this image. See [Intel Docker Agent](#intel-docker) for more information.
+
 ### Slim image variant {#nvidia-slim}
 
 The slim image uses a distroless base and does not bundle a shell, package manager, or `nvidia-smi`.
@@ -160,7 +162,7 @@ You can select the sysfs collector explicitly with `GPU_COLLECTOR=intel_sysfs`.
 
 ### Docker agent {#intel-docker}
 
-Use the `henrygd/beszel-agent-intel` image.
+Use the `henrygd/beszel-agent-intel` image for intel only. The [NVIDIA Docker Agent](#nvidia-docker) also contains intel monitoring (intended for iGPUs).
 
 For Xe / Intel Arc, add `pid: host` to enable GPU utilization through `nvtop`:
 
