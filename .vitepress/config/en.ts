@@ -141,6 +141,16 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
 						},
 					],
 				},
+				{
+					text: "Lower Privilege Agent",
+					collapsed: true,
+					items: [
+						{
+							text: "S.M.A.R.T. Data",
+							link: "/lower-privilege-agent/smart-data",
+						}
+					]
+				},
 			],
 		},
 		{
