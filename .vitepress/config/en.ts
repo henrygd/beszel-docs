@@ -146,6 +146,10 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
 					collapsed: true,
 					items: [
 						{
+							text: "GPU Monitoring",
+							link: "/lower-privilege-agent/gpu",
+						},
+						{
 							text: "S.M.A.R.T. Data",
 							link: "/lower-privilege-agent/smart-data",
 						}
