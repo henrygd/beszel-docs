@@ -61,5 +61,18 @@ sudo crontab -e
 ```cron
 */5 * * * * /opt/beszel-shims/cache_smart.sh
 ```
+8. Set the `PATH` variable for the agent.
+```bash
+sudo systemctl edit beszel-agent.service
+```
+```systemd
+[Service]
+Environment="PATH=/opt/beszel-shims:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+```
+9. Restart the agent.
+```bash
+sudo systemctl daemon-reload
+sudo systemctl restart beszel-agent.service
+```
 
-And that's it. You should now have S.M.A.R.T. data without giving the agent any capabilities or elevated privileges.
+You should now have S.M.A.R.T. data without giving the agent any capabilities or elevated privileges; you can even remove the `beszel` user from all groups except `beszel`.
