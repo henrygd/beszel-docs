@@ -24,7 +24,7 @@ Agent 只报告当前已连接到网络的接口，从不扫描附近的网络�
 
 | 平台 | 数据来源 | 说明 |
 | --- | --- | --- |
-| Linux | nl80211 | Docker Agent 需要 `network_mode: host`。 |
+| Linux | nl80211 | 需要 `NET_ADMIN`。Docker Agent 还需要 `network_mode: host`。 |
 | macOS | CoreWLAN | SSID 可能会被 macOS 隐私设置隐藏。 |
 | Windows | 原生 WLAN API | 接口以适配器名称命名，例如 `Wi-Fi`。 |
 | FreeBSD 及其他 | - | 不支持。 |
@@ -33,12 +33,27 @@ Agent 只报告当前已连接到网络的接口，从不扫描附近的网络�
 
 Agent 通过 nl80211 从内核读取信号，与 `iw` 使用的接口相同。当 `/sys/class/ieee80211` 中没有无线设备时会跳过采集，因此没有 Wi-Fi 硬件的主机不受影响。
 
-Docker Agent 只有在使用主机网络时才能看到主机的无线接口：
+Agent 需要 `NET_ADMIN` 权限才能查询无线接口。
+
+#### Docker Agent
+
+Docker Agent 只有在使用主机网络时才能看到主机的无线接口，同时还需要添加 `NET_ADMIN`：
 
 ```yaml
 beszel-agent:
   image: henrygd/beszel-agent
   network_mode: host
+  cap_add:
+    - NET_ADMIN
+```
+
+#### 二进制 Agent
+
+如果 Agent 不以 root 身份运行，需要为其授予该权限。对于 systemd 服务，请在 `[Service]` 部分添加：
+
+```ini
+AmbientCapabilities=CAP_NET_ADMIN
+CapabilityBoundingSet=CAP_NET_ADMIN
 ```
 
 ### macOS
@@ -57,4 +72,5 @@ Agent 使用原生 WLAN API。接口以适配器名称命名，例如 `Wi-Fi`，
 
 - 确保 Agent 版本为 0.21.0 或更高，并且未设置 `SKIP_WIFI`。
 - 在 Linux 上，使用 `iw dev <接口> link` 检查接口是否已连接。
+- 确保 Agent 拥有 `NET_ADMIN` 权限。
 - 对于 Docker Agent，确保容器使用 `network_mode: host`。
