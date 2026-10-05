@@ -168,6 +168,7 @@ Environment variables may optionally be prefixed with `BESZEL_AGENT_`.
 | `SYSTEM_NAME`             | unset   | Override system name on universal token registration. Defaults to hostname if unset.                 | 0.13.0 |
 | `TOKEN`                   | unset   | WebSocket registration token. Provided in hub.                                                       | - |
 | `TOKEN_FILE`              | unset   | Read token from a file instead of an environment variable.                                       | - |
+| `USE_CGROUP`              | false   | Report CPU and memory from the agent's own container instead of the host. See [`USE_CGROUP`](#use-cgroup). | - |
 | `ZFS_INTERVAL`            | 1h      | Interval to refresh ZFS pool details (scrub, vdevs, datasets).                                    | - |
 
 ### `ALL_PROXY`
@@ -317,6 +318,18 @@ SMART_DEVICES=/dev/nvme0:nvme,/dev/sda:sat
 ```
 
 This does not need to be a full list and will be merged with other devices detected by `smartctl --scan`. Unless it is set to an empty string, in which case SMART monitoring will be disabled entirely.
+
+### `USE_CGROUP` {#use-cgroup}
+
+Linux only. By default, an agent running in Docker or Podman reports the host's CPU and memory. Set `USE_CGROUP=true` to report usage and limits from the agent's own container instead, using its cgroup (v1 or v2). This is useful when the container itself is what you want to monitor, such as an isolated environment without access to the host.
+
+- CPU usage is measured against the container's CPU quota or cpuset, if one is set. Per-core usage is not shown in this mode.
+- Total memory is the container's memory limit, or the host's total if no limit is set. File cache is reported as cache rather than used memory, while shared memory and tmpfs count as used. `MEM_CALC` does not apply.
+- Other metrics, including swap, are unaffected. If cgroup data can't be read, the agent falls back to host metrics.
+
+The container needs its own cgroup namespace, which is the default for Docker and Podman on cgroup v2. If the container runs with `--cgroupns=host` (`cgroup: host` in Compose), the agent sees the host's root cgroup, so metrics cover the whole host and a warning is logged at startup.
+
+Inside LXC, CPU already uses cgroup accounting automatically. Set `USE_CGROUP=true` to use the cgroup for memory as well.
 
 ### `EXCLUDE_CONTAINERS`
 

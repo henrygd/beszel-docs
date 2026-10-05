@@ -164,6 +164,7 @@
 | `SYSTEM_NAME`             | 未设置 | 在通用令牌注册时覆盖系统名称。未设置时默认为主机名。                                         | 0.13.0 |
 | `TOKEN`                   | 未设置 | WebSocket 注册令牌。在中心提供。                                                             | - |
 | `TOKEN_FILE`              | 未设置 | 从文件中读取令牌，而不是从环境变量中读取。                                                   | - |
+| `USE_CGROUP`              | false  | 报告代理自身容器（而非主机）的 CPU 和内存。请参阅 [`USE_CGROUP`](#use-cgroup)。                  | - |
 | `ZFS_INTERVAL`            | 1h     | 刷新 ZFS 存储池详细信息（清理、vdev、数据集）的间隔时间。                                      | - |
 
 ### `ALL_PROXY`
@@ -313,6 +314,18 @@ SMART_DEVICES=/dev/nvme0:nvme,/dev/sda:sat
 ```
 
 这不需要是完整列表，将与 `smartctl --scan` 检测到的其他设备合并。除非它被设置为空字符串，在这种情况下将完全禁用 SMART 监控。
+
+### `USE_CGROUP` {#use-cgroup}
+
+仅限 Linux。默认情况下，在 Docker 或 Podman 中运行的代理报告的是主机的 CPU 和内存。设置 `USE_CGROUP=true` 后，代理将改为通过其 cgroup（v1 或 v2）报告自身容器的使用量和限制。当您要监控的对象是容器本身时（例如无法访问主机的隔离环境），此选项非常有用。
+
+- CPU 使用率按容器的 CPU 配额或 cpuset（如已设置）计算。此模式下不显示每个核心的使用率。
+- 总内存为容器的内存限制；如未设置限制，则为主机的总内存。文件缓存计为缓存而非已用内存，共享内存和 tmpfs 则计为已用内存。`MEM_CALC` 不适用。
+- 其他指标（包括交换空间）不受影响。如果无法读取 cgroup 数据，代理将回退到主机指标。
+
+容器需要拥有独立的 cgroup 命名空间，这是 Docker 和 Podman 在 cgroup v2 上的默认设置。如果容器以 `--cgroupns=host`（Compose 中为 `cgroup: host`）运行，代理看到的是主机的根 cgroup，因此指标将涵盖整个主机，并会在启动时记录一条警告。
+
+在 LXC 中，CPU 已自动使用 cgroup 统计。设置 `USE_CGROUP=true` 可使内存也使用 cgroup。
 
 ### `EXCLUDE_CONTAINERS`
 
