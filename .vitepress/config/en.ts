@@ -115,6 +115,7 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
 				{ text: "Storage Pools", link: "storage-pools" },
 				{ text: "Systemd Services", link: "systemd" },
 				{ text: "User Accounts", link: "user-accounts" },
+				{ text: "Wi-Fi Monitoring", link: "wifi" },
 				{
 					text: "Third-Party Integrations",
 					collapsed: true,

@@ -141,6 +141,7 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
         { text: "存储池", link: "storage-pools" },
         { text: "Systemd 服务", link: "systemd" },
         { text: "用户账户", link: "user-accounts" },
+        { text: "Wi-Fi 监控", link: "wifi" },
         {
           text: "第三方集成",
           collapsed: true,
