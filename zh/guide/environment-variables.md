@@ -149,6 +149,7 @@
 | `NETWORK`                 | 未设置 | 监听器的网络类型。"tcp"、"tcp4"、"tcp6" 或 "unix"。                                          | - |
 | `NICS`                    | 未设置 | 网络接口的白名单或黑名单。                                                                   | 0.12.11 |
 | `NVML`                    | false  | 使用实验性 NVML 集成进行 GPU 监控。                                                          | - |
+| `PACKAGE_UPDATES_INTERVAL` | 1h    | 检查软件包更新的间隔时间。设置为 `0` 可禁用检查。请参阅[软件包更新](./package-updates)。         | 0.21.0 |
 | `PRIMARY_SENSOR`          | 未设置 | 在"所有系统"表格中显示的特定温度传感器。                                                     | - |
 | `SENSORS`                 | 未设置 | 温度传感器的白名单或黑名单。                                                                 | - |
 | `SENSORS_TIMEOUT`         | 2s     | 用于自定义温度采集超时的持续时间。                                                           | 0.18.7 |
