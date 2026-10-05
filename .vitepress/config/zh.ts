@@ -134,6 +134,7 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
           ],
         },
         { text: "OAuth / OIDC 认证", link: "oauth" },
+        { text: "软件包更新", link: "package-updates" },
         { text: "Podman 监控", link: "podman" },
         { text: "REST API", link: "rest-api" },
         { text: "反向代理", link: "reverse-proxy" },

@@ -153,6 +153,7 @@ Environment variables may optionally be prefixed with `BESZEL_AGENT_`.
 | `NETWORK`                 | unset   | Network for listener. "tcp", "tcp4", "tcp6", or "unix".                                              | - |
 | `NICS`                    | unset   | Whitelist or blacklist network interfaces.                                                           | 0.12.11 |
 | `NVML`                    | false   | Use experimental NVML integration for GPU monitoring.                                                | - |
+| `PACKAGE_UPDATES_INTERVAL` | 1h     | Interval to check for package updates. `0` disables checks. See [Package Updates](./package-updates). | 0.21.0 |
 | `PRIMARY_SENSOR`          | unset   | Display specific temperature sensor in 'All Systems' table.                                          | - |
 | `SENSORS`                 | unset   | Whitelist or blacklist temperature sensors.                                                          | - |
 | `SENSORS_TIMEOUT`         | 2s      | Duration to customize the temperature collection timeout.                                            | 0.18.7 |
