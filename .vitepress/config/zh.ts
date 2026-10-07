@@ -97,6 +97,7 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
       items: [
         { text: "其他磁盘", link: "additional-disks" },
         { text: "编译", link: "compiling" },
+        { text: "自定义指标", link: "custom-metrics" },
         { text: "环境变量", link: "environment-variables" },
         { text: "GPU 监控", link: "gpu" },
         { text: "健康检查", link: "healthchecks" },

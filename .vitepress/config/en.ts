@@ -71,6 +71,7 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
 			items: [
 				{ text: "Additional Disks", link: "additional-disks" },
 				{ text: "Compiling", link: "compiling" },
+				{ text: "Custom Metrics", link: "custom-metrics" },
 				{ text: "Environment Variables", link: "environment-variables" },
 				{ text: "GPU Monitoring", link: "gpu" },
 				{ text: "Healthchecks", link: "healthchecks" },
