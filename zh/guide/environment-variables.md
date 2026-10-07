@@ -126,6 +126,7 @@
 | `ALL_PROXY`               | 未设置 | 代理出站 WebSocket 连接至中心的 SOCKS5 代理。                                                                                                 | - |
 | `AMD_SYSFS`               | false  | 使用 AMD sysfs 接口代替 `rocm-smi` 获取 AMD GPU 数据。已弃用，请改用 `GPU_COLLECTOR`。                                                     | - |
 | `CA_CERT_FILE`            | 未设置 | 如果中心使用私有 CA 或自签名 CA，则设置为 PEM 证书文件。                                                                                       | 0.19.0 |
+| `CONFIG`                  | 未设置 | Agent 配置文件的路径。默认为数据目录中的 `config.yml`。参见[自定义指标](./custom-metrics)。 | X.Y.Z |
 | `DATA_DIR`                | 未设置 | 持久数据目录。                                                                               | - |
 | `DISABLE_SSH`             | false  | 禁用 SSH 服务器（仅 WebSocket 连接）。                                                         | 0.18.4 |
 | `DISK_USAGE_CACHE`        | 未设置 | 提供类似 `5m` 或 `1h` 的持续时间来缓存额外磁盘的使用情况，避免唤醒它们进行重新检查。         | 0.17.0 |
@@ -198,7 +199,7 @@ services:
 
 ### `DATA_DIR`
 
-如果未设置，则尝试查找合适的目录。目前仅用于存储系统指纹，但将来可能用于 SQLite 数据库。指纹是确定性的，因此在大多数情况下，如果找不到目录，可以忽略警告。
+如果未设置，则尝试查找合适的目录。用于存储系统指纹，以及[自定义指标](./custom-metrics)使用的 Agent 配置文件 `config.yml`。将来可能用于 SQLite 数据库。指纹是确定性的，因此在大多数情况下，如果找不到目录，可以忽略警告；但此时自定义指标需要设置 `CONFIG`。
 
 ### `DOCKER_HOST`
 
