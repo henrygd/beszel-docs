@@ -14,6 +14,15 @@
 
 > 更多信息请参阅 [安全](./security.md) 和 [环境变量](./environment-variables.md) 页面。
 
+:::: details 可选参数
+
+- `ADDITIONAL_HEADERS`: 在进行 WebSocket 握手时额外发送的 HTTP 请求头。适用于部署在 Cloudflare Access 或 Pangolin 等代理之后的场景。该参数需提供以逗号分隔的 `name: value` 列表，例如：
+  
+  - Cloudflare Access: `ADDITIONAL_HEADERS="CF-Access-Client-Id: your-client-id, CF-Access-Client-Secret: your-client-secret"`
+
+  - Pangolin: `ADDITIONAL_HEADERS="P-Access-Token-Id: your-token-id, P-Access-Token: your-access-token"`
+::::
+
 ## 使用中心 (Hub)
 
 在中心 (hub) 的 Web UI 中提供了可供复制/粘贴的 `docker-compose.yml` 或二进制安装命令。
@@ -99,7 +108,6 @@ podman run -d \
 
 <!-- @include: ./parts/hub-docker-instructions.md -->
 
-:::
 
 ## 二进制文件
 

@@ -14,6 +14,16 @@ Check the [Getting Started](./getting-started.md) guide if you're setting up Bes
 
 > More information is available on the [Security](./security.md) and [Environment Variables](./environment-variables.md) pages.
 
+:::: details Click to view optional variables
+
+- `ADDITIONAL_HEADERS`:  extra headers sent with the WebSocket handshake. Useful when your hub is behind an
+  authentication proxy such as Cloudflare Access / Pangolin. Provide a comma-separated list of `Name: value` pairs, for example: 
+  
+  - For Cloudflare Access: `ADDITIONAL_HEADERS="CF-Access-Client-Id: your-client-id, CF-Access-Client-Secret: your-client-secret"`
+
+  - For Pangolin: `ADDITIONAL_HEADERS="P-Access-Token-Id: your-token-id, P-Access-Token: your-access-token"`
+::::
+
 ## Using the Hub
 
 The `docker-compose.yml` or binary install command is provided for copy/paste in the hub's web UI.
