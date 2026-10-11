@@ -138,6 +138,7 @@
 | `EXTRA_FILESYSTEMS`       | 未设置 | 如果使用二进制文件，则监控额外的磁盘。请参阅 [其他磁盘](./additional-disks.md)。             | - |
 | `FILESYSTEM`              | 未设置 | 用于根磁盘统计的设备、分区或挂载点。                                                         | - |
 | `GPU_COLLECTOR`           | 未设置 | 按优先级排列的 GPU 采集器逗号分隔列表，覆盖自动检测。详见 [`GPU_COLLECTOR`](#gpu-collector)。 | - |
+| `HUB_HEADERS`             | 未设置 | 发送至中心的额外 HTTP 请求头，例如用于身份验证代理。详见 [`HUB_HEADERS`](#hub-headers)。     | 0.21.1 |
 | `HUB_URL`                 | 未设置 | 中心的 URL。                                                                                 | - |
 | `INTEL_GPU_DEVICE`        | 未设置 | 指定 `intel_gpu_top` 的 `-d` 值。请参阅 [Intel GPU](./gpu.md#intel)。                        | 0.15.3 |
 | `KEY`                     | 未设置 | 用于身份验证的公共 SSH 密钥（可多个）。在中心提供。                                          | - |
@@ -236,6 +237,28 @@ Docker 套接字代理通过过滤 API 请求，提供了比直接连接 `docker
 | `powermetrics`   | powermetrics（macOS）                             |
 
 示例：`GPU_COLLECTOR=nvml,nvidia-smi` 优先尝试 NVML，失败时回退到 nvidia-smi。
+
+### `HUB_HEADERS` {#hub-headers}
+
+代理连接中心时发送的额外 HTTP 请求头。如果中心位于 Cloudflare Access 或 Pangolin 等身份验证代理之后，请使用此选项。
+
+每个请求头的格式为 `Name: value`。多个请求头之间用换行符或逗号分隔：
+
+```yaml
+services:
+  beszel-agent:
+    environment:
+      HUB_URL: https://beszel.example.com
+      HUB_HEADERS: |
+        CF-Access-Client-Id: abc123.access
+        CF-Access-Client-Secret: def456
+```
+
+单行写法：`HUB_HEADERS="CF-Access-Client-Id: abc123.access, CF-Access-Client-Secret: def456"`
+
+值中不能包含逗号。如需为同一请求头发送多个值，请重复该请求头（例如 `Cache-Control: no-cache, Cache-Control: no-store`）。
+
+`X-Token` 和 `X-Beszel` 为保留请求头，将被忽略。如果值格式错误，代理将无法启动。
 
 ### `KEY` / `KEY_FILE`
 

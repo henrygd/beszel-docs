@@ -142,6 +142,7 @@ Environment variables may optionally be prefixed with `BESZEL_AGENT_`.
 | `EXTRA_FILESYSTEMS`       | unset   | Monitor extra disks if using binary. See [Additional Disks](./additional-disks).                     | - |
 | `FILESYSTEM`              | unset   | Device, partition, or mount point to use for root disk stats.                                        | - |
 | `GPU_COLLECTOR`           | unset   | Ordered comma-separated list of GPU collectors. Overrides auto-detection. See [`GPU_COLLECTOR`](#gpu-collector). | - |
+| `HUB_HEADERS`             | unset   | Extra HTTP headers sent to the hub, e.g. for an authentication proxy. See [`HUB_HEADERS`](#hub-headers). | 0.21.1 |
 | `HUB_URL`                 | unset   | URL of the hub.                                                                                      | - |
 | `INTEL_GPU_DEVICE`        | unset   | Specify `-d` value for `intel_gpu_top`. See [Intel GPU](./gpu.md#intel).                             | 0.15.3 |
 | `KEY`                     | unset   | Public SSH key(s) to use for authentication. Provided in hub.                                        | - |
@@ -240,6 +241,28 @@ Comma-separated list of collectors to try in order. Overrides the default auto-d
 | `powermetrics`  | powermetrics (macOS)                             |
 
 Example: `GPU_COLLECTOR=nvml,nvidia-smi` tries NVML first, falling back to nvidia-smi.
+
+### `HUB_HEADERS` {#hub-headers}
+
+Extra HTTP headers the agent sends when connecting to the hub. Use this if the hub is behind an authentication proxy such as Cloudflare Access or Pangolin.
+
+Each header uses the format `Name: value`. Separate multiple headers with newlines or commas:
+
+```yaml
+services:
+  beszel-agent:
+    environment:
+      HUB_URL: https://beszel.example.com
+      HUB_HEADERS: |
+        CF-Access-Client-Id: abc123.access
+        CF-Access-Client-Secret: def456
+```
+
+On a single line: `HUB_HEADERS="CF-Access-Client-Id: abc123.access, CF-Access-Client-Secret: def456"`
+
+Values can't contain commas. To send multiple values for one header, repeat the header (e.g. `Cache-Control: no-cache, Cache-Control: no-store`).
+
+`X-Token` and `X-Beszel` are reserved and will be ignored. A malformed value prevents the agent from starting.
 
 ### `KEY` / `KEY_FILE`
 
