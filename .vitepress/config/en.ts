@@ -108,6 +108,7 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
 					],
 				},
 				{ text: "OAuth / OIDC", link: "oauth" },
+				{ text: "Package Updates", link: "package-updates" },
 				{ text: "Podman Monitoring", link: "podman" },
 				{ text: "REST API", link: "rest-api" },
 				{ text: "Reverse Proxy", link: "reverse-proxy" },
