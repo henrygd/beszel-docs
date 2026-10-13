@@ -19,6 +19,7 @@
 | `HEARTBEAT_METHOD`      | `POST` | 心跳 ping 使用的 HTTP 方法。有效值：`GET`、`POST`、`HEAD`。                                                                     |
 | `HEARTBEAT_URL`         | 未设置 | 定期 ping 的外部 URL。启用[心跳监控](#heartbeat-monitoring)。为空时禁用此功能。                                                  |
 | `MFA_OTP`               | false  | 为用户和/或超级用户启用 OTP 认证。                                                                                               |
+| `OAUTH_DEFAULT_USER_ROLE` | `user` | 通过 OAuth2 / OIDC 新建用户时分配的角色。有效值：`user`、`readonly`。 |
 | `OAUTH_DISABLE_POPUP`   | false  | 禁用 OAuth2 弹出窗口。适用于反向代理或嵌入式浏览器环境中使用 OAuth 的场景。                                                      |
 | `SHARE_ALL_SYSTEMS`     | false  | 允许所有用户访问所有系统。除非用户被分配了 `readonly` 角色，否则他们还可以编辑或删除任何系统。                                    |
 | `SYNC_SYSTEM_NAMES`     | false  | 设为 `true` 时，代理连接后使用其主机名更新系统显示名称。                                                                         |
@@ -57,6 +58,12 @@
 ### `SYNC_SYSTEM_NAMES`
 
 在中心设置 `SYNC_SYSTEM_NAMES=true` 后，系统显示名称会与代理报告的主机名同步。中心在每次代理连接时获取一次系统详情，并用报告的主机名替换自定义显示名称。代理在启动时读取主机名，因此更改主机名后需重启代理。
+
+### `OAUTH_DEFAULT_USER_ROLE`
+
+设置在启用 [`USER_CREATION`](./oauth#自动用户创建) 时，通过 OAuth2 / OIDC 新建用户所分配的角色。有效值为 `user`（默认）和 `readonly`。其他任何值（包括 `admin`）都会回退为 `user` 并记录一条警告日志。
+
+此设置仅在首次创建用户时生效，不会更改现有用户的角色，管理员设置的角色在之后的 OAuth 登录中也会保留。
 
 ### `OAUTH_DISABLE_POPUP`
 

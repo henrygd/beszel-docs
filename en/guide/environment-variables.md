@@ -19,6 +19,7 @@ Environment variables may optionally be prefixed with `BESZEL_HUB_`.
 | `HEARTBEAT_METHOD`      | `POST`  | HTTP method for heartbeat pings. Valid values: `GET`, `POST`, `HEAD`.                                                                        |
 | `HEARTBEAT_URL`         | unset   | External URL to ping periodically. Enables [heartbeat monitoring](#heartbeat-monitoring). Feature is disabled if empty.                      |
 | `MFA_OTP`               | false   | Enables OTP authentication for users and/or superusers.                                                                                     |
+| `OAUTH_DEFAULT_USER_ROLE` | `user` | Role assigned to new users created through OAuth2 / OIDC. Valid values: `user`, `readonly`. |
 | `OAUTH_DISABLE_POPUP`   | false   | Disables the OAuth2 popup window. Useful when OAuth is used behind a reverse proxy or in embedded browser environments.                      |
 | `SHARE_ALL_SYSTEMS`     | false   | Allows access to all systems by all users. Users can also edit or delete any system unless they are assigned the `readonly` role.            |
 | `SYNC_SYSTEM_NAMES`     | false   | Set to `true` to update system display names from agent hostnames when agents connect.                                                      |
@@ -57,6 +58,12 @@ If true, systems will be visible to all users. Users can also edit or delete any
 ### `SYNC_SYSTEM_NAMES`
 
 Set `SYNC_SYSTEM_NAMES=true` on the hub to keep system display names in sync with the hostnames reported by their agents. The hub fetches system details once per agent connection and replaces any custom display name with the reported hostname. The agent reads its hostname at startup, so restart the agent after changing its hostname.
+
+### `OAUTH_DEFAULT_USER_ROLE`
+
+Sets the role assigned to new users created through OAuth2 / OIDC when [`USER_CREATION`](./oauth#automatic-user-creation) is enabled. Valid values are `user` (default) and `readonly`. Any other value, including `admin`, falls back to `user` and logs a warning.
+
+This only applies when a user is first created. It does not change the role of existing users, and roles set by an administrator are kept on later OAuth logins.
 
 ### `OAUTH_DISABLE_POPUP`
 
