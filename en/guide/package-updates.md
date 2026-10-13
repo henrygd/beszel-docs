@@ -31,7 +31,9 @@ Package updates are only checked by the binary agent on Linux. The Docker agent 
 
 ### Debian and Ubuntu
 
-Updates come from a simulated upgrade (`apt-get -s dist-upgrade`). Packages from a `-security` repository are marked as security updates. No extra setup is needed.
+Updates come from a simulated upgrade (`apt-get -s dist-upgrade`). Packages from a `-security` repository are marked as security updates.
+
+APT package lists must be refreshed regularly for updates to appear. Ensure `apt-daily.timer` is enabled and automatic package list updates are configured, or run `apt update` periodically.
 
 ### Fedora, RHEL, Rocky and Alma
 

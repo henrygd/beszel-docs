@@ -31,7 +31,9 @@ Beszel 会在系统表格的 **更新** 列中显示每个 Linux 系统待安装
 
 ### Debian 和 Ubuntu
 
-更新来自模拟升级（`apt-get -s dist-upgrade`）。来自 `-security` 仓库的软件包会被标记为安全更新。无需额外配置。
+更新来自模拟升级（`apt-get -s dist-upgrade`）。来自 `-security` 仓库的软件包会被标记为安全更新。
+
+必须定期刷新 APT 软件包列表，更新才会显示。请确保已启用 `apt-daily.timer` 并配置了自动更新软件包列表，或定期运行 `apt update`。
 
 ### Fedora、RHEL、Rocky 和 Alma
 
