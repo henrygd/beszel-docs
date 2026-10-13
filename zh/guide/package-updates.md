@@ -14,7 +14,7 @@ Beszel 会在系统表格的 **更新** 列中显示每个 Linux 系统待安装
 
 默认每小时检查一次。将 [`PACKAGE_UPDATES_INTERVAL`](./environment-variables) 设置为 `30m` 或 `6h` 等时长可更改检查间隔，设置为 `0` 则禁用软件包更新检查。
 
-代理不会刷新软件包列表，也不会安装任何内容。它只读取系统已下载的软件包元数据，因此结果取决于系统或用户上一次刷新的时间。各发行版由什么刷新元数据，请参阅下表。
+代理不会安装软件包。大多数包管理器使用系统已有的元数据，但 Arch 和 Void 会至多每 12 小时刷新一次仓库元数据。Arch 使用 `checkupdates` 维护单独的软件包数据库，Void 则使用 `xbps-install -Mun`。
 
 只有 Linux 上的二进制代理会检查软件包更新。Docker 代理会跳过检查，因为容器内的软件包并不是主机的软件包。
 
@@ -25,8 +25,9 @@ Beszel 会在系统表格的 **更新** 列中显示每个 Linux 系统待安装
 | Debian、Ubuntu | apt | 按软件包标记 | `apt-daily.timer`（默认启用）或 `apt update` |
 | Fedora、RHEL、Rocky、Alma | dnf | 按软件包标记 | `dnf-makecache.timer` 或 `dnf makecache` |
 | openSUSE、SLES | zypper | 仅数量 | `zypper refresh` |
-| Arch 及其衍生版 | pacman | 不支持 | `pacman -Sy`（通常作为 `pacman -Syu` 的一部分） |
+| Arch 及其衍生版 | checkupdates (pacman-contrib) | 不支持 | `checkupdates`（每 12 小时） |
 | Alpine | apk | 不支持 | `apk update` |
+| Void Linux | xbps | 不支持 | `xbps-install -Mun`（每 12 小时） |
 
 ### Debian 和 Ubuntu
 
@@ -48,9 +49,11 @@ Beszel 会在系统表格的 **更新** 列中显示每个 Linux 系统待安装
 
 ### Arch
 
-更新来自 `pacman -Qu`，它会将已安装的软件包与同步数据库进行比较。
+更新通过 `pacman-contrib` 软件包中的 `checkupdates` 检查，该软件包必须已安装。
 
-在 Arch 上，同步数据库通常只在执行 `pacman -Syu` 时刷新，而该命令同时也会安装更新。因此，更新只会在同步数据库之后、下一次升级之前显示，系统通常会显示为已是最新。
+`checkupdates` 会维护一份单独的软件包同步数据库副本，因此 Beszel 可以在不修改系统软件包数据库、也不安装任何软件包的情况下检测可用更新。
+
+代理至多每 12 小时刷新一次这份单独的数据库，两次刷新之间的检查使用缓存数据。Arch 不支持安全更新分类。
 
 ### Alpine
 
@@ -66,6 +69,14 @@ PrivateTmp=yes
 ```
 
 安装脚本会为新安装添加此设置。对于现有安装，请重新运行安装脚本，或使用 `systemctl edit beszel-agent` 添加此设置，然后重启代理。
+
+### Void Linux
+
+更新通过 `xbps-install -Mun` 检查，它会刷新仓库元数据并模拟升级，而不会安装任何软件包。已安装的版本通过 `xbps-query -l` 获取。
+
+代理至多每 12 小时刷新一次仓库元数据。两次刷新之间的检查会重用缓存的更新列表，并排除此后已升级或已移除的软件包。
+
+Void Linux 不支持安全更新分类。
 
 ## 故障排除
 

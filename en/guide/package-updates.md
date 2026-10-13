@@ -14,7 +14,7 @@ The agent detects the system's package manager and asks it which packages can be
 
 Checks run every hour by default. Set [`PACKAGE_UPDATES_INTERVAL`](./environment-variables) to a duration like `30m` or `6h` to change this, or to `0` to disable package update checks.
 
-The agent never refreshes package lists or installs anything. It reads the package metadata that the system has already downloaded, so the result is only as recent as the last refresh by the system or the user. See the table below for what refreshes the metadata on each distribution.
+The agent does not install packages. Most package managers use existing system metadata, but Arch and Void refresh repository metadata at most once every 12 hours. Arch uses `checkupdates` to maintain a separate package database, while Void uses `xbps-install -Mun`.
 
 Package updates are only checked by the binary agent on Linux. The Docker agent skips them, because the container's packages are not the host's.
 
@@ -25,8 +25,9 @@ Package updates are only checked by the binary agent on Linux. The Docker agent 
 | Debian, Ubuntu | apt | Per package | `apt-daily.timer` (enabled by default) or `apt update` |
 | Fedora, RHEL, Rocky, Alma | dnf | Per package | `dnf-makecache.timer` or `dnf makecache` |
 | openSUSE, SLES | zypper | Count only | `zypper refresh` |
-| Arch and derivatives | pacman | Not available | `pacman -Sy` (usually as part of `pacman -Syu`) |
+| Arch and derivatives | checkupdates (pacman-contrib) | Not available | `checkupdates` (every 12h) |
 | Alpine | apk | Not available | `apk update` |
+| Void Linux | xbps | Not available | `xbps-install -Mun` (every 12h) |
 
 ### Debian and Ubuntu
 
@@ -48,9 +49,11 @@ The agent service needs a writable `/var/tmp`. See [Systemd service](#systemd-se
 
 ### Arch
 
-Updates come from `pacman -Qu`, which compares installed packages with the sync databases.
+Updates are checked using `checkupdates` from the `pacman-contrib` package, which must be installed.
 
-On Arch, the sync databases are usually only refreshed by `pacman -Syu`, which also installs the updates. Updates therefore only show between a database sync and the next upgrade, and the system usually shows as up to date.
+`checkupdates` maintains a separate copy of the package sync databases, allowing Beszel to detect available updates without modifying the system's package databases or installing packages.
+
+The agent refreshes this separate database at most once every 12 hours. Checks between refreshes use the cached data. Security update classification is not available for Arch.
 
 ### Alpine
 
@@ -66,6 +69,14 @@ PrivateTmp=yes
 ```
 
 The install script adds this to new installs. For an existing install, re-run the install script or add it with `systemctl edit beszel-agent` and restart the agent.
+
+### Void Linux
+
+Updates are checked using `xbps-install -Mun`, which refreshes repository metadata and simulates an upgrade without installing packages. Installed versions are obtained from `xbps-query -l`.
+
+The agent refreshes repository metadata at most once every 12 hours. Checks between refreshes reuse the cached update list, excluding packages that have since been upgraded or removed.
+
+Security update classification is not available for Void Linux.
 
 ## Troubleshooting
 
