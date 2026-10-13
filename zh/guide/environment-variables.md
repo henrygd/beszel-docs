@@ -26,7 +26,7 @@
 | `TRUSTED_AUTH_HEADER`   | 未设置 | 用于转发身份验证的可信头。                                                                                                       |
 | `TRUSTED_PROXY_IPS`     | 未设置 | 逗号分隔的 IP 或 CIDR 范围。设置后，仅对来自这些地址的请求信任 `TRUSTED_AUTH_HEADER`。                                           |
 | `USER_CREATION`         | false  | 启用 OAuth2 / OIDC 的自动用户创建。                                                                                              |
-| `USER_EMAIL`            | 未设置 | 使用此邮箱创建第一个用户。                                                                                                       |
+| `USER_EMAIL`            | 未设置 | 使用此邮箱创建第一个用户，该用户将被分配管理员角色（仅限新安装）。                                                               |
 | `USER_PASSWORD`         | 未设置 | 使用此密码创建第一个用户。                                                                                                       |
 
 ### `AUTO_LOGIN`

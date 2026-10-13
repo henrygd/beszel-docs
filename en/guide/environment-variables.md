@@ -26,7 +26,7 @@ Environment variables may optionally be prefixed with `BESZEL_HUB_`.
 | `TRUSTED_AUTH_HEADER`   | unset   | Trusted header for forwarded authentication.                                                                                                |
 | `TRUSTED_PROXY_IPS`     | unset   | Comma-separated IPs or CIDR ranges. When set, `TRUSTED_AUTH_HEADER` is only honored on requests from these addresses.                       |
 | `USER_CREATION`         | false   | Enables automatic user creation for OAuth2 / OIDC.                                                                                          |
-| `USER_EMAIL`            | unset   | Create first user with this email.                                                                                                          |
+| `USER_EMAIL`            | unset   | Create first user with this email. The user is given the admin role (new installs only).                                                 |
 | `USER_PASSWORD`         | unset   | Create first user with this password.                                                                                                       |
 
 ### `AUTO_LOGIN`
