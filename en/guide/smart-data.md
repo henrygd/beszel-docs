@@ -181,7 +181,7 @@ service beszel-agent restart
 > to the disks. Consider using a dedicated group instead of `operator`.
   
 ### Verify permissions
-## Linux
+#### Linux
 
 Test that `smartctl` works without sudo for the agent user:
 
@@ -189,7 +189,7 @@ Test that `smartctl` works without sudo for the agent user:
 sudo -u beszel smartctl -H /dev/sda
 sudo -u beszel smartctl -H /dev/nvme0
 ```
-## FreeBSD
+#### FreeBSD
 In FreeBSD, `smartcl` does hot have the `-H`option:
 
 ```sh
