@@ -133,6 +133,7 @@
 | `ALL_PROXY`               | 未设置 | 代理出站 WebSocket 连接至中心的 SOCKS5 代理。                                                                                                 | - |
 | `AMD_SYSFS`               | false  | 使用 AMD sysfs 接口代替 `rocm-smi` 获取 AMD GPU 数据。已弃用，请改用 `GPU_COLLECTOR`。                                                     | - |
 | `CA_CERT_FILE`            | 未设置 | 如果中心使用私有 CA 或自签名 CA，则设置为 PEM 证书文件。                                                                                       | 0.19.0 |
+| `CONTAINER_NAME_LABEL`    | 未设置 | 使用 Docker 标签或标签模板为容器命名。详见 [`CONTAINER_NAME_LABEL`](#container-name-label)。 | 0.21.1 |
 | `DATA_DIR`                | 未设置 | 持久数据目录。                                                                               | - |
 | `DISABLE_SSH`             | false  | 禁用 SSH 服务器（仅 WebSocket 连接）。                                                         | 0.18.4 |
 | `DISK_USAGE_CACHE`        | 未设置 | 提供类似 `5m` 或 `1h` 的持续时间来缓存额外磁盘的使用情况，避免唤醒它们进行重新检查。         | 0.17.0 |
@@ -205,6 +206,36 @@ services:
 该文件可以包含一个或多个 CA 证书。这些证书会添加到系统信任存储中，因此受公共信任的证书仍可正常使用。
 
 证书必须包含与 `HUB_URL` 中主机名匹配的主题备用名称（SAN）。如果文件缺失、无法读取、为空或格式错误，代理将无法启动。
+
+### `CONTAINER_NAME_LABEL` {#container-name-label}
+
+使用容器的 Docker 标签生成上报的名称，而不是使用容器名称。适用于 Coolify 等会在容器名称后添加随机后缀的平台，这类名称难以辨认，并且每次重新部署都会产生新的图表序列。
+
+可设置为一个标签键，或使用 `${label}` 引用标签的模板。模板中的其他文本按原样保留，`$$` 表示字面量 `$`。
+
+```bash
+# 使用单个标签的值
+CONTAINER_NAME_LABEL=coolify.serviceName
+
+# 将多个标签与其他文本组合
+CONTAINER_NAME_LABEL='${coolify.projectName} - ${coolify.serviceName}'
+```
+
+Docker Compose 会将 `docker-compose.yml` 中的 `$` 视为变量替换，因此在其中需将每个 `$` 写为 `$$`：
+
+```yaml
+services:
+  beszel-agent:
+    environment:
+      CONTAINER_NAME_LABEL: $${coolify.projectName} - $${coolify.serviceName}
+```
+
+- 如果引用的标签缺失或为空，容器将保留其 Docker 名称。
+- 如果两个或多个容器会得到相同的名称（例如同一服务的多个副本），它们都会保留各自的 Docker 名称，以免统计数据被合并。
+- [`EXCLUDE_CONTAINERS`](#exclude-containers) 仍然匹配 Docker 名称。
+- 标签由代理读取，不会发送到中心。
+- 无效的模板会记录为错误并被忽略。
+- 更改之前记录的图表历史仍保留在旧名称下。
 
 ### `DATA_DIR`
 
@@ -358,7 +389,7 @@ SMART_DEVICES=/dev/nvme0:nvme,/dev/sda:sat
 
 在 LXC 中，CPU 已自动使用 cgroup 统计。设置 `USE_CGROUP=true` 可使内存也使用 cgroup。
 
-### `EXCLUDE_CONTAINERS`
+### `EXCLUDE_CONTAINERS` {#exclude-containers}
 
 根据容器名称排除不需要监控的容器。支持使用 `*` 通配符的逗号分隔模式匹配。
 

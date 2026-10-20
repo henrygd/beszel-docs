@@ -137,6 +137,7 @@ Environment variables may optionally be prefixed with `BESZEL_AGENT_`.
 | `ALL_PROXY`               | unset   | SOCKS5 proxy for the agent's outbound WebSocket connection to the hub. | - |
 | `AMD_SYSFS`               | false   | Use AMD sysfs interface instead of `rocm-smi` for AMD GPU data. Deprecated; use `GPU_COLLECTOR` instead.                                    | - |
 | `CA_CERT_FILE`            | unset   | Set to a PEM certificate file if hub uses private or self-signed CA.                                 | 0.19.0 |
+| `CONTAINER_NAME_LABEL`    | unset   | Name containers using a Docker label or label template. See [`CONTAINER_NAME_LABEL`](#container-name-label). | 0.21.1 |
 | `DATA_DIR`                | unset   | Persistent data directory.                                                                           | - |
 | `DISABLE_SSH`             | false   | Disable the SSH server completely (WebSocket connection only).                                       | 0.18.4 |
 | `DISK_USAGE_CACHE`        | unset   | Provide a duration like `5m` or `1h` to cache usage of extra disks and avoid waking them to recheck. | 0.17.0 |
@@ -209,6 +210,36 @@ services:
 The file may contain one or more CA certificates. These are added to the system trust store, so publicly trusted certificates continue to work.
 
 The certificate must include a Subject Alternative Name (SAN) matching the hostname in HUB_URL. Missing, unreadable, empty, or malformed files prevent the agent from starting.
+
+### `CONTAINER_NAME_LABEL` {#container-name-label}
+
+Reports containers under a name taken from their Docker labels instead of the container name. This is useful on platforms like Coolify that add random suffixes to container names, which makes them hard to read and starts a new chart series on every redeploy.
+
+Set it to a label key, or to a template that references labels with `${label}`. Other text in a template is used as is, and `$$` is a literal `$`.
+
+```bash
+# Use the value of a single label
+CONTAINER_NAME_LABEL=coolify.serviceName
+
+# Combine labels with other text
+CONTAINER_NAME_LABEL='${coolify.projectName} - ${coolify.serviceName}'
+```
+
+Docker Compose treats `$` in `docker-compose.yml` as variable substitution, so write each `$` as `$$` there:
+
+```yaml
+services:
+  beszel-agent:
+    environment:
+      CONTAINER_NAME_LABEL: $${coolify.projectName} - $${coolify.serviceName}
+```
+
+- If a referenced label is missing or empty, the container keeps its Docker name.
+- If two or more containers would get the same name, such as replicas of one service, they all keep their Docker names so their stats aren't combined.
+- [`EXCLUDE_CONTAINERS`](#exclude-containers) still matches the Docker name.
+- Labels are read by the agent and are not sent to the hub.
+- An invalid template is logged as an error and ignored.
+- Chart history recorded before the change stays under the old names.
 
 ### `DATA_DIR`
 
@@ -362,7 +393,7 @@ The container needs its own cgroup namespace, which is the default for Docker an
 
 Inside LXC, CPU already uses cgroup accounting automatically. Set `USE_CGROUP=true` to use the cgroup for memory as well.
 
-### `EXCLUDE_CONTAINERS`
+### `EXCLUDE_CONTAINERS` {#exclude-containers}
 
 Exclude containers from being monitored based on their name. Supports comma-separated patterns with wildcard matching using `*`.
 
