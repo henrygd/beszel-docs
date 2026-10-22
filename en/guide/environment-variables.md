@@ -135,7 +135,6 @@ Environment variables may optionally be prefixed with `BESZEL_AGENT_`.
 | Name                      | Default | Description                                                                                          | Since |
 | ------------------------- | ------- | ---------------------------------------------------------------------------------------------------- | ----- |
 | `ALL_PROXY`               | unset   | SOCKS5 proxy for the agent's outbound WebSocket connection to the hub. | - |
-| `AMD_SYSFS`               | false   | Use AMD sysfs interface instead of `rocm-smi` for AMD GPU data. Deprecated; use `GPU_COLLECTOR` instead.                                    | - |
 | `CA_CERT_FILE`            | unset   | Set to a PEM certificate file if hub uses private or self-signed CA.                                 | 0.19.0 |
 | `CONTAINER_NAME_LABEL`    | unset   | Name containers using a Docker label or label template. See [`CONTAINER_NAME_LABEL`](#container-name-label). | 0.21.1 |
 | `DATA_DIR`                | unset   | Persistent data directory.                                                                           | - |
@@ -186,10 +185,6 @@ Environment variables may optionally be prefixed with `BESZEL_AGENT_`.
 Routes the agent's outbound WebSocket connection to the hub through a SOCKS5 proxy. Only `socks5://` and `socks5h://` schemes are supported (`socks5h` resolves DNS on the proxy side).
 
 Example: `ALL_PROXY=socks5h://proxy.example.com:1080`
-
-### `AMD_SYSFS`
-
-Deprecated in favor of `GPU_COLLECTOR`. When set to `true`, uses the AMD sysfs interface for GPU data collection instead of `rocm-smi`. Set `GPU_COLLECTOR=amd_sysfs` for equivalent behavior.
 
 ### `CA_CERT_FILE`
 
@@ -420,9 +415,10 @@ EXCLUDE_CONTAINERS="test-*,*-staging,dev-*"
 
 These variables are deprecated but will remain for backward compatibility.
 
-| Name   | Default | Description          |
-| ------ | ------- | -------------------- |
-| `PORT` | 45876   | Renamed to `LISTEN`. |
+| Name        | Default | Description |
+| ----------- | ------- | ----------- |
+| `AMD_SYSFS` | false   | Use AMD sysfs interface instead of `rocm-smi` for AMD GPU data. Use `GPU_COLLECTOR=amd_sysfs` instead. |
+| `PORT`      | 45876   | Renamed to `LISTEN`. |
 
 ## Setting environment variables
 

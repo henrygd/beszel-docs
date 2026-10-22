@@ -131,7 +131,6 @@
 | 名称                      | 默认值 | 描述                                                                                         | Since |
 | ------------------------- | ------ | -------------------------------------------------------------------------------------------- | ----- |
 | `ALL_PROXY`               | 未设置 | 代理出站 WebSocket 连接至中心的 SOCKS5 代理。                                                                                                 | - |
-| `AMD_SYSFS`               | false  | 使用 AMD sysfs 接口代替 `rocm-smi` 获取 AMD GPU 数据。已弃用，请改用 `GPU_COLLECTOR`。                                                     | - |
 | `CA_CERT_FILE`            | 未设置 | 如果中心使用私有 CA 或自签名 CA，则设置为 PEM 证书文件。                                                                                       | 0.19.0 |
 | `CONTAINER_NAME_LABEL`    | 未设置 | 使用 Docker 标签或标签模板为容器命名。详见 [`CONTAINER_NAME_LABEL`](#container-name-label)。 | 0.21.1 |
 | `DATA_DIR`                | 未设置 | 持久数据目录。                                                                               | - |
@@ -182,10 +181,6 @@
 将代理出站 WebSocket 连接路由通过 SOCKS5 代理。仅支持 `socks5://` 和 `socks5h://` 协议（`socks5h` 在代理端解析 DNS）。
 
 示例：`ALL_PROXY=socks5h://proxy.example.com:1080`
-
-### `AMD_SYSFS`
-
-已弃用，请改用 `GPU_COLLECTOR`。设置为 `true` 时，使用 AMD sysfs 接口采集 GPU 数据，而非 `rocm-smi`。等效于设置 `GPU_COLLECTOR=amd_sysfs`。
 
 ### `CA_CERT_FILE`
 
@@ -416,9 +411,10 @@ EXCLUDE_CONTAINERS="test-*,*-staging,dev-*"
 
 这些变量已被弃用，但为了向后兼容性仍会保留。
 
-| 名称   | 默认值 | 描述                  |
-| ------ | ------ | --------------------- |
-| `PORT` | 45876  | 已重命名为 `LISTEN`。 |
+| 名称        | 默认值 | 描述 |
+| ----------- | ------ | ---- |
+| `AMD_SYSFS` | false  | 使用 AMD sysfs 接口代替 `rocm-smi` 获取 AMD GPU 数据。请改用 `GPU_COLLECTOR=amd_sysfs`。 |
+| `PORT`      | 45876  | 已重命名为 `LISTEN`。 |
 
 ## 设置环境变量
 
