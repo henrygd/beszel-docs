@@ -156,16 +156,45 @@ Add the agent user to the `operator` group so it can access disk devices:
 
 ```sh
 pw groupmod operator -m beszel
-service beszel-agent restart
 ```
 
+By default, `operator` only has read access to disk devices, but `smartctl`
+needs read/write access to the CAM passthrough devices (`/dev/pass*`, `/dev/xpt0`)
+and NVMe controllers. Grant it with a devfs rule in `/etc/devfs.rules`:
+
+```sh
+[beszel_smart=10]
+add path 'pass*' mode 0660 group operator
+add path 'xpt0'  mode 0660 group operator
+add path 'nvme*' mode 0660 group operator
+```
+
+Activate the ruleset and restart the agent:
+
+```sh
+sysrc devfs_system_ruleset="beszel_smart"
+service devfs restart
+service beszel-agent restart
+```
+    
+> **Note:** Write access to these devices lets group members send raw commands
+> to the disks. Consider using a dedicated group instead of `operator`.
+  
 ### Verify permissions
+#### Linux
 
 Test that `smartctl` works without sudo for the agent user:
 
 ```bash
 sudo -u beszel smartctl -H /dev/sda
 sudo -u beszel smartctl -H /dev/nvme0
+```
+#### FreeBSD
+In FreeBSD, `smartcl` does hot have the `-H`option:
+
+```sh
+su -m beszel -c 'smartctl -a /dev/ada0'
+su -m beszel -c 'smartctl -a /dev/nvme0'
 ```
 
 If these commands succeed, the agent will be able to parse S.M.A.R.T. data.
