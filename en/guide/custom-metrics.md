@@ -8,7 +8,7 @@ Custom charts appear in the **Custom** tab, or after the Wi-Fi chart in the defa
 
 ## Configuration
 
-The agent reads its sources from `config.yml` in its [data directory](./environment-variables#data-dir), usually `/var/lib/beszel-agent`, or `%APPDATA%\beszel-agent` on Windows. Set [`CONFIG`](./environment-variables) to use another file. The file is optional: without it, nothing changes. The agent picks up edits without a restart.
+The agent reads its sources from `config.yml` in its [data directory](./environment-variables#data-dir): usually `/var/lib/beszel-agent`, `~/.config/beszel` for an agent running as a regular user (such as on macOS), or `%APPDATA%\beszel-agent` on Windows. The agent logs the directory it uses at start-up (`Data directory`). Set [`CONFIG`](./environment-variables) to use another file. The file is optional: without it, nothing changes. The agent picks up a new or edited file at its next collection, within about a minute, without a restart. If it started without a data directory (its log says `Data directory not found`), create the directory or set `CONFIG`, then restart the agent.
 
 ```yaml
 metrics:
@@ -98,6 +98,7 @@ Check the agent's log. Each time it loads `config.yml`, it logs `Custom metrics 
 
 | Log message | What to do |
 | --- | --- |
+| No `Custom metrics config loaded` line | The file is not where the agent looks. Compare its path with the agent's `Data directory` log line. If the log says `Data directory not found`, create the directory or set `CONFIG`, then restart the agent. |
 | `Invalid custom metrics config` | Fix the YAML. Durations need a unit, such as `60s`. The agent keeps the last good config. |
 | `Custom metrics config` with `unknown key` or `skipped` | A setting is misspelled or has the wrong type. The rest of the config applies. |
 | `Custom metrics config not loaded` | The file named by `CONFIG` is missing, or the agent cannot read the file. |

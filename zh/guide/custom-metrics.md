@@ -8,7 +8,7 @@ Beszel 可以为它自身不采集的数值绘制图表，例如主板功耗、�
 
 ## 配置
 
-Agent 从其[数据目录](./environment-variables#data-dir)中的 `config.yml` 读取数据源，通常为 `/var/lib/beszel-agent`，在 Windows 上为 `%APPDATA%\beszel-agent`。设置 [`CONFIG`](./environment-variables) 可以使用其他文件。该文件是可选的：没有它，一切照旧。修改文件后，Agent 无需重启即可生效。
+Agent 从其[数据目录](./environment-variables#data-dir)中的 `config.yml` 读取数据源：通常为 `/var/lib/beszel-agent`；以普通用户身份运行时（例如在 macOS 上）为 `~/.config/beszel`；在 Windows 上为 `%APPDATA%\beszel-agent`。Agent 启动时会在日志中记录所用的目录（`Data directory`）。设置 [`CONFIG`](./environment-variables) 可以使用其他文件。该文件是可选的：没有它，一切照旧。新建或修改文件后，Agent 会在下一次采集时（约一分钟内）读取，无需重启。如果 Agent 启动时没有数据目录（日志显示 `Data directory not found`），请创建该目录或设置 `CONFIG`，然后重启 Agent。
 
 ```yaml
 metrics:
@@ -98,6 +98,7 @@ Agent 只读取文件。每个生产者按自己的计划运行，例如通过 s
 
 | 日志消息 | 处理方法 |
 | --- | --- |
+| 没有 `Custom metrics config loaded` 日志 | 文件不在 Agent 读取的位置。将文件路径与 Agent 日志中的 `Data directory` 进行比较。如果日志显示 `Data directory not found`，请创建该目录或设置 `CONFIG`，然后重启 Agent。 |
 | `Invalid custom metrics config` | 修正 YAML。时长需要带单位，例如 `60s`。Agent 会保留上一次的有效配置。 |
 | `Custom metrics config`，带有 `unknown key` 或 `skipped` | 某个设置拼写错误或类型错误。配置的其余部分仍然生效。 |
 | `Custom metrics config not loaded` | `CONFIG` 指定的文件不存在，或 Agent 无法读取该文件。 |
