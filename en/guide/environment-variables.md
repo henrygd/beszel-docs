@@ -147,6 +147,7 @@ Environment variables may optionally be prefixed with `BESZEL_AGENT_`.
 | `EXCLUDE_SMART`           | unset   | Exclude S.M.A.R.T. devices from being monitored.                                                     | 0.16.0 |
 | `EXIT_ON_DNS_ERROR`       | false   | Exit the agent instead of retrying when a DNS lookup failure occurs on the hub connection.           | - |
 | `EXTRA_FILESYSTEMS`       | unset   | Monitor extra disks if using binary. See [Additional Disks](./additional-disks).                     | - |
+| `FAN_SENSORS`             | unset   | Whitelist or blacklist fan sensors. See [`FAN_SENSORS`](#fan-sensors).                               | 0.21.2 |
 | `FILESYSTEM`              | unset   | Device, partition, or mount point to use for root disk stats.                                        | - |
 | `GPU_COLLECTOR`           | unset   | Ordered comma-separated list of GPU collectors. Overrides auto-detection. See [`GPU_COLLECTOR`](#gpu-collector). | - |
 | `HUB_HEADERS`             | unset   | Extra HTTP headers sent to the hub, e.g. for an authentication proxy. See [`HUB_HEADERS`](#hub-headers). | 0.21.1 |
@@ -257,6 +258,22 @@ Overrides the default Docker API call timeout of `2100ms`. Accepts any Go durati
 ### `EXIT_ON_DNS_ERROR`
 
 When set to `true`, the agent exits immediately on a DNS lookup failure instead of retrying the connection. Useful in environments where a DNS failure indicates a permanent misconfiguration rather than a transient network issue.
+
+### `FAN_SENSORS` {#fan-sensors}
+
+Whitelist or blacklist fan sensors (Linux only). Uses the same syntax as [`SENSORS`](#sensors): treated as a whitelist by default, or as a blacklist when prefixed with `-`.
+
+Values are matched against the fan names shown in the fan chart. These are `<chip>_<label>` when the hwmon driver provides a label, otherwise `<chip>_fan<N>` (for example, `nct6798_fan2`).
+
+| `FAN_SENSORS` value | Mode      | Action                                              |
+| ------------------- | --------- | --------------------------------------------------- |
+| `foo_*`             | Whitelist | Only fans matching `foo_*` are allowed.             |
+| `foo_1,bar_*`       | Whitelist | Only fans matching `foo_1` and `bar_*` are allowed. |
+| `-foo_*`            | Blacklist | Excludes fans matching `foo_*`; all others allowed. |
+| `-foo_1,bar_*`      | Blacklist | Excludes `foo_1` and `bar_*`; all others allowed.   |
+| `""`                | Disabled  | Disable fan monitoring with an empty string.        |
+
+`FAN_SENSORS` is independent of `SENSORS`. Setting `SENSORS=""` disables temperature monitoring only.
 
 ### `GPU_COLLECTOR` {#gpu-collector}
 

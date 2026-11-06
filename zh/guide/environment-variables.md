@@ -143,6 +143,7 @@
 | `EXCLUDE_SMART`           | 未设置 | 排除 S.M.A.R.T. 设备不被监控。                                                               | 0.16.0 |
 | `EXIT_ON_DNS_ERROR`       | false  | 发生 DNS 查询失败时退出代理，而非重试连接。                                              | - |
 | `EXTRA_FILESYSTEMS`       | 未设置 | 如果使用二进制文件，则监控额外的磁盘。请参阅 [其他磁盘](./additional-disks.md)。             | - |
+| `FAN_SENSORS`             | 未设置 | 风扇传感器的白名单或黑名单。详见 [`FAN_SENSORS`](#fan-sensors)。                             | 0.21.2 |
 | `FILESYSTEM`              | 未设置 | 用于根磁盘统计的设备、分区或挂载点。                                                         | - |
 | `GPU_COLLECTOR`           | 未设置 | 按优先级排列的 GPU 采集器逗号分隔列表，覆盖自动检测。详见 [`GPU_COLLECTOR`](#gpu-collector)。 | - |
 | `HUB_HEADERS`             | 未设置 | 发送至中心的额外 HTTP 请求头，例如用于身份验证代理。详见 [`HUB_HEADERS`](#hub-headers)。     | 0.21.1 |
@@ -253,6 +254,22 @@ Docker 套接字代理通过过滤 API 请求，提供了比直接连接 `docker
 ### `EXIT_ON_DNS_ERROR`
 
 设置为 `true` 时，代理在发生 DNS 查询失败时立即退出，而非重试连接。适用于 DNS 失败表示永久性配置错误而非临时网络问题的环境。
+
+### `FAN_SENSORS` {#fan-sensors}
+
+风扇传感器的白名单或黑名单（仅限 Linux）。语法与 [`SENSORS`](#sensors) 相同：默认作为白名单处理，加上 `-` 前缀则作为黑名单使用。
+
+匹配的名称为风扇图表中显示的风扇名称。若 hwmon 驱动提供了标签，则为 `<chip>_<label>`，否则为 `<chip>_fan<N>`（例如 `nct6798_fan2`）。
+
+| `FAN_SENSORS` 值 | 模式   | 操作                                    |
+| ---------------- | ------ | --------------------------------------- |
+| `foo_*`          | 白名单 | 只允许匹配 `foo_*` 的风扇。             |
+| `foo_1,bar_*`    | 白名单 | 只允许 `foo_1` 和 `bar_*` 风扇。        |
+| `-foo_*`         | 黑名单 | 排除匹配 `foo_*` 的风扇；允许所有其他。 |
+| `-foo_1,bar_*`   | 黑名单 | 排除 `foo_1` 和 `bar_*`；允许所有其他。 |
+| `""`             | 禁用   | 使用空字符串禁用风扇监控。              |
+
+`FAN_SENSORS` 与 `SENSORS` 相互独立。设置 `SENSORS=""` 仅会禁用温度监控。
 
 ### `GPU_COLLECTOR` {#gpu-collector}
 
