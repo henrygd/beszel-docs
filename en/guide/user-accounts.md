@@ -8,7 +8,7 @@ Both accounts are created for the initial user during setup. However, these are 
 
 ### Admin
 
-Admins have access to additional links in the Hub, such as backups, SMTP settings, etc.
+Admins have access to additional links in the Hub, such as backups, SMTP settings, and the YAML configuration export. The export includes the host, port, users, and agent token for every system on the hub, including systems the admin is not a member of, so only give the admin role to people you trust with the entire hub.
 
 > Changing a user's role to admin does not create a superuser account. If you want to allow a user to access the PocketBase admin panel (`/_/`), you must create a superuser account for them manually.
 
