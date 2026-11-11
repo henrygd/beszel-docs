@@ -14,6 +14,7 @@ Open **Network Monitors** from the navbar and click **Add Monitor**. Choose one 
 | Protocol | `ICMP`, `TCP`, `HTTP`, or `DNS`. See [Protocols](#protocols).               |
 | Port     | TCP only. Defaults to `443`.                                                |
 | Interval | Seconds between probes, from `1` to `3600`. Defaults to `30`.               |
+| Accepted status codes | HTTP only. Status codes that count as a successful probe. See [Accepted status codes](#status-codes). |
 
 Selecting several systems creates one monitor per system. Each agent runs its own probes, so results reflect that system's network.
 
@@ -24,11 +25,25 @@ Selecting several systems creates one monitor per system. Each agent runs its ow
 | :------- | :------------------------------------------------------------- | :------ | :----------------------------------------------- |
 | `icmp`   | Round-trip time of an echo request (IPv4 or IPv6).             | 3s      | No reply.                                        |
 | `tcp`    | Time to open a connection to the port. DNS lookup is excluded. | 3s      | The connection fails or times out.               |
-| `http`   | Time for a `GET` request to return a response.                 | 10s     | The request fails, or the status is `400` or above. |
+| `http`   | Time for a `GET` request to return a response.                 | 10s     | The request fails, or the status is not [accepted](#status-codes). |
 | `dns`    | Time to resolve the target hostname.                           | 3s      | The lookup fails or returns no addresses.        |
 
 - Hostnames that resolve to both IPv4 and IPv6 use IPv4 for `icmp`.
 - For `http`, a target without a scheme gets `https://` prepended (or `http://` if the port is `80`). Redirects are followed.
+
+### Accepted status codes {#status-codes}
+
+By default, an `http` probe succeeds when the status is below `400`. To change this, enter the status codes that should count as a success, as a comma-separated list of codes and ranges:
+
+| Value         | Accepts                                    |
+| :------------ | :----------------------------------------- |
+| `200`         | Only `200`.                                |
+| `200-299`     | Any status from `200` to `299`.            |
+| `200-299,401` | Any status from `200` to `299`, and `401`. |
+
+This is useful for targets that answer `401` or `403` without credentials: the service is up, so the monitor should not report loss. Any status that is not listed counts as loss, including ones below `400`.
+
+Redirects are followed, so the check applies to the status of the final response. Agents that predate this option ignore it and use the default.
 
 Probes start at a random offset within the first interval so monitors do not all fire at once. If a probe takes longer than the interval, the missed ticks are skipped rather than queued.
 
