@@ -17,7 +17,7 @@ The agent automatically detects available GPU monitoring tools and selects the b
 
 | Collector       | Description                                                            |
 | :-------------- | :--------------------------------------------------------------------- |
-| `nvml`          | NVIDIA Management Library (experimental).                              |
+| `nvml`          | NVIDIA Management Library.                                             |
 | `nvidia-smi`    | NVIDIA System Management Interface (default).                          |
 | `amd_sysfs`     | Direct sysfs monitoring for AMD GPUs.                                  |
 | `rocm-smi`      | ROCm System Management Interface (default if installed).               |
@@ -30,13 +30,13 @@ The agent automatically detects available GPU monitoring tools and selects the b
 
 ## NVIDIA GPUs {#nvidia}
 
-Available collectors: `nvidia-smi` (default), `nvml` (experimental), `nvtop`.
+Available collectors: `nvidia-smi` (default), `nvml`, `nvtop`.
 
 ### Recommended: NVML
 
-The experimental NVML integration allows GPUs to enter power-saving modes (RTD3) when idle, which `nvidia-smi` may prevent.
+The NVML integration allows GPUs to enter power-saving modes (RTD3) when idle, which `nvidia-smi` may prevent.
 
-To enable, set `GPU_COLLECTOR=nvml`. Feedback is appreciated and can be left in [issue #1522](https://github.com/henrygd/beszel/issues/1522).
+To enable, set `GPU_COLLECTOR=nvml`.
 
 ### Docker agent
 
