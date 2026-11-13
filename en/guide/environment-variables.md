@@ -136,6 +136,7 @@ Environment variables may optionally be prefixed with `BESZEL_AGENT_`.
 | ------------------------- | ------- | ---------------------------------------------------------------------------------------------------- | ----- |
 | `ALL_PROXY`               | unset   | SOCKS5 proxy for the agent's outbound WebSocket connection to the hub. | - |
 | `CA_CERT_FILE`            | unset   | Set to a PEM certificate file if hub uses private or self-signed CA.                                 | 0.19.0 |
+| `CONFIG`                  | unset   | Path to the agent's config file. Defaults to `config.yml` in the data directory. See [Custom Metrics](./custom-metrics). | X.Y.Z |
 | `CONTAINER_NAME_LABEL`    | unset   | Name containers using a Docker label or label template. See [`CONTAINER_NAME_LABEL`](#container-name-label). | 0.21.1 |
 | `DATA_DIR`                | unset   | Persistent data directory.                                                                           | - |
 | `DISABLE_SSH`             | false   | Disable the SSH server completely (WebSocket connection only).                                       | 0.18.4 |
@@ -238,7 +239,7 @@ services:
 
 ### `DATA_DIR`
 
-Attempts to find a suitable directory if unset. Currently only used to store the system fingerprint, but may be used in the future for a SQLite database. The fingerprint is deterministic, so in most cases you can ignore warnings if no directory is found.
+Attempts to find a suitable directory if unset. Used to store the system fingerprint and, for [custom metrics](./custom-metrics), the agent's `config.yml`. May be used in the future for a SQLite database. The fingerprint is deterministic, so in most cases you can ignore warnings if no directory is found; custom metrics then need `CONFIG`.
 
 ### `DOCKER_HOST`
 
