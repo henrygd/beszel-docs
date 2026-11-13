@@ -160,7 +160,7 @@ Environment variables may optionally be prefixed with `BESZEL_AGENT_`.
 | `MEM_CALC`                | unset   | Overrides the default memory calculation.                                                            | - |
 | `NETWORK`                 | unset   | Network for listener. "tcp", "tcp4", "tcp6", or "unix".                                              | - |
 | `NICS`                    | unset   | Whitelist or blacklist network interfaces.                                                           | 0.12.11 |
-| `NVML`                    | false   | Use experimental NVML integration for GPU monitoring.                                                | - |
+| `NVML`                    | false   | Use NVML for NVIDIA GPU monitoring when `GPU_COLLECTOR` is unset.                                    | - |
 | `PACKAGE_UPDATES_INTERVAL` | 1h     | Interval to check for package updates. `0` disables checks. See [Package Updates](./package-updates). | 0.21.0 |
 | `PRIMARY_SENSOR`          | unset   | Display specific temperature sensor in 'All Systems' table.                                          | - |
 | `SENSORS`                 | unset   | Whitelist or blacklist temperature sensors.                                                          | - |
@@ -265,7 +265,7 @@ Comma-separated list of collectors to try in order. Overrides the default auto-d
 | Value           | Description                                      |
 | --------------- | ------------------------------------------------ |
 | `nvtop`         | nvtop (multi-vendor)                             |
-| `nvml`          | NVIDIA Management Library (requires `NVML=true`) |
+| `nvml`          | NVIDIA Management Library                        |
 | `nvidia-smi`    | NVIDIA System Management Interface               |
 | `intel_sysfs`   | Intel sysfs interface                            |
 | `intel_gpu_top` | Intel GPU top                                    |

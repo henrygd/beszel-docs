@@ -17,7 +17,7 @@ Agent 会自动检测可用的 GPU 监控工具并为您的系统选择最佳工
 
 | 收集器          | 描述                                                    |
 | :-------------- | :------------------------------------------------------ |
-| `nvml`          | NVIDIA 管理库（实验性）。                               |
+| `nvml`          | NVIDIA 管理库。                                         |
 | `nvidia-smi`    | NVIDIA 系统管理接口（默认）。                           |
 | `amd_sysfs`     | 针对 AMD GPU 的直接 sysfs 监控。                        |
 | `rocm-smi`      | ROCm 系统管理接口（如果已安装则为默认）。               |
@@ -30,13 +30,13 @@ Agent 会自动检测可用的 GPU 监控工具并为您的系统选择最佳工
 
 ## NVIDIA GPU {#nvidia}
 
-可用收集器：`nvidia-smi`（默认）、`nvml`（实验性）、`nvtop`。
+可用收集器：`nvidia-smi`（默认）、`nvml`、`nvtop`。
 
 ### 推荐：NVML
 
-实验性的 NVML 集成允许 GPU 在空闲时进入省电模式 (RTD3)，而 `nvidia-smi` 可能会阻止这种情况。
+NVML 集成允许 GPU 在空闲时进入省电模式 (RTD3)，而 `nvidia-smi` 可能会阻止这种情况。
 
-要启用，请设置 `GPU_COLLECTOR=nvml`。欢迎在 [issue #1522](https://github.com/henrygd/beszel/issues/1522) 中提供反馈。
+要启用，请设置 `GPU_COLLECTOR=nvml`。
 
 ### Docker Agent
 

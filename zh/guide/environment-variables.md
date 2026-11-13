@@ -156,7 +156,7 @@
 | `MEM_CALC`                | 未设置 | 覆盖默认内存计算。                                                                           | - |
 | `NETWORK`                 | 未设置 | 监听器的网络类型。"tcp"、"tcp4"、"tcp6" 或 "unix"。                                          | - |
 | `NICS`                    | 未设置 | 网络接口的白名单或黑名单。                                                                   | 0.12.11 |
-| `NVML`                    | false  | 使用实验性 NVML 集成进行 GPU 监控。                                                          | - |
+| `NVML`                    | false  | 未设置 `GPU_COLLECTOR` 时，使用 NVML 监控 NVIDIA GPU。                                      | - |
 | `PACKAGE_UPDATES_INTERVAL` | 1h    | 检查软件包更新的间隔时间。设置为 `0` 可禁用检查。请参阅[软件包更新](./package-updates)。         | 0.21.0 |
 | `PRIMARY_SENSOR`          | 未设置 | 在"所有系统"表格中显示的特定温度传感器。                                                     | - |
 | `SENSORS`                 | 未设置 | 温度传感器的白名单或黑名单。                                                                 | - |
@@ -261,7 +261,7 @@ Docker 套接字代理通过过滤 API 请求，提供了比直接连接 `docker
 | 值               | 说明                                              |
 | ---------------- | ------------------------------------------------- |
 | `nvtop`          | nvtop（多厂商）                                   |
-| `nvml`           | NVIDIA 管理库（需要 `NVML=true`）                 |
+| `nvml`           | NVIDIA 管理库                                     |
 | `nvidia-smi`     | NVIDIA 系统管理接口                               |
 | `intel_sysfs`    | Intel sysfs 接口                                  |
 | `intel_gpu_top`  | Intel GPU top                                     |
