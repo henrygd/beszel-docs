@@ -20,7 +20,7 @@ sudo mkfifo /opt/beszel-shims/intel_gpu_top.pipe
 sudo chown root:beszel /opt/beszel-shims/intel_gpu_top.pipe
 sudo chmod 640 /opt/beszel-shims/intel_gpu_top.pipe
 ```
-4. Create a shim that the agent will use instead of the real `smartctl` at `/opt/beszel-shims/intel_gpu_top`.
+4. Create a shim that the agent will use instead of the real `intel_gpu_top` at `/opt/beszel-shims/intel_gpu_top`.
 ```bash
 #!/bin/sh
 
