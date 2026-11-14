@@ -42,7 +42,7 @@ After=network.target
 [Service]
 Type=simple
 
-# Uncomment this version if your version of intel_gpu_top does output commas in between JSON objects.
+# Uncomment this version if your version of intel_gpu_top outputs commas in between JSON objects.
 #ExecStart=/bin/sh -c "intel_gpu_top -J -s 1000 > /opt/beszel-shims/intel_gpu_top.pipe"
 
 # Uncomment this version if your version of intel_gpu_top does not output commas in between JSON objects. Requires Docker.
