@@ -26,7 +26,7 @@ sudo chmod 640 /opt/beszel-shims/intel_gpu_top.pipe
 
 cat /opt/beszel-shims/intel_gpu_top.pipe
 ```
-5. Make the scripts executable.
+5. Make the script executable.
 ```bash
 sudo chmod +x /opt/beszel-shims/intel_gpu_top
 ```
