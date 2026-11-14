@@ -75,6 +75,7 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
 				{ text: "GPU Monitoring", link: "gpu" },
 				{ text: "Healthchecks", link: "healthchecks" },
 				{ text: "Heartbeat Monitoring", link: "heartbeat" },
+				{ text: "MCP Server", link: "mcp" },
 				{ text: "Network Monitoring", link: "network-monitors" },
 				{
 					text: "Notifications",

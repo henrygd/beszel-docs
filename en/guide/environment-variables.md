@@ -18,6 +18,7 @@ Environment variables may optionally be prefixed with `BESZEL_HUB_`.
 | `HEARTBEAT_INTERVAL`    | `60`    | Seconds between heartbeat pings. Has no effect if `HEARTBEAT_URL` is unset.                                                                 |
 | `HEARTBEAT_METHOD`      | `POST`  | HTTP method for heartbeat pings. Valid values: `GET`, `POST`, `HEAD`.                                                                        |
 | `HEARTBEAT_URL`         | unset   | External URL to ping periodically. Enables [heartbeat monitoring](#heartbeat-monitoring). Feature is disabled if empty.                      |
+| `MCP`                   | false   | Enables the [MCP server](./mcp) at `/mcp` for AI assistants.                                                                                 |
 | `MFA_OTP`               | false   | Enables OTP authentication for users and/or superusers.                                                                                     |
 | `OAUTH_DEFAULT_USER_ROLE` | `user` | Role assigned to new users created through OAuth2 / OIDC. Valid values: `user`, `readonly`. |
 | `OAUTH_DISABLE_POPUP`   | false   | Disables the OAuth2 popup window. Useful when OAuth is used behind a reverse proxy or in embedded browser environments.                      |
