@@ -46,10 +46,14 @@ Type=simple
 #ExecStart=/bin/sh -c "intel_gpu_top -J -s 1000 > /opt/beszel-shims/intel_gpu_top.pipe"
 
 # Uncomment this version if your version of intel_gpu_top does not output commas in between JSON objects. Requires Docker.
-#ExecStart=/bin/sh -c "docker run --rm --cap-add=SYS_ADMIN registry.freedesktop.org/drm/igt-gpu-tools/igt:v2.6 intel_gpu_top -J -s 1000 > /opt/beszel-shims/intel_gpu_top.pipe"
+#ExecStart=/bin/sh -c "docker run --rm --name beszel-intel-gpu-top --cap-add=SYS_ADMIN registry.freedesktop.org/drm/igt-gpu-tools/igt:v2.6 intel_gpu_top -J -s 1000 > /opt/beszel-shims/intel_gpu_top.pipe"
+
+#ExecStopPost=/bin/sh -c "docker stop -t 5 beszel-intel-gpu-top
 
 # Uncomment this version if your version of intel_gpu_top does not output commas in between JSON objects and you want an immutable image. Requires Docker.
-#ExecStart=/bin/sh -c "docker run --rm --cap-add=SYS_ADMIN registry.freedesktop.org/drm/igt-gpu-tools/igt@sha256:d66f5a803ba49c30237850f8598707506a569f361cf4e578a08525fa8cdedb5e intel_gpu_top -J -s 1000 > /opt/beszel-shims/intel_gpu_top.pipe"
+#ExecStart=/bin/sh -c "docker run --rm --name beszel-intel-gpu-top --cap-add=SYS_ADMIN registry.freedesktop.org/drm/igt-gpu-tools/igt@sha256:d66f5a803ba49c30237850f8598707506a569f361cf4e578a08525fa8cdedb5e intel_gpu_top -J -s 1000 > /opt/beszel-shims/intel_gpu_top.pipe"
+
+#ExecStopPost=/bin/sh -c "docker stop -t 5 beszel-intel-gpu-top
 
 Restart=always
 RestartSec=1
