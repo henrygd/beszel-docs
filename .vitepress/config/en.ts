@@ -152,8 +152,8 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
 						{
 							text: "S.M.A.R.T. Data",
 							link: "/lower-privilege-agent/smart-data",
-						}
-					]
+						},
+					],
 				},
 			],
 		},
