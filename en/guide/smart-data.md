@@ -42,7 +42,6 @@ smartctl -v | head -1
 sudo smartctl --scan
 ```
 
-
 ## Docker agent
 
 Switch to the `:alpine` image and add the following to your `docker-compose.yml`. Make sure to replace the device names with your actual devices.
@@ -87,7 +86,7 @@ See [issue #1637](https://github.com/henrygd/beszel/issues/1637) for more detail
 
 Make sure `smartctl` is installed by following the [installation instructions](#install).
 
-`smartctl` needs elevated privileges to talk to disks:
+On Linux, `smartctl` needs elevated privileges to talk to disks:
 
 - SATA/ATA via SG_IO requires `CAP_SYS_RAWIO`
 - NVMe admin passthrough requires `CAP_SYS_ADMIN`
@@ -152,52 +151,78 @@ Then restart the agent. Note: If your systemd unit sets `NoNewPrivileges=yes`, f
 
 ### FreeBSD
 
-Add the agent user to the `operator` group so it can access disk devices:
+The install script runs the agent as the `beszel` user (`daemon` on OPNsense and pfSense, so use that name below instead).
 
-```sh
-pw groupmod operator -m beszel
-```
+`smartctl` reaches SATA and SAS disks through the CAM passthrough devices (`/dev/pass*` and `/dev/xpt0`) and NVMe drives through the controller devices (`/dev/nvme*`). It opens them read/write, and by default only root can do that. Group membership alone, including the `operator` group the install script adds, is not enough. Use a devfs rule to give a dedicated group read/write access.
 
-By default, `operator` only has read access to disk devices, but `smartctl`
-needs read/write access to the CAM passthrough devices (`/dev/pass*`, `/dev/xpt0`)
-and NVMe controllers. Grant it with a devfs rule in `/etc/devfs.rules`:
+1. Create a `smartctl` group and add the agent user to it:
 
-```sh
-[beszel_smart=10]
-add path 'pass*' mode 0660 group operator
-add path 'xpt0'  mode 0660 group operator
-add path 'nvme*' mode 0660 group operator
-```
+   ```sh
+   pw groupadd smartctl
+   pw groupmod smartctl -m beszel
+   ```
 
-Activate the ruleset and restart the agent:
+2. Check whether a devfs ruleset is already applied to `/dev`:
 
-```sh
-sysrc devfs_system_ruleset="beszel_smart"
-service devfs restart
-service beszel-agent restart
-```
-    
-> **Note:** Write access to these devices lets group members send raw commands
-> to the disks. Consider using a dedicated group instead of `operator`.
-  
+   ```sh
+   sysrc -n devfs_system_ruleset
+   ```
+
+3. Add the rules to `/etc/devfs.rules`. This is file content, not a command to run.
+
+   If the previous command printed nothing, create a new ruleset. The number in brackets must not be used by any other ruleset in `/etc/devfs.rules` or `/etc/defaults/devfs.rules`:
+
+   ```ini
+   [beszel_smart=100]
+   add path 'pass*' mode 0660 group smartctl
+   add path 'xpt0' mode 0660 group smartctl
+   add path 'nvme*' mode 0660 group smartctl
+   ```
+
+   Then make it the system ruleset:
+
+   ```sh
+   sysrc devfs_system_ruleset="beszel_smart"
+   ```
+
+   If the previous command printed a ruleset name, add only the three `add path` lines to the end of that ruleset's section, and leave `devfs_system_ruleset` unchanged. Replacing it would drop your existing device permissions.
+
+4. Apply the rules and restart the agent:
+
+   ```sh
+   service devfs restart
+   service beszel-agent restart
+   ```
+
+::: warning
+Write access to these devices lets members of the group send raw commands to your disks. Only add the agent user to the `smartctl` group.
+:::
+
 ### Verify permissions
-#### Linux
 
-Test that `smartctl` works without sudo for the agent user:
+Find your device names with `smartctl --scan`, then test that `smartctl` works as the agent user:
 
-```bash
+::: code-group
+
+```bash [Linux]
 sudo -u beszel smartctl -H /dev/sda
 sudo -u beszel smartctl -H /dev/nvme0
 ```
-#### FreeBSD
-In FreeBSD, `smartcl` does hot have the `-H`option:
 
-```sh
-su -m beszel -c 'smartctl -a /dev/ada0'
-su -m beszel -c 'smartctl -a /dev/nvme0'
+```sh [FreeBSD]
+su -m beszel -c 'smartctl -H /dev/ada0'
+su -m beszel -c 'smartctl -H /dev/nvme0'
 ```
 
-If these commands succeed, the agent will be able to parse S.M.A.R.T. data.
+:::
+
+If each command prints a health assessment instead of a permission error (such as `Permission denied` or `Unable to open device`), the agent will be able to read S.M.A.R.T. data. Don't rely on the exit code: `smartctl` also returns a nonzero code when a drive has logged errors.
+
+On FreeBSD, if you still get a permission error, check that the rules were applied. The devices should show group `smartctl` and mode `crw-rw----`:
+
+```sh
+ls -l /dev/xpt0 /dev/pass* /dev/nvme*
+```
 
 ## Windows
 
@@ -339,6 +364,6 @@ sudo udevadm trigger
 
 ## Alerts
 
-If at least one notification channel is configured and disks report S.M.A.R.T. data to Beszel, a failure automatically triggers a notification. This behaviour is not currently configurable. 
+If at least one notification channel is configured and disks report S.M.A.R.T. data to Beszel, a failure automatically triggers a notification. This behaviour is not currently configurable.
 
 Note that if a drive is already reporting failure on first detection by the Beszel agent, no alert will fire.

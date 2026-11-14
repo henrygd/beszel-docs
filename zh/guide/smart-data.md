@@ -86,7 +86,7 @@ devices:
 
 确保 `smartctl` 已安装，遵循[安装说明](#install)。
 
-`smartctl` 需要提升权限才能与磁盘通信：
+在 Linux 上，`smartctl` 需要提升权限才能与磁盘通信：
 
 - SATA/ATA 通过 SG_IO 需要 `CAP_SYS_RAWIO`
 - NVMe 管理直通需要 `CAP_SYS_ADMIN`
@@ -151,23 +151,78 @@ sudo usermod -aG smartctl beszel
 
 ### FreeBSD
 
-将代理用户添加到 `operator` 组以便访问磁盘设备：
+安装脚本以 `beszel` 用户运行代理（在 OPNsense 和 pfSense 上为 `daemon`，请在下文中替换为该用户名）。
 
-```sh
-pw groupmod operator -m beszel
-service beszel-agent restart
-```
+`smartctl` 通过 CAM 直通设备（`/dev/pass*` 和 `/dev/xpt0`）访问 SATA 和 SAS 磁盘，通过控制器设备（`/dev/nvme*`）访问 NVMe 驱动器。它需要以读写方式打开这些设备，而默认情况下只有 root 可以这样做。仅加入某个组是不够的，包括安装脚本添加的 `operator` 组。请使用 devfs 规则为一个专用组授予读写权限。
+
+1. 创建 `smartctl` 组并将代理用户添加到该组：
+
+   ```sh
+   pw groupadd smartctl
+   pw groupmod smartctl -m beszel
+   ```
+
+2. 检查 `/dev` 是否已应用了 devfs 规则集：
+
+   ```sh
+   sysrc -n devfs_system_ruleset
+   ```
+
+3. 将规则添加到 `/etc/devfs.rules`。以下是文件内容，而不是要运行的命令。
+
+   如果上一条命令没有输出，请创建一个新的规则集。方括号中的编号不能与 `/etc/devfs.rules` 或 `/etc/defaults/devfs.rules` 中的任何其他规则集重复：
+
+   ```ini
+   [beszel_smart=100]
+   add path 'pass*' mode 0660 group smartctl
+   add path 'xpt0' mode 0660 group smartctl
+   add path 'nvme*' mode 0660 group smartctl
+   ```
+
+   然后将其设为系统规则集：
+
+   ```sh
+   sysrc devfs_system_ruleset="beszel_smart"
+   ```
+
+   如果上一条命令输出了规则集名称，请只将三行 `add path` 添加到该规则集部分的末尾，并保持 `devfs_system_ruleset` 不变。替换它会导致你现有的设备权限丢失。
+
+4. 应用规则并重启代理：
+
+   ```sh
+   service devfs restart
+   service beszel-agent restart
+   ```
+
+::: warning
+对这些设备的写权限允许该组成员向磁盘发送原始命令。请只将代理用户添加到 `smartctl` 组。
+:::
 
 ### 验证权限
 
-测试 `smartctl` 在代理用户下是否无需 sudo 即可工作：
+使用 `smartctl --scan` 查找设备名称，然后测试 `smartctl` 能否以代理用户身份运行：
 
-```bash
+::: code-group
+
+```bash [Linux]
 sudo -u beszel smartctl -H /dev/sda
 sudo -u beszel smartctl -H /dev/nvme0
 ```
 
-如果这些命令成功，代理将能够解析 S.M.A.R.T. 数据。
+```sh [FreeBSD]
+su -m beszel -c 'smartctl -H /dev/ada0'
+su -m beszel -c 'smartctl -H /dev/nvme0'
+```
+
+:::
+
+如果每条命令都输出健康评估结果，而不是权限错误（例如 `Permission denied` 或 `Unable to open device`），代理将能够读取 S.M.A.R.T. 数据。不要依赖退出码：当驱动器记录过错误时，`smartctl` 也会返回非零退出码。
+
+在 FreeBSD 上，如果仍然出现权限错误，请检查规则是否已生效。设备应显示组 `smartctl` 和模式 `crw-rw----`：
+
+```sh
+ls -l /dev/xpt0 /dev/pass* /dev/nvme*
+```
 
 ## Windows
 
