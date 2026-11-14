@@ -64,6 +64,7 @@ sudo intel_gpu_top -s 1000 -J
 ```
 
 Select a line to uncomment based on the output and the comments in the service definition.
+
 7. Start the new service.
 ```bash
 sudo systemctl daemon-reload
