@@ -101,6 +101,7 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
         { text: "GPU 监控", link: "gpu" },
         { text: "健康检查", link: "healthchecks" },
         { text: "心跳监控", link: "heartbeat" },
+        { text: "MCP 服务器", link: "mcp" },
         { text: "网络监控", link: "network-monitors" },
         {
           text: "通知",

@@ -18,6 +18,7 @@
 | `HEARTBEAT_INTERVAL`    | `60`   | 心跳 ping 之间的间隔秒数。若未设置 `HEARTBEAT_URL` 则无效。                                                                     |
 | `HEARTBEAT_METHOD`      | `POST` | 心跳 ping 使用的 HTTP 方法。有效值：`GET`、`POST`、`HEAD`。                                                                     |
 | `HEARTBEAT_URL`         | 未设置 | 定期 ping 的外部 URL。启用[心跳监控](#heartbeat-monitoring)。为空时禁用此功能。                                                  |
+| `MCP`                   | false  | 在 `/mcp` 启用供 AI 助手使用的 [MCP 服务器](./mcp)。                                                                              |
 | `MFA_OTP`               | false  | 为用户和/或超级用户启用 OTP 认证。                                                                                               |
 | `OAUTH_DEFAULT_USER_ROLE` | `user` | 通过 OAuth2 / OIDC 新建用户时分配的角色。有效值：`user`、`readonly`。 |
 | `OAUTH_DISABLE_POPUP`   | false  | 禁用 OAuth2 弹出窗口。适用于反向代理或嵌入式浏览器环境中使用 OAuth 的场景。                                                      |
