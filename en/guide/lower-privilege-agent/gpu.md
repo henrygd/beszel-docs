@@ -72,7 +72,7 @@ sudo systemctl enable --now intel-gpu-top.service
 
 If you wish to check the output of the service, check the pipe.
 ```bash
-sudo cat /opt/beszl-shims/intel-gpu-top.pipe
+sudo cat /opt/beszel-shims/intel_gpu_top.pipe
 ```
 8. Set the `PATH` variable for the agent.
 ```bash
