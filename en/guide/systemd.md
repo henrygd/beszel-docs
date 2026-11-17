@@ -61,7 +61,7 @@ The agent monitors system services by default. User services require additional 
 
 ## What Gets Displayed
 
-The agent collects data for systemd services that have been active at least once (including failed or exited ones), showing:
+The agent collects data for systemd services that have been active at least once (including exited ones) or are in the failed state, showing:
 
 - Service status (active, inactive, failed, etc.)
 - CPU and memory usage
