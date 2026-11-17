@@ -273,7 +273,11 @@ Apple Silicon GPU monitoring is experimental and requires opt-in by explicitly s
 
 `macmon` is recommended as it does not require root privileges. To enable, make sure `macmon` is installed, and set `GPU_COLLECTOR=macmon`.
 
-Also add `PATH="/opt/homebrew/bin:$PATH"` if running as a service to ensure the agent can find it.
+If the agent runs as a service, it may not find `macmon` in its default `PATH`. For the Homebrew service, add the line below to the [env file](./environment-variables#homebrew). `$PATH` is not expanded there, so list each directory.
+
+```ini
+PATH=/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin
+```
 
 ```bash
 brew install macmon

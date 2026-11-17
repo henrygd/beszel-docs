@@ -463,9 +463,22 @@ Restart the service when finished: `nssm restart beszel-agent`
 
 ### Homebrew
 
-Environment variables can be changed in `~/.config/beszel/beszel-agent.env`.
+Environment variables are set in `~/.homebrew/services/beszel-agent.env`, or `$XDG_CONFIG_HOME/homebrew/services/beszel-agent.env` if `XDG_CONFIG_HOME` is set. Use one `KEY=value` per line:
+
+```ini
+KEY=ssh-ed25519 AAAA...
+LISTEN=45876
+EXTRA_FILESYSTEMS=sdb1,sdc1
+```
+
+- Values are used as-is. Do not wrap them in quotes, and variables such as `$PATH` are not expanded.
+- Lines starting with `#` are comments.
+- Homebrew ignores the file if it is group- or world-writable, so set its permissions with `chmod 600`.
+- The file is not used for services started with `sudo brew services`.
 
 Restart the service after editing: `brew services restart beszel-agent`
+
+If your configuration is still in `~/.config/beszel/beszel-agent.env`, see [Migrating from the henrygd/beszel tap](./agent-installation#homebrew-migration).
 
 ### Systemd
 

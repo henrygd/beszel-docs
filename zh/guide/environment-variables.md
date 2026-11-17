@@ -459,9 +459,22 @@ nssm set beszel-agent AppEnvironmentExtra "+EXTRA_FILESYSTEMS=D:,E:"
 
 ### Homebrew
 
-环境变量可以在 `~/.config/beszel/beszel-agent.env` 中更改。
+环境变量在 `~/.homebrew/services/beszel-agent.env` 中设置；如果设置了 `XDG_CONFIG_HOME`，则为 `$XDG_CONFIG_HOME/homebrew/services/beszel-agent.env`。每行一个 `KEY=value`：
+
+```ini
+KEY=ssh-ed25519 AAAA...
+LISTEN=45876
+EXTRA_FILESYSTEMS=sdb1,sdc1
+```
+
+- 值按原样使用。不要用引号括起来，`$PATH` 等变量也不会被展开。
+- 以 `#` 开头的行为注释。
+- 如果文件可被组或其他用户写入，Homebrew 会忽略它，因此请使用 `chmod 600` 设置权限。
+- 使用 `sudo brew services` 启动的服务不会使用此文件。
 
 编辑后重启服务: `brew services restart beszel-agent`
+
+如果您的配置仍在 `~/.config/beszel/beszel-agent.env` 中，请参阅[从 henrygd/beszel tap 迁移](./agent-installation#homebrew-migration)。
 
 ### Systemd
 

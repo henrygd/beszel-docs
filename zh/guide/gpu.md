@@ -274,7 +274,11 @@ Apple Silicon GPU 监控是实验性的，需要通过显式设置 `GPU_COLLECTO
 
 推荐使用 `macmon`，因为它不需要 root 权限。要启用，请确保已安装 `macmon`，并设置 `GPU_COLLECTOR=macmon`。
 
-如果作为服务运行，请添加 `PATH="/opt/homebrew/bin:$PATH"` 以确保 Agent 能够找到它。
+如果 Agent 作为服务运行，可能无法在默认 `PATH` 中找到 `macmon`。对于 Homebrew 服务，请将下面这行添加到 [env 文件](./environment-variables#homebrew)中。该文件不会展开 `$PATH`，因此请列出每个目录。
+
+```ini
+PATH=/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin
+```
 
 ```bash
 brew install macmon

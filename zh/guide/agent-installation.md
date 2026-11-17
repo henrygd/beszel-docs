@@ -276,9 +276,11 @@ sudo systemctl start beszel-agent.service
 
 ## Homebrew (macOS, Linux)
 
-环境变量可以在 `~/.config/beszel/beszel-agent.env` 中更改。
+Agent 从 [homebrew-core](https://formulae.brew.sh/formula/beszel-agent) 安装，并通过 `brew services` 作为服务运行。需要 Homebrew 6.0.15 或更高版本。
 
-日志写入到 `~/.cache/beszel/beszel-agent.log`。
+环境变量在 `~/.homebrew/services/beszel-agent.env` 中设置。文件格式请参阅[设置环境变量](./environment-variables#homebrew)。
+
+日志写入到 `$(brew --prefix)/var/log/beszel-agent.log`。
 
 ### Homebrew 安装脚本
 
@@ -288,18 +290,45 @@ sudo systemctl start beszel-agent.service
 - `-url`：中心 URL（可选，用于向后兼容）
 - `-h`：显示帮助信息
 
+未提供的选项将从现有配置中读取（如果存在）。
+
 ```bash
 curl -sL https://get.beszel.dev/brew -o /tmp/install-agent.sh && chmod +x /tmp/install-agent.sh && /tmp/install-agent.sh
 ```
 
 ### Homebrew 手动安装
 
+env 文件中的值不能用引号括起来。
+
 ```bash
-mkdir -p ~/.config/beszel ~/.cache/beszel
-echo 'KEY="ssh-ed25519 AAAA..."' > ~/.config/beszel/beszel-agent.env
-brew tap henrygd/beszel
-brew trust henrygd/beszel/beszel-agent # 安装非官方 tap 中的 formula 前，需要先将其设为受信任
+mkdir -p ~/.homebrew/services
+echo 'KEY=ssh-ed25519 AAAA...' > ~/.homebrew/services/beszel-agent.env
+chmod 600 ~/.homebrew/services/beszel-agent.env
 brew install beszel-agent
+brew services start beszel-agent
+```
+
+### 从 henrygd/beszel tap 迁移 {#homebrew-migration}
+
+旧版安装使用 `henrygd/beszel` tap，并从 `~/.config/beszel/beszel-agent.env` 读取配置。Agent 现已加入 homebrew-core，Homebrew 会优先使用它而不是 tap。homebrew-core 版本不会读取旧文件，因此在重新安装或重启服务后，日志中可能出现 `no key provided` 错误。
+
+要进行迁移，请不带任何选项运行安装脚本。它会转换现有配置，将 tap 版本替换为 homebrew-core 版本，并重启服务。
+
+```bash
+curl -sL https://get.beszel.dev/brew -o /tmp/install-agent.sh && chmod +x /tmp/install-agent.sh && /tmp/install-agent.sh
+```
+
+手动迁移：
+
+```bash
+mkdir -p ~/.homebrew/services
+sed 's/"//g' ~/.config/beszel/beszel-agent.env > ~/.homebrew/services/beszel-agent.env
+chmod 600 ~/.homebrew/services/beszel-agent.env
+brew services stop beszel-agent
+brew uninstall beszel-agent
+brew untap henrygd/beszel
+brew install beszel-agent
+cp ~/.config/beszel/fingerprint "$(brew --prefix)/var/lib/beszel-agent/"
 brew services start beszel-agent
 ```
 

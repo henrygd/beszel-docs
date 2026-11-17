@@ -273,9 +273,11 @@ sudo systemctl start beszel-agent.service
 
 ## Homebrew (macOS, Linux)
 
-Environment variables can be changed in `~/.config/beszel/beszel-agent.env`.
+The agent is installed from [homebrew-core](https://formulae.brew.sh/formula/beszel-agent) and runs as a service with `brew services`. Homebrew 6.0.15 or newer is required.
 
-Logs are written to `~/.cache/beszel/beszel-agent.log`.
+Environment variables are set in `~/.homebrew/services/beszel-agent.env`. See [Setting environment variables](./environment-variables#homebrew) for the file format.
+
+Logs are written to `$(brew --prefix)/var/log/beszel-agent.log`.
 
 ### Homebrew install script
 
@@ -285,18 +287,45 @@ Logs are written to `~/.cache/beszel/beszel-agent.log`.
 - `-url`: Hub URL (optional for backwards compatibility)
 - `-h`: Show help
 
+Options that are not provided are read from your existing configuration, if there is one.
+
 ```bash
 curl -sL https://get.beszel.dev/brew -o /tmp/install-agent.sh && chmod +x /tmp/install-agent.sh && /tmp/install-agent.sh
 ```
 
 ### Homebrew manual install
 
+Values in the env file must not be wrapped in quotes.
+
 ```bash
-mkdir -p ~/.config/beszel ~/.cache/beszel
-echo 'KEY="ssh-ed25519 AAAA..."' > ~/.config/beszel/beszel-agent.env
-brew tap henrygd/beszel
-brew trust henrygd/beszel/beszel-agent # Non-official taps need to be trusted before formulas from them will execute
+mkdir -p ~/.homebrew/services
+echo 'KEY=ssh-ed25519 AAAA...' > ~/.homebrew/services/beszel-agent.env
+chmod 600 ~/.homebrew/services/beszel-agent.env
 brew install beszel-agent
+brew services start beszel-agent
+```
+
+### Migrating from the henrygd/beszel tap {#homebrew-migration}
+
+Older installs used the `henrygd/beszel` tap and read configuration from `~/.config/beszel/beszel-agent.env`. The agent is now in homebrew-core, which Homebrew uses instead of the tap. The homebrew-core version does not read the old file, so after reinstalling or restarting the service, the agent may fail with `no key provided` in the log.
+
+To migrate, run the install script without options. It converts your existing configuration, replaces the tap version with the homebrew-core version, and restarts the service.
+
+```bash
+curl -sL https://get.beszel.dev/brew -o /tmp/install-agent.sh && chmod +x /tmp/install-agent.sh && /tmp/install-agent.sh
+```
+
+To migrate manually:
+
+```bash
+mkdir -p ~/.homebrew/services
+sed 's/"//g' ~/.config/beszel/beszel-agent.env > ~/.homebrew/services/beszel-agent.env
+chmod 600 ~/.homebrew/services/beszel-agent.env
+brew services stop beszel-agent
+brew uninstall beszel-agent
+brew untap henrygd/beszel
+brew install beszel-agent
+cp ~/.config/beszel/fingerprint "$(brew --prefix)/var/lib/beszel-agent/"
 brew services start beszel-agent
 ```
 
