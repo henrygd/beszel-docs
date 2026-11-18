@@ -8,6 +8,7 @@ Environment variables may optionally be prefixed with `BESZEL_HUB_`.
 
 | Name                    | Default | Description                                                                                                                                 |
 | ----------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| `AGENT_LISTEN`          | unset   | Port or `host:port` for an additional listener that only serves the agent connection endpoint. See [below](#agent-listen).                  |
 | `APP_URL`               | unset   | URL of the hub, used for links in emails and notifications. Must set if [serving at a subpath](./reverse-proxy).                            |
 | `AUTO_LOGIN`            | unset   | Email address of a user to automatically authenticate.                                                                                      |
 | `CHECK_UPDATES`         | false   | Allow the hub to check for updates and show a notification.                                                                                 |
@@ -29,6 +30,16 @@ Environment variables may optionally be prefixed with `BESZEL_HUB_`.
 | `USER_CREATION`         | false   | Enables automatic user creation for OAuth2 / OIDC.                                                                                          |
 | `USER_EMAIL`            | unset   | Create first user with this email. The user is given the admin role (new installs only).                                                 |
 | `USER_PASSWORD`         | unset   | Create first user with this password.                                                                                                       |
+
+### `AGENT_LISTEN`
+
+By default agents connect to the same port as the web UI. Set `AGENT_LISTEN` to have the hub also listen on a separate port that serves only the agent WebSocket endpoint (`/api/beszel/agent-connect`). Every other path returns 404, so the web UI and API are not reachable through this port. Authentication of agents (token, fingerprint, SSH key) is the same as on the main port.
+
+The value is a port (`AGENT_LISTEN=8091`, listens on all interfaces) or a `host:port` pair (`AGENT_LISTEN=127.0.0.1:8091`, `AGENT_LISTEN=[::1]:8091`). The hub exits at startup if the value is invalid or the port can't be bound.
+
+This is useful when the web UI is behind a reverse proxy that handles authentication (for example with `TRUSTED_AUTH_HEADER`) and you don't want to expose the main port. Bind the main port to localhost with `--http=127.0.0.1:8090` (or restrict it with a firewall), reach it through your proxy, and point agents' `HUB_URL` at the agent port, e.g. `HUB_URL=http://hub.example.com:8091`.
+
+When running in Docker, remember to publish the agent port (`8091:8091`).
 
 ### `AUTO_LOGIN`
 
