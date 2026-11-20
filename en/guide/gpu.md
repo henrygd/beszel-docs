@@ -191,6 +191,8 @@ ls /dev/dri
 
 ### Binary agent {#intel-binary}
 
+A guide to collecting this data without granting the agent these privileges on Linux (or at least, Debian) is available [here](./lower-privilege-agent/gpu.md).
+
 For `intel_gpu_top` or `nvtop`, install the appropriate tool. `intel_sysfs` does not require either tool.
 
 ::: code-group

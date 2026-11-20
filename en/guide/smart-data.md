@@ -84,6 +84,8 @@ See [issue #1637](https://github.com/henrygd/beszel/issues/1637) for more detail
 
 ## Binary agent
 
+A guide to collecting this data without granting the agent these privileges on Linux (or at least, Debian) is available [here](./lower-privilege-agent/smart-data.md).
+
 Make sure `smartctl` is installed by following the [installation instructions](#install).
 
 On Linux, `smartctl` needs elevated privileges to talk to disks:
